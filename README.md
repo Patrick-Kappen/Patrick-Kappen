@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/profile-banner.svg" alt="Patrick Kappen profile banner">
+<img src="assets/profile-banner-v2.png" alt="Patrick Kappen profile banner">
 
 <br><br>
 
@@ -37,38 +37,22 @@ architecture, not an afterthought.
 
 ---
 
-## What I spend time on
-
-<table>
-<tr>
-<td width="33%" valign="top">
-
-### Platform Engineering
-
-Cloud, datacenter and self-hosted platforms built around IaC, GitOps,
-Kubernetes, Talos, Nomad, containers, CI/CD, secrets and observability.
-
-</td>
-<td width="33%" valign="top">
-
-### MLOps / AI Systems
-
-LLM infrastructure, local models, hosted APIs, agent tooling, retrieval,
-tracing, evaluation loops and observability for AI workflows.
-
-</td>
-<td width="33%" valign="top">
-
-### Reproducible Systems
-
-NixOS workstations, Home Manager, rootfs-based containers, homelab automation,
-backup strategy, recovery flows and local-first tooling.
-
-</td>
-</tr>
-</table>
+## Active engineering map
 
 <img src="assets/stack-map.svg" alt="Active engineering map">
+
+I usually work where infrastructure, developer workflows and AI systems meet:
+platforms that need to be automated, observable and recoverable, but still nice
+to work on every day.
+
+**Platform engineering:** cloud, datacenter and self-hosted platforms built
+around IaC, GitOps, orchestration, CI/CD, secrets, policy checks and monitoring.
+
+**MLOps / AI systems:** local models, hosted APIs, routing layers, retrieval,
+agent tooling, traces, evaluation loops and observability for AI workflows.
+
+**Reproducible systems:** NixOS, Home Manager, homelab automation, backup
+strategy, rootfs-based containers, recovery flows and local-first tooling.
 
 ---
 
@@ -83,49 +67,46 @@ Nix materialise the rootfs and Quadlet output.
 
 <img src="assets/graft-flow.svg" alt="Graft TOML to Quadlet flow">
 
-<table>
-<tr>
-<td width="50%" valign="top">
+**Why it exists:** I want development and service containers that are declared
+like infrastructure. Packages come from Nix, runtime output is generated, and
+the user does not hand-write Quadlet boilerplate or install tools ad-hoc inside
+containers.
 
-### Why it exists
-
-I want development and service containers that are declared like infrastructure:
-packages come from Nix, runtime output is generated, and the user does not hand
-write Quadlet boilerplate or install tools ad-hoc inside containers.
-
-</td>
-<td width="50%" valign="top">
-
-### Current alpha
-
-```text
-v0.1.0-alpha.1
-```
+**Current alpha:** `v0.1.0-alpha.1`
 
 Current scope: TOML to JSON resolver, NixOS system containers, Home Manager user
 containers, rootfs-store materialisation, `graft-pause`, CI and docs.
-
-</td>
-</tr>
-</table>
 
 ---
 
 ## Stack snapshot
 
-Instead of one giant list, this is the compact version of the stack I actively
-work with or experiment with.
+This is the compact version of the stack I actively work with or experiment
+with. The long version changes often; the themes do not.
 
-| Area | Tools and patterns |
-|---|---|
-| Cloud and platforms | Azure · AWS · IBM Cloud · datacenter · Proxmox · TrueNAS · NixOS · macOS |
-| Containers and orchestration | Kubernetes · Talos · Docker · Swarm · Podman · Quadlet · Nomad · Helm · GitOps |
-| IaC and automation | OpenTofu · Terraform · Bicep · ARM · Ansible · Python · PowerShell · Bash · TypeScript |
-| CI/CD and quality | GitHub Actions · Azure DevOps · Jenkins · Forgejo · unit tests · linters · policy checks |
-| Observability | Grafana · Prometheus · Loki · Datadog · Splunk · OpenTelemetry · Azure Monitor · Langfuse · Phoenix |
-| Secrets and security | Infisical · Azure Key Vault · SOPS · age · Vault-style workflows · least privilege · GitOps-safe secrets |
-| MLOps and AI | OpenAI · Claude · Azure AI · IBM Cloud AI · Hugging Face · Ollama · llama.cpp · vLLM · LiteLLM · Bifrost · LangGraph |
-| Data and retrieval | PostgreSQL · SQL Server · MySQL · MongoDB · Redis · Qdrant · vector search · BM25 · hybrid retrieval |
+**Cloud and platforms**
+`Azure` · `AWS` · `IBM Cloud` · `datacenter` · `Proxmox` · `TrueNAS` · `NixOS` · `macOS`
+
+**Containers and orchestration**
+`Kubernetes` · `Talos` · `Docker` · `Swarm` · `Podman` · `Quadlet` · `Nomad` · `Helm` · `GitOps`
+
+**IaC and automation**
+`OpenTofu` · `Terraform` · `Bicep` · `ARM` · `Ansible` · `Python` · `PowerShell` · `Bash` · `TypeScript`
+
+**CI/CD and quality**
+`GitHub Actions` · `Azure DevOps` · `Jenkins` · `Forgejo` · `unit tests` · `linters` · `policy checks`
+
+**Observability**
+`Grafana` · `Prometheus` · `Loki` · `Datadog` · `Splunk` · `OpenTelemetry` · `Azure Monitor` · `Langfuse` · `Phoenix`
+
+**Secrets and security**
+`Infisical` · `Azure Key Vault` · `SOPS` · `age` · `Vault-style workflows` · `least privilege` · `GitOps-safe secrets`
+
+**MLOps and AI**
+`OpenAI` · `Claude` · `Azure AI` · `IBM Cloud AI` · `Hugging Face` · `Ollama` · `llama.cpp` · `vLLM` · `LiteLLM` · `Bifrost` · `LangGraph`
+
+**Data and retrieval**
+`PostgreSQL` · `SQL Server` · `MySQL` · `MongoDB` · `Redis` · `Qdrant` · `vector search` · `BM25` · `hybrid retrieval`
 
 ---
 
@@ -135,34 +116,14 @@ I am especially interested in the practical side of AI systems: how models,
 retrieval, prompts, traces, evaluations, routing, local inference and production
 infrastructure fit together.
 
-<table>
-<tr>
-<td width="33%" valign="top">
+**Local-first AI:** Ollama, llama.cpp, vLLM and local model stacks for
+experimentation, privacy, latency and control.
 
-### Local-first AI
+**AI platform tooling:** LiteLLM, Bifrost, LangGraph, SDKs, hosted LLM APIs and
+routing layers that make AI workflows operable.
 
-Ollama, llama.cpp, vLLM and local model stacks for experimentation, privacy,
-latency and control.
-
-</td>
-<td width="33%" valign="top">
-
-### AI platform tooling
-
-LiteLLM, Bifrost, LangGraph, SDKs, hosted LLM APIs and routing layers that make
-AI workflows operable.
-
-</td>
-<td width="33%" valign="top">
-
-### Observability
-
-Langfuse, Phoenix, OpenTelemetry-style thinking, traces, evaluation loops and
-visibility into what AI systems are actually doing.
-
-</td>
-</tr>
-</table>
+**Observability:** Langfuse, Phoenix, OpenTelemetry-style thinking, traces,
+evaluation loops and visibility into what AI systems are actually doing.
 
 ```text
 infrastructure automation
@@ -182,27 +143,13 @@ memory.
 
 <img src="assets/homelab-map.svg" alt="Homelab infrastructure map">
 
-<table>
-<tr>
-<td width="50%" valign="top">
+**Platform shape:** Proxmox, Talos, Kubernetes, Nomad, devcontainers, GitOps,
+Ansible and OpenTofu. The goal is to keep services reproducible and rebuildable
+instead of precious snowflakes.
 
-### Platform shape
-
-Proxmox, Talos, Kubernetes, Nomad, devcontainers, GitOps, Ansible and OpenTofu.
-The goal is to keep services reproducible and rebuildable instead of precious
-snowflakes.
-
-</td>
-<td width="50%" valign="top">
-
-### Reliability shape
-
-TrueNAS mirrors, Proxmox Backup Server, 3-2-1 backups, 10Gbit backplane,
-Technitium DNS HA, monitoring, alerting and recovery-oriented design.
-
-</td>
-</tr>
-</table>
+**Reliability shape:** TrueNAS mirrors, Proxmox Backup Server, 3-2-1 backups,
+10Gbit backplane, Technitium DNS HA, monitoring, alerting and recovery-oriented
+design.
 
 Services and patterns include Traefik, Authentik / Keycloak-style identity,
 Nextcloud, DDNS, firewalling, Prometheus, Grafana, Loki, Kuma and more.
@@ -213,78 +160,35 @@ Nextcloud, DDNS, firewalling, Prometheus, Grafana, Loki, Kuma and more.
 
 My daily setup is terminal-first and declarative where possible.
 
-<table>
-<tr>
-<td width="25%" align="center"><strong>NixOS</strong><br><sub>system config</sub></td>
-<td width="25%" align="center"><strong>Home Manager</strong><br><sub>user state</sub></td>
-<td width="25%" align="center"><strong>Niri</strong><br><sub>Wayland workflow</sub></td>
-<td width="25%" align="center"><strong>macOS</strong><br><sub>secondary platform</sub></td>
-</tr>
-<tr>
-<td width="25%" align="center"><strong>Kitty</strong><br><sub>terminal</sub></td>
-<td width="25%" align="center"><strong>tmux</strong><br><sub>sessions</sub></td>
-<td width="25%" align="center"><strong>Neovim</strong><br><sub>editing</sub></td>
-<td width="25%" align="center"><strong>Git</strong><br><sub>everything versioned</sub></td>
-</tr>
-</table>
+`NixOS` · `Home Manager` · `Niri` · `macOS` · `Kitty` · `tmux` · `Neovim` · `Git`
+
+The goal is a machine that can be rebuilt, understood, versioned and tuned
+without turning the workstation into undocumented state.
 
 ---
 
 ## Engineering principles
 
-<table>
-<tr>
-<td width="33%" valign="top">
+**Declarative first:** if it matters, it belongs in config. I prefer reviewable
+desired state over manual changes and hidden drift.
 
-### Declarative first
+**Observable by default:** logs, metrics, traces and health signals should be
+part of the design, not a panic-driven retrofit.
 
-If it matters, it belongs in config. I prefer reviewable desired state over
-manual changes and hidden drift.
+**Recovery matters:** backups, rebuilds and rollback paths are as important as
+deployment pipelines. A system is not done until it can recover.
 
-</td>
-<td width="33%" valign="top">
-
-### Observable by default
-
-Logs, metrics, traces and health signals should be part of the design, not a
-panic-driven retrofit.
-
-</td>
-<td width="33%" valign="top">
-
-### Recovery matters
-
-Backups, rebuilds and rollback paths are as important as deployment pipelines.
-A system is not done until it can recover.
-
-</td>
-</tr>
-</table>
+**Small tools, clear boundaries:** I like tools that do one job clearly and can
+be composed into bigger workflows without hiding state.
 
 ---
 
 ## Currently exploring
 
-<table>
-<tr>
-<td width="50%" valign="top">
-
-- NixOS as a platform for real infrastructure
-- rootfs-based containers and Podman Quadlet
-- reproducible developer environments
-- secure GitOps workflows
-
-</td>
-<td width="50%" valign="top">
-
-- local LLM infrastructure
-- MLOps observability
-- AI agents for developer workflows
-- homelab-to-production patterns
-
-</td>
-</tr>
-</table>
+`NixOS as infrastructure` · `rootfs-based containers` · `Podman Quadlet` ·
+`reproducible developer environments` · `secure GitOps` · `local LLM stacks` ·
+`MLOps observability` · `AI agents for developer workflows` ·
+`homelab-to-production patterns`
 
 ---
 
@@ -295,18 +199,16 @@ A system is not done until it can recover.
 
 <br>
 
-| Category | Keywords |
-|---|---|
-| Cloud | Azure, AWS, IBM Cloud, datacenter |
-| Orchestration | Kubernetes, Talos, Docker, Swarm, Podman, Nomad, Helm |
-| IaC | OpenTofu, Terraform, Bicep, ARM, Ansible, YAML-heavy platform config |
-| CI/CD | GitHub Actions, Azure DevOps, Jenkins, Forgejo |
-| Languages | Python, Rust, Bash, PowerShell, TypeScript, HTML, CSS, PHP |
-| Observability | Datadog, Grafana, Splunk, OpenTelemetry, Prometheus, Loki, Azure Monitor, Langfuse, Phoenix |
-| Security | Infisical, Azure Key Vault, SOPS, age, Vault-style workflows |
-| AI/MLOps | Langfuse, LangGraph, LiteLLM, Bifrost, Phoenix, Ollama, llama.cpp, vLLM, Hugging Face, local LLMs |
-| Data | PostgreSQL, SQL Server, MySQL, MongoDB, Redis, Qdrant, vector search, BM25 |
-| Homelab | TrueNAS, Proxmox, PBS, 3-2-1 backups, 10Gbit, Technitium DNS HA, Traefik, Authentik, Nextcloud |
+**Cloud:** Azure, AWS, IBM Cloud, datacenter
+**Orchestration:** Kubernetes, Talos, Docker, Swarm, Podman, Nomad, Helm
+**IaC:** OpenTofu, Terraform, Bicep, ARM, Ansible, YAML-heavy platform config
+**CI/CD:** GitHub Actions, Azure DevOps, Jenkins, Forgejo
+**Languages:** Python, Rust, Bash, PowerShell, TypeScript, HTML, CSS, PHP
+**Observability:** Datadog, Grafana, Splunk, OpenTelemetry, Prometheus, Loki, Azure Monitor, Langfuse, Phoenix
+**Security:** Infisical, Azure Key Vault, SOPS, age, Vault-style workflows
+**AI/MLOps:** Langfuse, LangGraph, LiteLLM, Bifrost, Phoenix, Ollama, llama.cpp, vLLM, Hugging Face, local LLMs
+**Data:** PostgreSQL, SQL Server, MySQL, MongoDB, Redis, Qdrant, vector search, BM25
+**Homelab:** TrueNAS, Proxmox, PBS, 3-2-1 backups, 10Gbit, Technitium DNS HA, Traefik, Authentik, Nextcloud
 
 </details>
 

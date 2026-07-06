@@ -24,7 +24,7 @@
 
   <g font-family="Inter, ui-sans-serif, system-ui, sans-serif">
     <rect x="64" y="140" width="248" height="168" rx="18" fill="url(#net)" stroke="#30363d"/>
-    <text x="94" y="184" fill="#79c0ff" font-size="22" font-weight="800">Edge & Identity</text>
+    <text x="94" y="184" fill="#79c0ff" font-size="22" font-weight="800">Edge &amp; Identity</text>
     <text x="94" y="216" fill="#c9d1d9" font-size="15">Firewall, DDNS, Traefik,</text>
     <text x="94" y="239" fill="#c9d1d9" font-size="15">Technitium DNS HA,</text>
     <text x="94" y="262" fill="#c9d1d9" font-size="15">Authentik / Keycloak flows.</text>
@@ -36,7 +36,7 @@
     <text x="414" y="262" fill="#c9d1d9" font-size="15">GitOps and automation.</text>
 
     <rect x="704" y="140" width="248" height="168" rx="18" fill="url(#storage)" stroke="#30363d"/>
-    <text x="734" y="184" fill="#56d364" font-size="22" font-weight="800">Storage & Recovery</text>
+    <text x="734" y="184" fill="#56d364" font-size="22" font-weight="800">Storage &amp; Recovery</text>
     <text x="734" y="216" fill="#c9d1d9" font-size="15">TrueNAS mirrors, PBS,</text>
     <text x="734" y="239" fill="#c9d1d9" font-size="15">3-2-1 backups, NAS,</text>
     <text x="734" y="262" fill="#c9d1d9" font-size="15">10Gbit backplane.</text>
