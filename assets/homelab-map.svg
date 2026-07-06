@@ -1,0 +1,63 @@
+<svg width="1280" height="430" viewBox="0 0 1280 430" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="430" rx="18" fill="#0d1117"/>
+  <defs>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#ffffff" opacity="0.08"/>
+    </pattern>
+    <linearGradient id="net" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#79c0ff" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#0d1117" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="compute" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#a371f7" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#0d1117" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="storage" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#3fb950" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#0d1117" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="430" fill="url(#dots)" opacity="0.45"/>
+
+  <text x="64" y="62" fill="#e6edf3" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="32" font-weight="800">Homelab, managed like infrastructure</text>
+  <text x="64" y="96" fill="#8b949e" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="17" font-weight="500">A production-inspired playground for GitOps, backups, HA services, monitoring, and platform experiments.</text>
+
+  <g font-family="Inter, ui-sans-serif, system-ui, sans-serif">
+    <rect x="64" y="140" width="248" height="168" rx="18" fill="url(#net)" stroke="#30363d"/>
+    <text x="94" y="184" fill="#79c0ff" font-size="22" font-weight="800">Edge & Identity</text>
+    <text x="94" y="216" fill="#c9d1d9" font-size="15">Firewall, DDNS, Traefik,</text>
+    <text x="94" y="239" fill="#c9d1d9" font-size="15">Technitium DNS HA,</text>
+    <text x="94" y="262" fill="#c9d1d9" font-size="15">Authentik / Keycloak flows.</text>
+
+    <rect x="384" y="140" width="248" height="168" rx="18" fill="url(#compute)" stroke="#30363d"/>
+    <text x="414" y="184" fill="#d2a8ff" font-size="22" font-weight="800">Compute</text>
+    <text x="414" y="216" fill="#c9d1d9" font-size="15">Proxmox, Talos, K8s,</text>
+    <text x="414" y="239" fill="#c9d1d9" font-size="15">Nomad, devcontainers,</text>
+    <text x="414" y="262" fill="#c9d1d9" font-size="15">GitOps and automation.</text>
+
+    <rect x="704" y="140" width="248" height="168" rx="18" fill="url(#storage)" stroke="#30363d"/>
+    <text x="734" y="184" fill="#56d364" font-size="22" font-weight="800">Storage & Recovery</text>
+    <text x="734" y="216" fill="#c9d1d9" font-size="15">TrueNAS mirrors, PBS,</text>
+    <text x="734" y="239" fill="#c9d1d9" font-size="15">3-2-1 backups, NAS,</text>
+    <text x="734" y="262" fill="#c9d1d9" font-size="15">10Gbit backplane.</text>
+
+    <rect x="1024" y="140" width="192" height="168" rx="18" fill="#161b22" stroke="#30363d"/>
+    <text x="1054" y="184" fill="#ffa657" font-size="22" font-weight="800">Telemetry</text>
+    <text x="1054" y="216" fill="#c9d1d9" font-size="15">Prometheus,</text>
+    <text x="1054" y="239" fill="#c9d1d9" font-size="15">Grafana, Loki,</text>
+    <text x="1054" y="262" fill="#c9d1d9" font-size="15">Kuma and traces.</text>
+  </g>
+
+  <g stroke="#30363d" stroke-width="2" stroke-linecap="round">
+    <line x1="312" y1="224" x2="384" y2="224"/>
+    <line x1="632" y1="224" x2="704" y2="224"/>
+    <line x1="952" y1="224" x2="1024" y2="224"/>
+  </g>
+  <g fill="#3fb950">
+    <circle cx="348" cy="224" r="4"/>
+    <circle cx="668" cy="224" r="4"/>
+    <circle cx="988" cy="224" r="4"/>
+  </g>
+
+  <text x="64" y="366" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14">Designed around versioned config, repeatable rebuilds, monitoring, and recovery drills.</text>
+</svg>
