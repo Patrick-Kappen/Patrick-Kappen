@@ -1,0 +1,20 @@
+{
+  "name": "patrick-kappen-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Personal portfolio website for Patrick Kappen",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && wrangler pages deploy dist"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0",
+    "wrangler": "^4.0.0"
+  }
+}
