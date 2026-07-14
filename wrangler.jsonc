@@ -1,6 +1,8 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "patrick-kappen-portfolio",
-  "pages_build_output_dir": "./dist",
-  "compatibility_date": "2026-07-14"
+  "compatibility_date": "2026-07-14",
+  "assets": {
+    "directory": "./dist"
+  }
 }

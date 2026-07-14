@@ -1,6 +1,6 @@
 # Website development and deployment
 
-This is a static Vite website configured for Cloudflare Pages.
+This is a static Vite website configured for Cloudflare Workers Static Assets.
 
 ## Local development
 
@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Vite will print the local URL. Create a production build with:
+Vite will print the local URL. Create and inspect a production build with:
 
 ```bash
 npm run build
@@ -20,26 +20,26 @@ npm run preview
 
 The production output is written to `dist/`.
 
-## Deploy with Cloudflare Pages
+## Deploy through Cloudflare
 
-1. Open **Workers & Pages** in the Cloudflare dashboard.
-2. Select **Create > Pages > Connect to Git** and choose this repository.
-3. Use these build settings:
-   - Framework preset: **Vite**
-   - Build command: `npm run build`
-   - Build output directory: `dist`
-   - Node.js version: `22`
-4. Save and deploy.
+The connected Cloudflare build should use:
 
-Cloudflare will build every new commit automatically. The `.node-version` file,
-`wrangler.jsonc`, and `public/_headers` file provide the runtime, Pages output,
-and response-header configuration.
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- Node.js version: `22`
 
-## Optional CLI deployment
+The `assets.directory` setting in `wrangler.jsonc` tells Wrangler to upload
+`dist/` as the Worker's static assets. Cloudflare will build and deploy every
+new commit automatically.
 
-After creating the Pages project and authenticating Wrangler:
+## Optional local CLI deployment
+
+After authenticating Wrangler:
 
 ```bash
 npx wrangler login
 npm run deploy
 ```
+
+The `public/_headers` file is copied into `dist/` by Vite and configures the
+security headers for static responses.
