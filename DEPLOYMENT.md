@@ -1,6 +1,7 @@
 # Website development and deployment
 
-This is a static Vite website configured for Cloudflare Workers Static Assets.
+This is a static Vite website configured for the `patrickkappen` Cloudflare
+Worker using Static Assets.
 
 ## Local development
 
