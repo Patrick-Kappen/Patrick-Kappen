@@ -12,7 +12,11 @@
 
 <br><br>
 
+<!-- markdownlint-disable MD036 -->
+
 **Senior DevOps Engineer · MLOps / AI enthusiast · NixOS tinkerer**
+
+<!-- markdownlint-enable MD036 -->
 
 I build reproducible infrastructure, GitOps platforms, automation workflows,
 MLOps tooling, and local-first developer environments.
