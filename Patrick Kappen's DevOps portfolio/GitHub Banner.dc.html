@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+  @keyframes dashflow { to { stroke-dashoffset: -16; } }
+</style>
+</helmet>
+<div style="width:1280px;height:400px;position:relative;overflow:hidden;background:#0d1117;font-family:'JetBrains Mono',monospace;color:#e6edf3;box-sizing:border-box;">
+
+  <!-- dotted grid texture -->
+  <div style="position:absolute;inset:0;background-image:radial-gradient(#ffffff 0.6px, transparent 0.6px);background-size:22px 22px;opacity:0.035;"></div>
+  <!-- corner glows -->
+  <div style="position:absolute;top:-160px;left:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle, rgba(82,119,195,0.28), transparent 70%);filter:blur(6px);"></div>
+  <div style="position:absolute;bottom:-200px;right:-80px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle, rgba(63,185,80,0.16), transparent 70%);"></div>
+  <!-- left accent bar -->
+  <div style="position:absolute;top:0;left:0;width:6px;height:100%;background:linear-gradient(#5277C3,#3fb950);"></div>
+
+  <!-- LEFT: identity -->
+  <div style="position:absolute;top:52px;left:64px;width:660px;">
+    <div style="font-size:14px;color:#7d8590;letter-spacing:0.02em;margin-bottom:22px;">
+      <span style="color:#3fb950;">patrick</span><span style="color:#7d8590;">@</span><span style="color:#5277C3;">nixos</span>
+      <span style="color:#484f58;"> ~ </span><span style="color:#e6edf3;">❯</span>
+      <span style="color:#7d8590;"> whoami</span>
+      <span style="display:inline-block;width:9px;height:17px;background:#3fb950;vertical-align:-3px;margin-left:4px;animation:blink 1.1s step-end infinite;"></span>
+    </div>
+
+    <div style="font-size:64px;font-weight:800;line-height:1.02;letter-spacing:-0.02em;color:#f0f6fc;">Patrick Kappen</div>
+
+    <div style="font-size:19px;font-weight:600;color:#5277C3;margin-top:14px;letter-spacing:0.01em;">
+      Senior DevOps Engineer
+      <span style="color:#30363d;">·</span>
+      <span style="color:#3fb950;">MLOps / AI</span>
+      <span style="color:#30363d;">·</span>
+      <span style="color:#7d8590;">GitOps</span>
+    </div>
+
+    <div style="font-size:14.5px;line-height:1.7;color:#8b949e;margin-top:22px;max-width:560px;">
+      Infrastructure that is reproducible, observable, recoverable —<br>and less likely to require a haunted spreadsheet called <span style="color:#c9d1d9;">final-final-v3.xlsx</span>.
+    </div>
+
+    <div style="display:flex;gap:10px;margin-top:26px;flex-wrap:wrap;">
+      <span style="font-size:12px;padding:5px 11px;border:1px solid #30363d;border-radius:6px;background:#161b22;color:#adbac7;">Declare</span>
+      <span style="font-size:12px;padding:5px 11px;border:1px solid #30363d;border-radius:6px;background:#161b22;color:#adbac7;">Validate</span>
+      <span style="font-size:12px;padding:5px 11px;border:1px solid #30363d;border-radius:6px;background:#161b22;color:#adbac7;">Observe</span>
+      <span style="font-size:12px;padding:5px 11px;border:1px solid #30363d;border-radius:6px;background:#161b22;color:#adbac7;">Recover</span>
+    </div>
+  </div>
+
+  <!-- RIGHT: neofetch-style identity card -->
+  <div style="position:absolute;top:50%;transform:translateY(-50%);right:56px;width:412px;background:#0b0f14;border:1px solid #21262d;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+    <div style="display:flex;align-items:center;padding:11px 16px;border-bottom:1px solid #21262d;background:#11161d;">
+      <span style="font-size:11.5px;color:#7d8590;"><span style="color:#3fb950;">patrick</span>@<span style="color:#5277C3;">nixos</span> <span style="color:#484f58;">~</span> <span style="color:#e6edf3;">❯</span> <span style="color:#7d8590;">neofetch</span></span>
+    </div>
+    <div style="padding:18px 22px 20px;font-size:13px;line-height:1.9;">
+      <div style="color:#3fb950;font-weight:700;margin-bottom:6px;">patrick@nixos</div>
+      <div style="height:1px;background:#21262d;margin-bottom:10px;"></div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:2px 12px;">
+        <span style="color:#5277C3;font-weight:600;">OS</span><span style="color:#adbac7;">NixOS + Home Manager</span>
+        <span style="color:#5277C3;font-weight:600;">WM</span><span style="color:#adbac7;">Niri · Kitty · tmux · Neovim</span>
+        <span style="color:#5277C3;font-weight:600;">Role</span><span style="color:#adbac7;">Senior DevOps Engineer</span>
+        <span style="color:#5277C3;font-weight:600;">Focus</span><span style="color:#adbac7;">Platform · MLOps · GitOps</span>
+        <span style="color:#5277C3;font-weight:600;">Orch</span><span style="color:#adbac7;">Kubernetes · Talos · Nomad</span>
+        <span style="color:#5277C3;font-weight:600;">IaC</span><span style="color:#adbac7;">OpenTofu · Ansible · Nix</span>
+        <span style="color:#5277C3;font-weight:600;">Obs</span><span style="color:#adbac7;">Grafana · Prometheus · Loki</span>
+        <span style="color:#5277C3;font-weight:600;">Lab</span><span style="color:#adbac7;">Proxmox · TrueNAS · 10Gbit</span>
+      </div>
+      <div style="display:flex;gap:6px;margin-top:14px;">
+        <span style="width:15px;height:15px;border-radius:3px;background:#5277C3;"></span>
+        <span style="width:15px;height:15px;border-radius:3px;background:#3fb950;"></span>
+        <span style="width:15px;height:15px;border-radius:3px;background:#892CA0;"></span>
+        <span style="width:15px;height:15px;border-radius:3px;background:#e6edf3;"></span>
+        <span style="width:15px;height:15px;border-radius:3px;background:#30363d;"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- bottom principle strip -->
+  <div style="position:absolute;bottom:26px;left:64px;font-size:12.5px;color:#586069;letter-spacing:0.01em;">
+    <span style="color:#3fb950;">$</span> <span style="color:#7d8590;">if it matters, put it in Git · if it runs, make it observable · if it stores data, test the restore</span>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:400}}"></script>
+</body>
+</html>
