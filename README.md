@@ -1,80 +1,93 @@
-<div align="center">
+# Patrick Kappen
 
-<img src="assets/profile-banner-v2.png" alt="Patrick Kappen">
+```nix
+{
+  patrick = {
+    role     = "Platform & security engineer";
+    at       = "SLTN, Azure Expert MSP";
+    builds   = [ "identity" "delivery" "recovery" "AI infrastructure" ];
+    writes   = [ "Terraform" "Bicep" "PowerShell" "Python" "Rust" "Nix" ];
+    believes = "every change reviewed, nobody over-privileged";
+    home     = "https://patrick.kappen.io";
+  };
+}
+```
 
-<!-- markdownlint-disable MD036 -->
+I build the platforms other people deploy to, and the guard rails around them.
+Most of my work sits where infrastructure, identity and automation meet, and
+lately a good part of it is about letting AI agents in without handing them the
+keys.
 
-**Platform & security engineer · Azure · Terraform · GitHub · Entra · Nix · AI infrastructure**
+## Things I believe
 
-<!-- markdownlint-enable MD036 -->
+- **If it's not in Git, it doesn't exist.** Portal clicks are drift with extra
+  steps.
+- **A backup you haven't restored is a rumour.** Recovery gets tested, or it
+  isn't there.
+- **Standing admin access is a bug, not a convenience.** Rights are granted just
+  in time and expire on their own.
+- **AI agents get the intern treatment.** A sandbox, a reviewer, and no
+  production keys. I've watched an automated PR merge a feature, revert it, and
+  still announce it in the release notes.
+- **Boring in production, interesting in design.** The exciting part should be
+  the pull request, not the incident.
 
-Every change reviewed. Nobody over-privileged. Humans or agents.
+## At work
 
-[patrick.kappen.io](https://patrick.kappen.io)
+At **SLTN** I own the platform code that our cloud teams and customer tenants
+run on, and I work with our CISO to turn security policy into automation
+instead of documents.
 
-</div>
+That currently means moving the whole organisation from Azure DevOps to GitHub
+and swapping every stored pipeline secret for OIDC on the way. Customer access
+runs through GDAP, Azure Lighthouse and PIM, all in Terraform, so changing who
+can do what is a pull request like any other. Around that sit automated landing
+zones and disaster recovery drills that fail over a full Azure Site Recovery
+plan, prove the machines come back, and always clean up after themselves.
 
----
+## After hours
 
-I build platforms and the tooling around them: identity, delivery, recovery and
-AI infrastructure, all as code. I write the automation myself, in Terraform,
-Bicep, PowerShell, Python, TypeScript, Rust and Nix, and I care about what
-happens after the deploy: can it be reviewed, observed, restored?
+**Open models as coding agents.** I pick, benchmark and tune open-weight
+models on vLLM, with my own suite for tool calling, long agent tasks, long
+context and many agents at once. Models are chosen on measured numbers for the
+actual workload, not on a leaderboard.
 
-## At work: SLTN
+**Agents with boundaries.** Sandboxed execution, scoped credentials,
+human-approved Git promotion and agent setups declared in Nix, so every one of
+them can be rebuilt and audited.
 
-Senior DevOps Engineer at **SLTN**, a Dutch Azure Expert MSP and CSP. I own the
-platform code that our cloud teams and customer tenants run on, and work with
-the CISO on turning security policy into automation.
+**A homelab run like production.** Proxmox, Talos Kubernetes, GitOps, OpenTofu
+and Ansible; TrueNAS and Proxmox Backup Server with 3-2-1 backups on 10 Gbit;
+Prometheus, Grafana and Loki watching it all. My machines are a NixOS fleet
+with signed commits, built so that a compromised GitHub account can't push code
+onto them.
 
-- **Azure DevOps → GitHub**: migrating repositories, pipelines and governance
-  for the whole organisation.
-- **Secrets → OIDC**: workload identity federation for every pipeline; no
-  stored credentials.
-- **Least privilege at CSP scale**: GDAP, Azure Lighthouse and PIM/JIT, defined
-  in Terraform.
-- **GitHub and Entra as code**: organisations, repositories, apps and access in
-  Terraform.
-- **Automated landing zones**: standardised, policy-checked customer
-  environments.
-- **Recovery you can prove**: automated Azure Site Recovery drills in GitHub
-  Actions: test failover, agent and network checks, reporting and guaranteed
-  cleanup.
+**[Graft](https://github.com/Patrick-Kappen/graft)** turns a few lines of TOML
+into Podman Quadlet containers built from the Nix store. Describe what the
+container needs; Nix builds the rest.
 
-## AI infrastructure
+<!-- markdownlint-disable MD013 -->
+<!-- auto:start -->
 
-- **Open models as coding agents**: selecting, benchmarking and tuning
-  open-weight models for agentic coding. Model screening across candidates, a
-  production profile backed by measured numbers, and serving on vLLM with INT4
-  quantisation, speculative decoding and KV-cache tuning.
-- **Benchmarks that match the work**: my own suite for tool calling, multi-step
-  agent tasks, long-context retrieval, coding quality and concurrent agents, so
-  model choices follow the workload rather than the leaderboard.
-- **Upstream-minded**: vLLM diagnostics patches and issue reports from what the
-  benchmarks turn up.
-- **Agents with boundaries**: sandboxed execution (bubblewrap), scoped
-  credentials, human-approved Git promotion, and declarative agent profiles
-  built with Nix.
-- **Operable AI**: routing (LiteLLM), local inference (Ollama, llama.cpp),
-  traces and evaluation (Langfuse, Phoenix).
+### Now
 
-## Platform & homelab
+- Moving a whole organisation from Azure DevOps to GitHub, with OIDC instead of stored secrets
+- Turning GDAP, Lighthouse and PIM/JIT access into Terraform
+- Studying for GitHub Actions and AI-103
+- Building a blog on patrick.kappen.io
 
-A homelab run like production: Proxmox, Talos Kubernetes, Nomad, GitOps,
-OpenTofu and Ansible; TrueNAS, Proxmox Backup Server and 3-2-1 backups on a
-10 Gbit backplane; Prometheus, Grafana and Loki.
+_Last changed Oct 2026._
 
-My workstations and servers are a NixOS fleet with sops-nix secrets and
-SSH-signed commits, built from Git and designed so that a compromised GitHub
-account cannot reach it.
+### Recently shipped
 
-### Graft
+- [Patrick-Kappen/graft#362](https://github.com/Patrick-Kappen/graft/pull/362): release: prepare 0.4.0-alpha.1 · Aug 2026
+- [Patrick-Kappen/graft#357](https://github.com/Patrick-Kappen/graft/pull/357): fix(worker): keep relaxed user manifests loadable · Aug 2026
+- [Patrick-Kappen/graft#355](https://github.com/Patrick-Kappen/graft/pull/355): fix(worker): finalize publication base-directory policy · Aug 2026
+- [Patrick-Kappen/graft#319](https://github.com/Patrick-Kappen/graft/pull/319): feat(nix): install worker sockets and services · Aug 2026
+- [Patrick-Kappen/graft#318](https://github.com/Patrick-Kappen/graft/pull/318): feat(nix): publish Home Manager user manifests atomically · Aug 2026
 
-[Graft](https://github.com/Patrick-Kappen/graft): TOML-driven Podman Quadlet
-containers, built from the Nix store. Small, readable container intent; Nix
-builds the rootfs and the Quadlet units.
-
-<img src="assets/graft-flow.svg" alt="Graft: TOML to Nix to Quadlet">
+<!-- auto:end -->
+<!-- markdownlint-enable MD013 -->
 
 ## Toolbox
 
@@ -86,15 +99,6 @@ builds the rootfs and the Quadlet units.
 - **Containers:** Kubernetes · Talos · Podman/Quadlet · Docker · Helm
 - **Code:** PowerShell · Python · TypeScript · Rust · Bash
 - **AI:** vLLM · Ollama · llama.cpp · LiteLLM · LangGraph · Langfuse · Phoenix
-
-## Principles
-
-- **Reviewed, then applied.** Plan or what-if in the pull request, approval,
-  then deploy.
-- **No standing access.** Identities, people and agents alike, get just enough
-  rights, just in time.
-- **Recovery is part of the design.** A platform is done when it can be rebuilt
-  and restored.
 
 ## Certifications
 

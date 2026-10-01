@@ -1,0 +1,39 @@
+---
+name: Update profile README
+
+on:
+  schedule:
+    - cron: "17 5 * * *"
+  push:
+    branches: [main]
+    paths:
+      - now.json
+      - .github/scripts/update_readme.py
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: readme
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Render generated section
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/update_readme.py
+
+      - name: Commit when changed
+        run: |
+          git diff --quiet README.md && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(profile): refresh generated README section" README.md
+          git push
