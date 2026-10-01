@@ -80,11 +80,20 @@ _Last changed Oct 2026._
 
 ### Recently shipped
 
-- [Patrick-Kappen/graft#362](https://github.com/Patrick-Kappen/graft/pull/362): release: prepare 0.4.0-alpha.1 · Aug 2026
-- [Patrick-Kappen/graft#357](https://github.com/Patrick-Kappen/graft/pull/357): fix(worker): keep relaxed user manifests loadable · Aug 2026
-- [Patrick-Kappen/graft#355](https://github.com/Patrick-Kappen/graft/pull/355): fix(worker): finalize publication base-directory policy · Aug 2026
-- [Patrick-Kappen/graft#319](https://github.com/Patrick-Kappen/graft/pull/319): feat(nix): install worker sockets and services · Aug 2026
-- [Patrick-Kappen/graft#318](https://github.com/Patrick-Kappen/graft/pull/318): feat(nix): publish Home Manager user manifests atomically · Aug 2026
+**[graft](https://github.com/Patrick-Kappen/graft)** · TOML-driven Podman Quadlet containers, built from the Nix store.
+
+- 🐛 **[Make rootless notify protocol fixture runnable](https://github.com/Patrick-Kappen/graft/pull/367)** · Aug 2026 · +22 −22\
+  Install the protocol fixture's user services through `systemd.user.services`, avoiding the generated `/etc/systemd/user` collision.
+- 🐛 **[Retain user Quadlet readiness through conmon handoff](https://github.com/Patrick-Kappen/graft/pull/366)** · Aug 2026 · +257 −30\
+  Fixes the rootless Quadlet notify-attribution race that blocked the v0.4.0-alpha.1 release candidate.
+- 🐛 **[Keep relaxed user manifests loadable](https://github.com/Patrick-Kappen/graft/pull/357)** · Aug 2026 · +366 −76\
+  Keeps relaxed user manifest publication readable by the installed worker and prevents tolerated default ACLs from making newly created Graft directories unusable.
+- 🐛 **[Finalize publication base-directory policy](https://github.com/Patrick-Kappen/graft/pull/355)** · Aug 2026 · +503 −141\
+  Finalizes secure user publication directory handling while supporting NAS and permission-less filesystems through an explicit opt-in compatibility mode.
+- ✨ **[Install worker sockets and services](https://github.com/Patrick-Kappen/graft/pull/319)** · Aug 2026 · +277 −14\
+  Installs the documented system and user Graft worker services and sockets with fixed, Nix-expanded manifest paths, target/manager/UID policy, producer identity, and local-only…
+- ✨ **[Publish Home Manager user manifests atomically](https://github.com/Patrick-Kappen/graft/pull/318)** · Aug 2026 · +260 −22\
+  Implements Home Manager-only immutable manifest/endpoint publication through `$XDG_CONFIG_HOME/graft/current`, using its own validated user activation lock and atomic pointer…
 
 <!-- auto:end -->
 <!-- markdownlint-enable MD013 -->
