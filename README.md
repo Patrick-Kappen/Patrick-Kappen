@@ -18,6 +18,9 @@ Most of my work sits where infrastructure, identity and automation meet, and
 lately a good part of it is about letting AI agents in without handing them the
 keys.
 
+[patrick.kappen.io](https://patrick.kappen.io) ·
+[LinkedIn](https://www.linkedin.com/in/patrick-kappen-b53b74149/)
+
 ## Things I believe
 
 - **If it's not in Git, it doesn't exist.** Portal clicks are drift with extra
