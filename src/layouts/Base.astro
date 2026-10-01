@@ -1,4 +1,5 @@
 ---
+import "@fontsource-variable/inter";
 import "../styles/global.css";
 import { publishedPosts } from "../lib/posts";
 
@@ -23,7 +24,7 @@ const image = new URL("/assets/profile-banner-v2.png", Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#080b0f" />
+    <meta name="theme-color" content="#1b1f24" />
     <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -43,28 +44,20 @@ const image = new URL("/assets/profile-banner-v2.png", Astro.site);
       <div class="container header-inner">
         <a class="brand" href="/" aria-label="Patrick Kappen, home">
           <span class="brand-mark" aria-hidden="true">PK</span>
-          <span class="brand-copy">
-            <strong>Patrick Kappen</strong>
-            <small>Platform · Security · AI</small>
-          </span>
+          <span>Patrick Kappen</span>
         </a>
 
         <nav class="main-nav" aria-label="Main navigation">
-          <a href="/#now">Now</a>
+          <a href="/#focus">Focus</a>
           <a href="/#work">Work</a>
           {hasPosts && <a href="/blog/">Writing</a>}
-          <a href="/#beliefs">Beliefs</a>
+          <a href="/#contact">Contact</a>
         </nav>
 
-        <a
-          class="button button-small button-ghost header-cta"
-          href="https://github.com/Patrick-Kappen"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GitHub
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"></path></svg>
-        </a>
+        <div class="header-links">
+          <a href="https://www.linkedin.com/in/patrick-kappen/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com/Patrick-Kappen" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
       </div>
     </header>
 
@@ -74,15 +67,13 @@ const image = new URL("/assets/profile-banner-v2.png", Astro.site);
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <div class="brand footer-brand">
-          <span class="brand-mark" aria-hidden="true">PK</span>
-          <span class="brand-copy"><strong>Patrick Kappen</strong><small>Built declaratively.</small></span>
+        <p>© {new Date().getFullYear()} Patrick Kappen · Netherlands</p>
+        <div class="footer-links">
+          <a href="/rss.xml">RSS</a>
+          <a href="https://www.linkedin.com/in/patrick-kappen/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com/Patrick-Kappen" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
-        <p>© {new Date().getFullYear()} Patrick Kappen</p>
-        <a href="#main-content">Back to top <span aria-hidden="true">↑</span></a>
       </div>
     </footer>
-
-    <script src="../scripts/reveal.js"></script>
   </body>
 </html>
