@@ -19,7 +19,7 @@ lately a good part of it is about letting AI agents in without handing them the
 keys.
 
 [patrick.kappen.io](https://patrick.kappen.io) ·
-[LinkedIn](https://www.linkedin.com/in/patrick-kappen-b53b74149/)
+[LinkedIn](https://www.linkedin.com/in/patrick-kappen/)
 
 ## Things I believe
 
