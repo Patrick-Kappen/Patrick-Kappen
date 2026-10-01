@@ -1,0 +1,277 @@
+---
+import now from "../../now.json";
+import Base from "../layouts/Base.astro";
+import { formatDate, publishedPosts } from "../lib/posts";
+
+const posts = (await publishedPosts()).slice(0, 3);
+const nowChanged = new Date(`${now.updated}T00:00:00Z`).toLocaleDateString("en-GB", {
+  month: "long",
+  year: "numeric",
+});
+
+const beliefs = [
+  ["If it isn't in Git, it doesn't exist.", "Portal clicks are drift with extra steps. If it matters, it is versioned and reviewed."],
+  ["A backup you haven't restored is a rumour.", "Recovery is tested on a schedule, or it isn't really there."],
+  ["Standing admin access is a bug.", "People, pipelines and agents get just enough rights, just in time, and lose them again."],
+  ["AI agents get the intern treatment.", "A sandbox, a reviewer, and no production keys. Useful work, inside clear boundaries."],
+];
+---
+
+<Base>
+  <section class="hero" id="top">
+    <div class="hero-grid container">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span></span> Senior DevOps Engineer · Netherlands</p>
+        <h1>The platform, <em>and the guard rails.</em></h1>
+        <p class="hero-intro">
+          I build the platforms other people deploy to: environments rebuilt from
+          code, access no broader than it needs to be, and changes someone reviews
+          before they land. Lately that includes letting AI agents do real work
+          without handing them the keys.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#work">
+            What I work on
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"></path></svg>
+          </a>
+          <a
+            class="button button-ghost"
+            href="https://www.linkedin.com/in/patrick-kappen/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+        </div>
+        <ul class="hero-values">
+          <li><span>01</span> Reviewed</li>
+          <li><span>02</span> Least privilege</li>
+          <li><span>03</span> Recoverable</li>
+        </ul>
+      </div>
+
+      <div class="hero-visual reveal" role="img" aria-label="A change flowing from pull request through plan and approval to apply">
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+        <div class="terminal-card">
+          <div class="terminal-bar">
+            <div class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+            <span>change.flow</span>
+            <span class="terminal-status"><i></i> approved</span>
+          </div>
+          <div class="terminal-body">
+            <p><span class="prompt">$</span> platform apply --reviewed</p>
+            <div class="flow-line">
+              <span>pr</span><b>→</b><span>plan</span><b>→</b><span>approve</span><b>→</b><span>apply</span>
+            </div>
+            <div class="terminal-output">
+              <p><span>identity</span><strong>oidc / just-in-time</strong></p>
+              <p><span>delivery</span><strong>git / plan / approval</strong></p>
+              <p><span>recovery</span><strong>tested, not assumed</strong></p>
+            </div>
+            <p class="success"><span>✓</span> approved by a human</p>
+          </div>
+        </div>
+        <div class="floating-tag floating-tag-top"><span></span> No standing access</div>
+        <div class="floating-tag floating-tag-bottom">NixOS <b>reproducible</b></div>
+      </div>
+    </div>
+    <div class="hero-rule container" aria-hidden="true"><span>SCROLL TO EXPLORE</span></div>
+  </section>
+
+  <section class="section now" id="now">
+    <div class="container now-grid">
+      <div class="reveal">
+        <p class="eyebrow">Now</p>
+        <h2>What I'm working on.</h2>
+        <p class="now-updated">Last changed {nowChanged}.</p>
+      </div>
+      <ul class="now-list reveal">
+        {now.now.map((entry) => <li>{entry}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section expertise" id="expertise">
+    <div class="container">
+      <div class="section-heading reveal">
+        <div>
+          <p class="eyebrow">Where I work</p>
+          <h2>Infrastructure, identity <br />and automation.</h2>
+        </div>
+        <p>
+          Most of my work happens where these three meet. That is where a manual,
+          risky process can become a pull request.
+        </p>
+      </div>
+
+      <div class="expertise-grid">
+        <article class="expertise-card reveal">
+          <div class="card-number">01</div>
+          <div class="card-icon icon-blue" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 17 12 3l8 14-8 4-8-4Z"></path><path d="m4 17 8-4 8 4M12 3v10"></path></svg>
+          </div>
+          <h3>Platform &amp; delivery</h3>
+          <p>
+            Azure platforms defined in code, pipelines without stored secrets, and
+            every change planned and approved before it is applied.
+          </p>
+          <ul class="tag-list"><li>Azure</li><li>Terraform</li><li>Bicep</li><li>GitHub Actions</li></ul>
+        </article>
+
+        <article class="expertise-card reveal">
+          <div class="card-number">02</div>
+          <div class="card-icon icon-green" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3 4 7v6c0 4.5 3.4 7.6 8 8 4.6-.4 8-3.5 8-8V7l-8-4Z"></path><path d="m9 12 2 2 4-4"></path></svg>
+          </div>
+          <h3>Identity &amp; security</h3>
+          <p>
+            Least-privilege access across tenants, just-in-time elevation instead of
+            standing admins, and security policy turned into automation.
+          </p>
+          <ul class="tag-list"><li>Entra ID</li><li>PIM</li><li>OIDC</li><li>Zero Trust</li></ul>
+        </article>
+
+        <article class="expertise-card reveal">
+          <div class="card-number">03</div>
+          <div class="card-icon icon-purple" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 4h8M9 4v5l-5 8a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-5-8V4"></path><path d="M7 14h10"></path></svg>
+          </div>
+          <h3>AI infrastructure</h3>
+          <p>
+            Open models benchmarked and tuned as coding agents, and agents that work
+            inside sandboxes with scoped access and human approval.
+          </p>
+          <ul class="tag-list"><li>vLLM</li><li>LiteLLM</li><li>Benchmarks</li><li>Sandboxing</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section work" id="work">
+    <div class="container">
+      <div class="section-kicker reveal">
+        <p class="eyebrow">Selected work</p>
+        <span>Open source &amp; personal infrastructure</span>
+      </div>
+
+      <article class="project project-featured reveal">
+        <div class="project-copy">
+          <p class="project-label"><span>Open source</span> alpha</p>
+          <h2>Graft</h2>
+          <p class="project-lead">Containers from a few lines of TOML, built by Nix.</p>
+          <p>
+            Describe what a container needs; Nix builds the root filesystem and
+            generates the Podman Quadlet units. No hand-written boilerplate and
+            nothing installed by hand inside a container.
+          </p>
+          <div class="project-meta">
+            <div><small>INPUT</small><strong>TOML</strong></div>
+            <div><small>BUILD</small><strong>Nix</strong></div>
+            <div><small>RUNTIME</small><strong>Podman</strong></div>
+          </div>
+          <a class="text-link" href="https://github.com/Patrick-Kappen/graft" target="_blank" rel="noopener noreferrer">
+            Explore the repository
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"></path></svg>
+          </a>
+        </div>
+        <div class="project-visual">
+          <img
+            src="/assets/graft-flow.svg"
+            alt="Graft workflow from TOML through the Graft CLI and Nix to a Podman Quadlet"
+            width="1280"
+            height="320"
+            loading="lazy"
+          />
+        </div>
+      </article>
+
+      <article class="project project-secondary reveal">
+        <div class="project-visual">
+          <img
+            src="/assets/homelab-map.svg"
+            alt="Homelab map showing edge, compute, storage, recovery, and telemetry services"
+            width="1280"
+            height="430"
+            loading="lazy"
+          />
+        </div>
+        <div class="project-copy">
+          <p class="project-label"><span>Living lab</span> self-hosted</p>
+          <h2>Homelab &amp; NixOS fleet</h2>
+          <p class="project-lead">Where ideas get tested before they reach real work.</p>
+          <p>
+            Proxmox, Talos Kubernetes and GitOps, with 3-2-1 backups and full
+            monitoring. My own machines are a NixOS fleet rebuilt from Git, with
+            signed commits and encrypted secrets, designed so that a compromised
+            GitHub account is not enough to reach it.
+          </p>
+          <div class="project-chips"><span>NixOS</span><span>Proxmox</span><span>Talos</span><span>TrueNAS</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {
+    posts.length > 0 && (
+      <section class="section writing" id="writing">
+        <div class="container">
+          <div class="section-kicker reveal">
+            <p class="eyebrow">Writing</p>
+            <a class="text-link" href="/blog/">All posts</a>
+          </div>
+          <ul class="post-list">
+            {posts.map((post) => (
+              <li class="reveal">
+                <a href={`/blog/${post.id}/`}>
+                  <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                  <h3>{post.data.title}</h3>
+                  <p>{post.data.description}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section principles" id="beliefs">
+    <div class="container principles-grid">
+      <div class="principles-intro reveal">
+        <p class="eyebrow">Things I believe</p>
+        <h2>Boring in production.<br /><em>Interesting in design.</em></h2>
+        <p>The exciting part should be the pull request, not the incident.</p>
+      </div>
+      <ol class="principles-list">
+        {
+          beliefs.map(([title, body], index) => (
+            <li class="reveal">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <div><h3>{title}</h3><p>{body}</p></div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container reveal">
+      <div class="contact-card">
+        <p class="eyebrow">Let's connect</p>
+        <h2>Find me where the<br />work is <em>versioned.</em></h2>
+        <p>Code and what I'm shipping are on GitHub; my career is on LinkedIn.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://github.com/Patrick-Kappen" target="_blank" rel="noopener noreferrer">
+            GitHub
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"></path></svg>
+          </a>
+          <a class="button button-ghost" href="https://www.linkedin.com/in/patrick-kappen/" target="_blank" rel="noopener noreferrer">
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

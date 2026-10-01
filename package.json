@@ -3,18 +3,23 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Personal portfolio website for Patrick Kappen",
+  "description": "Personal website and blog for Patrick Kappen",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
     "deploy": "npm run build && wrangler deploy"
   },
   "engines": {
     "node": ">=22"
   },
   "devDependencies": {
-    "vite": "^7.0.0",
     "wrangler": "^4.0.0"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.5"
   }
 }

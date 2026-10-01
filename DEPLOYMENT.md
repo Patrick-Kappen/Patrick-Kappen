@@ -1,6 +1,6 @@
 # Website development and deployment
 
-This is a static Vite website configured for the `patrickkappen` Cloudflare
+This is a static Astro website configured for the `patrickkappen` Cloudflare
 Worker using Static Assets.
 
 ## Local development
@@ -12,7 +12,7 @@ npm install
 npm run dev
 ```
 
-Vite will print the local URL. Create and inspect a production build with:
+Astro will print the local URL. Create and inspect a production build with:
 
 ```bash
 npm run build
@@ -20,6 +20,15 @@ npm run preview
 ```
 
 The production output is written to `dist/`.
+
+## Writing
+
+Posts are Markdown files in `src/content/blog/`, with `title`, `description`,
+`date`, `tags` and `draft` in the front matter. Drafts show up in `npm run dev`
+but are left out of production builds and the RSS feed. The Writing link and
+section appear once at least one post is published.
+
+The Now section on the home page and the profile README both read `now.json`.
 
 ## Deploy through Cloudflare
 
@@ -55,5 +64,5 @@ npx wrangler login
 npm run deploy
 ```
 
-The `public/_headers` file is copied into `dist/` by Vite and configures the
+The `public/_headers` file is copied into `dist/` by Astro and configures the
 security headers for static responses.

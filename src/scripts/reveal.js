@@ -1,7 +1,5 @@
 document.documentElement.classList.add("js");
 
-document.getElementById("current-year").textContent = new Date().getFullYear();
-
 const revealElements = document.querySelectorAll(".reveal");
 
 if ("IntersectionObserver" in window) {

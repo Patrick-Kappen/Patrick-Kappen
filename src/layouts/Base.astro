@@ -1,0 +1,88 @@
+---
+import "../styles/global.css";
+import { publishedPosts } from "../lib/posts";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Patrick Kappen — Platform & security engineer",
+  description = "Patrick Kappen builds the platforms other people deploy to, and the guard rails around them: Azure, identity and delivery as code, and AI agents with boundaries.",
+} = Astro.props;
+
+const hasPosts = (await publishedPosts()).length > 0;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const image = new URL("/assets/profile-banner-v2.png", Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#080b0f" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Patrick Kappen" href="/rss.xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="Patrick Kappen, home">
+          <span class="brand-mark" aria-hidden="true">PK</span>
+          <span class="brand-copy">
+            <strong>Patrick Kappen</strong>
+            <small>Platform · Security · AI</small>
+          </span>
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="/#now">Now</a>
+          <a href="/#work">Work</a>
+          {hasPosts && <a href="/blog/">Writing</a>}
+          <a href="/#beliefs">Beliefs</a>
+        </nav>
+
+        <a
+          class="button button-small button-ghost header-cta"
+          href="https://github.com/Patrick-Kappen"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"></path></svg>
+        </a>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="brand footer-brand">
+          <span class="brand-mark" aria-hidden="true">PK</span>
+          <span class="brand-copy"><strong>Patrick Kappen</strong><small>Built declaratively.</small></span>
+        </div>
+        <p>© {new Date().getFullYear()} Patrick Kappen</p>
+        <a href="#main-content">Back to top <span aria-hidden="true">↑</span></a>
+      </div>
+    </footer>
+
+    <script src="../scripts/reveal.js"></script>
+  </body>
+</html>
