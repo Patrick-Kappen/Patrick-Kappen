@@ -22,7 +22,8 @@ keys.
 
 - **If it's not in Git, it doesn't exist.** Portal clicks are drift with extra
   steps.
-- **A backup you haven't restored is a rumour.** Recovery gets tested, or it isn't there.
+- **A backup you haven't restored is a rumour.** Recovery gets tested, or it
+  isn't there.
 - **Standing admin access is a bug, not a convenience.** Rights are granted just
   in time and expire on their own.
 - **AI agents get the intern treatment.** A sandbox, a reviewer, and no
