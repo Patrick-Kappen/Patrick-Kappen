@@ -71,12 +71,14 @@ container needs; Nix builds the rest.
 
 ### Now
 
-- Moving a whole organisation from Azure DevOps to GitHub, with OIDC instead of stored secrets
-- Turning GDAP, Lighthouse and PIM/JIT access into Terraform
 - Studying for GitHub Actions and AI-103
 - Building a blog on patrick.kappen.io
 
 _Last changed Oct 2026._
+
+### Latest writing
+
+- [Two GitHub accounts, one machine, zero switching](https://patrick.kappen.io/blog/two-github-accounts-by-directory/)
 
 ### Recently shipped
 
