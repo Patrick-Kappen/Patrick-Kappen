@@ -66,7 +66,7 @@
     --gradient-hover: linear-gradient(90deg, #0bd1d1, #0ea5ea);
     --font: "Noto Sans Variable", "Noto Sans", ui-sans-serif, system-ui, sans-serif;
     --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-    --container: 1140px;
+    --container: 1360px;
     --radius: 8px;
     --shadow: 0 3px 20px hsl(180deg 90% 43% / 20%);
   }
@@ -157,7 +157,7 @@
 
 @layer layout {
   .container {
-    width: min(calc(100% - 40px), var(--container));
+    width: min(calc(100% - clamp(40px, 6vw, 96px)), var(--container));
     margin-inline: auto;
   }
 
@@ -464,10 +464,9 @@
 
   .hero-grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 64px;
     align-items: center;
-    padding-inline: 44px;
   }
 
   .hero-copy {
@@ -483,15 +482,15 @@
 
   .hero h1 {
     color: var(--alice);
-    font-size: clamp(2.3rem, 4.4vw, 3.5rem);
+    font-size: clamp(2.3rem, 4.4vw, 4rem);
     font-weight: 800;
     line-height: 1.15;
   }
 
   .hero-text {
-    max-width: 500px;
+    max-width: 620px;
     color: var(--wild);
-    font-size: 1.05rem;
+    font-size: 1.125rem;
     line-height: 1.7;
   }
 
@@ -505,7 +504,7 @@
   .hero-photo {
     position: relative;
     justify-self: center;
-    width: min(100%, 340px);
+    width: min(100%, 400px);
     aspect-ratio: 1;
   }
 
@@ -565,7 +564,7 @@
 
   .topics-panel {
     display: grid;
-    grid-template-columns: 250px minmax(0, 1fr);
+    grid-template-columns: 280px minmax(0, 1fr);
     gap: 24px;
     align-items: center;
     margin-top: 72px;
@@ -635,7 +634,7 @@
     position: relative;
     display: block;
     overflow: hidden;
-    aspect-ratio: 4 / 5;
+    height: clamp(260px, 24vw, 330px);
     border-radius: var(--radius);
   }
 
@@ -828,7 +827,7 @@
   .tag-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 24px 30px;
+    gap: 24px;
   }
 
   .tag-chip {
@@ -879,8 +878,8 @@
 
   .content-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 400px;
-    gap: 48px;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    gap: 64px;
     align-items: start;
   }
 
@@ -892,13 +891,13 @@
 
   .work-card {
     display: grid;
-    grid-template-columns: 265px 1fr;
-    gap: 20px;
+    grid-template-columns: 320px 1fr;
+    gap: 28px;
   }
 
   .work-card-media {
     overflow: hidden;
-    aspect-ratio: 265 / 250;
+    aspect-ratio: 4 / 3;
     border-radius: var(--radius);
   }
 
