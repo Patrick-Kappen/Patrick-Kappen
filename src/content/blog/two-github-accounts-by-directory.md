@@ -13,7 +13,7 @@ draft: false
 
 Okay, I have to show you this, because it made me unreasonably happy:
 
-```console
+```shell-session
 ~/hub/private/site $ gh api user --jq .login
 Patrick-Kappen
 
@@ -139,7 +139,7 @@ cheerfully handed over a personal token, and that was that.
 The fix is that "typo" from earlier. An empty `helper =` tells git: *forget
 everything before this line*. You can actually watch it happen:
 
-```console
+```shell-session
 $ git config --get-all credential.https://github.com.helper
 /nix/store/…-gh-credential-Patrick-Kappen
 
