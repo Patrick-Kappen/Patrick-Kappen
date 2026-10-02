@@ -33,8 +33,8 @@ export const planned: PlannedPost[] = [
     topic: "ai",
   },
   {
-    title: "Why my NixOS fleet doesn't trust GitHub",
-    description: "Signed commits, a trust anchor and a verifier between fetch and build.",
+    title: "Two GitHub accounts, one machine, zero switching",
+    description: "I split my GitHub life in two and refused to switch accounts by hand ever again. Nix made it easy, git and gh made it interesting.",
     topic: "nix",
   },
 ];

@@ -4,7 +4,7 @@ import Cover from "../../components/Cover.astro";
 import { externalLink, profile } from "../../data/profile";
 import { topics } from "../../data/topics";
 import Base from "../../layouts/Base.astro";
-import { formatDate, publishedPosts, readingMinutes, type Post } from "../../lib/posts";
+import { formatDate, publishedPosts, readingMinutes, tagSlug, type Post } from "../../lib/posts";
 
 export async function getStaticPaths() {
   const posts = await publishedPosts();
@@ -16,7 +16,9 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+const toc = headings.filter((heading) => heading.depth === 2);
+const tags = post.data.tags.map((tag) => ({ name: tag, href: `/blog/tags/${tagSlug(tag)}/` }));
 ---
 
 <Base title={`${post.data.title} — ${profile.name}`} description={post.data.description}>
@@ -30,33 +32,73 @@ const { Content } = await render(post);
           <span>· {readingMinutes(post)} min read</span>
         </p>
         <h1>{post.data.title}</h1>
+        {tags.length > 0 && (
+          <ul class="tag-list" aria-label="Tags">
+            <li><a class="tag-pill tag-pill-topic" href="/blog/">#{topics[post.data.topic].name}</a></li>
+            {tags.map((tag) => <li><a class="tag-pill" href={tag.href}>#{tag.name}</a></li>)}
+          </ul>
+        )}
       </header>
 
       <figure class="article-cover">
-        <Cover topic={post.data.topic} seed={post.data.title} />
-        <span class="article-cover-mark" aria-hidden="true"></span>
-        <span class="topic-chip">#{topics[post.data.topic].name}</span>
+        {post.data.image ? (
+          <img src={post.data.image} alt={post.data.imageAlt} width="1600" height="640" />
+        ) : (
+          <Cover topic={post.data.topic} seed={post.data.title} />
+        )}
       </figure>
+      {post.data.imageCredit && (
+        <p class="article-credit">
+          {post.data.imageCreditUrl ? (
+            <a href={post.data.imageCreditUrl} target="_blank" rel="noopener noreferrer">{post.data.imageCredit}</a>
+          ) : (
+            post.data.imageCredit
+          )}
+        </p>
+      )}
 
-      <div class="article-body">
-        <p class="article-lead">{post.data.description}</p>
-        <div class="prose">
-          <Content />
+      <div class="article-grid">
+        {toc.length > 0 && (
+          <nav class="article-toc" aria-label="On this page">
+            <h2 class="widget-title">On this page</h2>
+            <ol>
+              {toc.map((heading) => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}
+            </ol>
+          </nav>
+        )}
+
+        <div class="article-body">
+          <p class="article-lead">{post.data.description}</p>
+          <div class="prose">
+            <Content />
+          </div>
         </div>
 
-        <footer class="author-box">
-          <img src={profile.photo} alt="" width="72" height="72" />
-          <div>
-            <p class="author-label">Written by</p>
-            <h2>{profile.name}</h2>
+        <aside class="article-aside">
+          <section class="widget profile-widget">
+            <h2 class="widget-title">Written by</h2>
+            <div class="profile-row">
+              <img src={profile.photo} alt={`Portrait of ${profile.name}`} width="72" height="72" />
+              <div>
+                <strong>{profile.name}</strong>
+                <span>{profile.title} @ {profile.company}</span>
+              </div>
+            </div>
             <p>{profile.short}</p>
             <div class="profile-links">
-              {profile.links.map((link) => (
-                <a href={link.href} {...externalLink(link.href)}>{link.label}</a>
-              ))}
+              {profile.links.map((link) => <a href={link.href} {...externalLink(link.href)}>{link.label}</a>)}
             </div>
-          </div>
-        </footer>
+          </section>
+
+          {tags.length > 0 && (
+            <section class="widget">
+              <h2 class="widget-title">Tags</h2>
+              <ul class="tag-list">
+                {tags.map((tag) => <li><a class="tag-pill" href={tag.href}>#{tag.name}</a></li>)}
+              </ul>
+            </section>
+          )}
+        </aside>
       </div>
     </div>
   </article>

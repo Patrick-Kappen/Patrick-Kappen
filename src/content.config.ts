@@ -11,6 +11,10 @@ const blog = defineCollection({
     date: z.coerce.date(),
     topic: z.enum(topicKeys as [TopicKey, ...TopicKey[]]),
     tags: z.array(z.string()).default([]),
+    image: z.string().optional(),
+    imageAlt: z.string().default(""),
+    imageCredit: z.string().optional(),
+    imageCreditUrl: z.string().url().optional(),
     draft: z.boolean().default(false),
   }),
 });

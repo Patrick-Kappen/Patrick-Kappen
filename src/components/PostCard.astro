@@ -9,13 +9,13 @@ interface Props extends Card {
   large?: boolean;
 }
 
-const { title, topic, href, date, minutes, badge, large = false } = Astro.props;
+const { title, topic, href, date, minutes, image, badge, large = false } = Astro.props;
 const Tag = href ? "a" : "article";
 ---
 
 <Tag class:list={["post-card", { "post-card-large": large }]} href={href}>
   <figure class="post-card-media">
-    <Cover topic={topic} seed={title} />
+    {image ? <img src={image} alt="" width="1600" height="640" loading="lazy" /> : <Cover topic={topic} seed={title} />}
     {badge && <span class="post-badge">{badge}</span>}
   </figure>
   <div class="post-card-meta">

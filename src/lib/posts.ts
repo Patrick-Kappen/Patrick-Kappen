@@ -10,6 +10,7 @@ export interface Card {
   href?: string;
   date?: string;
   minutes?: number;
+  image?: string;
 }
 
 export async function publishedPosts(): Promise<Post[]> {
@@ -44,9 +45,28 @@ export async function blogIndex() {
     href: `/blog/${post.id}/`,
     date: `${formatDate(post.data.date)}${post.data.draft ? " · draft" : ""}`,
     minutes: readingMinutes(post),
+    image: post.data.image,
   }));
   const upcoming: Card[] = planned
     .filter((item) => !titles.has(item.title))
     .map((item) => ({ title: item.title, topic: item.topic }));
   return { posts, published, upcoming };
+}
+
+export function tagSlug(tag: string): string {
+  return tag.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+export async function postsByTag() {
+  const posts = await publishedPosts();
+  const tags = new Map<string, { name: string; posts: Post[] }>();
+  for (const post of posts) {
+    for (const tag of post.data.tags) {
+      const slug = tagSlug(tag);
+      const entry = tags.get(slug) ?? { name: tag, posts: [] };
+      entry.posts.push(post);
+      tags.set(slug, entry);
+    }
+  }
+  return tags;
 }

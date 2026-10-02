@@ -1,0 +1,44 @@
+---
+import PostCard from "../../../components/PostCard.astro";
+import Sidebar from "../../../components/Sidebar.astro";
+import { profile } from "../../../data/profile";
+import Base from "../../../layouts/Base.astro";
+import { formatDate, postsByTag, readingMinutes, type Post } from "../../../lib/posts";
+
+export async function getStaticPaths() {
+  const tags = await postsByTag();
+  return [...tags].map(([tag, entry]) => ({ params: { tag }, props: entry }));
+}
+
+interface Props {
+  name: string;
+  posts: Post[];
+}
+
+const { name, posts } = Astro.props;
+---
+
+<Base title={`#${name} — ${profile.name}`} description={`Posts tagged ${name}.`}>
+  <section class="section page-top">
+    <div class="container content-layout">
+      <div>
+        <p class="article-kicker"><a href="/blog/">Blog</a><span class="kicker-line" aria-hidden="true"></span><span>Tag</span></p>
+        <h1 class="section-title gradient-text">#{name}</h1>
+        <p class="section-subtitle">{posts.length} {posts.length === 1 ? "post" : "posts"}</p>
+        <div class="post-grid post-grid-two">
+          {posts.map((post) => (
+            <PostCard
+              title={post.data.title}
+              topic={post.data.topic}
+              href={`/blog/${post.id}/`}
+              date={`${formatDate(post.data.date)}${post.data.draft ? " · draft" : ""}`}
+              minutes={readingMinutes(post)}
+              image={post.data.image}
+            />
+          ))}
+        </div>
+      </div>
+      <Sidebar />
+    </div>
+  </section>
+</Base>
