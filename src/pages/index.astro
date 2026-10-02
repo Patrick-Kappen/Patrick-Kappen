@@ -1,0 +1,128 @@
+---
+import Cover from "../components/Cover.astro";
+import PostCard from "../components/PostCard.astro";
+import Sidebar from "../components/Sidebar.astro";
+import WorkItem from "../components/WorkItem.astro";
+import { profile } from "../data/profile";
+import { topicKeys, topics } from "../data/topics";
+import { featuredWork } from "../data/work";
+import Base from "../layouts/Base.astro";
+import { blogIndex } from "../lib/posts";
+
+const { published, upcoming } = await blogIndex();
+const hasPosts = published.length > 0;
+const cards = [...published, ...upcoming].slice(0, 5);
+
+const topicList = topicKeys
+  .map((key) => ({
+    key,
+    ...topics[key],
+    count: published.filter((card) => card.topic === key).length,
+  }))
+  .filter((topic) => topic.count > 0 || upcoming.some((card) => card.topic === topic.key));
+---
+
+<Base>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="hero-eyebrow">{profile.role}</p>
+        <h1>I'm <span class="gradient-text">{profile.name}</span></h1>
+        <p class="hero-text">
+          {profile.title} at {profile.company}. {profile.tagline} {profile.intro}
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#latest">Read the blog <span aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="/about/">About me</a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src={profile.photo} alt={`Portrait of ${profile.name}`} width="315" height="315" />
+        <span class="deco-cross" aria-hidden="true"></span>
+        <span class="deco-dot" aria-hidden="true"></span>
+      </figure>
+    </div>
+
+    {topicList.length > 0 && (
+      <div class="container">
+        <div class="topics-panel">
+          <div class="topics-intro">
+            <h2>Topics</h2>
+            <p>What I write about, from the day job at an {profile.companyNote} and from my homelab.</p>
+            <div class="slider-controls">
+              <button type="button" class="slider-btn" data-slide="prev" aria-label="Previous topics">←</button>
+              <button type="button" class="slider-btn" data-slide="next" aria-label="Next topics">→</button>
+            </div>
+          </div>
+          <ul class="topics-slider" data-slider>
+            {topicList.map((topic) => (
+              <li>
+                <a class="topic-card" href="/blog/">
+                  <Cover topic={topic.key} seed={`${topic.name} topic`} />
+                  <span class="topic-card-text">
+                    <strong>{topic.name}</strong>
+                    <span>{topic.count > 0 ? `${topic.count} ${topic.count === 1 ? "post" : "posts"}` : topic.blurb}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    )}
+  </section>
+
+  {cards.length > 0 && (
+    <section class="section" id="latest">
+      <div class="container">
+        <h2 class="section-title gradient-text">{hasPosts ? "Latest posts" : "Coming up"}</h2>
+        <p class="section-subtitle">
+          {hasPosts ? "Practical notes from building platforms" : "The first posts are being written right now"}
+        </p>
+        <div class="post-grid">
+          {cards.map((card, index) => <PostCard {...card} large={index < 2} badge={!hasPosts && index === 0 ? "Next up" : undefined} />)}
+        </div>
+        <div class="center">
+          <a class="btn btn-primary btn-pill" href="/blog/">Show all posts <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {profile.stack.length > 0 && (
+    <section class="section section-tight">
+      <div class="container">
+        <h2 class="section-title gradient-text">What I work with</h2>
+        <p class="section-subtitle">The tools behind the posts</p>
+        <ul class="tag-grid">
+          {profile.stack.map((item, index) => (
+            <li class="tag-chip">
+              <span class:list={["tag-initial", `tag-initial-${index % 4}`]}>{item.slice(0, 1)}</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container content-layout">
+      <div>
+        {featuredWork.length > 0 && (
+          <>
+            <h2 class="section-title gradient-text">Recent work</h2>
+            <p class="section-subtitle">What I'm building at work and on my own time</p>
+            <div class="work-list">
+              {featuredWork.map((item) => <WorkItem {...item} />)}
+            </div>
+            <a class="btn btn-ghost" href="/about/#work">More about my work →</a>
+          </>
+        )}
+      </div>
+      <Sidebar />
+    </div>
+  </section>
+
+  <script src="../scripts/slider.js"></script>
+</Base>

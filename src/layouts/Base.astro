@@ -1,0 +1,108 @@
+---
+import "@fontsource-variable/noto-sans";
+import "../styles/global.css";
+import { externalLink, profile } from "../data/profile";
+import { topicKeys, topics } from "../data/topics";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${profile.name} — ${profile.role}`,
+  description = `${profile.tagline} ${profile.intro}`,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const image = new URL("/assets/profile-banner-v2.png", Astro.site);
+const path = Astro.url.pathname;
+const nav = [
+  { label: "Home", href: "/", active: path === "/" },
+  { label: "Blog", href: "/blog/", active: path.startsWith("/blog") },
+  { label: "Work", href: "/about/#work", active: false },
+  { label: "About", href: "/about/", active: path.startsWith("/about") },
+  { label: "Contact", href: "/about/#contact", active: false },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#080e1d" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={profile.name} href="/rss.xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="/" aria-label={`${profile.name}, home`}>
+          <span class="logo-mark" aria-hidden="true">PK</span>
+          <span>{profile.firstName}</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          {nav.map((item) => (
+            <a href={item.href} class:list={{ active: item.active }} aria-current={item.active ? "page" : undefined}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+
+        <a class="btn btn-primary btn-small" href="/rss.xml">Subscribe</a>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-panel">
+          <div class="footer-brand">
+            <a class="logo" href="/"><span class="logo-mark" aria-hidden="true">PK</span><span>{profile.firstName}</span></a>
+            <p>{profile.tagline} Built with Astro and deployed from Git.</p>
+            <h2>Based in</h2>
+            <p>{profile.location[0].toUpperCase() + profile.location.slice(1)}</p>
+          </div>
+
+          <div class="footer-col">
+            <h2>Topics</h2>
+            <ul class="footer-topics">
+              {topicKeys.map((key) => <li><a href="/blog/">{topics[key].name}</a></li>)}
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h2>Follow along</h2>
+            <p>New posts appear in the RSS feed first, and on LinkedIn.</p>
+            <ul>
+              {profile.links.map((link) => (
+                <li><a href={link.href} {...externalLink(link.href)}>{link.label} →</a></li>
+              ))}
+              <li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+            </ul>
+          </div>
+        </div>
+        <p class="footer-copy">© {new Date().getFullYear()} {profile.name}</p>
+      </div>
+    </footer>
+
+    <script src="../scripts/reveal.js"></script>
+  </body>
+</html>

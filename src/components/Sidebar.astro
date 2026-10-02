@@ -1,0 +1,40 @@
+---
+import now from "../../now.json";
+import { externalLink, profile } from "../data/profile";
+---
+
+<aside class="sidebar">
+  <section class="widget profile-widget">
+    <h2 class="widget-title">About me</h2>
+    <div class="profile-row">
+      <img src={profile.photo} alt={`Portrait of ${profile.name}`} width="72" height="72" />
+      <div>
+        <strong>{profile.name}</strong>
+        <span>{profile.title} @ {profile.company}</span>
+      </div>
+    </div>
+    <p>{profile.short}</p>
+    <div class="profile-links">
+      {profile.links.map((link) => <a href={link.href} {...externalLink(link.href)}>{link.label}</a>)}
+    </div>
+  </section>
+
+  {now.now.length > 0 && (
+    <section class="widget">
+      <h2 class="widget-title">Now</h2>
+      <ul class="now-list">
+        {now.now.map((entry) => <li>{entry}</li>)}
+      </ul>
+    </section>
+  )}
+
+  {profile.certifications.length > 0 && (
+    <section class="widget">
+      <h2 class="widget-title">Certified</h2>
+      <div class="cert-list">
+        {profile.certifications.map((cert) => <span class="cert">{cert}</span>)}
+      </div>
+      {profile.studying.length > 0 && <p class="muted">Studying: {profile.studying.join(" · ")}</p>}
+    </section>
+  )}
+</aside>

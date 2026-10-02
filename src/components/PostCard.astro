@@ -1,0 +1,43 @@
+---
+import { profile } from "../data/profile";
+import { topics } from "../data/topics";
+import type { Card } from "../lib/posts";
+import Cover from "./Cover.astro";
+
+interface Props extends Card {
+  badge?: string;
+  large?: boolean;
+}
+
+const { title, topic, href, date, minutes, badge, large = false } = Astro.props;
+const Tag = href ? "a" : "article";
+---
+
+<Tag class:list={["post-card", { "post-card-large": large }]} href={href}>
+  <figure class="post-card-media">
+    <Cover topic={topic} seed={title} />
+    {badge && <span class="post-badge">{badge}</span>}
+  </figure>
+  <div class="post-card-meta">
+    <span>#{topics[topic].name}</span>
+    {minutes ? (
+      <span class="post-time">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+        {minutes} min read
+      </span>
+    ) : (
+      <span class="post-time">Planned</span>
+    )}
+  </div>
+  <h3>{title}</h3>
+  {href && (
+    <div class="post-card-footer">
+      <img src={profile.photo} alt="" width="48" height="48" loading="lazy" />
+      <span class="post-card-author">
+        <strong>{profile.firstName}</strong>
+        {date && <span>{date}</span>}
+      </span>
+      <span class="read-more">Read more</span>
+    </div>
+  )}
+</Tag>

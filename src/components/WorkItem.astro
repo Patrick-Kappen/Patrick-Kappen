@@ -1,0 +1,25 @@
+---
+import { externalLink } from "../data/profile";
+import type { Work } from "../data/work";
+import Cover from "./Cover.astro";
+
+type Props = Work;
+
+const { title, summary, context, status, topic, tags, link } = Astro.props;
+const Tag = link ? "a" : "article";
+---
+
+<Tag class="work-card" href={link} {...(link ? externalLink(link) : {})}>
+  <figure class="work-card-media">
+    <Cover topic={topic} seed={title} />
+  </figure>
+  <div class="work-card-body">
+    <span class="pill">{context}</span>
+    <h3>{title}</h3>
+    <p>{summary}</p>
+    <div class="work-card-meta">
+      <span>{tags.map((tag) => `# ${tag}`).join("   ")}</span>
+      <span>{status}</span>
+    </div>
+  </div>
+</Tag>

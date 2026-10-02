@@ -6,5 +6,5 @@
     "Studying for GitHub Actions and AI-103",
     "Building a blog on patrick.kappen.io"
   ],
-  "feed": null
+  "feed": "https://patrick.kappen.io/rss.xml"
 }

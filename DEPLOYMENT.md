@@ -1,6 +1,6 @@
 # Website development and deployment
 
-This is a static Vite website configured for the `patrickkappen` Cloudflare
+This is a static Astro website configured for the `patrickkappen` Cloudflare
 Worker using Static Assets.
 
 ## Local development
@@ -12,7 +12,7 @@ npm install
 npm run dev
 ```
 
-Vite will print the local URL. Create and inspect a production build with:
+Astro will print the local URL. Create and inspect a production build with:
 
 ```bash
 npm run build
@@ -20,6 +20,24 @@ npm run preview
 ```
 
 The production output is written to `dist/`.
+
+## Content
+
+All text lives in data files; the pages only lay it out. A section disappears
+when its list is empty.
+
+| File | What it holds |
+|---|---|
+| `src/data/profile.ts` | Name, role, intro, photo, links, certifications, stack, and the About page text, focus, beliefs and contact |
+| `src/data/topics.ts` | Topics with name, short description, icon and colours |
+| `src/data/work.ts` | Work items; `featured` ones also appear on the home page |
+| `src/data/planned.ts` | Planned posts, shown as "Coming up" until a post with the same title is published |
+| `now.json` | The Now list in the sidebar, also used by the profile README |
+| `src/content/blog/*.md` | Blog posts |
+
+Posts have `title`, `description`, `date`, `topic`, `tags` and `draft` in the
+front matter. Drafts show up in `npm run dev` but are left out of production
+builds and the RSS feed. Reading time is calculated from the text.
 
 ## Deploy through Cloudflare
 
@@ -55,5 +73,5 @@ npx wrangler login
 npm run deploy
 ```
 
-The `public/_headers` file is copied into `dist/` by Vite and configures the
+The `public/_headers` file is copied into `dist/` by Astro and configures the
 security headers for static responses.
