@@ -1,0 +1,56 @@
+---
+import WorkCard from "../../components/WorkCard.astro";
+import { profile } from "../../data/profile";
+import { work } from "../../data/work";
+import Base from "../../layouts/Base.astro";
+import { tagSlug } from "../../lib/posts";
+
+const counts = new Map<string, { name: string; count: number }>();
+for (const item of work) {
+  for (const tag of item.tags) {
+    const slug = tagSlug(tag);
+    const entry = counts.get(slug) ?? { name: tag, count: 0 };
+    entry.count += 1;
+    counts.set(slug, entry);
+  }
+}
+const filters = [...counts]
+  .map(([slug, entry]) => ({ slug, ...entry }))
+  .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+---
+
+<Base title={`Work — ${profile.name}`} description={`What ${profile.firstName} is building at work and on his own time: platforms, identity, recovery and AI infrastructure.`}>
+  <section class="section page-top">
+    <div class="container">
+      <p class="article-kicker"><a href="/">Home</a><span class="kicker-line" aria-hidden="true"></span><span>{work.length} projects</span></p>
+      <h1 class="section-title">Work</h1>
+      <p class="section-subtitle work-intro">
+        What I'm building at {profile.company} and on my own time. Each project starts with a
+        problem I wanted gone, and ends up as code that anyone on the team can read and repeat.
+      </p>
+
+      {filters.length > 0 && (
+        <div class="work-filter" data-work-filter hidden>
+          <span class="work-filter-label">Filter</span>
+          <ul class="tag-list">
+            <li><button type="button" class="tag-pill tag-filter" data-filter="" aria-pressed="true">All <span>{work.length}</span></button></li>
+            {filters.map((filter) => (
+              <li>
+                <button type="button" class="tag-pill tag-filter" data-filter={filter.slug} aria-pressed="false">
+                  #{filter.name} <span>{filter.count}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div class="work-entries" data-work-list>
+        {work.map((item) => <WorkCard {...item} />)}
+      </div>
+      <p class="work-empty" data-work-empty hidden>Nothing with that tag yet.</p>
+    </div>
+  </section>
+
+  <script src="../../scripts/work-filter.js"></script>
+</Base>

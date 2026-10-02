@@ -9,7 +9,7 @@ interface Props extends Card {
   large?: boolean;
 }
 
-const { title, topic, href, date, minutes, image, badge, large = false } = Astro.props;
+const { title, topic, href, date, minutes, image, description, badge, large = false } = Astro.props;
 const Tag = href ? "a" : "article";
 ---
 
@@ -30,6 +30,7 @@ const Tag = href ? "a" : "article";
     )}
   </div>
   <h3>{title}</h3>
+  {description && <p class="post-card-excerpt">{description}</p>}
   {href && (
     <div class="post-card-footer">
       <img src={profile.photo} alt="" width="48" height="48" loading="lazy" />

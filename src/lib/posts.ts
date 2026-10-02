@@ -11,6 +11,7 @@ export interface Card {
   date?: string;
   minutes?: number;
   image?: string;
+  description?: string;
 }
 
 export async function publishedPosts(): Promise<Post[]> {
@@ -46,6 +47,7 @@ export async function blogIndex() {
     date: `${formatDate(post.data.date)}${post.data.draft ? " · draft" : ""}`,
     minutes: readingMinutes(post),
     image: post.data.image,
+    description: post.data.description,
   }));
   const upcoming: Card[] = planned
     .filter((item) => !titles.has(item.title))

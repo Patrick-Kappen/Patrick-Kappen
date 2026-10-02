@@ -1,5 +1,6 @@
 ---
 import PostCard from "../../components/PostCard.astro";
+import PostRow from "../../components/PostRow.astro";
 import Sidebar from "../../components/Sidebar.astro";
 import { profile } from "../../data/profile";
 import Base from "../../layouts/Base.astro";
@@ -11,17 +12,18 @@ const hasPosts = published.length > 0;
 
 <Base title={`Blog — ${profile.name}`} description={profile.intro}>
   <section class="section page-top">
+    <div class="container page-head">
+      <h1 class="section-title">Blog</h1>
+      <p class="section-subtitle">
+        Practical write-ups from building platforms, access models and AI infrastructure.
+        Follow along via <a class="text-link" href="/rss.xml">RSS</a>.
+      </p>
+    </div>
     <div class="container content-layout">
       <div>
-        <h1 class="section-title gradient-text">Blog</h1>
-        <p class="section-subtitle">
-          Practical write-ups from building platforms, access models and AI infrastructure.
-          Follow along via <a class="text-link" href="/rss.xml">RSS</a>.
-        </p>
-
         {hasPosts && (
-          <div class="post-grid post-grid-two">
-            {published.map((card) => <PostCard {...card} />)}
+          <div class="post-rows">
+            {published.map((card) => <PostRow {...card} />)}
           </div>
         )}
 

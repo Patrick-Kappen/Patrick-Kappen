@@ -1,6 +1,7 @@
 # The shared linter runs with locale en-us. This repository is written in
 # British English on purpose; these are spellings, not typos.
 [default.extend-words]
+HPE = "HPE"
 materialise = "materialise"
 materialises = "materialises"
 materialisation = "materialisation"

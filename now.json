@@ -1,8 +1,6 @@
 {
-  "updated": "2026-10-01",
+  "updated": "2026-10-02",
   "now": [
-    "Moving a whole organisation from Azure DevOps to GitHub, with OIDC instead of stored secrets",
-    "Turning GDAP, Lighthouse and PIM/JIT access into Terraform",
     "Studying for GitHub Actions and AI-103",
     "Building a blog on patrick.kappen.io"
   ],
