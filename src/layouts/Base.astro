@@ -1,7 +1,6 @@
 ---
 import "@fontsource-variable/inter";
 import "../styles/global.css";
-import { publishedPosts } from "../lib/posts";
 
 interface Props {
   title?: string;
@@ -13,7 +12,6 @@ const {
   description = "Patrick Kappen builds the platforms other people deploy to, and the guard rails around them: Azure, identity and delivery as code, and AI agents with boundaries.",
 } = Astro.props;
 
-const hasPosts = (await publishedPosts()).length > 0;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const image = new URL("/assets/profile-banner-v2.png", Astro.site);
 ---
@@ -24,7 +22,7 @@ const image = new URL("/assets/profile-banner-v2.png", Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#1f1d1b" />
+    <meta name="theme-color" content="#1c1e21" />
     <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -49,9 +47,8 @@ const image = new URL("/assets/profile-banner-v2.png", Astro.site);
 
         <nav class="main-nav" aria-label="Main navigation">
           <a href="/#about">About</a>
-          <a href="/#focus">Focus</a>
           <a href="/#work">Work</a>
-          {hasPosts && <a href="/blog/">Writing</a>}
+          <a href="/blog/">Blog</a>
           <a href="/#contact">Contact</a>
         </nav>
 

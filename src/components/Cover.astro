@@ -1,0 +1,39 @@
+---
+interface Props {
+  seed: string;
+  label?: string;
+}
+
+const { seed, label } = Astro.props;
+
+let hash = 0;
+for (const character of seed) {
+  hash = (hash * 31 + character.charCodeAt(0)) >>> 0;
+}
+
+const palettes = [
+  ["#7fcda0", "#8ab4f8"],
+  ["#8ab4f8", "#b7a3f5"],
+  ["#7fcda0", "#5fb8c9"],
+  ["#5fb8c9", "#8ab4f8"],
+];
+const [from, to] = palettes[hash % palettes.length];
+const id = `cover-${hash.toString(36)}`;
+const rings = Array.from({ length: 6 }, (_, index) => 60 + index * 46);
+const originX = 120 + (hash % 360);
+const originY = 60 + ((hash >> 8) % 220);
+---
+
+<svg class="cover" viewBox="0 0 640 336" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <linearGradient id={`${id}-bg`} x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color={from} stop-opacity="0.28"></stop>
+      <stop offset="1" stop-color={to} stop-opacity="0.12"></stop>
+    </linearGradient>
+  </defs>
+  <rect class="cover-base" width="640" height="336"></rect>
+  <rect width="640" height="336" fill={`url(#${id}-bg)`}></rect>
+  {rings.map((radius) => <circle class="cover-ring" cx={originX} cy={originY} r={radius} stroke={from}></circle>)}
+  <circle cx={originX} cy={originY} r="10" fill={to}></circle>
+  {label && <text class="cover-label" x="28" y="306">{label}</text>}
+</svg>

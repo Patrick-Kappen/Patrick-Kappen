@@ -1,0 +1,56 @@
+---
+const steps = [
+  { y: 40, label: "Pull request", detail: "infra as code", icon: "branch" },
+  { y: 132, label: "Plan", detail: "what-if · terraform plan", icon: "plan" },
+  { y: 224, label: "Approve", detail: "a human reviews", icon: "person" },
+  { y: 316, label: "Apply", detail: "OIDC · no stored secrets", icon: "cloud" },
+];
+---
+
+<svg class="hero-art" viewBox="0 0 460 420" role="img" aria-labelledby="hero-art-title">
+  <title id="hero-art-title">A change flowing from pull request through plan and human approval to apply</title>
+
+  <path class="art-rail" d="M78 96 V316"></path>
+  <path class="art-flow" d="M78 96 V316"></path>
+
+  {
+    steps.map((step, index) => (
+      <g class:list={["art-step", { "art-step-key": step.icon === "person" }]} transform={`translate(24 ${step.y})`}>
+        <rect class="art-card" width="412" height="64" rx="14"></rect>
+        <circle class="art-dot" cx="54" cy="32" r="18"></circle>
+        {step.icon === "branch" && (
+          <g class="art-icon" transform="translate(44 22)">
+            <circle cx="4" cy="3" r="2.5"></circle>
+            <circle cx="4" cy="17" r="2.5"></circle>
+            <circle cx="16" cy="7" r="2.5"></circle>
+            <path d="M4 5.5v9M16 9.5c0 4-6 4-11 6"></path>
+          </g>
+        )}
+        {step.icon === "plan" && (
+          <g class="art-icon" transform="translate(44 22)">
+            <path d="M3 4h14M3 10h10M3 16h12"></path>
+          </g>
+        )}
+        {step.icon === "person" && (
+          <g class="art-icon" transform="translate(44 22)">
+            <circle cx="10" cy="6" r="4"></circle>
+            <path d="M2 19c1.5-4 4.5-6 8-6s6.5 2 8 6"></path>
+          </g>
+        )}
+        {step.icon === "cloud" && (
+          <g class="art-icon" transform="translate(44 22)">
+            <path d="M6 17h9a4 4 0 0 0 0-8 6 6 0 0 0-11.5 1.5A3.3 3.3 0 0 0 6 17Z"></path>
+          </g>
+        )}
+        <text class="art-label" x="90" y="29">{step.label}</text>
+        <text class="art-detail" x="90" y="48">{step.detail}</text>
+        <text class="art-index" x="388" y="38" text-anchor="end">{String(index + 1).padStart(2, "0")}</text>
+      </g>
+    ))
+  }
+
+  <g class="art-badge" transform="translate(286 202)">
+    <rect width="132" height="28" rx="14"></rect>
+    <text x="66" y="18.5" text-anchor="middle">✓ approved</text>
+  </g>
+</svg>

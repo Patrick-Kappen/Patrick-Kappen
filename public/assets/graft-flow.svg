@@ -1,0 +1,54 @@
+<svg width="1280" height="320" viewBox="0 0 1280 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="320" rx="18" fill="#0d1117"/>
+  <defs>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#3fb950"/>
+      <stop offset="0.5" stop-color="#79c0ff"/>
+      <stop offset="1" stop-color="#d2a8ff"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(640 140) scale(560 220)">
+      <stop stop-color="#3fb950" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#0d1117" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="320" fill="url(#glow)"/>
+
+  <text x="64" y="64" fill="#e6edf3" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="30" font-weight="800">Graft: TOML to Quadlet</text>
+  <text x="64" y="96" fill="#8b949e" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="17" font-weight="500">A small resolver-first workflow for Nix-native Podman services.</text>
+
+  <line x1="145" y1="182" x2="1135" y2="182" stroke="url(#line)" stroke-width="3" opacity="0.72"/>
+  <g font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-weight="700">
+    <g transform="translate(70 138)">
+      <rect width="150" height="88" rx="14" fill="#161b22" stroke="#30363d"/>
+      <text x="48" y="38" fill="#3fb950" font-size="18">TOML</text>
+      <text x="27" y="64" fill="#8b949e" font-size="13" font-weight="500">user intent</text>
+    </g>
+    <g transform="translate(250 138)">
+      <rect width="150" height="88" rx="14" fill="#161b22" stroke="#30363d"/>
+      <text x="32" y="38" fill="#79c0ff" font-size="18">graft CLI</text>
+      <text x="36" y="64" fill="#8b949e" font-size="13" font-weight="500">validation</text>
+    </g>
+    <g transform="translate(430 138)">
+      <rect width="150" height="88" rx="14" fill="#161b22" stroke="#30363d"/>
+      <text x="52" y="38" fill="#a5d6ff" font-size="18">JSON</text>
+      <text x="32" y="64" fill="#8b949e" font-size="13" font-weight="500">stdout spec</text>
+    </g>
+    <g transform="translate(610 138)">
+      <rect width="150" height="88" rx="14" fill="#161b22" stroke="#30363d"/>
+      <text x="55" y="38" fill="#d2a8ff" font-size="18">Nix</text>
+      <text x="31" y="64" fill="#8b949e" font-size="13" font-weight="500">materialise</text>
+    </g>
+    <g transform="translate(790 138)">
+      <rect width="150" height="88" rx="14" fill="#161b22" stroke="#30363d"/>
+      <text x="44" y="38" fill="#ffa657" font-size="18">rootfs</text>
+      <text x="30" y="64" fill="#8b949e" font-size="13" font-weight="500">Nix store</text>
+    </g>
+    <g transform="translate(970 138)">
+      <rect width="150" height="88" rx="14" fill="#161b22" stroke="#30363d"/>
+      <text x="41" y="38" fill="#ff7b72" font-size="18">Quadlet</text>
+      <text x="29" y="64" fill="#8b949e" font-size="13" font-weight="500">systemd unit</text>
+    </g>
+  </g>
+
+  <text x="64" y="276" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14">No image drift · no ad-hoc installs · no hidden module business logic</text>
+</svg>

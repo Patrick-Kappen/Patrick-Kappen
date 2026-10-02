@@ -1,9 +1,13 @@
 ---
 import now from "../../now.json";
+import Cover from "../components/Cover.astro";
+import HeroArt from "../components/HeroArt.astro";
+import { upcoming } from "../data/upcoming";
 import Base from "../layouts/Base.astro";
 import { formatDate, publishedPosts } from "../lib/posts";
 
 const posts = (await publishedPosts()).slice(0, 3);
+const nextUp = upcoming.slice(0, 3);
 const nowChanged = new Date(`${now.updated}T00:00:00Z`).toLocaleDateString("en-GB", {
   month: "long",
   year: "numeric",
@@ -20,16 +24,19 @@ const facts = [
 const focus = [
   {
     title: "Platform & delivery",
+    icon: "M4 17 12 3l8 14-8 4-8-4Z M4 17l8-4 8 4M12 3v10",
     body: "Azure environments and landing zones defined in code, pipelines without stored secrets, and every change planned and approved before it is applied.",
     tags: ["Azure", "Terraform", "Bicep", "GitHub Actions"],
   },
   {
     title: "Identity & security",
+    icon: "M12 3 4 7v6c0 4.5 3.4 7.6 8 8 4.6-.4 8-3.5 8-8V7l-8-4Z M9 12l2 2 4-4",
     body: "Least-privilege access across customer tenants, just-in-time elevation instead of standing admin rights, and security policy turned into automation.",
     tags: ["Entra ID", "PIM", "OIDC", "Zero Trust"],
   },
   {
     title: "AI infrastructure",
+    icon: "M9 3h6v3H9z M5 6h14v12H5z M9 11h.01M15 11h.01M9 15h6M12 18v3",
     body: "Open models benchmarked and tuned as coding agents, and agents that work inside sandboxes with scoped access and human approval.",
     tags: ["vLLM", "LiteLLM", "Python", "Sandboxing"],
   },
@@ -76,9 +83,11 @@ const cases = [
     problem: "Containers on NixOS hosts need hand-written systemd units and ad-hoc package installs.",
     approach: "A few lines of TOML; Nix builds the root filesystem and generates the Podman Quadlet units.",
     link: "https://github.com/Patrick-Kappen/graft",
+    image: { src: "/assets/graft-flow.svg", alt: "Graft workflow from TOML through Nix to a Podman Quadlet", width: 1280, height: 320 },
   },
   {
     title: "Homelab & NixOS fleet",
+    image: { src: "/assets/homelab-map.svg", alt: "Homelab map with edge, compute, storage and telemetry", width: 1280, height: 430 },
     summary: "Where ideas get tested before they reach real work.",
     context: "Personal",
     status: "Running",
@@ -97,7 +106,7 @@ const beliefs = [
 
 <Base>
   <section class="hero">
-    <div class="container">
+    <div class="container hero-grid">
       <div class="hero-copy">
         <p class="greeting enter">Hi, I'm Patrick.</p>
         <h1 class="enter">
@@ -110,9 +119,14 @@ const beliefs = [
         </p>
         <div class="hero-actions enter">
           <a class="button button-primary" href="#work">See my work</a>
-          <a class="button" href="#contact">Get in touch</a>
+          <a class="button" href="/blog/">Read the blog</a>
         </div>
       </div>
+      <div class="hero-visual enter">
+        <HeroArt />
+      </div>
+    </div>
+    <div class="container">
       <ul class="hero-facts enter">
         {facts.map(([term, value]) => (
           <li>{term} <strong>{value}</strong></li>
@@ -149,7 +163,48 @@ const beliefs = [
     </div>
   </section>
 
-  <section class="section" id="focus">
+  <section class="section" id="blog">
+    <div class="container">
+      <div class="section-row reveal">
+        <div class="section-head">
+          <p class="label">Blog</p>
+          <h2>{posts.length > 0 ? "Latest writing" : "Coming up on the blog"}</h2>
+          <p>
+            {posts.length > 0
+              ? "Notes from building platforms, access models and AI infrastructure."
+              : "Practical write-ups from the work. The first one is being written now."}
+          </p>
+        </div>
+        <a class="button" href="/blog/">All posts →</a>
+      </div>
+
+      <div class="post-grid">
+        {posts.length > 0
+          ? posts.map((post) => (
+              <a class="post-card reveal" href={`/blog/${post.id}/`}>
+                <Cover seed={post.id} label={post.data.tags[0]} />
+                <div class="post-card-body">
+                  <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                  <h3>{post.data.title}</h3>
+                  <p>{post.data.description}</p>
+                </div>
+              </a>
+            ))
+          : nextUp.map((item, index) => (
+              <article class="post-card post-card-upcoming reveal">
+                <Cover seed={item.title} label={item.tag} />
+                <div class="post-card-body">
+                  <span class="upcoming-badge">{index === 0 ? "Next up" : "Planned"}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+              </article>
+            ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="focus">
     <div class="container">
       <div class="section-head reveal">
         <p class="label">Focus</p>
@@ -157,9 +212,11 @@ const beliefs = [
         <p>That is where a manual, risky process can become a pull request.</p>
       </div>
       <div class="focus-grid">
-        {focus.map((item, index) => (
+        {focus.map((item) => (
           <article class="focus-item reveal">
-            <span class="index">{String(index + 1).padStart(2, "0")}</span>
+            <span class="focus-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d={item.icon}></path></svg>
+            </span>
             <h3>{item.title}</h3>
             <p>{item.body}</p>
             <p class="stack">{item.tags.join(" · ")}</p>
@@ -169,7 +226,7 @@ const beliefs = [
     </div>
   </section>
 
-  <section class="section section-alt" id="work">
+  <section class="section" id="work">
     <div class="container">
       <div class="section-head reveal">
         <p class="label">Work</p>
@@ -197,6 +254,16 @@ const beliefs = [
                 <h4>Approach</h4>
                 <p>{item.approach}</p>
               </div>
+              {item.image && (
+                <img
+                  class="work-image"
+                  src={item.image.src}
+                  alt={item.image.alt}
+                  width={item.image.width}
+                  height={item.image.height}
+                  loading="lazy"
+                />
+              )}
               {item.link && (
                 <a class="text-link" href={item.link} target="_blank" rel="noopener noreferrer">
                   View on GitHub →
@@ -209,43 +276,18 @@ const beliefs = [
     </div>
   </section>
 
-  <section class="section" id="now">
-    <div class="container split">
-      <div class="reveal">
-        <div class="section-head">
-          <p class="label live">Now</p>
-          <h2>What I'm working on</h2>
-        </div>
-        <ul class="now-list">{now.now.map((entry) => <li>{entry}</li>)}</ul>
-        <p class="muted now-updated">Last changed {nowChanged}.</p>
+  <section class="section section-alt" id="now">
+    <div class="container about">
+      <div class="section-head reveal">
+        <p class="label live">Now</p>
+        <h2>What I'm working on</h2>
+        <p class="muted">Last changed {nowChanged}.</p>
       </div>
-      <div class="reveal">
-        <div class="section-head">
-          <p class="label">Writing</p>
-          <h2>Notes from the work</h2>
-        </div>
-        {
-          posts.length > 0 ? (
-            <ul class="post-list">
-              {posts.map((post) => (
-                <li>
-                  <a href={`/blog/${post.id}/`}>
-                    <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
-                    <h3>{post.data.title}</h3>
-                    <p>{post.data.description}</p>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p class="muted">The first post, on moving pipelines from secrets to OIDC, is on its way.</p>
-          )
-        }
-      </div>
+      <ul class="now-list reveal">{now.now.map((entry) => <li>{entry}</li>)}</ul>
     </div>
   </section>
 
-  <section class="section section-alt" id="beliefs">
+  <section class="section" id="beliefs">
     <div class="container">
       <div class="section-head reveal">
         <p class="label">Principles</p>
@@ -262,7 +304,7 @@ const beliefs = [
     </div>
   </section>
 
-  <section class="section" id="contact">
+  <section class="section section-alt" id="contact">
     <div class="container contact reveal">
       <p class="label">Contact</p>
       <h2>Fancy a chat? I'd love to hear from you.</h2>
