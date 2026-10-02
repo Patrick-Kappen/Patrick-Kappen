@@ -2,6 +2,7 @@
 import Cover from "../components/Cover.astro";
 import PostCard from "../components/PostCard.astro";
 import Sidebar from "../components/Sidebar.astro";
+import WorkItem from "../components/WorkItem.astro";
 import { profile, topics, type TopicKey } from "../data/site";
 import { upcoming } from "../data/upcoming";
 import Base from "../layouts/Base.astro";
@@ -11,108 +12,180 @@ const posts = await publishedPosts();
 const publishedTitles = new Set(posts.map((post) => post.data.title));
 const planned = upcoming.filter((item) => !publishedTitles.has(item.title));
 
-const topicCounts = Object.keys(topics).map((key) => {
-  const topic = key as TopicKey;
-  return {
-    key: topic,
-    ...topics[topic],
-    published: posts.filter((post) => post.data.topic === topic).length,
-    planned: planned.filter((item) => item.topic === topic).length,
-  };
-});
+const cards = [
+  ...posts.map((post) => ({
+    title: post.data.title,
+    topic: post.data.topic,
+    minutes: readingMinutes(post),
+    date: formatDate(post.data.date),
+    href: `/blog/${post.id}/`,
+    badge: undefined as string | undefined,
+  })),
+  ...planned.map((item, index) => ({
+    title: item.title,
+    topic: item.topic,
+    minutes: item.minutes,
+    date: undefined,
+    href: undefined,
+    badge: index === 0 && posts.length === 0 ? "Next up" : undefined,
+  })),
+].slice(0, 5);
+
+const topicList = (Object.keys(topics) as TopicKey[]).map((key) => ({
+  key,
+  ...topics[key],
+  count: posts.filter((post) => post.data.topic === key).length,
+  planned: planned.filter((item) => item.topic === key).length,
+}));
+
+const work: {
+  title: string;
+  category: string;
+  text: string;
+  tags: string[];
+  status: string;
+  topic: TopicKey;
+  href?: string;
+}[] = [
+  {
+    title: "GitHub and secret-free pipelines",
+    category: "At SLTN",
+    text: "Moving a whole organisation from Azure DevOps to GitHub, and replacing stored service principal secrets with OIDC workload identity on the way.",
+    tags: ["GitHub", "OIDC"],
+    status: "In progress",
+    topic: "identity",
+  },
+  {
+    title: "Least-privilege access across tenants",
+    category: "At SLTN",
+    text: "Scoped, delegated access with just-in-time elevation instead of standing admin rights, defined in Terraform together with the CISO.",
+    tags: ["Entra ID", "PIM"],
+    status: "In progress",
+    topic: "security",
+  },
+  {
+    title: "Disaster recovery you can prove",
+    category: "At SLTN",
+    text: "Automated test failovers in GitHub Actions that check machines come up and can reach each other, report the result and always clean up.",
+    tags: ["Azure", "ASR"],
+    status: "In use",
+    topic: "recovery",
+  },
+  {
+    title: "Open models as coding agents",
+    category: "Research",
+    text: "My own benchmarks for tool calling, long agent tasks, long context and concurrent agents, with vLLM serving tuned on measured numbers.",
+    tags: ["vLLM", "Python"],
+    status: "Ongoing",
+    topic: "ai",
+  },
+  {
+    title: "Graft",
+    category: "Open source",
+    text: "A few lines of TOML; Nix builds the root filesystem and generates the Podman Quadlet units. No hand-written boilerplate.",
+    tags: ["Rust", "Nix"],
+    status: "Alpha",
+    topic: "nix",
+    href: "https://github.com/Patrick-Kappen/graft",
+  },
+];
 ---
 
 <Base>
   <section class="hero">
-    <span class="deco deco-cross deco-cross-1" aria-hidden="true"></span>
-    <span class="deco deco-cross deco-cross-2" aria-hidden="true"></span>
-    <span class="deco deco-dot deco-dot-1" aria-hidden="true"></span>
     <div class="container hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow enter">Hello everyone 👋</p>
-        <h1 class="enter">I'm <span class="highlight">Patrick Kappen</span></h1>
-        <p class="hero-lead enter">
+        <p class="hero-eyebrow">Hello everyone!</p>
+        <h1>I'm <span class="gradient-text">{profile.name}</span></h1>
+        <p class="hero-text">
           {profile.title} at {profile.company}. I build the platforms other people
-          deploy to, and the guard rails around them. This is where I write about
-          Azure, identity, delivery and AI infrastructure, and what I learn along the way.
+          deploy to, and the guard rails around them. Here I write about Azure,
+          identity, delivery and AI infrastructure, and what I learn along the way.
         </p>
-        <div class="hero-actions enter">
-          <a class="button button-primary" href="#latest">Read the blog</a>
-          <a class="button" href="/about/">About me</a>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#latest">Read the blog <span aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="/about/">About me</a>
         </div>
       </div>
-      <div class="hero-portrait enter">
-        <span class="portrait-ring" aria-hidden="true"></span>
+      <figure class="hero-photo">
         <img src={profile.photo} alt={`Portrait of ${profile.name}`} width="315" height="315" />
-        <span class="portrait-chip portrait-chip-1">Azure</span>
-        <span class="portrait-chip portrait-chip-2">Nix</span>
-        <span class="portrait-chip portrait-chip-3">AI agents</span>
-      </div>
+        <span class="deco-cross" aria-hidden="true"></span>
+        <span class="deco-dot" aria-hidden="true"></span>
+      </figure>
     </div>
-  </section>
 
-  <section class="topics-band">
-    <div class="container topics-layout">
-      <div class="topics-intro reveal">
-        <h2>Topics</h2>
-        <p>What I write about, from the day job and from my homelab.</p>
-      </div>
-      <div class="topics-grid">
-        {topicCounts.map((topic) => (
-          <a class="topic-card reveal" href="/blog/">
-            <Cover topic={topic.key} seed={topic.name} />
-            <span class="topic-card-text">
-              <strong>{topic.name}</strong>
-              <span>
-                {topic.published > 0
-                  ? `${topic.published} ${topic.published === 1 ? "post" : "posts"}`
-                  : `${topic.planned} planned`}
-              </span>
-            </span>
-          </a>
-        ))}
+    <div class="container">
+      <div class="topics-panel">
+        <div class="topics-intro">
+          <h2>Hot topics</h2>
+          <p>What I write about, from the day job at an Azure Expert MSP and from my homelab.</p>
+          <div class="slider-controls">
+            <button type="button" class="slider-btn" data-slide="prev" aria-label="Previous topics">←</button>
+            <button type="button" class="slider-btn" data-slide="next" aria-label="Next topics">→</button>
+          </div>
+        </div>
+        <ul class="topics-slider" data-slider>
+          {topicList.map((topic) => (
+            <li>
+              <a class="topic-card" href="/blog/">
+                <Cover topic={topic.key} seed={`${topic.name} topic`} />
+                <span class="topic-card-text">
+                  <strong>{topic.name}</strong>
+                  <span>{topic.count > 0 ? `${topic.count} articles` : `${topic.planned} planned`}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
 
   <section class="section" id="latest">
-    <div class="container blog-layout">
-      <div class="blog-main">
-        <div class="section-title reveal">
-          <h2>{posts.length > 0 ? "Latest posts" : "Coming up"}</h2>
-          <p>
-            {posts.length > 0
-              ? "Practical notes from building platforms and AI infrastructure."
-              : "The first posts are being written. Follow along via RSS."}
-          </p>
-        </div>
+    <div class="container">
+      <h2 class="section-title gradient-text">{posts.length > 0 ? "Latest posts" : "Coming up"}</h2>
+      <p class="section-subtitle">
+        {posts.length > 0 ? "Practical notes from building platforms" : "The first posts are being written right now"}
+      </p>
 
-        <div class="post-grid">
-          {posts.map((post, index) => (
-            <PostCard
-              title={post.data.title}
-              description={post.data.description}
-              topic={post.data.topic}
-              minutes={readingMinutes(post)}
-              date={formatDate(post.data.date)}
-              href={`/blog/${post.id}/`}
-              featured={index === 0}
-            />
-          ))}
-          {planned.map((item, index) => (
-            <PostCard
-              title={item.title}
-              description={item.description}
-              topic={item.topic}
-              minutes={item.minutes}
-              badge={index === 0 && posts.length === 0 ? "Next up" : "Planned"}
-              featured={index === 0 && posts.length === 0}
-            />
-          ))}
-        </div>
+      <div class="post-grid">
+        {cards.map((card, index) => <PostCard {...card} large={index < 2} />)}
       </div>
 
+      <div class="center">
+        <a class="btn btn-primary btn-pill" href="/blog/">Show all posts <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tight">
+    <div class="container">
+      <h2 class="section-title gradient-text">What I work with</h2>
+      <p class="section-subtitle">The tools behind the posts</p>
+      <ul class="tag-grid">
+        {profile.stack.map((item, index) => (
+          <li class="tag-chip">
+            <span class:list={["tag-initial", `tag-initial-${index % 4}`]}>{item.slice(0, 1)}</span>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container content-layout">
+      <div>
+        <h2 class="section-title gradient-text">Recent work</h2>
+        <p class="section-subtitle">What I'm building at work and on my own time</p>
+        <div class="work-list">
+          {work.map((item) => <WorkItem {...item} />)}
+        </div>
+        <a class="btn btn-ghost" href="/about/#work">More about my work →</a>
+      </div>
       <Sidebar />
     </div>
   </section>
+
+  <script src="../scripts/slider.js"></script>
 </Base>

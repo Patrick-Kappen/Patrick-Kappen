@@ -1,58 +1,56 @@
 ---
 import now from "../../now.json";
-import { profile, projects, topics } from "../data/site";
+import { profile } from "../data/site";
+import { upcoming } from "../data/upcoming";
+import { topics } from "../data/site";
+import Cover from "./Cover.astro";
 ---
 
 <aside class="sidebar">
-  <section class="widget profile-card">
-    <img class="profile-photo" src={profile.photo} alt={`Portrait of ${profile.name}`} width="96" height="96" />
-    <h2>{profile.name}</h2>
-    <p class="profile-role">{profile.title} @ {profile.company}</p>
-    <p class="profile-short">{profile.short}</p>
+  <section class="widget profile-widget">
+    <h2 class="widget-title">About me</h2>
+    <div class="profile-row">
+      <img src={profile.photo} alt={`Portrait of ${profile.name}`} width="72" height="72" />
+      <div>
+        <strong>{profile.name}</strong>
+        <span>{profile.title} @ {profile.company}</span>
+      </div>
+    </div>
+    <p>{profile.short}</p>
     <div class="profile-links">
       {profile.links.map((link) => (
-        <a href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
-          {link.label}
-        </a>
+        <a href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">{link.label}</a>
       ))}
     </div>
-    <a class="button button-primary button-block" href="/about/">More about me</a>
   </section>
 
   <section class="widget">
-    <h2 class="widget-title"><span class="live"></span> Now</h2>
-    <ul class="widget-list">
-      {now.now.map((entry) => <li>{entry}</li>)}
-    </ul>
-  </section>
-
-  <section class="widget">
-    <h2 class="widget-title">Certified</h2>
-    <div class="chips">
-      {profile.certifications.map((cert) => <span class="chip chip-strong">{cert}</span>)}
-      {profile.studying.map((cert) => <span class="chip">{cert} · studying</span>)}
-    </div>
-  </section>
-
-  <section class="widget">
-    <h2 class="widget-title">Projects</h2>
-    <ul class="widget-projects">
-      {projects.map((project) => (
+    <h2 class="widget-title">Up next</h2>
+    <ul class="mini-posts">
+      {upcoming.slice(0, 4).map((item) => (
         <li>
-          <a href={project.href} target={project.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
-            <strong>{project.name}</strong>
-            <span>{project.note}</span>
-            <p>{project.text}</p>
-          </a>
+          <span class="mini-thumb"><Cover topic={item.topic} seed={item.title} /></span>
+          <div>
+            <strong>{item.title}</strong>
+            <span>{item.minutes} mins read · #{topics[item.topic].name}</span>
+          </div>
         </li>
       ))}
     </ul>
   </section>
 
   <section class="widget">
-    <h2 class="widget-title">Topics</h2>
-    <div class="chips">
-      {Object.values(topics).map((topic) => <a class="chip" href="/blog/">#{topic.name}</a>)}
+    <h2 class="widget-title">Now</h2>
+    <ul class="now-list">
+      {now.now.map((entry) => <li>“ {entry} ”</li>)}
+    </ul>
+  </section>
+
+  <section class="widget">
+    <h2 class="widget-title">Certified</h2>
+    <div class="cert-list">
+      {profile.certifications.map((cert) => <span class="cert">{cert}</span>)}
     </div>
+    <p class="muted">Studying: {profile.studying.join(" · ")}</p>
   </section>
 </aside>

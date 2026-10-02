@@ -11,56 +11,42 @@ const planned = upcoming.filter((item) => !publishedTitles.has(item.title));
 ---
 
 <Base title="Blog — Patrick Kappen" description="Practical notes on platforms, identity, delivery and AI infrastructure.">
-  <section class="page-hero page-hero-compact">
-    <div class="container">
-      <p class="eyebrow">Blog</p>
-      <h1>Notes from <span class="highlight">the work</span></h1>
-      <p class="hero-lead">
-        Practical write-ups from building platforms, access models and AI
-        infrastructure. Follow along via <a class="text-link" href="/rss.xml">RSS</a>.
-      </p>
-    </div>
-  </section>
+  <section class="section page-top">
+    <div class="container content-layout">
+      <div>
+        <h1 class="section-title gradient-text">Blog</h1>
+        <p class="section-subtitle">
+          Practical write-ups from building platforms, access models and AI infrastructure.
+          Follow along via <a class="text-link" href="/rss.xml">RSS</a>.
+        </p>
 
-  <section class="section section-tight">
-    <div class="container blog-layout">
-      <div class="blog-main">
         {
           posts.length > 0 && (
-            <>
-              <div class="section-title">
-                <h2>All posts</h2>
-              </div>
-              <div class="post-grid">
-                {posts.map((post) => (
-                  <PostCard
-                    title={post.data.title}
-                    description={post.data.description}
-                    topic={post.data.topic}
-                    minutes={readingMinutes(post)}
-                    date={`${formatDate(post.data.date)}${post.data.draft ? " · draft" : ""}`}
-                    href={`/blog/${post.id}/`}
-                  />
-                ))}
-              </div>
-            </>
+            <div class="post-grid post-grid-two">
+              {posts.map((post) => (
+                <PostCard
+                  title={post.data.title}
+                  topic={post.data.topic}
+                  minutes={readingMinutes(post)}
+                  date={`${formatDate(post.data.date)}${post.data.draft ? " · draft" : ""}`}
+                  href={`/blog/${post.id}/`}
+                />
+              ))}
+            </div>
           )
         }
 
         {
           planned.length > 0 && (
             <>
-              <div class:list={["section-title", { "section-title-spaced": posts.length > 0 }]}>
-                <h2>{posts.length > 0 ? "Planned next" : "Coming up"}</h2>
-              </div>
-              <div class="post-grid">
+              <h2 class="subsection-title">{posts.length > 0 ? "Planned next" : "Coming up"}</h2>
+              <div class="post-grid post-grid-two">
                 {planned.map((item, index) => (
                   <PostCard
                     title={item.title}
-                    description={item.description}
                     topic={item.topic}
                     minutes={item.minutes}
-                    badge={index === 0 && posts.length === 0 ? "Next up" : "Planned"}
+                    badge={index === 0 && posts.length === 0 ? "Next up" : undefined}
                   />
                 ))}
               </div>
@@ -68,7 +54,6 @@ const planned = upcoming.filter((item) => !publishedTitles.has(item.title));
           )
         }
       </div>
-
       <Sidebar />
     </div>
   </section>
