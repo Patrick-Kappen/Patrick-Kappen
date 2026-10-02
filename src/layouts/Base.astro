@@ -1,7 +1,8 @@
 ---
 import "@fontsource-variable/noto-sans";
 import "../styles/global.css";
-import { profile, topics } from "../data/site";
+import { externalLink, profile } from "../data/profile";
+import { topicKeys, topics } from "../data/topics";
 
 interface Props {
   title?: string;
@@ -9,8 +10,8 @@ interface Props {
 }
 
 const {
-  title = "Patrick Kappen — Platform & security engineer",
-  description = "Patrick Kappen writes about Azure, identity, delivery and AI infrastructure: building the platforms other people deploy to, and the guard rails around them.",
+  title = `${profile.name} — ${profile.role}`,
+  description = `${profile.tagline} ${profile.intro}`,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -51,7 +52,7 @@ const nav = [
       <div class="container header-inner">
         <a class="logo" href="/" aria-label={`${profile.name}, home`}>
           <span class="logo-mark" aria-hidden="true">PK</span>
-          <span>Patrick</span>
+          <span>{profile.firstName}</span>
         </a>
 
         <nav class="main-nav" aria-label="Main navigation">
@@ -74,12 +75,8 @@ const nav = [
       <div class="container">
         <div class="footer-panel">
           <div class="footer-brand">
-            <a class="logo" href="/"><span class="logo-mark" aria-hidden="true">PK</span><span>Patrick</span></a>
-            <p>
-              Notes on platforms, identity, delivery and AI infrastructure, from a
-              Senior DevOps Engineer in the Netherlands. Built with Astro and
-              deployed from Git.
-            </p>
+            <a class="logo" href="/"><span class="logo-mark" aria-hidden="true">PK</span><span>{profile.firstName}</span></a>
+            <p>{profile.tagline} Built with Astro and deployed from Git.</p>
             <h2>Based in</h2>
             <p>{profile.location[0].toUpperCase() + profile.location.slice(1)}</p>
           </div>
@@ -87,7 +84,7 @@ const nav = [
           <div class="footer-col">
             <h2>Topics</h2>
             <ul class="footer-topics">
-              {Object.values(topics).map((topic) => <li><a href="/blog/">{topic.name}</a></li>)}
+              {topicKeys.map((key) => <li><a href="/blog/">{topics[key].name}</a></li>)}
             </ul>
           </div>
 
@@ -96,13 +93,13 @@ const nav = [
             <p>New posts appear in the RSS feed first, and on LinkedIn.</p>
             <ul>
               {profile.links.map((link) => (
-                <li><a href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">{link.label} →</a></li>
+                <li><a href={link.href} {...externalLink(link.href)}>{link.label} →</a></li>
               ))}
               <li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
             </ul>
           </div>
         </div>
-        <p class="footer-copy">© {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
+        <p class="footer-copy">© {new Date().getFullYear()} {profile.name}</p>
       </div>
     </footer>
 

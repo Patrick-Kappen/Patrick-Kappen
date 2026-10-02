@@ -3,104 +3,33 @@ import Cover from "../components/Cover.astro";
 import PostCard from "../components/PostCard.astro";
 import Sidebar from "../components/Sidebar.astro";
 import WorkItem from "../components/WorkItem.astro";
-import { profile, topics, type TopicKey } from "../data/site";
-import { upcoming } from "../data/upcoming";
+import { profile } from "../data/profile";
+import { topicKeys, topics } from "../data/topics";
+import { featuredWork } from "../data/work";
 import Base from "../layouts/Base.astro";
-import { formatDate, publishedPosts, readingMinutes } from "../lib/posts";
+import { blogIndex } from "../lib/posts";
 
-const posts = await publishedPosts();
-const publishedTitles = new Set(posts.map((post) => post.data.title));
-const planned = upcoming.filter((item) => !publishedTitles.has(item.title));
+const { published, upcoming } = await blogIndex();
+const hasPosts = published.length > 0;
+const cards = [...published, ...upcoming].slice(0, 5);
 
-const cards = [
-  ...posts.map((post) => ({
-    title: post.data.title,
-    topic: post.data.topic,
-    minutes: readingMinutes(post),
-    date: formatDate(post.data.date),
-    href: `/blog/${post.id}/`,
-    badge: undefined as string | undefined,
-  })),
-  ...planned.map((item, index) => ({
-    title: item.title,
-    topic: item.topic,
-    minutes: item.minutes,
-    date: undefined,
-    href: undefined,
-    badge: index === 0 && posts.length === 0 ? "Next up" : undefined,
-  })),
-].slice(0, 5);
-
-const topicList = (Object.keys(topics) as TopicKey[]).map((key) => ({
-  key,
-  ...topics[key],
-  count: posts.filter((post) => post.data.topic === key).length,
-  planned: planned.filter((item) => item.topic === key).length,
-}));
-
-const work: {
-  title: string;
-  category: string;
-  text: string;
-  tags: string[];
-  status: string;
-  topic: TopicKey;
-  href?: string;
-}[] = [
-  {
-    title: "GitHub and secret-free pipelines",
-    category: "At SLTN",
-    text: "Moving a whole organisation from Azure DevOps to GitHub, and replacing stored service principal secrets with OIDC workload identity on the way.",
-    tags: ["GitHub", "OIDC"],
-    status: "In progress",
-    topic: "identity",
-  },
-  {
-    title: "Least-privilege access across tenants",
-    category: "At SLTN",
-    text: "Scoped, delegated access with just-in-time elevation instead of standing admin rights, defined in Terraform together with the CISO.",
-    tags: ["Entra ID", "PIM"],
-    status: "In progress",
-    topic: "security",
-  },
-  {
-    title: "Disaster recovery you can prove",
-    category: "At SLTN",
-    text: "Automated test failovers in GitHub Actions that check machines come up and can reach each other, report the result and always clean up.",
-    tags: ["Azure", "ASR"],
-    status: "In use",
-    topic: "recovery",
-  },
-  {
-    title: "Open models as coding agents",
-    category: "Research",
-    text: "My own benchmarks for tool calling, long agent tasks, long context and concurrent agents, with vLLM serving tuned on measured numbers.",
-    tags: ["vLLM", "Python"],
-    status: "Ongoing",
-    topic: "ai",
-  },
-  {
-    title: "Graft",
-    category: "Open source",
-    text: "A few lines of TOML; Nix builds the root filesystem and generates the Podman Quadlet units. No hand-written boilerplate.",
-    tags: ["Rust", "Nix"],
-    status: "Alpha",
-    topic: "nix",
-    href: "https://github.com/Patrick-Kappen/graft",
-  },
-];
+const topicList = topicKeys
+  .map((key) => ({
+    key,
+    ...topics[key],
+    count: published.filter((card) => card.topic === key).length,
+  }))
+  .filter((topic) => topic.count > 0 || upcoming.some((card) => card.topic === topic.key));
 ---
 
 <Base>
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <p class="hero-eyebrow">Hello everyone!</p>
+        <p class="hero-eyebrow">{profile.role}</p>
         <h1>I'm <span class="gradient-text">{profile.name}</span></h1>
         <p class="hero-text">
-          {profile.title} at {profile.company}. I build the platforms other people
-          deploy to, and the guard rails around them. Here I write about Azure,
-          identity, delivery and AI infrastructure, and what I learn along the way.
+          {profile.title} at {profile.company}. {profile.tagline} {profile.intro}
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#latest">Read the blog <span aria-hidden="true">→</span></a>
@@ -114,74 +43,82 @@ const work: {
       </figure>
     </div>
 
-    <div class="container">
-      <div class="topics-panel">
-        <div class="topics-intro">
-          <h2>Hot topics</h2>
-          <p>What I write about, from the day job at an Azure Expert MSP and from my homelab.</p>
-          <div class="slider-controls">
-            <button type="button" class="slider-btn" data-slide="prev" aria-label="Previous topics">←</button>
-            <button type="button" class="slider-btn" data-slide="next" aria-label="Next topics">→</button>
+    {topicList.length > 0 && (
+      <div class="container">
+        <div class="topics-panel">
+          <div class="topics-intro">
+            <h2>Topics</h2>
+            <p>What I write about, from the day job at an {profile.companyNote} and from my homelab.</p>
+            <div class="slider-controls">
+              <button type="button" class="slider-btn" data-slide="prev" aria-label="Previous topics">←</button>
+              <button type="button" class="slider-btn" data-slide="next" aria-label="Next topics">→</button>
+            </div>
           </div>
+          <ul class="topics-slider" data-slider>
+            {topicList.map((topic) => (
+              <li>
+                <a class="topic-card" href="/blog/">
+                  <Cover topic={topic.key} seed={`${topic.name} topic`} />
+                  <span class="topic-card-text">
+                    <strong>{topic.name}</strong>
+                    <span>{topic.count > 0 ? `${topic.count} ${topic.count === 1 ? "post" : "posts"}` : topic.blurb}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul class="topics-slider" data-slider>
-          {topicList.map((topic) => (
-            <li>
-              <a class="topic-card" href="/blog/">
-                <Cover topic={topic.key} seed={`${topic.name} topic`} />
-                <span class="topic-card-text">
-                  <strong>{topic.name}</strong>
-                  <span>{topic.count > 0 ? `${topic.count} articles` : `${topic.planned} planned`}</span>
-                </span>
-              </a>
+      </div>
+    )}
+  </section>
+
+  {cards.length > 0 && (
+    <section class="section" id="latest">
+      <div class="container">
+        <h2 class="section-title gradient-text">{hasPosts ? "Latest posts" : "Coming up"}</h2>
+        <p class="section-subtitle">
+          {hasPosts ? "Practical notes from building platforms" : "The first posts are being written right now"}
+        </p>
+        <div class="post-grid">
+          {cards.map((card, index) => <PostCard {...card} large={index < 2} badge={!hasPosts && index === 0 ? "Next up" : undefined} />)}
+        </div>
+        <div class="center">
+          <a class="btn btn-primary btn-pill" href="/blog/">Show all posts <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {profile.stack.length > 0 && (
+    <section class="section section-tight">
+      <div class="container">
+        <h2 class="section-title gradient-text">What I work with</h2>
+        <p class="section-subtitle">The tools behind the posts</p>
+        <ul class="tag-grid">
+          {profile.stack.map((item, index) => (
+            <li class="tag-chip">
+              <span class:list={["tag-initial", `tag-initial-${index % 4}`]}>{item.slice(0, 1)}</span>
+              {item}
             </li>
           ))}
         </ul>
       </div>
-    </div>
-  </section>
-
-  <section class="section" id="latest">
-    <div class="container">
-      <h2 class="section-title gradient-text">{posts.length > 0 ? "Latest posts" : "Coming up"}</h2>
-      <p class="section-subtitle">
-        {posts.length > 0 ? "Practical notes from building platforms" : "The first posts are being written right now"}
-      </p>
-
-      <div class="post-grid">
-        {cards.map((card, index) => <PostCard {...card} large={index < 2} />)}
-      </div>
-
-      <div class="center">
-        <a class="btn btn-primary btn-pill" href="/blog/">Show all posts <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-tight">
-    <div class="container">
-      <h2 class="section-title gradient-text">What I work with</h2>
-      <p class="section-subtitle">The tools behind the posts</p>
-      <ul class="tag-grid">
-        {profile.stack.map((item, index) => (
-          <li class="tag-chip">
-            <span class:list={["tag-initial", `tag-initial-${index % 4}`]}>{item.slice(0, 1)}</span>
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
+    </section>
+  )}
 
   <section class="section">
     <div class="container content-layout">
       <div>
-        <h2 class="section-title gradient-text">Recent work</h2>
-        <p class="section-subtitle">What I'm building at work and on my own time</p>
-        <div class="work-list">
-          {work.map((item) => <WorkItem {...item} />)}
-        </div>
-        <a class="btn btn-ghost" href="/about/#work">More about my work →</a>
+        {featuredWork.length > 0 && (
+          <>
+            <h2 class="section-title gradient-text">Recent work</h2>
+            <p class="section-subtitle">What I'm building at work and on my own time</p>
+            <div class="work-list">
+              {featuredWork.map((item) => <WorkItem {...item} />)}
+            </div>
+            <a class="btn btn-ghost" href="/about/#work">More about my work →</a>
+          </>
+        )}
       </div>
       <Sidebar />
     </div>

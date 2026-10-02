@@ -1,18 +1,15 @@
 ---
-import { profile, topics, type TopicKey } from "../data/site";
+import { profile } from "../data/profile";
+import { topics } from "../data/topics";
+import type { Card } from "../lib/posts";
 import Cover from "./Cover.astro";
 
-interface Props {
-  title: string;
-  topic: TopicKey;
-  minutes: number;
-  href?: string;
-  date?: string;
+interface Props extends Card {
   badge?: string;
   large?: boolean;
 }
 
-const { title, topic, minutes, href, date, badge, large = false } = Astro.props;
+const { title, topic, href, date, minutes, badge, large = false } = Astro.props;
 const Tag = href ? "a" : "article";
 ---
 
@@ -23,18 +20,24 @@ const Tag = href ? "a" : "article";
   </figure>
   <div class="post-card-meta">
     <span>#{topics[topic].name}</span>
-    <span class="post-time">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
-      {minutes} mins read
-    </span>
+    {minutes ? (
+      <span class="post-time">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+        {minutes} min read
+      </span>
+    ) : (
+      <span class="post-time">Planned</span>
+    )}
   </div>
   <h3>{title}</h3>
-  <div class="post-card-footer">
-    <img src={profile.photo} alt="" width="48" height="48" loading="lazy" />
-    <span class="post-card-author">
-      <strong>{profile.name.split(" ")[0]}</strong>
-      <span>{date ?? "Coming soon"}</span>
-    </span>
-    <span class="read-more">{href ? "Read more" : "Planned"}</span>
-  </div>
+  {href && (
+    <div class="post-card-footer">
+      <img src={profile.photo} alt="" width="48" height="48" loading="lazy" />
+      <span class="post-card-author">
+        <strong>{profile.firstName}</strong>
+        {date && <span>{date}</span>}
+      </span>
+      <span class="read-more">Read more</span>
+    </div>
+  )}
 </Tag>

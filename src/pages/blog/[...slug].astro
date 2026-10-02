@@ -1,7 +1,8 @@
 ---
 import { render } from "astro:content";
 import Cover from "../../components/Cover.astro";
-import { profile, topics } from "../../data/site";
+import { externalLink, profile } from "../../data/profile";
+import { topics } from "../../data/topics";
 import Base from "../../layouts/Base.astro";
 import { formatDate, publishedPosts, readingMinutes, type Post } from "../../lib/posts";
 
@@ -18,7 +19,7 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Base title={`${post.data.title} — Patrick Kappen`} description={post.data.description}>
+<Base title={`${post.data.title} — ${profile.name}`} description={post.data.description}>
   <article class="article">
     <div class="container article-container">
       <header class="article-header">
@@ -51,9 +52,7 @@ const { Content } = await render(post);
             <p>{profile.short}</p>
             <div class="profile-links">
               {profile.links.map((link) => (
-                <a href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
-                  {link.label}
-                </a>
+                <a href={link.href} {...externalLink(link.href)}>{link.label}</a>
               ))}
             </div>
           </div>

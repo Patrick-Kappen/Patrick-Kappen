@@ -1,24 +1,3 @@
-export const profile = {
-  name: "Patrick Kappen",
-  role: "Platform & security engineer",
-  title: "Senior DevOps Engineer",
-  company: "SLTN",
-  companyNote: "Azure Expert MSP",
-  location: "the Netherlands",
-  photo: "/assets/patrick.jpg",
-  email: "patrick@kappen.io",
-  short:
-    "I build the platforms other people deploy to, and the guard rails around them. Azure, identity and delivery as code, and AI agents with boundaries.",
-  certifications: ["AZ-900", "AZ-104", "AZ-400"],
-  studying: ["GitHub Actions", "AI-103"],
-  stack: ["Azure", "Terraform", "Bicep", "GitHub Actions", "Entra ID", "Nix", "Kubernetes", "Python", "PowerShell", "vLLM"],
-  links: [
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/patrick-kappen/" },
-    { label: "GitHub", href: "https://github.com/Patrick-Kappen" },
-    { label: "RSS", href: "/rss.xml" },
-  ],
-};
-
 export type TopicKey = "identity" | "security" | "delivery" | "recovery" | "ai" | "nix";
 
 export const topics: Record<TopicKey, { name: string; blurb: string; icon: string; hue: [string, string] }> = {
@@ -60,17 +39,4 @@ export const topics: Record<TopicKey, { name: string; blurb: string; icon: strin
   },
 };
 
-export const projects = [
-  {
-    name: "Graft",
-    note: "Open source · alpha",
-    text: "Containers from a few lines of TOML, built by Nix.",
-    href: "https://github.com/Patrick-Kappen/graft",
-  },
-  {
-    name: "Homelab & NixOS fleet",
-    note: "Personal",
-    text: "Where ideas get tested before they reach real work.",
-    href: "/about/#work",
-  },
-];
+export const topicKeys = Object.keys(topics) as TopicKey[];

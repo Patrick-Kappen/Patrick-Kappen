@@ -1,6 +1,7 @@
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
+import { topicKeys, type TopicKey } from "./data/topics";
 
 const blog = defineCollection({
   loader: glob({ base: "./src/content/blog", pattern: "**/*.md" }),
@@ -8,7 +9,7 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.coerce.date(),
-    topic: z.enum(["identity", "security", "delivery", "recovery", "ai", "nix"]),
+    topic: z.enum(topicKeys as [TopicKey, ...TopicKey[]]),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
   }),
