@@ -56,11 +56,11 @@
     --line: hsl(218deg 36% 17%);
     --line-soft: hsl(0deg 0% 100% / 8%);
     --white: hsl(0deg 0% 100%);
-    --alice: hsl(216deg 100% 95%);
-    --columbia: hsl(199deg 69% 84%);
-    --wild: hsl(216deg 33% 68%);
-    --shadow-blue: hsl(217deg 24% 59%);
-    --slate: hsl(217deg 17% 48%);
+    --alice: hsl(220deg 12% 94%);
+    --columbia: hsl(220deg 10% 90%);
+    --wild: hsl(220deg 8% 66%);
+    --shadow-blue: hsl(220deg 6% 60%);
+    --slate: hsl(220deg 6% 48%);
     --carolina: hsl(199deg 89% 49%);
     --gradient: linear-gradient(90deg, #0ea5ea, #0bd1d1 51%);
     --gradient-hover: linear-gradient(90deg, #0bd1d1, #0ea5ea);
