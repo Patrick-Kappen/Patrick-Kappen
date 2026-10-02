@@ -1,8 +1,9 @@
 ---
-import Cover from "../../components/Cover.astro";
+import PostCard from "../../components/PostCard.astro";
+import Sidebar from "../../components/Sidebar.astro";
 import { upcoming } from "../../data/upcoming";
 import Base from "../../layouts/Base.astro";
-import { formatDate, publishedPosts } from "../../lib/posts";
+import { formatDate, publishedPosts, readingMinutes } from "../../lib/posts";
 
 const posts = await publishedPosts();
 const publishedTitles = new Set(posts.map((post) => post.data.title));
@@ -10,61 +11,65 @@ const planned = upcoming.filter((item) => !publishedTitles.has(item.title));
 ---
 
 <Base title="Blog — Patrick Kappen" description="Practical notes on platforms, identity, delivery and AI infrastructure.">
-  <section class="section blog-index">
+  <section class="page-hero page-hero-compact">
     <div class="container">
-      <div class="section-row">
-        <div class="section-head">
-          <p class="label">Blog</p>
-          <h1>Notes from the work</h1>
-          <p>
-            Practical write-ups from building platforms, access models and AI
-            infrastructure. Follow along via <a class="text-link" href="/rss.xml">RSS</a>.
-          </p>
-        </div>
+      <p class="eyebrow">Blog</p>
+      <h1>Notes from <span class="highlight">the work</span></h1>
+      <p class="hero-lead">
+        Practical write-ups from building platforms, access models and AI
+        infrastructure. Follow along via <a class="text-link" href="/rss.xml">RSS</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-tight">
+    <div class="container blog-layout">
+      <div class="blog-main">
+        {
+          posts.length > 0 && (
+            <>
+              <div class="section-title">
+                <h2>All posts</h2>
+              </div>
+              <div class="post-grid">
+                {posts.map((post) => (
+                  <PostCard
+                    title={post.data.title}
+                    description={post.data.description}
+                    topic={post.data.topic}
+                    minutes={readingMinutes(post)}
+                    date={`${formatDate(post.data.date)}${post.data.draft ? " · draft" : ""}`}
+                    href={`/blog/${post.id}/`}
+                  />
+                ))}
+              </div>
+            </>
+          )
+        }
+
+        {
+          planned.length > 0 && (
+            <>
+              <div class:list={["section-title", { "section-title-spaced": posts.length > 0 }]}>
+                <h2>{posts.length > 0 ? "Planned next" : "Coming up"}</h2>
+              </div>
+              <div class="post-grid">
+                {planned.map((item, index) => (
+                  <PostCard
+                    title={item.title}
+                    description={item.description}
+                    topic={item.topic}
+                    minutes={item.minutes}
+                    badge={index === 0 && posts.length === 0 ? "Next up" : "Planned"}
+                  />
+                ))}
+              </div>
+            </>
+          )
+        }
       </div>
 
-      {
-        posts.length > 0 && (
-          <div class="post-grid">
-            {posts.map((post) => (
-              <a class="post-card" href={`/blog/${post.id}/`}>
-                <Cover seed={post.id} label={post.data.tags[0]} />
-                <div class="post-card-body">
-                  <time datetime={post.data.date.toISOString()}>
-                    {formatDate(post.data.date)}
-                    {post.data.draft && " · draft"}
-                  </time>
-                  <h3>{post.data.title}</h3>
-                  <p>{post.data.description}</p>
-                </div>
-              </a>
-            ))}
-          </div>
-        )
-      }
-
-      {
-        planned.length > 0 && (
-          <>
-            <div class="section-head blog-planned">
-              <p class="label">Coming up</p>
-              <h2>{posts.length > 0 ? "Planned next" : "The first posts"}</h2>
-            </div>
-            <div class="post-grid">
-              {planned.map((item, index) => (
-                <article class="post-card post-card-upcoming">
-                  <Cover seed={item.title} label={item.tag} />
-                  <div class="post-card-body">
-                    <span class="upcoming-badge">{index === 0 && posts.length === 0 ? "Next up" : "Planned"}</span>
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </>
-        )
-      }
+      <Sidebar />
     </div>
   </section>
 </Base>

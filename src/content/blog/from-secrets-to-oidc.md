@@ -2,6 +2,7 @@
 title: "From secrets to OIDC: GitHub, Azure and Entra"
 description: "Why every stored pipeline secret is a liability, and how workload identity federation replaces them."
 date: 2026-10-01
+topic: identity
 tags: [azure, github-actions, entra-id, security]
 draft: true
 ---

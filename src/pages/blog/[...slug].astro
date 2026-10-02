@@ -1,8 +1,9 @@
 ---
 import { render } from "astro:content";
 import Cover from "../../components/Cover.astro";
+import { profile, topics } from "../../data/site";
 import Base from "../../layouts/Base.astro";
-import { formatDate, publishedPosts, type Post } from "../../lib/posts";
+import { formatDate, publishedPosts, readingMinutes, type Post } from "../../lib/posts";
 
 export async function getStaticPaths() {
   const posts = await publishedPosts();
@@ -18,26 +19,45 @@ const { Content } = await render(post);
 ---
 
 <Base title={`${post.data.title} — Patrick Kappen`} description={post.data.description}>
-  <article class="section post">
-    <div class="container post-container">
-      <header class="post-header">
-        <a class="text-link" href="/blog/">← All posts</a>
-        <div class="post-cover"><Cover seed={post.id} label={post.data.tags[0]} /></div>
-        <time datetime={post.data.date.toISOString()}>
-          {formatDate(post.data.date)}{post.data.draft && " · draft"}
-        </time>
+  <article class="article">
+    <div class="container article-container">
+      <header class="article-header">
+        <p class="article-kicker">
+          <a href="/blog/">Blog</a>
+          <span class="kicker-line" aria-hidden="true"></span>
+          <span>Posted {formatDate(post.data.date)}{post.data.draft && " · draft"}</span>
+          <span>· {readingMinutes(post)} min read</span>
+        </p>
         <h1>{post.data.title}</h1>
-        <p class="post-lead">{post.data.description}</p>
-        {
-          post.data.tags.length > 0 && (
-            <ul class="tags">
-              {post.data.tags.map((tag) => <li>{tag}</li>)}
-            </ul>
-          )
-        }
       </header>
-      <div class="prose">
-        <Content />
+
+      <figure class="article-cover">
+        <Cover topic={post.data.topic} seed={post.data.title} />
+        <span class="article-cover-mark" aria-hidden="true"></span>
+        <span class="topic-chip">#{topics[post.data.topic].name}</span>
+      </figure>
+
+      <div class="article-body">
+        <p class="article-lead">{post.data.description}</p>
+        <div class="prose">
+          <Content />
+        </div>
+
+        <footer class="author-box">
+          <img src={profile.photo} alt="" width="72" height="72" />
+          <div>
+            <p class="author-label">Written by</p>
+            <h2>{profile.name}</h2>
+            <p>{profile.short}</p>
+            <div class="profile-links">
+              {profile.links.map((link) => (
+                <a href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   </article>

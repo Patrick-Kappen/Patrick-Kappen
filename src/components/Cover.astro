@@ -1,39 +1,49 @@
 ---
+import { topics, type TopicKey } from "../data/site";
+
 interface Props {
+  topic: TopicKey;
   seed: string;
-  label?: string;
 }
 
-const { seed, label } = Astro.props;
+const { topic, seed } = Astro.props;
+const { icon, hue } = topics[topic];
+const [from, to] = hue;
 
 let hash = 0;
 for (const character of seed) {
   hash = (hash * 31 + character.charCodeAt(0)) >>> 0;
 }
 
-const palettes = [
-  ["#7fcda0", "#8ab4f8"],
-  ["#8ab4f8", "#b7a3f5"],
-  ["#7fcda0", "#5fb8c9"],
-  ["#5fb8c9", "#8ab4f8"],
-];
-const [from, to] = palettes[hash % palettes.length];
 const id = `cover-${hash.toString(36)}`;
-const rings = Array.from({ length: 6 }, (_, index) => 60 + index * 46);
-const originX = 120 + (hash % 360);
-const originY = 60 + ((hash >> 8) % 220);
+const originX = 140 + (hash % 260);
+const originY = 60 + ((hash >> 8) % 200);
+const rings = [50, 95, 140, 185, 230, 275];
+const dots = Array.from({ length: 18 }, (_, index) => ({
+  x: ((hash >> (index % 16)) * (index + 7)) % 640,
+  y: ((hash >> ((index + 3) % 16)) * (index + 11)) % 336,
+  r: 1 + (index % 3),
+}));
 ---
 
 <svg class="cover" viewBox="0 0 640 336" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
   <defs>
     <linearGradient id={`${id}-bg`} x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color={from} stop-opacity="0.28"></stop>
-      <stop offset="1" stop-color={to} stop-opacity="0.12"></stop>
+      <stop offset="0" stop-color={from} stop-opacity="0.55"></stop>
+      <stop offset="0.55" stop-color={to} stop-opacity="0.22"></stop>
+      <stop offset="1" stop-color="#0e1726" stop-opacity="0"></stop>
     </linearGradient>
+    <radialGradient id={`${id}-glow`} cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color={from} stop-opacity="0.45"></stop>
+      <stop offset="1" stop-color={from} stop-opacity="0"></stop>
+    </radialGradient>
   </defs>
   <rect class="cover-base" width="640" height="336"></rect>
   <rect width="640" height="336" fill={`url(#${id}-bg)`}></rect>
-  {rings.map((radius) => <circle class="cover-ring" cx={originX} cy={originY} r={radius} stroke={from}></circle>)}
-  <circle cx={originX} cy={originY} r="10" fill={to}></circle>
-  {label && <text class="cover-label" x="28" y="306">{label}</text>}
+  <circle cx={originX} cy={originY} r="170" fill={`url(#${id}-glow)`}></circle>
+  {rings.map((radius) => <circle class="cover-ring" cx={originX} cy={originY} r={radius}></circle>)}
+  {dots.map((dot) => <circle class="cover-dot" cx={dot.x} cy={dot.y} r={dot.r}></circle>)}
+  <g class="cover-icon" transform="translate(380 108) scale(5)">
+    <path d={icon}></path>
+  </g>
 </svg>

@@ -1,0 +1,39 @@
+---
+import { profile, topics, type TopicKey } from "../data/site";
+import Cover from "./Cover.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  topic: TopicKey;
+  minutes: number;
+  href?: string;
+  date?: string;
+  badge?: string;
+  featured?: boolean;
+}
+
+const { title, description, topic, minutes, href, date, badge, featured = false } = Astro.props;
+const Tag = href ? "a" : "article";
+---
+
+<Tag class:list={["post-card", { "post-card-featured": featured, "post-card-planned": !href }]} href={href}>
+  <div class="post-card-media">
+    <Cover topic={topic} seed={title} />
+    <span class="topic-chip">#{topics[topic].name}</span>
+    {badge && <span class="post-badge">{badge}</span>}
+  </div>
+  <div class="post-card-body">
+    <p class="post-meta">
+      <span>{minutes} min read</span>
+      {date && <span>{date}</span>}
+    </p>
+    <h3>{title}</h3>
+    <p class="post-description">{description}</p>
+    <div class="post-author">
+      <img src={profile.photo} alt="" width="32" height="32" loading="lazy" />
+      <span>{profile.name}</span>
+      <span class="post-cta">{href ? "Read more →" : "Being written"}</span>
+    </div>
+  </div>
+</Tag>
