@@ -24,7 +24,7 @@ const image = new URL("/assets/profile-banner-v2.png", Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#1b1f24" />
+    <meta name="theme-color" content="#1f1d1b" />
     <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -48,6 +48,7 @@ const image = new URL("/assets/profile-banner-v2.png", Astro.site);
         </a>
 
         <nav class="main-nav" aria-label="Main navigation">
+          <a href="/#about">About</a>
           <a href="/#focus">Focus</a>
           <a href="/#work">Work</a>
           {hasPosts && <a href="/blog/">Writing</a>}
@@ -67,7 +68,7 @@ const image = new URL("/assets/profile-banner-v2.png", Astro.site);
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>© {new Date().getFullYear()} Patrick Kappen · Netherlands</p>
+        <p>© {new Date().getFullYear()} Patrick Kappen · <span class="footer-note">Built with Astro, deployed from Git. Thanks for stopping by.</span></p>
         <div class="footer-links">
           <a href="/rss.xml">RSS</a>
           <a href="https://www.linkedin.com/in/patrick-kappen/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
