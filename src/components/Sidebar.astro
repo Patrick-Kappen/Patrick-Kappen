@@ -1,9 +1,12 @@
 ---
 import now from "@content/now.json";
-import { externalLink, homelab, openSource, profile } from "@content/data/profile";
+import { openSource, profile } from "@content/data/profile";
+import { externalLink } from "../lib/links";
+import { homelabFacts } from "../lib/queries";
 import { topicKeys, topics } from "@content/data/topics";
 import { topicHref, topicsWithPosts } from "../lib/topics";
 
+const { facts: homelab } = homelabFacts();
 const liveTopics = await topicsWithPosts();
 ---
 

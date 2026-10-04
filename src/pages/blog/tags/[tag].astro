@@ -4,7 +4,8 @@ import PostRow from "../../../components/PostRow.astro";
 import Sidebar from "../../../components/Sidebar.astro";
 import { profile } from "@content/data/profile";
 import Base from "../../../layouts/Base.astro";
-import { formatDate, postsByTag, readingMinutes, type Post } from "../../../lib/posts";
+import { formatDate } from "../../../lib/format";
+import { postsByTag, readingMinutes, type Post } from "../../../lib/posts";
 
 export async function getStaticPaths() {
   const tags = await postsByTag();

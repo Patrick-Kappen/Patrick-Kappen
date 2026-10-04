@@ -3,9 +3,11 @@ import Cover from "../components/Cover.astro";
 import PageHeader from "../components/PageHeader.astro";
 import Rich from "../components/Rich.astro";
 import StatBand from "../components/StatBand.astro";
-import { about, externalLink, openSource, profile } from "@content/data/profile";
+import { about, openSource, profile } from "@content/data/profile";
 import type { TopicKey } from "@content/data/topics";
 import Base from "../layouts/Base.astro";
+import { externalLink } from "../lib/links";
+import { homelabFacts, toolCount } from "../lib/queries";
 
 const facts = [
   ["Role", `${profile.title} at ${profile.company}`],
@@ -14,11 +16,10 @@ const facts = [
   ["Based in", profile.location],
 ].filter(([, value]) => value);
 
-const toolCount = profile.stack.reduce((total, group) => total + group.tools.length, 0);
 const stats = [
   { value: String(profile.certifications.length), label: "Microsoft certifications" },
   { value: String(toolCount), label: "tools in my stack" },
-  { value: "4", label: "NixOS machines in one flake" },
+  { value: String(homelabFacts().nixosMachines), label: "NixOS machines in one flake" },
   { value: String(openSource.length), label: "open-source projects" },
 ];
 

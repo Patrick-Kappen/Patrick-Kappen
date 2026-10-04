@@ -3,10 +3,12 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { render } from "astro:content";
 import Cover from "../../components/Cover.astro";
-import { externalLink, profile } from "@content/data/profile";
+import { profile } from "@content/data/profile";
+import { externalLink } from "../../lib/links";
 import { topics } from "@content/data/topics";
 import Base from "../../layouts/Base.astro";
-import { formatDate, publishedPosts, readingMinutes, seriesFor, tagSlug, type Post } from "../../lib/posts";
+import { formatDate, tagSlug } from "../../lib/format";
+import { publishedPosts, readingMinutes, seriesFor, type Post } from "../../lib/posts";
 
 export async function getStaticPaths() {
   const posts = await publishedPosts();

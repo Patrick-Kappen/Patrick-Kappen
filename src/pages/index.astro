@@ -5,27 +5,19 @@ import Sidebar from "../components/Sidebar.astro";
 import ToolChip from "../components/ToolChip.astro";
 import WorkItem from "../components/WorkItem.astro";
 import { profile } from "@content/data/profile";
-import { topicKeys, topics } from "@content/data/topics";
 import { featuredWork } from "@content/data/work";
 import Base from "../layouts/Base.astro";
 import { blogIndex } from "../lib/posts";
+import { allTools, toolCount, topicsWithCounts } from "../lib/queries";
 
 const { published } = await blogIndex();
 const latest = published.slice(0, 5);
 const recentWork = featuredWork.slice(0, 3);
-const allTools = profile.stack.flatMap((group) => group.tools);
-const toolCount = allTools.length;
 const highlights = profile.highlights
   .map((name) => allTools.find((tool) => tool.name === name))
   .filter((tool) => tool !== undefined);
 
-const topicList = topicKeys
-  .map((key) => ({
-    key,
-    ...topics[key],
-    count: published.filter((card) => card.topic === key).length,
-  }))
-  .filter((topic) => topic.count > 0);
+const topicList = topicsWithCounts(published).filter((topic) => topic.count > 0);
 const showTopics = topicList.length >= 3;
 ---
 
