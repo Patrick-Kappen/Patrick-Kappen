@@ -1556,6 +1556,17 @@
     color: var(--wild);
   }
 
+  .exp-role {
+    display: block;
+    color: var(--alice);
+    font-weight: 700;
+  }
+
+  .exp-text {
+    display: block;
+    margin-top: 2px;
+  }
+
   .row-list-wide > * {
     grid-template-columns: minmax(220px, 340px) minmax(0, 1fr);
   }
