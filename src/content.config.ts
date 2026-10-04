@@ -145,6 +145,7 @@ const pages = defineCollection({
     focusLine: z.string().optional(),
     stats: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
     facts: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
+    experience: z.array(z.object({ period: z.string(), role: z.string(), org: z.string(), text: z.string() })).default([]),
     sections: z
       .array(z.object({ id: z.string(), label: z.string(), topic: z.string(), text: z.string() }))
       .default([]),

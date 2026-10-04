@@ -56,6 +56,25 @@ const socials = profile.links.filter((link) => link.href.startsWith("http"));
           </div>
         </div>
 
+        {page.experience.length > 0 && (
+          <div class="home-block">
+            <div class="block-head">
+              <h2 class="section-title">{labels.experience}</h2>
+            </div>
+            <ul class="row-list">
+              {page.experience.map(({ period, role, org, text }) => (
+                <li>
+                  <strong>{period}</strong>
+                  <span>
+                    <span class="exp-role">{role} · {org}</span>
+                    <span class="exp-text">{text}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {page.beliefs.length > 0 && (
           <div class="home-block">
             <div class="block-head">
