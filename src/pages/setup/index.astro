@@ -4,12 +4,13 @@ import MachineCard from "../../components/MachineCard.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import StatBand from "../../components/StatBand.astro";
 import ToolGroups from "../../components/ToolGroups.astro";
-import { desk, lab, labServices, labStats } from "@content/data/hardware";
+import { desk, lab, labServices } from "@content/data/hardware";
 import { profile } from "@content/data/profile";
 import type { TopicKey } from "@content/data/topics";
 import Base from "../../layouts/Base.astro";
+import { homelabFacts, toolCount } from "../../lib/queries";
 
-const toolCount = profile.stack.reduce((total, group) => total + group.tools.length, 0);
+const labStats = homelabFacts().stats;
 const sections: { id: string; label: string; topic: TopicKey; text: string }[] = [
   { id: "desk", label: "Desk", topic: "workstation", text: "The machines I work on every day." },
   { id: "homelab", label: "Homelab", topic: "homelab", text: "Where ideas get tested before they reach real work." },

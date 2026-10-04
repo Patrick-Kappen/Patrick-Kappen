@@ -4,7 +4,7 @@ import WorkCard from "../../components/WorkCard.astro";
 import { profile } from "@content/data/profile";
 import { work } from "@content/data/work";
 import Base from "../../layouts/Base.astro";
-import { tagSlug } from "../../lib/posts";
+import { tagSlug } from "../../lib/format";
 
 const counts = new Map<string, { name: string; count: number }>();
 for (const item of work) {

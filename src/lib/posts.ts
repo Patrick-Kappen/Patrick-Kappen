@@ -1,6 +1,7 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import { planned } from "@content/data/planned";
 import type { TopicKey } from "@content/data/topics";
+import { formatDate, tagSlug } from "./format";
 
 export type Post = CollectionEntry<"blog">;
 
@@ -24,14 +25,6 @@ export async function publishedPosts(): Promise<Post[]> {
   );
 }
 
-export function formatDate(date: Date): string {
-  return date.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
-
 export function readingMinutes(post: Post): number {
   const words = (post.body ?? "").split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(words / 220));
@@ -53,10 +46,6 @@ export async function blogIndex() {
     .filter((item) => !titles.has(item.title))
     .map((item) => ({ title: item.title, topic: item.topic }));
   return { posts, published, upcoming };
-}
-
-export function tagSlug(tag: string): string {
-  return tag.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
 export async function postsByTag() {
