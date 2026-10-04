@@ -52,11 +52,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Typecheck
+        run: npm run check
+
       - name: Build website
         run: npm run build
 
       - name: Verify production output
-        run: test -s dist/index.html && test -s dist/_headers && test -s dist/now.json
+        run: sh scripts/verify-dist.sh
 
       - name: Keep the build
         if: github.ref == 'refs/heads/main'
