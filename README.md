@@ -100,19 +100,34 @@ _Last changed Oct 2026._
 <!-- auto:end -->
 <!-- markdownlint-enable MD013 -->
 
+<!-- site:start -->
+
 ## Toolbox
 
-- **Cloud:** Azure · IBM Cloud · AWS · Proxmox
-- **IaC & delivery:** Terraform/OpenTofu · Bicep · GitHub Actions · Azure
-  DevOps · Ansible · Nix
-- **Identity & security:** Entra ID · PIM/JIT · GDAP · Lighthouse · OIDC · Key
-  Vault · SOPS
-- **Containers:** Kubernetes · Talos · Podman/Quadlet · Docker · Helm
-- **Code:** PowerShell · Python · TypeScript · Rust · Bash
-- **AI:** vLLM · Ollama · llama.cpp · LiteLLM · LangGraph · Langfuse · Phoenix
+- **Cloud:** Azure · Cloudflare · AWS · Google Cloud · IBM Cloud
+- **Automation & delivery:** Terraform · Bicep · GitHub Actions · PowerShell ·
+  Azure DevOps · Git · Ansible · Bash · GitHub Copilot
+- **NixOS & deployment:** NixOS · Home Manager · deploy-rs · comin · disko
+- **Linux:** Ubuntu · Red Hat · Fedora · Arch Linux
+- **Containers & orchestration:** Kubernetes · Podman · Docker · Helm · Argo CD
+  · Cilium · Nomad
+- **AI:** LiteLLM · Phoenix · Langfuse · vLLM · llama.cpp · Claude · Codex · pi
+- **Datacenter & virtualisation:** Azure Local · Azure Arc · Hyper-V · Windows
+  Server · Proxmox · HPE
+- **Networking:** Tailscale · UniFi · VLANs · WireGuard · Traefik · Technitium ·
+  Caddy · Let's Encrypt
+- **Storage & backup:** TrueNAS · OpenZFS · btrfs · Proxmox Backup Server · Borg
+  · PostgreSQL · S3
+- **Monitoring:** Grafana · Prometheus · Loki · Uptime Kuma
+- **Identity & secrets:** Entra ID · 1Password · sops · Authentik · Pocket ID ·
+  Keycloak · Vaultwarden
+- **Workstation & languages:** Neovim · Hyprland · niri · Umbriel · tmux · VS
+  Code · Dev Containers · Python · Go · Rust · YAML
+- **Self-hosted apps:** Home Assistant · Immich · Nextcloud
 
 ## Certifications
 
 - **Certified:** AZ-900 · AZ-104 · AZ-400
-- **Working towards:** GitHub Actions · GitHub Administration · AI-103 (Azure AI
-  Apps and Agents)
+- **Working towards:** GitHub Actions · AI-103
+
+<!-- site:end -->
