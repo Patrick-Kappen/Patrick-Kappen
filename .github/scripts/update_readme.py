@@ -207,7 +207,10 @@ def bullet(label, items):
 def render_site(content):
     site = load(content, "site.yaml")
     groups = sorted(load(content, "tool-groups.yaml"), key=lambda group: group["order"])
-    tools = sorted(load(content, "tools.yaml"), key=lambda tool: tool["order"])
+    tools = sorted(
+        (tool for tool in load(content, "tools.yaml") if tool.get("highlight") is not None),
+        key=lambda tool: tool["highlight"],
+    )
     lines = ["## Toolbox", ""]
     for group in groups:
         names = [tool["name"] for tool in tools if tool["group"] == group["id"]]

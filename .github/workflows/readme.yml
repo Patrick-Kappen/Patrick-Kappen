@@ -46,6 +46,9 @@ jobs:
           token: ${{ steps.content-token.outputs.token }}
           persist-credentials: false
 
+      - name: Install PyYAML
+        run: python3 -m pip install --user pyyaml==6.0.3
+
       - name: Render generated sections
         env:
           GITHUB_TOKEN: ${{ github.token }}

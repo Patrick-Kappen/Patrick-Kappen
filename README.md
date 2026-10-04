@@ -104,26 +104,17 @@ _Last changed Oct 2026._
 
 ## Toolbox
 
-- **Cloud:** Azure · Cloudflare · AWS · Google Cloud · IBM Cloud
+- **Cloud:** Azure
 - **Automation & delivery:** Terraform · Bicep · GitHub Actions · PowerShell ·
-  Azure DevOps · Git · Ansible · Bash · GitHub Copilot
-- **NixOS & deployment:** NixOS · Home Manager · deploy-rs · comin · disko
-- **Linux:** Ubuntu · Red Hat · Fedora · Arch Linux
-- **Containers & orchestration:** Kubernetes · Podman · Docker · Helm · Argo CD
-  · Cilium · Nomad
-- **AI:** LiteLLM · Phoenix · Langfuse · vLLM · llama.cpp · Claude · Codex · pi
-- **Datacenter & virtualisation:** Azure Local · Azure Arc · Hyper-V · Windows
-  Server · Proxmox · HPE
-- **Networking:** Tailscale · UniFi · VLANs · WireGuard · Traefik · Technitium ·
-  Caddy · Let's Encrypt
-- **Storage & backup:** TrueNAS · OpenZFS · btrfs · Proxmox Backup Server · Borg
-  · PostgreSQL · S3
-- **Monitoring:** Grafana · Prometheus · Loki · Uptime Kuma
-- **Identity & secrets:** Entra ID · 1Password · sops · Authentik · Pocket ID ·
-  Keycloak · Vaultwarden
-- **Workstation & languages:** Neovim · Hyprland · niri · Umbriel · tmux · VS
-  Code · Dev Containers · Python · Go · Rust · YAML
-- **Self-hosted apps:** Home Assistant · Immich · Nextcloud
+  Azure DevOps · Ansible
+- **NixOS & deployment:** NixOS
+- **Linux:** Ubuntu
+- **Containers & orchestration:** Kubernetes · Podman
+- **AI:** LiteLLM · Phoenix
+- **Datacenter & virtualisation:** Proxmox
+- **Networking:** Tailscale · Traefik
+- **Storage & backup:** TrueNAS
+- **Monitoring:** Grafana
 
 ## Certifications
 
