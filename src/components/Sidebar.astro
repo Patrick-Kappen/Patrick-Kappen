@@ -1,6 +1,10 @@
 ---
 import now from "@content/now.json";
-import { externalLink, profile } from "@content/data/profile";
+import { externalLink, homelab, openSource, profile } from "@content/data/profile";
+import { topicKeys, topics } from "@content/data/topics";
+import { topicHref, topicsWithPosts } from "../lib/topics";
+
+const liveTopics = await topicsWithPosts();
 ---
 
 <aside class="sidebar">
@@ -28,13 +32,50 @@ import { externalLink, profile } from "@content/data/profile";
     </section>
   )}
 
+  {openSource.length > 0 && (
+    <section class="widget">
+      <h2 class="widget-title">Open source</h2>
+      <ul class="oss-list">
+        {openSource.map((item) => (
+          <li>
+            <a href={item.href} {...externalLink(item.href)}>
+              <span class="oss-head"><strong>{item.name}</strong><span class="oss-status">{item.status}</span></span>
+              <span class="oss-text">{item.text}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
   {profile.certifications.length > 0 && (
     <section class="widget">
       <h2 class="widget-title">Certified</h2>
       <div class="cert-list">
         {profile.certifications.map((cert) => <span class="cert">{cert}</span>)}
       </div>
-      {profile.studying.length > 0 && <p class="muted">Studying: {profile.studying.join(" · ")}</p>}
     </section>
   )}
+
+  {homelab.length > 0 && (
+    <section class="widget">
+      <h2 class="widget-title">Homelab at a glance</h2>
+      <dl class="fact-list">
+        {homelab.map((fact) => (
+          <div>
+            <dt>{fact.label}</dt>
+            <dd>{fact.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <a class="text-link widget-link" href="/setup/#homelab">The whole homelab →</a>
+    </section>
+  )}
+
+  <section class="widget">
+    <h2 class="widget-title">Writing about</h2>
+    <ul class="tag-list">
+      {topicKeys.map((key) => <li>{liveTopics.has(key) ? <a class="tag-pill" href={topicHref(key)}>#{topics[key].name}</a> : <span class="tag-pill tag-pill-muted">#{topics[key].name}</span>}</li>)}
+    </ul>
+  </section>
 </aside>

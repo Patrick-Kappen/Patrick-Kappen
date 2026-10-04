@@ -1,4 +1,5 @@
 ---
+import PageHeader from "../../components/PageHeader.astro";
 import WorkCard from "../../components/WorkCard.astro";
 import { profile } from "@content/data/profile";
 import { work } from "@content/data/work";
@@ -19,17 +20,15 @@ const filters = [...counts]
   .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 ---
 
-<Base title={`Work — ${profile.name}`} description={`What ${profile.firstName} is building at work and on his own time: platforms, identity, recovery and AI infrastructure.`}>
+<Base title={`Work — ${profile.name}`} description={`What ${profile.firstName} is building right now.`}>
   <section class="section page-top">
     <div class="container">
-      <p class="article-kicker"><a href="/">Home</a><span class="kicker-line" aria-hidden="true"></span><span>{work.length} projects</span></p>
-      <h1 class="section-title">Work</h1>
-      <p class="section-subtitle work-intro">
-        What I'm building at {profile.company} and on my own time. Each project starts with a
-        problem I wanted gone, and ends up as code that anyone on the team can read and repeat.
-      </p>
+      <PageHeader eyebrow="Work" title="What I'm building">
+        Each project starts with a problem I wanted gone, and ends up as code that anyone
+        can read and repeat.
+      </PageHeader>
 
-      {filters.length > 0 && (
+      {work.length > 2 && (
         <div class="work-filter" data-work-filter hidden>
           <span class="work-filter-label">Filter</span>
           <ul class="tag-list">

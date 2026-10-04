@@ -1,0 +1,22 @@
+---
+import type { MachineKind } from "@content/data/hardware";
+
+interface Props {
+  kind: MachineKind;
+}
+
+const paths: Record<MachineKind, string> = {
+  desktop: "M3 4h18v12H3z M8 20h8 M12 16v4",
+  laptop: "M5 5h14v10H5z M2 19h20 M5 15l-3 4 M19 15l3 4",
+  handheld: "M3 8h18v8H3z M7 11v2 M6 12h2 M16 11h.01 M18 13h.01 M10 10h4v4h-4z",
+  server: "M4 4h16v6H4z M4 14h16v6H4z M8 7h.01 M8 17h.01 M12 7h4 M12 17h4",
+  nas: "M5 3h14v18H5z M8 7h8 M8 11h8 M8 15h8 M12 18h.01",
+  cluster: "M3 5h7v6H3z M14 5h7v6h-7z M8.5 15h7v6h-7z M6.5 11v2h11v-2 M12 13v2",
+  gpu: "M2 7h20v10H2z M6 17v2 M10 17v2 M14 17v2 M18 17v2 M8 12a2 2 0 1 0 4 0a2 2 0 1 0-4 0 M15 10h3v4h-3z",
+  network: "M3 14h18v6H3z M7 17h.01 M11 17h.01 M15 17h.01 M12 14V9 M8 7a5.5 5.5 0 0 1 8 0 M5.5 4.5a9 9 0 0 1 13 0",
+};
+---
+
+<span class="machine-icon" aria-hidden="true">
+  <svg viewBox="0 0 24 24"><path d={paths[Astro.props.kind]}></path></svg>
+</span>

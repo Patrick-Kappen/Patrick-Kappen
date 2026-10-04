@@ -31,7 +31,8 @@ const showTopics = topicList.length >= 3;
 
 <Base>
   <section class="hero">
-    <div class="container hero-grid">
+    <div class="container hero-inner">
+      <img class="hero-avatar" src={profile.photo} alt={`Portrait of ${profile.name}`} width="315" height="315" />
       <div class="hero-copy">
         <p class="hero-eyebrow">{profile.role}</p>
         <h1>I'm <span class="gradient-text">{profile.name}</span></h1>
@@ -43,9 +44,6 @@ const showTopics = topicList.length >= 3;
           <a class="btn btn-ghost" href="/about/">About me</a>
         </div>
       </div>
-      <figure class="hero-photo">
-        <img src={profile.photo} alt={`Portrait of ${profile.name}`} width="315" height="315" />
-      </figure>
     </div>
 
     {showTopics && (
@@ -62,7 +60,7 @@ const showTopics = topicList.length >= 3;
           <ul class="topics-slider" data-slider>
             {topicList.map((topic) => (
               <li>
-                <a class="topic-card" href="/blog/">
+                <a class="topic-card" href={`/blog/topics/${topic.key}/`}>
                   <Cover topic={topic.key} seed={`${topic.name} topic`} />
                   <span class="topic-card-text">
                     <strong>{topic.name}</strong>
@@ -84,27 +82,12 @@ const showTopics = topicList.length >= 3;
           <div class="home-block">
             <div class="block-head">
               <h2 class="section-title">What I work with</h2>
+              <a class="text-link" href="/setup/#tools">All {toolCount} tools →</a>
             </div>
             <div class="tools">
               <ul class="tag-grid tool-highlights">
                 {highlights.map((tool, index) => <ToolChip tool={tool} index={index} />)}
               </ul>
-              <details class="tool-all">
-                <summary>
-                  <span class="tool-all-open">Show all {toolCount} tools</span>
-                  <span class="tool-all-close">Show fewer</span>
-                </summary>
-                <div class="tool-groups">
-                  {profile.stack.map((group) => (
-                    <div class="tool-group">
-                      <h3>{group.title}</h3>
-                      <ul class="tag-grid">
-                        {group.tools.map((tool, index) => <ToolChip tool={tool} index={index} />)}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </details>
             </div>
           </div>
         )}
@@ -121,7 +104,7 @@ const showTopics = topicList.length >= 3;
           </div>
         )}
 
-        {recentWork.length > 0 && (
+        {recentWork.length > 1 && (
           <div class="home-block">
             <div class="block-head">
               <h2 class="section-title">Recent work</h2>

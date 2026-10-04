@@ -1,0 +1,24 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  parent?: { label: string; href: string };
+}
+
+const { eyebrow, title, parent } = Astro.props;
+const hasLead = Astro.slots.has("default");
+---
+
+<header class="page-header">
+  <p class="hero-eyebrow">
+    {parent && (
+      <>
+        <a href={parent.href}>{parent.label}</a>
+        <span aria-hidden="true"> / </span>
+      </>
+    )}
+    {eyebrow}
+  </p>
+  <h1 class="page-title">{title}</h1>
+  {hasLead && <p class="page-lead"><slot /></p>}
+</header>

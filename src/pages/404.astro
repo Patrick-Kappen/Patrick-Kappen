@@ -1,0 +1,21 @@
+---
+import PageHeader from "../components/PageHeader.astro";
+import { profile } from "@content/data/profile";
+import Base from "../layouts/Base.astro";
+---
+
+<Base title={`Not found — ${profile.name}`} description="This page doesn't exist.">
+  <section class="section page-top">
+    <div class="container not-found">
+      <PageHeader eyebrow="404" title="This page doesn't exist">
+        It may have moved, or the link has a typo. These might help:
+      </PageHeader>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="/">Home</a>
+        <a class="btn btn-ghost" href="/blog/">Blog</a>
+        <a class="btn btn-ghost" href="/work/">Work</a>
+        <a class="btn btn-ghost" href="/setup/">Setup</a>
+      </div>
+    </div>
+  </section>
+</Base>

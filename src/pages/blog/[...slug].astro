@@ -1,10 +1,12 @@
 ---
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { render } from "astro:content";
 import Cover from "../../components/Cover.astro";
 import { externalLink, profile } from "@content/data/profile";
 import { topics } from "@content/data/topics";
 import Base from "../../layouts/Base.astro";
-import { formatDate, publishedPosts, readingMinutes, tagSlug, type Post } from "../../lib/posts";
+import { formatDate, publishedPosts, readingMinutes, seriesFor, tagSlug, type Post } from "../../lib/posts";
 
 export async function getStaticPaths() {
   const posts = await publishedPosts();
@@ -17,11 +19,13 @@ interface Props {
 
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
+const series = await seriesFor(post);
+const shareImage = existsSync(join(process.cwd(), "public/assets/og", `${post.id}.png`)) ? `/assets/og/${post.id}.png` : undefined;
 const toc = headings.filter((heading) => heading.depth === 2);
 const tags = post.data.tags.map((tag) => ({ name: tag, href: `/blog/tags/${tagSlug(tag)}/` }));
 ---
 
-<Base title={`${post.data.title} — ${profile.name}`} description={post.data.description}>
+<Base title={`${post.data.title} — ${profile.name}`} description={post.data.description} image={shareImage}>
   <article class="article">
     <div class="container article-container">
       <header class="article-header">
@@ -34,7 +38,7 @@ const tags = post.data.tags.map((tag) => ({ name: tag, href: `/blog/tags/${tagSl
         <h1>{post.data.title}</h1>
         {tags.length > 0 && (
           <ul class="tag-list" aria-label="Tags">
-            <li><a class="tag-pill tag-pill-topic" href="/blog/">#{topics[post.data.topic].name}</a></li>
+            <li><a class="tag-pill tag-pill-topic" href={`/blog/topics/${post.data.topic}/`}>#{topics[post.data.topic].name}</a></li>
             {tags.map((tag) => <li><a class="tag-pill" href={tag.href}>#{tag.name}</a></li>)}
           </ul>
         )}
@@ -68,10 +72,30 @@ const tags = post.data.tags.map((tag) => ({ name: tag, href: `/blog/tags/${tagSl
         )}
 
         <div class="article-body">
+          {series && (
+            <nav class="series-box" aria-label={`Series: ${series.name}`}>
+              <p class="series-label">Part {series.part} of {series.parts.length} · {series.name}</p>
+              <ol>
+                {series.parts.map((part) => (
+                  <li>{part.current ? <span aria-current="page">{part.title}</span> : <a href={part.href}>{part.title}</a>}</li>
+                ))}
+              </ol>
+            </nav>
+          )}
           <p class="article-lead">{post.data.description}</p>
           <div class="prose">
             <Content />
           </div>
+          {series && (series.previous || series.next) && (
+            <nav class="series-nav" aria-label="More in this series">
+              {series.previous ? (
+                <a href={`/blog/${series.previous.id}/`}><span>← Previous</span><strong>{series.previous.data.title}</strong></a>
+              ) : <span></span>}
+              {series.next && (
+                <a class="series-next" href={`/blog/${series.next.id}/`}><span>Next →</span><strong>{series.next.data.title}</strong></a>
+              )}
+            </nav>
+          )}
         </div>
 
         <aside class="article-aside">

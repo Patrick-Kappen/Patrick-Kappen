@@ -15,5 +15,5 @@ const { tool, index } = Astro.props;
   ) : (
     <span class:list={["tag-initial", `tag-initial-${index % 4}`]}>{tool.name.slice(0, 1).toUpperCase()}</span>
   )}
-  {tool.name}
+  <span class="tag-name" title={tool.name}>{tool.name}</span>
 </li>

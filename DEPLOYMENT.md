@@ -34,6 +34,7 @@ when its list is empty.
 | `data/profile.ts` | Name, role, intro, photo, links, certifications, stack, and the About page text, focus, beliefs and contact |
 | `data/topics.ts` | Topics with name, short description, icon and colours |
 | `data/work.ts` | Work items; `featured` ones also appear on the home page |
+| `data/hardware.ts` | Machines and homelab services for the Setup page |
 | `data/planned.ts` | Planned posts, shown as "Coming up" until a post with the same title is published |
 | `now.json` | The Now list in the sidebar, also published as `/now.json` for the profile README |
 | `blog/*.md` | Blog posts |
@@ -41,6 +42,20 @@ when its list is empty.
 Posts have `title`, `description`, `date`, `topic`, `tags` and `draft` in the
 front matter. Drafts show up in `npm run dev` but are left out of production
 builds and the RSS feed. Reading time is calculated from the text.
+
+Optional front matter:
+
+- `image`, `imageAlt`, `imageCredit`, `imageCreditUrl`: a cover image.
+- `series: { name, part }`: posts with the same series name are linked
+  with a "Part N of M" box and previous/next links.
+
+Share images live in `public/assets/og/`. A post uses `<slug>.png` when it
+exists and `default.png` otherwise. Render one with:
+
+```bash
+nix shell nixpkgs#librsvg nixpkgs#python3 -c \
+  python3 scripts/og-image.py public/assets/og/<slug>.png "Post title" "Topic · Blog"
+```
 
 ## Deploy through GitHub Actions
 
