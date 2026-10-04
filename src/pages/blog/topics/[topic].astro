@@ -1,0 +1,43 @@
+---
+import PageHeader from "../../../components/PageHeader.astro";
+import PostRow from "../../../components/PostRow.astro";
+import Sidebar from "../../../components/Sidebar.astro";
+import { profile } from "@content/data/profile";
+import { topicKeys, topics, type TopicKey } from "@content/data/topics";
+import Base from "../../../layouts/Base.astro";
+import { blogIndex } from "../../../lib/posts";
+
+export async function getStaticPaths() {
+  const { published } = await blogIndex();
+  return topicKeys
+    .filter((key) => published.some((card) => card.topic === key))
+    .map((key) => ({ params: { topic: key }, props: { topic: key } }));
+}
+
+interface Props {
+  topic: TopicKey;
+}
+
+const { topic } = Astro.props;
+const { published } = await blogIndex();
+const posts = published.filter((card) => card.topic === topic);
+const info = topics[topic];
+---
+
+<Base title={`${info.name} — ${profile.name}`} description={info.blurb}>
+  <section class="section page-top">
+    <div class="container">
+      <PageHeader eyebrow="Topic" title={info.name} parent={{ label: "Blog", href: "/blog/" }}>
+        {info.blurb}. {posts.length} {posts.length === 1 ? "post" : "posts"} so far.
+      </PageHeader>
+    </div>
+    <div class="container content-layout">
+      <div>
+        <div class="post-rows">
+          {posts.map((card) => <PostRow {...card} />)}
+        </div>
+      </div>
+      <Sidebar />
+    </div>
+  </section>
+</Base>

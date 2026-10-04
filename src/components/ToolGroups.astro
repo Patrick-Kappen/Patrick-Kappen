@@ -1,0 +1,17 @@
+---
+import { profile } from "@content/data/profile";
+import ToolChip from "./ToolChip.astro";
+---
+
+<div class="tools">
+  <div class="tool-groups">
+    {profile.stack.map((group) => (
+      <div class="tool-group">
+        <h3>{group.title}</h3>
+        <ul class="tag-grid">
+          {group.tools.map((tool, index) => <ToolChip tool={tool} index={index} />)}
+        </ul>
+      </div>
+    ))}
+  </div>
+</div>

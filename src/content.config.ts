@@ -15,6 +15,7 @@ const blog = defineCollection({
     imageAlt: z.string().default(""),
     imageCredit: z.string().optional(),
     imageCreditUrl: z.string().url().optional(),
+    series: z.object({ name: z.string(), part: z.number().int().positive() }).optional(),
     draft: z.boolean().default(false),
   }),
 });

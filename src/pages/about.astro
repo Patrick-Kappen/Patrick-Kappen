@@ -1,122 +1,137 @@
 ---
+import Cover from "../components/Cover.astro";
+import PageHeader from "../components/PageHeader.astro";
 import Rich from "../components/Rich.astro";
-import { about, externalLink, profile } from "@content/data/profile";
-import { work } from "@content/data/work";
+import StatBand from "../components/StatBand.astro";
+import { about, externalLink, openSource, profile } from "@content/data/profile";
+import type { TopicKey } from "@content/data/topics";
 import Base from "../layouts/Base.astro";
 
 const facts = [
-  ["Role", profile.title],
-  ["Company", `${profile.company}, ${profile.companyNote}`],
+  ["Role", `${profile.title} at ${profile.company}`],
   ["Focus", about.focusLine],
-  ["Certified", profile.certifications.join(" · ")],
+  ["Studying", profile.studying.join(" · ")],
   ["Based in", profile.location],
 ].filter(([, value]) => value);
+
+const toolCount = profile.stack.reduce((total, group) => total + group.tools.length, 0);
+const stats = [
+  { value: String(profile.certifications.length), label: "Microsoft certifications" },
+  { value: String(toolCount), label: "tools in my stack" },
+  { value: "4", label: "NixOS machines in one flake" },
+  { value: String(openSource.length), label: "open-source projects" },
+];
+
+const focusTopics: TopicKey[] = ["delivery", "identity", "homelab", "ai"];
+
+const elsewhere = [
+  { title: "Work", text: "What I'm building right now.", href: "/work/" },
+  { title: "Setup", text: "My machines, the homelab and the tools I use every day.", href: "/setup/" },
+  { title: "Blog", text: "Practical notes from building all of the above.", href: "/blog/" },
+];
 const socials = profile.links.filter((link) => link.href.startsWith("http"));
 ---
 
 <Base title={`About — ${profile.name}`} description={`${profile.name}, ${profile.title} at ${profile.company}. ${profile.tagline}`}>
-  <section class="page-hero">
-    <div class="container page-hero-inner">
-      <img class="page-hero-photo" src={profile.photo} alt={`Portrait of ${profile.name}`} width="140" height="140" />
-      <div>
-        <p class="eyebrow">About me</p>
-        <h1>I'm <span class="highlight">{profile.firstName}</span>, {about.headline}</h1>
-        <ul class="hero-facts">
-          {facts.map(([term, value]) => (
-            <li>{term} <strong>{value}</strong></li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="about">
-    <div class="container about">
-      <div class="section-head reveal">
-        <p class="label">About me</p>
-        <h2>A bit about me</h2>
-      </div>
-      <div class="about-text reveal">
-        {about.paragraphs.map((text) => <p><Rich text={text} /></p>)}
-      </div>
-    </div>
-  </section>
-
-  {about.focus.length > 0 && (
-  <section class="section section-alt" id="focus">
+  <section class="section page-top">
     <div class="container">
-      <div class="section-head reveal">
-        <p class="label">Focus</p>
-        <h2>Where infrastructure, identity and automation meet</h2>
-        <p>That is where a manual, risky process can become a pull request.</p>
-      </div>
-      <div class="focus-grid">
-        {about.focus.map((item) => (
-          <article class="focus-item reveal">
-            <span class="focus-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d={item.icon}></path></svg>
-            </span>
-            <h3>{item.title}</h3>
-            <p>{item.body}</p>
-            <p class="stack">{item.tags.join(" · ")}</p>
-          </article>
-        ))}
-      </div>
+      <PageHeader eyebrow="About me" title={`I'm ${profile.name}`}>
+        {profile.tagline}
+      </PageHeader>
     </div>
-  </section>
-)}
 
-  {work.length > 0 && (
-  <section class="section" id="work">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="label">Work</p>
-        <h2>Selected work</h2>
-        <p>What I am building at work and on my own time.</p>
-      </div>
-      <ul class="work-links reveal">
-        {work.map((item) => (
-          <li>
-            <a href="/work/">
-              <span class="work-context"><b>{item.context}</b>{item.status}</span>
-              <strong>{item.title}</strong>
-            </a>
-          </li>
-        ))}
-      </ul>
-      <a class="btn btn-ghost" href="/work/">See the details on the Work page →</a>
-    </div>
-  </section>
-)}
+    <div class="container content-layout">
+      <div class="page-main">
+        <StatBand stats={stats} />
 
-  {about.beliefs.length > 0 && (
-  <section class="section section-alt" id="beliefs">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="label">Principles</p>
-        <h2>Things I believe</h2>
-      </div>
-      <ul class="beliefs">
-        {about.beliefs.map(({ title, body }) => (
-          <li class="reveal">
-            <h3>{title}</h3>
-            <p>{body}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-)}
+        <div class="about-story prose">
+          {about.paragraphs.map((text) => <p><Rich text={text} /></p>)}
+        </div>
 
-  <section class="section" id="contact">
-    <div class="container contact reveal">
-      <p class="label">Contact</p>
-      <h2>{about.contact.title}</h2>
-      <p class="about-text">{about.contact.body}</p>
-      <a class="contact-mail" href={`mailto:${profile.email}`}>{profile.email}</a>
-      <div class="contact-links">
-        {socials.map((link) => <a href={link.href} {...externalLink(link.href)}>{link.label} →</a>)}
+        <div class="home-block">
+          <div class="block-head">
+            <h2 class="section-title">What I work on</h2>
+          </div>
+          <div class="focus-cards">
+            {about.focus.map((item, index) => (
+              <article class="focus-card">
+                <figure class="focus-media">
+                  <Cover topic={focusTopics[index % focusTopics.length]} seed={item.title} />
+                </figure>
+                <div class="focus-body">
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                  <ul class="tag-list">
+                    {item.tags.map((tag) => <li><span class="tag-pill">#{tag}</span></li>)}
+                  </ul>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        {about.beliefs.length > 0 && (
+          <div class="home-block">
+            <div class="block-head">
+              <h2 class="section-title">Things I believe</h2>
+            </div>
+            <ul class="row-list row-list-wide">
+              {about.beliefs.map(({ title, body }) => (
+                <li>
+                  <strong>{title}</strong>
+                  <span>{body}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div class="home-block">
+          <div class="block-head">
+            <h2 class="section-title">Elsewhere on this site</h2>
+          </div>
+          <ul class="link-cards">
+            {elsewhere.map((item) => (
+              <li>
+                <a href={item.href}>
+                  <strong>{item.title} →</strong>
+                  <span>{item.text}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
+
+      <aside class="page-aside">
+        <section class="widget profile-card">
+          <img src={profile.photo} alt={`Portrait of ${profile.name}`} width="315" height="315" />
+          <div>
+            <strong>{profile.name}</strong>
+            <span>{profile.role}</span>
+          </div>
+          <dl class="fact-list">
+            {facts.map(([term, value]) => (
+              <div>
+                <dt>{term}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+          <div class="cert-list">
+            {profile.certifications.map((cert) => <span class="cert">{cert}</span>)}
+          </div>
+        </section>
+
+        <section class="widget">
+          <h2 class="widget-title">{about.contact.title}</h2>
+          <p class="widget-text">{about.contact.body}</p>
+          <a class="btn btn-primary btn-block" href="/contact/">Get in touch <span aria-hidden="true">→</span></a>
+          <div class="profile-links">
+            {socials.map((link) => <a href={link.href} {...externalLink(link.href)}>{link.label}</a>)}
+          </div>
+        </section>
+      </aside>
     </div>
   </section>
 </Base>

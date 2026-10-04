@@ -6,7 +6,7 @@ tools I use.
 | Logo | Source | License |
 |---|---|---|
 | Argo CD, AWS, Azure, Azure DevOps, Docker, Git, GitHub Actions, Go, Google Cloud, Grafana, Helm, Hyper-V, Kubernetes, Neovim, NixOS, Podman, PostgreSQL, PowerShell, Prometheus, Python, Terraform, tmux, Traefik, VS Code, Nomad, Windows (for Windows Server) | [Devicon](https://github.com/devicons/devicon) | MIT, Copyright (c) 2015 konpa |
-| 1Password, Ansible, Authentik, Bash, BorgBackup, Caddy, Cilium, Claude, Cloudflare, Home Assistant, Immich, Keycloak, Let's Encrypt, Nextcloud, Proxmox (also for Proxmox Backup Server), Uptime Kuma, Vaultwarden, WireGuard, YAML, GitHub Copilot, Hyprland, niri, OpenZFS, Rust, Tailscale, TrueNAS, UniFi (Ubiquiti), vLLM | [Simple Icons](https://github.com/simple-icons/simple-icons) | CC0 1.0 |
+| 1Password, Ansible, Arch Linux, Authentik, Bash, BorgBackup, Caddy, Cilium, Claude, Cloudflare, Home Assistant, Immich, Keycloak, Let's Encrypt, Nextcloud, Proxmox (also for Proxmox Backup Server), Red Hat, Fedora, Ubuntu, Uptime Kuma, Vaultwarden, WireGuard, YAML, GitHub Copilot, Hyprland, niri, OpenZFS, Rust, Tailscale, TrueNAS, UniFi (Ubiquiti), vLLM | [Simple Icons](https://github.com/simple-icons/simple-icons) | CC0 1.0 |
 | Bicep | [Azure/bicep](https://github.com/Azure/bicep) | MIT, Copyright (c) Microsoft Corporation |
 | LiteLLM | [BerriAI/litellm](https://github.com/BerriAI/litellm) | Logo of the LiteLLM project |
 | Phoenix | [Arize-ai/phoenix](https://github.com/Arize-ai/phoenix) | Logo of the Phoenix project |

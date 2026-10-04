@@ -1,4 +1,5 @@
 ---
+import PageHeader from "../../../components/PageHeader.astro";
 import PostRow from "../../../components/PostRow.astro";
 import Sidebar from "../../../components/Sidebar.astro";
 import { profile } from "@content/data/profile";
@@ -20,10 +21,10 @@ const { name, posts } = Astro.props;
 
 <Base title={`#${name} — ${profile.name}`} description={`Posts tagged ${name}.`}>
   <section class="section page-top">
-    <div class="container page-head">
-      <p class="article-kicker"><a href="/blog/">Blog</a><span class="kicker-line" aria-hidden="true"></span><span>Tag</span></p>
-      <h1 class="section-title">#{name}</h1>
-      <p class="section-subtitle">{posts.length} {posts.length === 1 ? "post" : "posts"}</p>
+    <div class="container">
+      <PageHeader eyebrow="Tag" title={`#${name}`} parent={{ label: "Blog", href: "/blog/" }}>
+        {posts.length} {posts.length === 1 ? "post" : "posts"} with this tag.
+      </PageHeader>
     </div>
     <div class="container content-layout">
       <div>

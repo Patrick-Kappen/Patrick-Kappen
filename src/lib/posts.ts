@@ -72,3 +72,19 @@ export async function postsByTag() {
   }
   return tags;
 }
+
+export async function seriesFor(post: Post) {
+  const series = post.data.series;
+  if (!series) return undefined;
+  const posts = (await publishedPosts())
+    .filter((other) => other.data.series?.name === series.name)
+    .sort((a, b) => (a.data.series?.part ?? 0) - (b.data.series?.part ?? 0));
+  const index = posts.findIndex((other) => other.id === post.id);
+  return {
+    name: series.name,
+    part: series.part,
+    parts: posts.map((other) => ({ title: other.data.title, href: `/blog/${other.id}/`, part: other.data.series?.part ?? 0, current: other.id === post.id })),
+    previous: index > 0 ? posts[index - 1] : undefined,
+    next: index >= 0 && index < posts.length - 1 ? posts[index + 1] : undefined,
+  };
+}

@@ -1,0 +1,23 @@
+---
+import type { Machine } from "@content/data/hardware";
+import MachineIcon from "./MachineIcon.astro";
+
+type Props = Machine;
+
+const { name, kind, role, specs, os, status } = Astro.props;
+---
+
+<article class="machine">
+  <div class="machine-head">
+    <MachineIcon kind={kind} />
+    <h3>{name}</h3>
+    <span class="machine-os">{os}</span>
+  </div>
+  <p class="machine-role">{role}</p>
+  {specs.length > 0 && (
+    <ul class="machine-specs">
+      {specs.map((spec) => <li>{spec}</li>)}
+    </ul>
+  )}
+  {status && <p class="machine-status"><span aria-hidden="true"></span>{status}</p>}
+</article>
