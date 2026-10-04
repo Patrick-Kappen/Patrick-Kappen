@@ -49,9 +49,18 @@ into `content/`, builds the site, and on `main` deploys `dist/` with
 `npx wrangler deploy`. A push to `main` in `website_content` triggers the same
 workflow through a `content-updated` repository dispatch.
 
+Both repositories use the `website-ci` GitHub App, installed on
+`Patrick-Kappen/Patrick-Kappen` and `Patrick-Kappen/website_content` with
+*Contents: read and write*. Each run asks for a short-lived token with only
+the permission it needs.
+
+In both repositories:
+
+- variable `WEBSITE_APP_CLIENT_ID`: the app's client ID
+- secret `WEBSITE_APP_PRIVATE_KEY`: a private key of the app
+
 Secrets in this repository:
 
-- `WEBSITE_CONTENT_KEY`: private half of a read-only deploy key on `Patrick-Kappen/website_content`
 - `CLOUDFLARE_API_TOKEN`: token with *Workers Scripts: Edit* for the account
 - `CLOUDFLARE_ACCOUNT_ID`: the Cloudflare account ID
 
