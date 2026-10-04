@@ -1,6 +1,7 @@
 ---
 import { getSite, getTopicMap } from "../lib/content";
 import type { Card } from "../lib/posts";
+import PostDate from "./PostDate.astro";
 import Cover from "./Cover.astro";
 
 interface Props extends Card {
@@ -8,7 +9,7 @@ interface Props extends Card {
   large?: boolean;
 }
 
-const { title, topic, href, date, minutes, image, description, badge, large = false } = Astro.props;
+const { title, topic, href, date, iso, note, minutes, image, description, badge, large = false } = Astro.props;
 const profile = await getSite();
 const topics = await getTopicMap();
 const Tag = href ? "a" : "article";
@@ -37,7 +38,7 @@ const Tag = href ? "a" : "article";
       <img src={profile.photo} alt="" width="48" height="48" loading="lazy" />
       <span class="post-card-author">
         <strong>{profile.firstName}</strong>
-        {date && <span>{date}</span>}
+        {date && <span><PostDate date={date} iso={iso} note={note} /></span>}
       </span>
       <span class="read-more">Read more</span>
     </div>

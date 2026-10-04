@@ -1,11 +1,12 @@
 ---
 import { getTopicMap } from "../lib/content";
 import type { Card } from "../lib/posts";
+import PostDate from "./PostDate.astro";
 import Cover from "./Cover.astro";
 
 type Props = Card;
 
-const { title, topic, href, date, minutes, image, description } = Astro.props;
+const { title, topic, href, date, iso, note, minutes, image, description } = Astro.props;
 const topics = await getTopicMap();
 const Tag = href ? "a" : "article";
 ---
@@ -16,7 +17,7 @@ const Tag = href ? "a" : "article";
   </figure>
   <div class="post-row-body">
     <p class="post-row-meta">
-      {date && <span>{date}</span>}
+      {date && <span><PostDate date={date} iso={iso} note={note} /></span>}
       {minutes && <span>{minutes} min read</span>}
       <span class="post-row-topic">#{topics[topic].name}</span>
     </p>

@@ -1,0 +1,11 @@
+---
+interface Props {
+  date: string;
+  iso?: string;
+  note?: string;
+}
+
+const { date, iso, note } = Astro.props;
+---
+
+{iso ? <time datetime={iso}>{date}</time> : date}{note && ` · ${note}`}

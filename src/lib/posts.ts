@@ -1,6 +1,6 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import { getTopics, type TopicKey } from "./content";
-import { formatDate, tagSlug } from "./format";
+import { formatDate, isoDate, tagSlug } from "./format";
 
 export type Post = CollectionEntry<"posts"> & { data: { date: Date } };
 
@@ -9,6 +9,8 @@ export interface Card {
   topic: TopicKey;
   href?: string;
   date?: string;
+  iso?: string;
+  note?: string;
   minutes?: number;
   image?: string;
   description?: string;
@@ -35,8 +37,12 @@ export function readingMinutes(post: Post): number {
   return Math.max(1, Math.round(words / 220));
 }
 
-export function postDate(post: Post, draftLabel: string): string {
-  return `${formatDate(post.data.date)}${post.data.status === "draft" ? ` · ${draftLabel}` : ""}`;
+export function postDate(post: Post, draftLabel: string) {
+  return {
+    date: formatDate(post.data.date),
+    iso: isoDate(post.data.date),
+    note: post.data.status === "draft" ? draftLabel : undefined,
+  };
 }
 
 export async function blogIndex(draftLabel = "draft") {
@@ -45,7 +51,7 @@ export async function blogIndex(draftLabel = "draft") {
     title: post.data.title,
     topic: post.data.topic,
     href: `/blog/${post.id}/`,
-    date: postDate(post, draftLabel),
+    ...postDate(post, draftLabel),
     minutes: readingMinutes(post),
     image: post.data.image,
     description: post.data.description,
