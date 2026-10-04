@@ -220,7 +220,7 @@ def render_site(content):
         "",
         "## Certifications",
         "",
-        bullet("Certified", site["certifications"]),
+        bullet("Certified", [cert if isinstance(cert, str) else f"[{cert['code']}]({cert['url']})" for cert in site["certifications"]]),
         bullet("Working towards", site["studying"]),
     ]
     return "\n".join(lines)

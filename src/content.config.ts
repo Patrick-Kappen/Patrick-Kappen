@@ -121,7 +121,11 @@ const site = defineCollection({
     tagline: z.string(),
     intro: z.string(),
     short: z.string(),
-    certifications: z.array(z.string()),
+    certifications: z.array(
+      z
+        .union([z.string(), z.object({ code: z.string(), name: z.string(), issued: z.string(), url: z.string() })])
+        .transform((cert) => (typeof cert === "string" ? { code: cert, name: cert, issued: "", url: "" } : cert)),
+    ),
     studying: z.array(z.string()),
     links: z.array(link),
     nixosMachines: z.number().int().positive(),
