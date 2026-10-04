@@ -1,0 +1,19 @@
+---
+import type { Tool } from "../data/profile";
+
+interface Props {
+  tool: Tool;
+  index: number;
+}
+
+const { tool, index } = Astro.props;
+---
+
+<li class="tag-chip">
+  {tool.logo ? (
+    <img class="tag-logo" src={tool.logo} alt="" width="22" height="22" loading="lazy" />
+  ) : (
+    <span class:list={["tag-initial", `tag-initial-${index % 4}`]}>{tool.name.slice(0, 1).toUpperCase()}</span>
+  )}
+  {tool.name}
+</li>

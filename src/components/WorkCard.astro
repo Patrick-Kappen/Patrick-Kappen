@@ -1,0 +1,47 @@
+---
+import { externalLink } from "../data/profile";
+import type { Work } from "../data/work";
+import { tagSlug } from "../lib/posts";
+import Cover from "./Cover.astro";
+
+type Props = Work;
+
+const { title, summary, context, status, topic, tags, problem, approach, link, image } = Astro.props;
+---
+
+<article class="work-entry" data-tags={tags.map(tagSlug).join(" ")}>
+  <figure class="work-entry-media">
+    <Cover topic={topic} seed={title} />
+    <span class="pill">{context}</span>
+  </figure>
+
+  <div class="work-entry-body">
+    <p class="work-entry-status"><span aria-hidden="true"></span>{status}</p>
+    <h2>{title}</h2>
+    <p class="work-entry-summary">{summary}</p>
+
+    <div class="work-entry-detail">
+      <div>
+        <h3>The problem</h3>
+        <p>{problem}</p>
+      </div>
+      <div>
+        <h3>What I did</h3>
+        <p>{approach}</p>
+      </div>
+    </div>
+
+    {image && (
+      <img class="work-entry-image" src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" />
+    )}
+
+    <div class="work-entry-footer">
+      <ul class="tag-list" aria-label="Tags">
+        {tags.map((tag) => <li><span class="tag-pill">#{tag}</span></li>)}
+      </ul>
+      {link && (
+        <a class="btn btn-ghost btn-small" href={link} {...externalLink(link)}>View project →</a>
+      )}
+    </div>
+  </div>
+</article>
