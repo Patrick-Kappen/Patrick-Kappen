@@ -8,7 +8,7 @@ const posts = defineCollection({
     title: z.string(),
     description: z.string(),
     kind: z.enum(["post", "work"]),
-    status: z.enum(["draft", "planned", "published"]),
+    status: z.enum(["idea", "draft", "planned", "published"]),
     date: z.coerce.date().optional(),
     topic: z.string(),
     tags: z.array(z.string()).default([]),
@@ -26,8 +26,8 @@ const posts = defineCollection({
     workImage: z.object({ src: z.string(), alt: z.string(), width: z.number(), height: z.number() }).optional(),
     featured: z.boolean().default(false),
   }).superRefine((data, context) => {
-    if (data.kind === "post" && data.status !== "planned" && !data.date) {
-      context.addIssue({ code: "custom", message: "A post that is not planned needs a date", path: ["date"] });
+    if (data.kind === "post" && (data.status === "draft" || data.status === "published") && !data.date) {
+      context.addIssue({ code: "custom", message: "A draft or published post needs a date", path: ["date"] });
     }
     if (data.kind === "work" && !(data.context && data.progress && data.problem && data.approach)) {
       context.addIssue({ code: "custom", message: "Work needs context, progress, problem and approach", path: ["kind"] });

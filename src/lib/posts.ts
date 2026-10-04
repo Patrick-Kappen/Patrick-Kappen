@@ -27,7 +27,7 @@ async function checkedPosts(filter: (post: CollectionEntry<"posts">) => boolean)
 
 export async function publishedPosts(): Promise<Post[]> {
   const posts = (await checkedPosts(
-    (post) => post.data.kind === "post" && (import.meta.env.DEV ? post.data.status !== "planned" : post.data.status === "published"),
+    (post) => post.data.kind === "post" && (import.meta.env.DEV ? post.data.status === "draft" || post.data.status === "published" : post.data.status === "published"),
   )) as Post[];
   return posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
