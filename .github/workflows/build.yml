@@ -28,7 +28,7 @@ jobs:
       - name: Checkout content
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          repository: Patrick-Kappen/website-content
+          repository: Patrick-Kappen/website_content
           ref: main
           path: content
           ssh-key: ${{ secrets.WEBSITE_CONTENT_KEY }}

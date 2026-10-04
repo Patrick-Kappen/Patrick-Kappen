@@ -5,11 +5,11 @@ Worker using Static Assets.
 
 ## Local development
 
-Requires Node.js 22 or newer, and the private `Patrick-Kappen/website-content`
+Requires Node.js 22 or newer, and the private `Patrick-Kappen/website_content`
 repository checked out or linked as `content/`.
 
 ```bash
-ln -s ../../website-content/main content
+ln -s ../../website_content/main content
 npm install
 npm run dev
 ```
@@ -25,7 +25,7 @@ The production output is written to `dist/`.
 
 ## Content
 
-All text lives in the private `website-content` repository, under `content/`;
+All text lives in the private `website_content` repository, under `content/`;
 this repository only lays it out. A section disappears
 when its list is empty.
 
@@ -44,14 +44,14 @@ builds and the RSS feed. Reading time is calculated from the text.
 
 ## Deploy through GitHub Actions
 
-`.github/workflows/build.yml` checks out this repository and `website-content`
+`.github/workflows/build.yml` checks out this repository and `website_content`
 into `content/`, builds the site, and on `main` deploys `dist/` with
-`npx wrangler deploy`. A push to `main` in `website-content` triggers the same
+`npx wrangler deploy`. A push to `main` in `website_content` triggers the same
 workflow through a `content-updated` repository dispatch.
 
 Secrets in this repository:
 
-- `WEBSITE_CONTENT_KEY`: private half of a read-only deploy key on `website-content`
+- `WEBSITE_CONTENT_KEY`: private half of a read-only deploy key on `Patrick-Kappen/website_content`
 - `CLOUDFLARE_API_TOKEN`: token with *Workers Scripts: Edit* for the account
 - `CLOUDFLARE_ACCOUNT_ID`: the Cloudflare account ID
 
