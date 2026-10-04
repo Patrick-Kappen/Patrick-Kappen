@@ -1,11 +1,12 @@
 ---
-import { profile } from "@content/data/profile";
+import { getToolGroups } from "../lib/content";
 import ToolChip from "./ToolChip.astro";
+const groups = await getToolGroups();
 ---
 
 <div class="tools">
   <div class="tool-groups">
-    {profile.stack.map((group) => (
+    {groups.map((group) => (
       <div class="tool-group">
         <h3>{group.title}</h3>
         <ul class="tag-grid">

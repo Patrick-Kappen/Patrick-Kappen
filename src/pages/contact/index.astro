@@ -1,32 +1,31 @@
 ---
 import PageHeader from "../../components/PageHeader.astro";
-import { about, profile } from "@content/data/profile";
+import { getSite } from "../../lib/content";
 import { externalLink } from "../../lib/links";
 import Base from "../../layouts/Base.astro";
+import { pageText } from "../../lib/queries";
 
-const reasons = [
-  { title: "A question about a post", text: "Something unclear, something I got wrong, or a smarter way to do it." },
-  { title: "Platforms, identity or AI infrastructure", text: "Azure, landing zones, least privilege, NixOS, Kubernetes or running models yourself." },
-  { title: "Working together", text: "Ideas, projects or roles where this way of working fits." },
-];
+const profile = await getSite();
+const { page, f } = await pageText("contact");
+const labels = page.labels;
 const socials = profile.links.filter((link) => link.href.startsWith("http"));
 ---
 
-<Base title={`Contact — ${profile.name}`} description={`Get in touch with ${profile.name}.`}>
+<Base title={f(page.title!)} description={f(page.description!)}>
   <section class="section page-top">
     <div class="container contact-page">
       <div>
-        <PageHeader eyebrow="Contact" title={about.contact.title}>{about.contact.body}</PageHeader>
+        <PageHeader eyebrow={page.eyebrow!} title={page.heading!}>{page.lead}</PageHeader>
         <a class="contact-email" href={`mailto:${profile.email}`}>{profile.email}</a>
         <div class="cta-actions">
           {socials.map((link) => <a class="btn btn-ghost" href={link.href} {...externalLink(link.href)}>{link.label}</a>)}
-          <a class="btn btn-ghost" href="/rss.xml">RSS</a>
+          <a class="btn btn-ghost" href="/rss.xml">{labels.rss}</a>
         </div>
       </div>
       <div>
-        <h2 class="group-title">Good reasons to write</h2>
+        <h2 class="group-title">{labels.reasons}</h2>
         <ul class="row-list row-list-stacked">
-          {reasons.map((reason) => (
+          {page.reasons.map((reason) => (
             <li>
               <strong>{reason.title}</strong>
               <span>{reason.text}</span>

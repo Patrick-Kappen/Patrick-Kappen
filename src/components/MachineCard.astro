@@ -1,10 +1,17 @@
 ---
-import type { Machine } from "@content/data/hardware";
+import type { MachineKind } from "../lib/content";
 import MachineIcon from "./MachineIcon.astro";
 
-type Props = Machine;
+interface Props {
+  name: string;
+  kind: MachineKind;
+  role: string;
+  lines: string[];
+  os: string;
+  status?: string;
+}
 
-const { name, kind, role, specs, os, status } = Astro.props;
+const { name, kind, role, lines: specs, os, status } = Astro.props;
 ---
 
 <article class="machine">

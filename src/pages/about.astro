@@ -3,41 +3,26 @@ import Cover from "../components/Cover.astro";
 import PageHeader from "../components/PageHeader.astro";
 import Rich from "../components/Rich.astro";
 import StatBand from "../components/StatBand.astro";
-import { about, openSource, profile } from "@content/data/profile";
-import type { TopicKey } from "@content/data/topics";
+import { getPage, getSite } from "../lib/content";
 import Base from "../layouts/Base.astro";
 import { externalLink } from "../lib/links";
-import { homelabFacts, toolCount } from "../lib/queries";
+import { pageText } from "../lib/queries";
 
-const facts = [
-  ["Role", `${profile.title} at ${profile.company}`],
-  ["Focus", about.focusLine],
-  ["Studying", profile.studying.join(" · ")],
-  ["Based in", profile.location],
-].filter(([, value]) => value);
-
-const stats = [
-  { value: String(profile.certifications.length), label: "Microsoft certifications" },
-  { value: String(toolCount), label: "tools in my stack" },
-  { value: String(homelabFacts().nixosMachines), label: "NixOS machines in one flake" },
-  { value: String(openSource.length), label: "open-source projects" },
-];
-
-const focusTopics: TopicKey[] = ["delivery", "identity", "homelab", "ai"];
-
-const elsewhere = [
-  { title: "Work", text: "What I'm building right now.", href: "/work/" },
-  { title: "Setup", text: "My machines, the homelab and the tools I use every day.", href: "/setup/" },
-  { title: "Blog", text: "Practical notes from building all of the above.", href: "/blog/" },
-];
+const profile = await getSite();
+const { page, f } = await pageText("about");
+const contact = await getPage("contact");
+const labels = page.labels;
+const paragraphs = page.body.split(/\n\s*\n/).map((paragraph) => paragraph.trim()).filter(Boolean);
+const facts = page.facts.map((fact) => [fact.label, f(fact.value)]).filter(([, value]) => value);
+const stats = page.stats.map((stat) => ({ value: f(stat.value), label: stat.label }));
 const socials = profile.links.filter((link) => link.href.startsWith("http"));
 ---
 
-<Base title={`About — ${profile.name}`} description={`${profile.name}, ${profile.title} at ${profile.company}. ${profile.tagline}`}>
+<Base title={f(page.title!)} description={f(page.description!)}>
   <section class="section page-top">
     <div class="container">
-      <PageHeader eyebrow="About me" title={`I'm ${profile.name}`}>
-        {profile.tagline}
+      <PageHeader eyebrow={page.eyebrow!} title={f(page.heading!)}>
+        {f(page.lead!)}
       </PageHeader>
     </div>
 
@@ -46,18 +31,18 @@ const socials = profile.links.filter((link) => link.href.startsWith("http"));
         <StatBand stats={stats} />
 
         <div class="about-story prose">
-          {about.paragraphs.map((text) => <p><Rich text={text} /></p>)}
+          {paragraphs.map((text) => <p><Rich text={text} /></p>)}
         </div>
 
         <div class="home-block">
           <div class="block-head">
-            <h2 class="section-title">What I work on</h2>
+            <h2 class="section-title">{labels.focus}</h2>
           </div>
           <div class="focus-cards">
-            {about.focus.map((item, index) => (
+            {page.focus.map((item) => (
               <article class="focus-card">
                 <figure class="focus-media">
-                  <Cover topic={focusTopics[index % focusTopics.length]} seed={item.title} />
+                  <Cover topic={item.topic} seed={item.title} />
                 </figure>
                 <div class="focus-body">
                   <h3>{item.title}</h3>
@@ -71,13 +56,13 @@ const socials = profile.links.filter((link) => link.href.startsWith("http"));
           </div>
         </div>
 
-        {about.beliefs.length > 0 && (
+        {page.beliefs.length > 0 && (
           <div class="home-block">
             <div class="block-head">
-              <h2 class="section-title">Things I believe</h2>
+              <h2 class="section-title">{labels.beliefs}</h2>
             </div>
             <ul class="row-list row-list-wide">
-              {about.beliefs.map(({ title, body }) => (
+              {page.beliefs.map(({ title, body }) => (
                 <li>
                   <strong>{title}</strong>
                   <span>{body}</span>
@@ -89,10 +74,10 @@ const socials = profile.links.filter((link) => link.href.startsWith("http"));
 
         <div class="home-block">
           <div class="block-head">
-            <h2 class="section-title">Elsewhere on this site</h2>
+            <h2 class="section-title">{labels.elsewhere}</h2>
           </div>
           <ul class="link-cards">
-            {elsewhere.map((item) => (
+            {page.elsewhere.map((item) => (
               <li>
                 <a href={item.href}>
                   <strong>{item.title} →</strong>
@@ -125,9 +110,9 @@ const socials = profile.links.filter((link) => link.href.startsWith("http"));
         </section>
 
         <section class="widget">
-          <h2 class="widget-title">{about.contact.title}</h2>
-          <p class="widget-text">{about.contact.body}</p>
-          <a class="btn btn-primary btn-block" href="/contact/">Get in touch <span aria-hidden="true">→</span></a>
+          <h2 class="widget-title">{contact.heading}</h2>
+          <p class="widget-text">{contact.lead}</p>
+          <a class="btn btn-primary btn-block" href="/contact/">{labels.contact} <span aria-hidden="true">→</span></a>
           <div class="profile-links">
             {socials.map((link) => <a href={link.href} {...externalLink(link.href)}>{link.label}</a>)}
           </div>

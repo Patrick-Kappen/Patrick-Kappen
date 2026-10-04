@@ -3,21 +3,23 @@ import PageHeader from "../../components/PageHeader.astro";
 import PostCard from "../../components/PostCard.astro";
 import PostRow from "../../components/PostRow.astro";
 import Sidebar from "../../components/Sidebar.astro";
-import { profile } from "@content/data/profile";
+import { getSite } from "../../lib/content";
+import Rich from "../../components/Rich.astro";
 import Base from "../../layouts/Base.astro";
 import { blogIndex } from "../../lib/posts";
+import { pageText } from "../../lib/queries";
 
-const { published, upcoming } = await blogIndex();
+const profile = await getSite();
+const { page, f } = await pageText("blog");
+const labels = page.labels;
+const { published, upcoming } = await blogIndex(labels.draft);
 const hasPosts = published.length > 0;
 ---
 
-<Base title={`Blog — ${profile.name}`} description={profile.intro}>
+<Base title={f(page.title!)} description={profile.intro}>
   <section class="section page-top">
     <div class="container">
-      <PageHeader eyebrow="Blog" title="Notes from building things">
-        Practical write-ups from building platforms, access models, a homelab and AI
-        infrastructure. Follow along via <a class="text-link" href="/rss.xml">RSS</a>.
-      </PageHeader>
+      <PageHeader eyebrow={page.eyebrow!} title={page.heading!}><Rich text={page.lead!} /></PageHeader>
     </div>
     <div class="container content-layout">
       <div>
@@ -29,9 +31,9 @@ const hasPosts = published.length > 0;
 
         {upcoming.length > 0 && (
           <>
-            <h2 class="subsection-title">{hasPosts ? "Planned next" : "Coming up"}</h2>
+            <h2 class="subsection-title">{hasPosts ? labels.planned : labels.comingUp}</h2>
             <div class="post-grid post-grid-two">
-              {upcoming.map((card, index) => <PostCard {...card} badge={!hasPosts && index === 0 ? "Next up" : undefined} />)}
+              {upcoming.map((card, index) => <PostCard {...card} badge={!hasPosts && index === 0 ? labels.nextUp : undefined} />)}
             </div>
           </>
         )}

@@ -4,20 +4,22 @@ import PostRow from "../components/PostRow.astro";
 import Sidebar from "../components/Sidebar.astro";
 import ToolChip from "../components/ToolChip.astro";
 import WorkItem from "../components/WorkItem.astro";
-import { profile } from "@content/data/profile";
-import { featuredWork } from "@content/data/work";
+import { getSite, getToolGroups } from "../lib/content";
 import Base from "../layouts/Base.astro";
 import { blogIndex } from "../lib/posts";
-import { allTools, toolCount, topicsWithCounts } from "../lib/queries";
+import { featuredWork, highlightTools, pageText, topicsWithCounts } from "../lib/queries";
 
+const profile = await getSite();
+const { page, f } = await pageText("home");
+const labels = page.labels;
+const [headingBefore, headingAfter] = page.heading!.split("{name}");
+const toolGroups = await getToolGroups();
 const { published } = await blogIndex();
 const latest = published.slice(0, 5);
-const recentWork = featuredWork.slice(0, 3);
-const highlights = profile.highlights
-  .map((name) => allTools.find((tool) => tool.name === name))
-  .filter((tool) => tool !== undefined);
+const recentWork = (await featuredWork()).slice(0, 3);
+const highlights = await highlightTools();
 
-const topicList = topicsWithCounts(published).filter((topic) => topic.count > 0);
+const topicList = (await topicsWithCounts(published)).filter((topic) => topic.count > 0);
 const showTopics = topicList.length >= 3;
 ---
 
@@ -26,14 +28,15 @@ const showTopics = topicList.length >= 3;
     <div class="container hero-inner">
       <img class="hero-avatar" src={profile.photo} alt={`Portrait of ${profile.name}`} width="315" height="315" />
       <div class="hero-copy">
-        <p class="hero-eyebrow">{profile.role}</p>
-        <h1>I'm <span class="gradient-text">{profile.name}</span></h1>
+        <p class="hero-eyebrow">{f(page.eyebrow!)}</p>
+        <h1>{headingBefore}<span class="gradient-text">{profile.name}</span>{headingAfter}</h1>
         <p class="hero-text">
-          {profile.title} at {profile.company}. {profile.tagline} {profile.intro}
+          {f(page.lead!)}
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#latest">Read the blog <span aria-hidden="true">→</span></a>
-          <a class="btn btn-ghost" href="/about/">About me</a>
+          {page.actions.map((action) => (
+            <a class={action.primary ? "btn btn-primary" : "btn btn-ghost"} href={action.href}>{action.label}{action.arrow && <> <span aria-hidden="true">→</span></>}</a>
+          ))}
         </div>
       </div>
     </div>
@@ -42,11 +45,11 @@ const showTopics = topicList.length >= 3;
       <div class="container">
         <div class="topics-panel">
           <div class="topics-intro">
-            <h2>Topics</h2>
-            <p>What I write about, from the day job at an {profile.companyNote} and from my homelab.</p>
+            <h2>{labels.topics}</h2>
+            <p>{f(labels.topicsLead)}</p>
             <div class="slider-controls">
-              <button type="button" class="slider-btn" data-slide="prev" aria-label="Previous topics">←</button>
-              <button type="button" class="slider-btn" data-slide="next" aria-label="Next topics">→</button>
+              <button type="button" class="slider-btn" data-slide="prev" aria-label={labels.previous}>←</button>
+              <button type="button" class="slider-btn" data-slide="next" aria-label={labels.next}>→</button>
             </div>
           </div>
           <ul class="topics-slider" data-slider>
@@ -70,11 +73,11 @@ const showTopics = topicList.length >= 3;
   <section class="section" id="latest">
     <div class="container content-layout content-layout-aligned">
       <div class="home-main">
-        {profile.stack.length > 0 && (
+        {toolGroups.length > 0 && (
           <div class="home-block">
             <div class="block-head">
-              <h2 class="section-title">What I work with</h2>
-              <a class="text-link" href="/setup/#tools">All {toolCount} tools →</a>
+              <h2 class="section-title">{labels.tools}</h2>
+              <a class="text-link" href="/setup/#tools">{f(labels.allTools)}</a>
             </div>
             <div class="tools">
               <ul class="tag-grid tool-highlights">
@@ -87,8 +90,8 @@ const showTopics = topicList.length >= 3;
         {latest.length > 0 && (
           <div class="home-block">
             <div class="block-head">
-              <h2 class="section-title">Latest posts</h2>
-              <a class="text-link" href="/blog/">All posts →</a>
+              <h2 class="section-title">{labels.latest}</h2>
+              <a class="text-link" href="/blog/">{labels.allPosts}</a>
             </div>
             <div class="post-rows">
               {latest.map((card) => <PostRow {...card} />)}
@@ -99,8 +102,8 @@ const showTopics = topicList.length >= 3;
         {recentWork.length > 1 && (
           <div class="home-block">
             <div class="block-head">
-              <h2 class="section-title">Recent work</h2>
-              <a class="text-link" href="/work/">All work →</a>
+              <h2 class="section-title">{labels.work}</h2>
+              <a class="text-link" href="/work/">{labels.allWork}</a>
             </div>
             <div class="work-list">
               {recentWork.map((item) => <WorkItem {...item} />)}

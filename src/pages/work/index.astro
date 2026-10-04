@@ -1,10 +1,13 @@
 ---
 import PageHeader from "../../components/PageHeader.astro";
 import WorkCard from "../../components/WorkCard.astro";
-import { profile } from "@content/data/profile";
-import { work } from "@content/data/work";
 import Base from "../../layouts/Base.astro";
 import { tagSlug } from "../../lib/format";
+import { pageText, workItems } from "../../lib/queries";
+
+const work = await workItems();
+const { page, f } = await pageText("work");
+const labels = page.labels;
 
 const counts = new Map<string, { name: string; count: number }>();
 for (const item of work) {
@@ -20,19 +23,16 @@ const filters = [...counts]
   .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 ---
 
-<Base title={`Work — ${profile.name}`} description={`What ${profile.firstName} is building right now.`}>
+<Base title={f(page.title!)} description={f(page.description!)}>
   <section class="section page-top">
     <div class="container">
-      <PageHeader eyebrow="Work" title="What I'm building">
-        Each project starts with a problem I wanted gone, and ends up as code that anyone
-        can read and repeat.
-      </PageHeader>
+      <PageHeader eyebrow={page.eyebrow!} title={page.heading!}>{page.lead}</PageHeader>
 
       {work.length > 2 && (
         <div class="work-filter" data-work-filter hidden>
-          <span class="work-filter-label">Filter</span>
+          <span class="work-filter-label">{labels.filter}</span>
           <ul class="tag-list">
-            <li><button type="button" class="tag-pill tag-filter" data-filter="" aria-pressed="true">All <span>{work.length}</span></button></li>
+            <li><button type="button" class="tag-pill tag-filter" data-filter="" aria-pressed="true">{labels.all} <span>{work.length}</span></button></li>
             {filters.map((filter) => (
               <li>
                 <button type="button" class="tag-pill tag-filter" data-filter={filter.slug} aria-pressed="false">
@@ -47,7 +47,7 @@ const filters = [...counts]
       <div class="work-entries" data-work-list>
         {work.map((item) => <WorkCard {...item} />)}
       </div>
-      <p class="work-empty" data-work-empty hidden>Nothing with that tag yet.</p>
+      <p class="work-empty" data-work-empty hidden>{labels.empty}</p>
     </div>
   </section>
 

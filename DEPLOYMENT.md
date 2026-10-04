@@ -29,18 +29,20 @@ All text lives in the private `website_content` repository, under `content/`;
 this repository only lays it out. A section disappears
 when its list is empty.
 
-| File | What it holds |
+| Path | What it holds |
 |---|---|
-| `data/profile.ts` | Name, role, intro, photo, links, certifications, stack, and the About page text, focus, beliefs and contact |
-| `data/topics.ts` | Topics with name, short description, icon and colours |
-| `data/work.ts` | Work items; `featured` ones also appear on the home page |
-| `data/hardware.ts` | Machines and homelab services for the Setup page |
-| `data/planned.ts` | Planned posts, shown as "Coming up" until a post with the same title is published |
-| `now.json` | The Now list in the sidebar, also published as `/now.json` for the profile README |
-| `blog/*.md` | Blog posts |
+| `site.yaml` | Name, role, intro, photo, links, certifications, Now list (also published as `/now.json`) |
+| `pages/*.md` | The fixed texts of every page, navigation and footer |
+| `posts/*.md` | Blog posts (`kind: post`) and work items (`kind: work`); `featured` work also appears on the home page |
+| `topics/*.yaml` | Topics with name, short description, icon and colours |
+| `tools.yaml`, `tool-groups.yaml` | The toolbox |
+| `machines/*.yaml`, `services.yaml` | Machines and homelab services for the Setup page |
+| `projects/*.yaml` | Open-source projects |
 
-Posts have `title`, `description`, `date`, `topic`, `tags` and `draft` in the
-front matter. Drafts show up in `npm run dev` but are left out of production
+The folders and fields are described in the README of `website_content`.
+Posts have `title`, `description`, `date`, `topic`, `tags` and `status`
+(`draft`, `planned` or `published`) in the front matter. Drafts show up in
+`npm run dev` but are left out of production
 builds and the RSS feed. Reading time is calculated from the text.
 
 Optional front matter:

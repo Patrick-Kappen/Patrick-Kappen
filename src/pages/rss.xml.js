@@ -1,8 +1,9 @@
 import rss from "@astrojs/rss";
-import { profile } from "@content/data/profile";
+import { getSite } from "../lib/content";
 import { publishedPosts } from "../lib/posts";
 
 export async function GET(context) {
+  const profile = await getSite();
   const posts = await publishedPosts();
   return rss({
     title: profile.name,

@@ -2,10 +2,10 @@
 import PageHeader from "../../../components/PageHeader.astro";
 import PostRow from "../../../components/PostRow.astro";
 import Sidebar from "../../../components/Sidebar.astro";
-import { profile } from "@content/data/profile";
 import Base from "../../../layouts/Base.astro";
-import { formatDate } from "../../../lib/format";
-import { postsByTag, readingMinutes, type Post } from "../../../lib/posts";
+import { postDate, postsByTag, readingMinutes, type Post } from "../../../lib/posts";
+import { pageText } from "../../../lib/queries";
+import { plural } from "../../../lib/text";
 
 export async function getStaticPaths() {
   const tags = await postsByTag();
@@ -18,13 +18,16 @@ interface Props {
 }
 
 const { name, posts } = Astro.props;
+const { page, f } = await pageText("blog");
+const labels = page.labels;
+const count = posts.length;
 ---
 
-<Base title={`#${name} — ${profile.name}`} description={`Posts tagged ${name}.`}>
+<Base title={f(labels.tagTitle, { tag: name })} description={f(labels.tagDescription, { tag: name })}>
   <section class="section page-top">
     <div class="container">
-      <PageHeader eyebrow="Tag" title={`#${name}`} parent={{ label: "Blog", href: "/blog/" }}>
-        {posts.length} {posts.length === 1 ? "post" : "posts"} with this tag.
+      <PageHeader eyebrow={labels.tagEyebrow} title={`#${name}`} parent={{ label: labels.blog, href: "/blog/" }}>
+        {f(labels.tagLead, { count, posts: plural(count, "post", "posts") })}
       </PageHeader>
     </div>
     <div class="container content-layout">
@@ -35,7 +38,7 @@ const { name, posts } = Astro.props;
               title={post.data.title}
               topic={post.data.topic}
               href={`/blog/${post.id}/`}
-              date={`${formatDate(post.data.date)}${post.data.draft ? " · draft" : ""}`}
+              date={postDate(post, labels.draft)}
               minutes={readingMinutes(post)}
               image={post.data.image}
               description={post.data.description}
