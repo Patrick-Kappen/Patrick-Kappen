@@ -21,9 +21,6 @@ export default defineConfig({
     inlineStylesheets: "never",
   },
   vite: {
-    resolve: {
-      alias: { "@content": content },
-    },
     server: {
       fs: { allow: [".", content] },
     },

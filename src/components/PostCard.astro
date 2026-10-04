@@ -1,6 +1,5 @@
 ---
-import { profile } from "@content/data/profile";
-import { topics } from "@content/data/topics";
+import { getSite, getTopicMap } from "../lib/content";
 import type { Card } from "../lib/posts";
 import Cover from "./Cover.astro";
 
@@ -10,6 +9,8 @@ interface Props extends Card {
 }
 
 const { title, topic, href, date, minutes, image, description, badge, large = false } = Astro.props;
+const profile = await getSite();
+const topics = await getTopicMap();
 const Tag = href ? "a" : "article";
 ---
 

@@ -2,37 +2,34 @@
 import Cover from "../../components/Cover.astro";
 import MachineCard from "../../components/MachineCard.astro";
 import PageHeader from "../../components/PageHeader.astro";
+import Rich from "../../components/Rich.astro";
 import StatBand from "../../components/StatBand.astro";
 import ToolGroups from "../../components/ToolGroups.astro";
-import { desk, lab, labServices } from "@content/data/hardware";
-import { profile } from "@content/data/profile";
-import type { TopicKey } from "@content/data/topics";
+import { getServices } from "../../lib/content";
 import Base from "../../layouts/Base.astro";
-import { homelabFacts, toolCount } from "../../lib/queries";
+import { machineGroups, pageText } from "../../lib/queries";
 
-const labStats = homelabFacts().stats;
-const sections: { id: string; label: string; topic: TopicKey; text: string }[] = [
-  { id: "desk", label: "Desk", topic: "workstation", text: "The machines I work on every day." },
-  { id: "homelab", label: "Homelab", topic: "homelab", text: "Where ideas get tested before they reach real work." },
-  { id: "tools", label: "Tools", topic: "containers", text: `${toolCount} tools, at work and at home.` },
-];
+const { page, f } = await pageText("setup");
+const labels = page.labels;
+const desk = await machineGroups("desk");
+const lab = await machineGroups("lab");
+const labServices = await getServices();
+const stats = page.stats.map((stat) => ({ value: f(stat.value), label: stat.label }));
+const sections = page.sections.map((section) => ({ ...section, text: f(section.text) }));
 const banner = (id: string) => sections.find((section) => section.id === id)!;
 ---
 
-<Base title={`Setup — ${profile.name}`} description={`The machines, homelab and tools ${profile.firstName} uses at work and at home.`}>
+<Base title={f(page.title!)} description={f(page.description!)}>
   <section class="section page-top">
     <div class="container">
-      <PageHeader eyebrow="Setup" title="What I use and run">
-        The machines on my desk, the homelab where ideas get tested before they reach
-        real work, and the tools I reach for every day.
-      </PageHeader>
+      <PageHeader eyebrow={page.eyebrow!} title={page.heading!}>{page.lead}</PageHeader>
     </div>
 
     <div class="container content-layout">
       <div class="page-main">
-        <StatBand stats={[...labStats, { value: String(toolCount), label: "tools" }]} />
+        <StatBand stats={stats} />
 
-        {["desk", "homelab", "tools"].map((id) => {
+        {sections.map(({ id }) => {
           const section = banner(id);
           return (
             <section class="setup-section" id={id}>
@@ -55,11 +52,7 @@ const banner = (id: string) => sections.find((section) => section.id === id)!;
 
               {id === "homelab" && (
                 <>
-                  <p class="setup-lead">
-                    I run it like production: every machine is declared in Git and rebuilt from code.
-                    Right now I'm turning it into a Kubernetes cluster on NixOS, and I write about it
-                    on the <a class="text-link" href="/blog/">blog</a> as I go.
-                  </p>
+                  <p class="setup-lead"><Rich text={labels.homelabLead} /></p>
                   {lab.map((group) => (
                     <div class="setup-group">
                       <h3 class="group-title">{group.title}</h3>
@@ -69,7 +62,7 @@ const banner = (id: string) => sections.find((section) => section.id === id)!;
                     </div>
                   ))}
                   <div class="setup-group">
-                    <h3 class="group-title">What runs on it</h3>
+                    <h3 class="group-title">{labels.services}</h3>
                     <dl class="row-list">
                       {labServices.map((service) => (
                         <div>
@@ -94,7 +87,7 @@ const banner = (id: string) => sections.find((section) => section.id === id)!;
 
       <aside class="page-aside">
         <section class="widget">
-          <h2 class="widget-title">On this page</h2>
+          <h2 class="widget-title">{labels.onThisPage}</h2>
           <ol class="aside-nav">
             {sections.map((section) => (
               <li>
@@ -107,11 +100,11 @@ const banner = (id: string) => sections.find((section) => section.id === id)!;
           </ol>
         </section>
         <section class="widget">
-          <h2 class="widget-title">Follow the build</h2>
-          <p class="widget-text">I write about the homelab and the move to Kubernetes as it happens.</p>
+          <h2 class="widget-title">{labels.follow}</h2>
+          <p class="widget-text">{labels.followText}</p>
           <div class="profile-links">
-            <a href="/blog/">Blog</a>
-            <a href="/rss.xml">RSS</a>
+            <a href="/blog/">{labels.blog}</a>
+            <a href="/rss.xml">{labels.rss}</a>
           </div>
         </section>
       </aside>

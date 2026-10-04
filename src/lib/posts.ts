@@ -1,9 +1,8 @@
 import { getCollection, type CollectionEntry } from "astro:content";
-import { planned } from "@content/data/planned";
-import type { TopicKey } from "@content/data/topics";
+import { getTopics, type TopicKey } from "./content";
 import { formatDate, tagSlug } from "./format";
 
-export type Post = CollectionEntry<"blog">;
+export type Post = CollectionEntry<"posts"> & { data: { date: Date } };
 
 export interface Card {
   title: string;
@@ -15,14 +14,20 @@ export interface Card {
   description?: string;
 }
 
+async function checkedPosts(filter: (post: CollectionEntry<"posts">) => boolean) {
+  const [posts, topics] = await Promise.all([getCollection("posts", filter), getTopics()]);
+  const known = new Set(topics.map((topic) => topic.key));
+  for (const post of posts) {
+    if (!known.has(post.data.topic)) throw new Error(`${post.id} refers to the unknown topic ${post.data.topic}`);
+  }
+  return posts;
+}
+
 export async function publishedPosts(): Promise<Post[]> {
-  const posts = await getCollection(
-    "blog",
-    (post: Post) => import.meta.env.DEV || !post.data.draft,
-  );
-  return posts.sort(
-    (a: Post, b: Post) => b.data.date.valueOf() - a.data.date.valueOf(),
-  );
+  const posts = (await checkedPosts(
+    (post) => post.data.kind === "post" && (import.meta.env.DEV ? post.data.status !== "planned" : post.data.status === "published"),
+  )) as Post[];
+  return posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
 
 export function readingMinutes(post: Post): number {
@@ -30,21 +35,23 @@ export function readingMinutes(post: Post): number {
   return Math.max(1, Math.round(words / 220));
 }
 
-export async function blogIndex() {
+export function postDate(post: Post, draftLabel: string): string {
+  return `${formatDate(post.data.date)}${post.data.status === "draft" ? ` · ${draftLabel}` : ""}`;
+}
+
+export async function blogIndex(draftLabel = "draft") {
   const posts = await publishedPosts();
-  const titles = new Set(posts.map((post) => post.data.title));
   const published: Card[] = posts.map((post) => ({
     title: post.data.title,
     topic: post.data.topic,
     href: `/blog/${post.id}/`,
-    date: `${formatDate(post.data.date)}${post.data.draft ? " · draft" : ""}`,
+    date: postDate(post, draftLabel),
     minutes: readingMinutes(post),
     image: post.data.image,
     description: post.data.description,
   }));
-  const upcoming: Card[] = planned
-    .filter((item) => !titles.has(item.title))
-    .map((item) => ({ title: item.title, topic: item.topic }));
+  const planned = await checkedPosts((post) => post.data.kind === "post" && post.data.status === "planned");
+  const upcoming: Card[] = planned.map((item) => ({ title: item.data.title, topic: item.data.topic }));
   return { posts, published, upcoming };
 }
 

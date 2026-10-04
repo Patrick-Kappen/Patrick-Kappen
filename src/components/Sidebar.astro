@@ -1,18 +1,23 @@
 ---
-import now from "@content/now.json";
-import { openSource, profile } from "@content/data/profile";
+import { getProjects, getSite, getTopics } from "../lib/content";
 import { externalLink } from "../lib/links";
-import { homelabFacts } from "../lib/queries";
-import { topicKeys, topics } from "@content/data/topics";
+import { pageText } from "../lib/queries";
+import { fill } from "../lib/text";
 import { topicHref, topicsWithPosts } from "../lib/topics";
 
-const { facts: homelab } = homelabFacts();
+const profile = await getSite();
+const openSource = await getProjects();
+const topicList = await getTopics();
+const { now } = profile;
+const { page: layout, values } = await pageText("layout");
+const labels = layout.labels;
+const homelab = profile.homelab.map((fact) => ({ label: fact.label, value: fill(fact.value, values) }));
 const liveTopics = await topicsWithPosts();
 ---
 
 <aside class="sidebar">
   <section class="widget profile-widget">
-    <h2 class="widget-title">About me</h2>
+    <h2 class="widget-title">{labels.aboutMe}</h2>
     <div class="profile-row">
       <img src={profile.photo} alt={`Portrait of ${profile.name}`} width="72" height="72" />
       <div>
@@ -28,7 +33,7 @@ const liveTopics = await topicsWithPosts();
 
   {now.now.length > 0 && (
     <section class="widget">
-      <h2 class="widget-title">Now</h2>
+      <h2 class="widget-title">{labels.now}</h2>
       <ul class="now-list">
         {now.now.map((entry) => <li>{entry}</li>)}
       </ul>
@@ -37,7 +42,7 @@ const liveTopics = await topicsWithPosts();
 
   {openSource.length > 0 && (
     <section class="widget">
-      <h2 class="widget-title">Open source</h2>
+      <h2 class="widget-title">{labels.openSource}</h2>
       <ul class="oss-list">
         {openSource.map((item) => (
           <li>
@@ -53,7 +58,7 @@ const liveTopics = await topicsWithPosts();
 
   {profile.certifications.length > 0 && (
     <section class="widget">
-      <h2 class="widget-title">Certified</h2>
+      <h2 class="widget-title">{labels.certified}</h2>
       <div class="cert-list">
         {profile.certifications.map((cert) => <span class="cert">{cert}</span>)}
       </div>
@@ -62,7 +67,7 @@ const liveTopics = await topicsWithPosts();
 
   {homelab.length > 0 && (
     <section class="widget">
-      <h2 class="widget-title">Homelab at a glance</h2>
+      <h2 class="widget-title">{labels.homelab}</h2>
       <dl class="fact-list">
         {homelab.map((fact) => (
           <div>
@@ -71,14 +76,14 @@ const liveTopics = await topicsWithPosts();
           </div>
         ))}
       </dl>
-      <a class="text-link widget-link" href="/setup/#homelab">The whole homelab →</a>
+      <a class="text-link widget-link" href="/setup/#homelab">{labels.homelabLink}</a>
     </section>
   )}
 
   <section class="widget">
-    <h2 class="widget-title">Writing about</h2>
+    <h2 class="widget-title">{labels.writingAbout}</h2>
     <ul class="tag-list">
-      {topicKeys.map((key) => <li>{liveTopics.has(key) ? <a class="tag-pill" href={topicHref(key)}>#{topics[key].name}</a> : <span class="tag-pill tag-pill-muted">#{topics[key].name}</span>}</li>)}
+      {topicList.map((topic) => <li>{liveTopics.has(topic.key) ? <a class="tag-pill" href={topicHref(topic.key)}>#{topic.name}</a> : <span class="tag-pill tag-pill-muted">#{topic.name}</span>}</li>)}
     </ul>
   </section>
 </aside>

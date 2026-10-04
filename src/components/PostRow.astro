@@ -1,11 +1,12 @@
 ---
-import { topics } from "@content/data/topics";
+import { getTopicMap } from "../lib/content";
 import type { Card } from "../lib/posts";
 import Cover from "./Cover.astro";
 
 type Props = Card;
 
 const { title, topic, href, date, minutes, image, description } = Astro.props;
+const topics = await getTopicMap();
 const Tag = href ? "a" : "article";
 ---
 

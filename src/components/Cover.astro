@@ -1,5 +1,5 @@
 ---
-import { topics, type TopicKey } from "@content/data/topics";
+import { getTopicMap, type TopicKey } from "../lib/content";
 
 interface Props {
   topic: TopicKey;
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { topic, seed } = Astro.props;
-const { icon, hue } = topics[topic];
+const { icon, hue } = (await getTopicMap())[topic];
 const [from, to] = hue;
 
 let hash = 0;
