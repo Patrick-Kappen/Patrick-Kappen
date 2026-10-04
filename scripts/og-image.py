@@ -30,27 +30,27 @@ def svg(title: str, eyebrow: str) -> str:
     rows, size = layout(title)
     start = 315 - (len(rows) - 1) * size * 0.6
     text = "".join(
-        f'<text x="80" y="{start + i * size * 1.2:.0f}" font-size="{size}" font-weight="800" fill="#eef0f4">{html.escape(row)}</text>'
+        f'<text x="80" y="{start + i * size * 1.2:.0f}" font-size="{size}" font-weight="800" fill="#eeeff2">{html.escape(row)}</text>'
         for i, row in enumerate(rows)
     )
     return f"""<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
     <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(0 0) scale(900 600)">
-      <stop stop-color="#3fb6b0" stop-opacity="0.16"/>
-      <stop offset="1" stop-color="#3fb6b0" stop-opacity="0"/>
+      <stop stop-color="#419f99" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#419f99" stop-opacity="0"/>
     </radialGradient>
     <clipPath id="avatar"><circle cx="124" cy="532" r="44"/></clipPath>
   </defs>
-  <rect width="1200" height="630" fill="#101217"/>
+  <rect width="1200" height="630" fill="#101114"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
-  <rect x="80" y="96" width="56" height="4" rx="2" fill="#4fbdb6"/>
+  <rect x="80" y="96" width="56" height="4" rx="2" fill="#419f99"/>
   <g font-family="Noto Sans, sans-serif">
-    <text x="80" y="150" font-size="24" font-weight="700" letter-spacing="3" fill="#4fbdb6">{html.escape(eyebrow.upper())}</text>
+    <text x="80" y="150" font-size="24" font-weight="700" letter-spacing="3" fill="#419f99">{html.escape(eyebrow.upper())}</text>
     {text}
     <image x="80" y="488" width="88" height="88" clip-path="url(#avatar)" preserveAspectRatio="xMidYMid slice" xlink:href="data:image/jpeg;base64,{photo}"/>
-    <circle cx="124" cy="532" r="44" fill="none" stroke="#2a2e37" stroke-width="2"/>
-    <text x="192" y="526" font-size="28" font-weight="700" fill="#eef0f4">Patrick Kappen</text>
-    <text x="192" y="562" font-size="22" fill="#9aa1ad">patrick.kappen.io</text>
+    <circle cx="124" cy="532" r="44" fill="none" stroke="#292c32" stroke-width="2"/>
+    <text x="192" y="526" font-size="28" font-weight="700" fill="#eeeff2">Patrick Kappen</text>
+    <text x="192" y="562" font-size="22" fill="#a1a6af">patrick.kappen.io</text>
   </g>
 </svg>"""
 
