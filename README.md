@@ -118,7 +118,10 @@ _Last changed Oct 2026._
 
 ## Certifications
 
-- **Certified:** AZ-900 · AZ-104 · AZ-400
+- **Certified:**
+  [AZ-900](https://www.credly.com/badges/c864e7a2-1536-4183-9e0c-c5cd841b2088) ·
+  [AZ-104](https://www.credly.com/badges/103f1099-a80a-4544-8c95-45b80edbf2ad) ·
+  [AZ-400](https://www.credly.com/badges/5bd5f444-199c-4ee5-8177-43427a8ad8ce)
 - **Working towards:** GitHub Actions · AI-103
 
 <!-- site:end -->
