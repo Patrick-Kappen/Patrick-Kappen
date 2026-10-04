@@ -1,5 +1,5 @@
 import rss from "@astrojs/rss";
-import { profile } from "../data/profile";
+import { profile } from "@content/data/profile";
 import { publishedPosts } from "../lib/posts";
 
 export async function GET(context) {

@@ -1,6 +1,6 @@
 import { getCollection, type CollectionEntry } from "astro:content";
-import { planned } from "../data/planned";
-import type { TopicKey } from "../data/topics";
+import { planned } from "@content/data/planned";
+import type { TopicKey } from "@content/data/topics";
 
 export type Post = CollectionEntry<"blog">;
 
