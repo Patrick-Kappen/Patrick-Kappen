@@ -5,9 +5,11 @@ Worker using Static Assets.
 
 ## Local development
 
-Requires Node.js 22 or newer.
+Requires Node.js 22 or newer, and the private `Patrick-Kappen/website-content`
+repository checked out or linked as `content/`.
 
 ```bash
+ln -s ../../website-content/main content
 npm install
 npm run dev
 ```
@@ -23,34 +25,42 @@ The production output is written to `dist/`.
 
 ## Content
 
-All text lives in data files; the pages only lay it out. A section disappears
+All text lives in the private `website-content` repository, under `content/`;
+this repository only lays it out. A section disappears
 when its list is empty.
 
 | File | What it holds |
 |---|---|
-| `src/data/profile.ts` | Name, role, intro, photo, links, certifications, stack, and the About page text, focus, beliefs and contact |
-| `src/data/topics.ts` | Topics with name, short description, icon and colours |
-| `src/data/work.ts` | Work items; `featured` ones also appear on the home page |
-| `src/data/planned.ts` | Planned posts, shown as "Coming up" until a post with the same title is published |
-| `now.json` | The Now list in the sidebar, also used by the profile README |
-| `src/content/blog/*.md` | Blog posts |
+| `data/profile.ts` | Name, role, intro, photo, links, certifications, stack, and the About page text, focus, beliefs and contact |
+| `data/topics.ts` | Topics with name, short description, icon and colours |
+| `data/work.ts` | Work items; `featured` ones also appear on the home page |
+| `data/planned.ts` | Planned posts, shown as "Coming up" until a post with the same title is published |
+| `now.json` | The Now list in the sidebar, also published as `/now.json` for the profile README |
+| `blog/*.md` | Blog posts |
 
 Posts have `title`, `description`, `date`, `topic`, `tags` and `draft` in the
 front matter. Drafts show up in `npm run dev` but are left out of production
 builds and the RSS feed. Reading time is calculated from the text.
 
-## Deploy through Cloudflare
+## Deploy through GitHub Actions
 
-The connected Cloudflare build should use:
+`.github/workflows/build.yml` checks out this repository and `website-content`
+into `content/`, builds the site, and on `main` deploys `dist/` with
+`npx wrangler deploy`. A push to `main` in `website-content` triggers the same
+workflow through a `content-updated` repository dispatch.
 
-- Build command: `npm run build`
-- Deploy command: `npx wrangler deploy`
-- Node.js version: `22`
+Secrets in this repository:
+
+- `WEBSITE_CONTENT_KEY`: private half of a read-only deploy key on `website-content`
+- `CLOUDFLARE_API_TOKEN`: token with *Workers Scripts: Edit* for the account
+- `CLOUDFLARE_ACCOUNT_ID`: the Cloudflare account ID
+
+The Git integration of the `patrickkappen` Worker in Cloudflare stays off, so
+only this workflow deploys.
 
 The `assets.directory` setting in `wrangler.jsonc` tells Wrangler to upload
 `dist/` as the Worker's static assets. The custom-domain route provisions
 `patrick.kappen.io`, including its Cloudflare DNS record and TLS certificate.
-Cloudflare will build and deploy every new commit automatically.
 
 To redirect plain HTTP requests to HTTPS, enable **SSL/TLS > Edge Certificates >
 Always Use HTTPS** for the `kappen.io` zone. This setting applies to the entire
