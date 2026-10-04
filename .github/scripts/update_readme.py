@@ -1,14 +1,17 @@
-"""Rewrite the generated part of README.md from now.json and public GitHub activity."""
+"""Rewrite the generated parts of README.md from the content repository and public GitHub activity."""
 
 import json
 import os
 import re
 import sys
+import textwrap
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ElementTree
 from datetime import datetime
 from pathlib import Path
+
+import yaml
 
 USER = "Patrick-Kappen"
 PROFILE_REPO = f"{USER}/{USER}"
@@ -18,7 +21,10 @@ WRITING_LIMIT = 3
 SUMMARY_LENGTH = 180
 START = "<!-- auto:start -->"
 END = "<!-- auto:end -->"
-NOW_URL = "https://patrick.kappen.io/now.json"
+SITE_URL = "https://patrick.kappen.io"
+SITE_START = "<!-- site:start -->"
+SITE_END = "<!-- site:end -->"
+WRAP = 80
 
 KINDS = {
     "feat": "✨",
@@ -177,31 +183,55 @@ def shipped():
     return lines
 
 
-def writing(feed):
-    if not feed:
-        return []
-    root = ElementTree.fromstring(fetch(feed, accept="application/rss+xml"))
-    lines = []
-    for item in root.iter("item"):
-        title = item.findtext("title", "").strip()
-        link = item.findtext("link", "").strip()
-        if title and link:
-            lines.append(f"- [{title}]({link})")
-        if len(lines) == WRITING_LIMIT:
-            break
-    return lines
+def writing(content):
+    posts = []
+    for path in (content / "posts").glob("*.md"):
+        front = yaml.safe_load(path.read_text().split("---", 2)[1])
+        if front.get("kind") == "post" and front.get("status") == "published":
+            posts.append((str(front["date"]), front["title"], path.stem))
+    posts.sort(reverse=True)
+    return [f"- [{title}]({SITE_URL}/blog/{slug}/)" for _, title, slug in posts[:WRITING_LIMIT]]
 
 
-def render(now):
+def load(content, name):
+    return yaml.safe_load((content / name).read_text())
+
+
+def bullet(label, items):
+    text = f"- **{label}:** " + " · ".join(items)
+    return textwrap.fill(
+        text, WRAP, subsequent_indent="  ", break_long_words=False, break_on_hyphens=False
+    )
+
+
+def render_site(content):
+    site = load(content, "site.yaml")
+    groups = sorted(load(content, "tool-groups.yaml"), key=lambda group: group["order"])
+    tools = sorted(
+        (tool for tool in load(content, "tools.yaml") if tool.get("highlight") is not None),
+        key=lambda tool: tool["highlight"],
+    )
+    lines = ["## Toolbox", ""]
+    for group in groups:
+        names = [tool["name"] for tool in tools if tool["group"] == group["id"]]
+        if names:
+            lines.append(bullet(group["title"], names))
+    lines += [
+        "",
+        "## Certifications",
+        "",
+        bullet("Certified", site["certifications"]),
+        bullet("Working towards", site["studying"]),
+    ]
+    return "\n".join(lines)
+
+
+def render(now, content):
     parts = ["### Now", ""]
     parts += [f"- {entry}" for entry in now["now"]]
     parts += ["", f"_Last changed {month(now['updated'] + 'T00:00:00Z')}._"]
 
-    try:
-        posts = writing(now.get("feed"))
-    except OSError as error:
-        print(f"feed skipped: {error}", file=sys.stderr)
-        posts = []
+    posts = writing(content)
     if posts:
         parts += ["", "### Latest writing", "", *posts]
 
@@ -216,16 +246,23 @@ def render(now):
     return "\n".join(parts)
 
 
+def replace_block(text, start, end, body, path):
+    pattern = re.compile(re.escape(start) + r".*?" + re.escape(end), re.DOTALL)
+    if not pattern.search(text):
+        sys.exit(f"{path} has no {start} ... {end} block")
+    return pattern.sub(lambda _: f"{start}\n\n{body}\n\n{end}", text)
+
+
 def main():
     root = Path(__file__).resolve().parents[2]
     readme_path = root / "README.md"
-    now = json.loads(fetch(NOW_URL, "application/json"))
+    content = Path(os.environ.get("CONTENT_DIR", root / "content"))
+    now = load(content, "site.yaml")["now"]
+    now["updated"] = str(now["updated"])
     readme = readme_path.read_text()
-    pattern = re.compile(re.escape(START) + r".*?" + re.escape(END), re.DOTALL)
-    if not pattern.search(readme):
-        sys.exit(f"{readme_path} has no {START} ... {END} block")
-    block = f"{START}\n\n{render(now)}\n\n{END}"
-    readme_path.write_text(pattern.sub(lambda _: block, readme))
+    readme = replace_block(readme, START, END, render(now, content), readme_path)
+    readme = replace_block(readme, SITE_START, SITE_END, render_site(content), readme_path)
+    readme_path.write_text(readme)
 
 
 if __name__ == "__main__":

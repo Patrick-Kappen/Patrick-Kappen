@@ -100,19 +100,25 @@ _Last changed Oct 2026._
 <!-- auto:end -->
 <!-- markdownlint-enable MD013 -->
 
+<!-- site:start -->
+
 ## Toolbox
 
-- **Cloud:** Azure · IBM Cloud · AWS · Proxmox
-- **IaC & delivery:** Terraform/OpenTofu · Bicep · GitHub Actions · Azure
-  DevOps · Ansible · Nix
-- **Identity & security:** Entra ID · PIM/JIT · GDAP · Lighthouse · OIDC · Key
-  Vault · SOPS
-- **Containers:** Kubernetes · Talos · Podman/Quadlet · Docker · Helm
-- **Code:** PowerShell · Python · TypeScript · Rust · Bash
-- **AI:** vLLM · Ollama · llama.cpp · LiteLLM · LangGraph · Langfuse · Phoenix
+- **Cloud:** Azure
+- **Automation & delivery:** Terraform · Bicep · GitHub Actions · PowerShell ·
+  Azure DevOps · Ansible
+- **NixOS & deployment:** NixOS
+- **Linux:** Ubuntu
+- **Containers & orchestration:** Kubernetes · Podman
+- **AI:** LiteLLM · Phoenix
+- **Datacenter & virtualisation:** Proxmox
+- **Networking:** Tailscale · Traefik
+- **Storage & backup:** TrueNAS
+- **Monitoring:** Grafana
 
 ## Certifications
 
 - **Certified:** AZ-900 · AZ-104 · AZ-400
-- **Working towards:** GitHub Actions · GitHub Administration · AI-103 (Azure AI
-  Apps and Agents)
+- **Working towards:** GitHub Actions · AI-103
+
+<!-- site:end -->
