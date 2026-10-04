@@ -5,6 +5,12 @@ import { pageText } from "../lib/queries";
 import { fill } from "../lib/text";
 import { topicHref, topicsWithPosts } from "../lib/topics";
 
+interface Props {
+  home?: boolean;
+  hideTopics?: boolean;
+}
+
+const { home = false, hideTopics = false } = Astro.props;
 const profile = await getSite();
 const openSource = await getProjects();
 const topicList = await getTopics();
@@ -16,10 +22,11 @@ const liveTopics = await topicsWithPosts();
 ---
 
 <aside class="sidebar">
+  {!home && (
   <section class="widget profile-widget">
     <h2 class="widget-title">{labels.aboutMe}</h2>
     <div class="profile-row">
-      <img src={profile.photo} alt={`Portrait of ${profile.name}`} width="72" height="72" />
+      <img src={profile.photo} alt="" width="72" height="72" />
       <div>
         <strong>{profile.name}</strong>
         <span>{profile.title} @ {profile.company}</span>
@@ -30,6 +37,7 @@ const liveTopics = await topicsWithPosts();
       {profile.links.map((link) => <a href={link.href} {...externalLink(link.href)}>{link.label}</a>)}
     </div>
   </section>
+  )}
 
   {now.now.length > 0 && (
     <section class="widget">
@@ -80,10 +88,12 @@ const liveTopics = await topicsWithPosts();
     </section>
   )}
 
+  {!hideTopics && (
   <section class="widget">
     <h2 class="widget-title">{labels.writingAbout}</h2>
     <ul class="tag-list">
       {topicList.map((topic) => <li>{liveTopics.has(topic.key) ? <a class="tag-pill" href={topicHref(topic.key)}>#{topic.name}</a> : <span class="tag-pill tag-pill-muted">#{topic.name}</span>}</li>)}
     </ul>
   </section>
+  )}
 </aside>
