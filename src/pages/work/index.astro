@@ -47,7 +47,7 @@ const filters = [...counts]
       <div class="work-entries" data-work-list>
         {work.map((item) => <WorkCard {...item} />)}
       </div>
-      <p class="work-empty" data-work-empty hidden>{labels.empty}</p>
+      {work.length > 2 && <p class="work-empty" data-work-empty hidden>{labels.empty}</p>}
     </div>
   </section>
 

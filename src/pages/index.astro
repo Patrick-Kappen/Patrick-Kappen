@@ -27,7 +27,7 @@ const showTopics = topicList.length >= 3;
   <section class="hero">
     <div class="container hero-inner">
       <img class="hero-avatar" src={profile.photo} alt={`Portrait of ${profile.name}`} width="315" height="315" />
-      <div class="hero-copy">
+      <div class="hero-copy reveal">
         <p class="hero-eyebrow">{f(page.eyebrow!)}</p>
         <h1>{headingBefore}<span class="gradient-text">{profile.name}</span>{headingAfter}</h1>
         <p class="hero-text">
@@ -112,9 +112,10 @@ const showTopics = topicList.length >= 3;
         )}
 
       </div>
-      <Sidebar />
+      <Sidebar home hideTopics={showTopics} />
     </div>
   </section>
 
   <script src="../scripts/slider.js"></script>
+  <script src="../scripts/reveal.js"></script>
 </Base>

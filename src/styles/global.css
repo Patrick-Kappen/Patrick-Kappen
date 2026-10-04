@@ -60,7 +60,7 @@
     --columbia: hsl(220deg 10% 90%);
     --wild: hsl(220deg 8% 66%);
     --shadow-blue: hsl(220deg 6% 60%);
-    --slate: hsl(220deg 6% 48%);
+    --slate: hsl(220deg 6% 60%);
     --accent-hsl: 176deg 42% 44%;
     --accent: hsl(var(--accent-hsl));
     --accent-soft: hsl(var(--accent-hsl) / 14%);
@@ -97,13 +97,27 @@
 
   ::selection {
     background: var(--accent);
-    color: var(--white);
+    color: var(--bg);
   }
 
   :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
     border-radius: var(--radius-sm);
+  }
+
+  a.post-card:focus-visible,
+  a.post-row:focus-visible,
+  a.work-card:focus-visible,
+  a.topic-card:focus-visible,
+  a.focus-card:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: var(--radius);
+  }
+
+  a.topic-card:focus-visible {
+    outline-offset: -3px;
   }
 
   h1,
@@ -123,7 +137,7 @@
     transform: translateY(-160%);
     border-radius: var(--radius-sm);
     background: var(--accent);
-    color: var(--white);
+    color: var(--bg);
     font-weight: 700;
   }
 
@@ -269,6 +283,66 @@
     color: var(--accent);
   }
 
+  .nav-menu {
+    display: none;
+    position: relative;
+  }
+
+  .nav-menu summary {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--alice);
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .nav-menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .nav-menu[open] summary {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .nav-menu-list {
+    position: absolute;
+    z-index: 30;
+    top: calc(100% + 8px);
+    right: 0;
+    display: grid;
+    min-width: 200px;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    box-shadow: 0 12px 32px hsl(0deg 0% 0% / 45%);
+  }
+
+  .nav-menu-list a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: var(--radius-sm);
+    color: var(--alice);
+    font-weight: 600;
+  }
+
+  .nav-menu-list a:hover {
+    background: var(--bg-card-hover);
+  }
+
+  .nav-menu-list a.active {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
   .site-footer {
     margin-top: 72px;
   }
@@ -283,13 +357,6 @@
     border-bottom: 0;
     border-radius: var(--radius) var(--radius) 0 0;
     background: hsl(220deg 12% 10% / 70%);
-  }
-
-  .footer-panel h2 {
-    margin-bottom: 18px;
-    color: var(--alice);
-    font-size: 1.2rem;
-    font-weight: 500;
   }
 
   .footer-brand {
@@ -315,7 +382,7 @@
     font-weight: 600;
   }
 
-  .footer-col h2 {
+  .footer-title {
     margin-bottom: 14px;
     color: var(--slate);
     font-size: 0.78rem;
@@ -377,9 +444,13 @@
       padding: 0 10px;
     }
 
-    .main-nav a[href="/setup/"],
-    .main-nav a[href="/contact/"] {
+    .main-nav,
+    .header-subscribe {
       display: none;
+    }
+
+    .nav-menu {
+      display: block;
     }
 
     .footer-panel {
@@ -767,7 +838,7 @@
     padding: 4px 14px;
     border-radius: var(--radius-sm);
     background: var(--accent);
-    color: var(--white);
+    color: var(--bg);
     font-size: 0.8rem;
     font-weight: 700;
   }
@@ -1031,8 +1102,18 @@
 
   .machine-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: 1fr;
     gap: 14px;
+  }
+
+  @media (min-width: 700px) {
+    .machine-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .machine-grid > :last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
   }
 
   .machine {
@@ -1912,7 +1993,7 @@
   }
 
   .tag-filter[aria-pressed="true"] span {
-    color: hsl(220deg 13% 7% / 70%);
+    color: inherit;
   }
 
   .work-entries {
@@ -2168,6 +2249,7 @@
   }
 
   .tag-pill-muted {
+    border-color: var(--line);
     color: var(--slate);
   }
 
@@ -2179,10 +2261,6 @@
     border-color: var(--accent-line);
     background: var(--accent-soft);
     color: var(--accent);
-  }
-
-  .tag-pill-topic:hover {
-    color: var(--bg);
   }
 
   .post-card-media img {
@@ -2554,10 +2632,6 @@
 
     .tag-filter {
       white-space: nowrap;
-    }
-
-    .site-header .btn {
-      display: none;
     }
 
     .sidebar {

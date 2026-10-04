@@ -38,7 +38,7 @@ const count = posts.length;
               title={post.data.title}
               topic={post.data.topic}
               href={`/blog/${post.id}/`}
-              date={postDate(post, labels.draft)}
+              {...postDate(post, labels.draft)}
               minutes={readingMinutes(post)}
               image={post.data.image}
               description={post.data.description}

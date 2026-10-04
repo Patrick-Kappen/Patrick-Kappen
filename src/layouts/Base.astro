@@ -71,7 +71,19 @@ const nav = layout.nav.map((item) => ({ label: item.label, href: item.href, acti
           ))}
         </nav>
 
-        <a class="btn btn-primary btn-small" href="/rss.xml">{labels.subscribe}</a>
+        <a class="btn btn-ghost btn-small header-subscribe" href="/rss.xml">{labels.subscribe}</a>
+
+        <details class="nav-menu">
+          <summary>{labels.menu}</summary>
+          <nav class="nav-menu-list" aria-label={labels.mainNav}>
+            {nav.map((item) => (
+              <a href={item.href} class:list={{ active: item.active }} aria-current={item.active ? "page" : undefined}>
+                {item.label}
+              </a>
+            ))}
+            <a href="/rss.xml">{labels.subscribe}</a>
+          </nav>
+        </details>
       </div>
     </header>
 
@@ -79,7 +91,7 @@ const nav = layout.nav.map((item) => ({ label: item.label, href: item.href, acti
       <slot />
     </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer" aria-label={labels.footer}>
       <div class="container">
         <div class="footer-panel">
           <div class="footer-brand">
@@ -90,7 +102,7 @@ const nav = layout.nav.map((item) => ({ label: item.label, href: item.href, acti
           </div>
 
           <div class="footer-col">
-            <h2>{labels.site}</h2>
+            <p class="footer-title">{labels.site}</p>
             <ul>
               <li><a href="/">{labels.home}</a></li>
               {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
@@ -99,14 +111,14 @@ const nav = layout.nav.map((item) => ({ label: item.label, href: item.href, acti
           </div>
 
           <div class="footer-col">
-            <h2>{labels.topics}</h2>
+            <p class="footer-title">{labels.topics}</p>
             <ul>
               {topics.map((topic) => <li>{liveTopics.has(topic.key) ? <a href={topicHref(topic.key)}>{topic.name}</a> : <span class="footer-soon">{topic.name}</span>}</li>)}
             </ul>
           </div>
 
           <div class="footer-col">
-            <h2>{labels.openSource}</h2>
+            <p class="footer-title">{labels.openSource}</p>
             <ul>
               {openSource.map((item) => <li><a href={item.href} {...externalLink(item.href)}>{item.name}</a></li>)}
               <li><a href={labels.githubHref} {...externalLink("https://github.com")}>{labels.github}</a></li>
@@ -114,7 +126,7 @@ const nav = layout.nav.map((item) => ({ label: item.label, href: item.href, acti
           </div>
 
           <div class="footer-col">
-            <h2>{labels.follow}</h2>
+            <p class="footer-title">{labels.follow}</p>
             <ul>
               {profile.links.map((link) => (
                 <li><a href={link.href} {...externalLink(link.href)}>{link.label}</a></li>
@@ -126,6 +138,5 @@ const nav = layout.nav.map((item) => ({ label: item.label, href: item.href, acti
       </div>
     </footer>
 
-    <script src="../scripts/reveal.js"></script>
   </body>
 </html>

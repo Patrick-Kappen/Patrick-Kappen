@@ -9,6 +9,7 @@ import { pageText } from "../../lib/queries";
 import { fill } from "../../lib/text";
 import Base from "../../layouts/Base.astro";
 import { tagSlug } from "../../lib/format";
+import PostDate from "../../components/PostDate.astro";
 import { postDate, publishedPosts, readingMinutes, seriesFor, type Post } from "../../lib/posts";
 
 export async function getStaticPaths() {
@@ -38,7 +39,7 @@ const tags = post.data.tags.map((tag) => ({ name: tag, href: `/blog/tags/${tagSl
         <p class="article-kicker">
           <a href="/blog/">{labels.blog}</a>
           <span class="kicker-line" aria-hidden="true"></span>
-          <span>{labels.posted} {postDate(post, labels.draft)}</span>
+          <span>{labels.posted} <PostDate {...postDate(post, labels.draft)} /></span>
           <span>· {readingMinutes(post)} min read</span>
         </p>
         <h1>{post.data.title}</h1>
@@ -108,7 +109,7 @@ const tags = post.data.tags.map((tag) => ({ name: tag, href: `/blog/tags/${tagSl
           <section class="widget profile-widget">
             <h2 class="widget-title">{labels.writtenBy}</h2>
             <div class="profile-row">
-              <img src={profile.photo} alt={`Portrait of ${profile.name}`} width="72" height="72" />
+              <img src={profile.photo} alt="" width="72" height="72" />
               <div>
                 <strong>{profile.name}</strong>
                 <span>{profile.title} @ {profile.company}</span>
