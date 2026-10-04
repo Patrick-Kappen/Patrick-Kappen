@@ -59,7 +59,7 @@ def main() -> None:
     if len(sys.argv) < 3:
         sys.exit(__doc__)
     output, title = Path(sys.argv[1]), sys.argv[2]
-    eyebrow = sys.argv[3] if len(sys.argv) > 3 else "Platform & security engineer"
+    eyebrow = sys.argv[3] if len(sys.argv) > 3 else "Senior DevOps, AI and security engineer"
     subprocess.run(["rsvg-convert", "-w", "1200", "-h", "630", "-o", str(output)], input=svg(title, eyebrow).encode(), check=True)
 
 

@@ -68,7 +68,7 @@ const liveTopics = await topicsWithPosts();
     <section class="widget">
       <h2 class="widget-title">{labels.certified}</h2>
       <div class="cert-list">
-        {profile.certifications.map((cert) => <span class="cert">{cert}</span>)}
+        {profile.certifications.map((cert) => (cert.url ? <a class="cert" href={cert.url} title={`${cert.name}, ${cert.issued.slice(0, 4)}`}>{cert.code}</a> : <span class="cert">{cert.code}</span>))}
       </div>
     </section>
   )}

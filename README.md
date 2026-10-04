@@ -3,7 +3,7 @@
 ```nix
 {
   patrick = {
-    role     = "Platform & security engineer";
+    role     = "Senior DevOps, AI and security engineer";
     at       = "SLTN, Azure Expert MSP";
     builds   = [ "identity" "delivery" "recovery" "AI infrastructure" ];
     writes   = [ "Terraform" "Bicep" "PowerShell" "Python" "Rust" "Nix" ];
