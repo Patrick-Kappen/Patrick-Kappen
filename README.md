@@ -82,6 +82,11 @@ _Last changed Oct 2026._
 
 ### Recently shipped
 
+**[terraform-provider-azuredevops](https://github.com/Patrick-Kappen/terraform-provider-azuredevops)** · Terraform Azure DevOps provider
+
+- ✨ **[Add repository Advanced Security resource](https://github.com/Patrick-Kappen/terraform-provider-azuredevops/pull/2)** · Oct 2026 · +835 −0\
+  Adds `azuredevops_git_repository_advanced_security` to manage GitHub Advanced Security for Azure DevOps on a Git repository: Secret Protection (`secret_protection_enabled`,…
+
 **[Azure/terraform-azurerm-avm-res-recoveryservices-vault](https://github.com/Azure/terraform-azurerm-avm-res-recoveryservices-vault)** · Terraform Azure Verified Resource Module for Recovery Services Vault
 
 - 🐛 **[Omit read-only properties from protected item bodies](https://github.com/Azure/terraform-azurerm-avm-res-recoveryservices-vault/pull/271)** · Oct 2026 · +71 −4\
@@ -89,8 +94,6 @@ _Last changed Oct 2026._
 
 **[graft](https://github.com/Patrick-Kappen/graft)** · TOML-driven Podman Quadlet containers, built from the Nix store.
 
-- 🐛 **[Make rootless notify protocol fixture runnable](https://github.com/Patrick-Kappen/graft/pull/367)** · Aug 2026 · +22 −22\
-  Install the protocol fixture's user services through `systemd.user.services`, avoiding the generated `/etc/systemd/user` collision.
 - 🐛 **[Keep relaxed user manifests loadable](https://github.com/Patrick-Kappen/graft/pull/357)** · Aug 2026 · +366 −76\
   Keeps relaxed user manifest publication readable by the installed worker and prevents tolerated default ACLs from making newly created Graft directories unusable.
 - 🐛 **[Finalize publication base-directory policy](https://github.com/Patrick-Kappen/graft/pull/355)** · Aug 2026 · +503 −141\
