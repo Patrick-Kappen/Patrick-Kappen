@@ -78,6 +78,7 @@ _Last changed Oct 2026._
 
 ### Latest writing
 
+- [Contributing to a Terraform provider: preparation](https://patrick.kappen.io/blog/contributing-to-a-terraform-provider-preparation/)
 - [Two GitHub accounts, one machine, zero switching](https://patrick.kappen.io/blog/two-github-accounts-by-directory/)
 
 ### Recently shipped
