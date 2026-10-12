@@ -1110,10 +1110,6 @@
     .machine-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-
-    .machine-grid > :last-child:nth-child(odd) {
-      grid-column: 1 / -1;
-    }
   }
 
   .machine {
