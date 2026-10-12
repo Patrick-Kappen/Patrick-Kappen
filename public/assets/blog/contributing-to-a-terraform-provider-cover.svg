@@ -1,0 +1,50 @@
+<svg width="1600" height="640" viewBox="0 0 1600 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="640" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0f1a1c"/>
+      <stop offset="1" stop-color="#090c10"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(820 360) scale(620 340)">
+      <stop stop-color="#41a09a" stop-opacity="0.30"/>
+      <stop offset="0.6" stop-color="#41a09a" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#41a09a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="640" fill="url(#bg)"/>
+  <rect width="1600" height="640" fill="url(#glow)"/>
+  <g stroke="#ffffff" stroke-opacity="0.05">
+    <circle cx="820" cy="360" r="240"/>
+    <circle cx="820" cy="360" r="340"/>
+    <circle cx="820" cy="360" r="450"/>
+    <circle cx="820" cy="360" r="570"/>
+  </g>
+
+  <!-- upstream -->
+  <path d="M150 230 H1450" stroke="#c9d1d9" stroke-opacity="0.55" stroke-width="6" stroke-linecap="round"/>
+  <g fill="#0f1a1c" stroke="#c9d1d9" stroke-opacity="0.8" stroke-width="6">
+    <circle cx="260" cy="230" r="16"/>
+    <circle cx="420" cy="230" r="16"/>
+    <circle cx="700" cy="230" r="16"/>
+    <circle cx="960" cy="230" r="16"/>
+    <circle cx="1370" cy="230" r="16"/>
+  </g>
+
+  <!-- fork branch -->
+  <path d="M420 230 C 500 230, 500 430, 580 430 H1040" stroke="#41a09a" stroke-width="6" stroke-linecap="round"/>
+  <g fill="#0f1a1c" stroke="#41a09a" stroke-width="6">
+    <circle cx="640" cy="430" r="16"/>
+    <circle cx="820" cy="430" r="16"/>
+    <circle cx="1000" cy="430" r="16"/>
+  </g>
+
+  <!-- pull request back to upstream -->
+  <path d="M1040 430 C 1120 430, 1110 230, 1190 230" stroke="#41a09a" stroke-width="5" stroke-linecap="round" stroke-dasharray="4 16"/>
+  <circle cx="1190" cy="230" r="24" fill="#41a09a"/>
+  <path d="M1179 230 l8 8 l14 -16" stroke="#0f1a1c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="26" letter-spacing="1">
+    <text x="150" y="190" fill="#c9d1d9" fill-opacity="0.7">upstream</text>
+    <text x="580" y="490" fill="#41a09a">fork / fix</text>
+    <text x="1170" y="350" fill="#41a09a" fill-opacity="0.85">pull request</text>
+  </g>
+</svg>
