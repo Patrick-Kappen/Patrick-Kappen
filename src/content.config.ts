@@ -69,10 +69,10 @@ const machines = defineCollection({
     area: z.enum(["desk", "lab"]),
     group: z.string(),
     name: z.string(),
-    kind: z.enum(["desktop", "laptop", "handheld", "server", "nas", "cluster", "gpu", "network"]),
+    kind: z.enum(["desktop", "laptop", "handheld", "server", "nas", "cluster", "gpu", "network", "monitor", "keyboard", "mouse"]),
     role: z.string(),
     specs: z.array(z.string()).default([]),
-    os: z.string(),
+    os: z.string().optional(),
     status: z.string().optional(),
     count: z.number().int().positive().optional(),
     drives: z

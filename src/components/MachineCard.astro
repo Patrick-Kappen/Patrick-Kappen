@@ -7,7 +7,7 @@ interface Props {
   kind: MachineKind;
   role: string;
   lines: string[];
-  os: string;
+  os?: string;
   status?: string;
 }
 
@@ -18,7 +18,7 @@ const { name, kind, role, lines: specs, os, status } = Astro.props;
   <div class="machine-head">
     <MachineIcon kind={kind} />
     <h3>{name}</h3>
-    <span class="machine-os">{os}</span>
+    {os && <span class="machine-os">{os}</span>}
   </div>
   <p class="machine-role">{role}</p>
   {specs.length > 0 && (
