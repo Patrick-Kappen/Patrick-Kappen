@@ -83,6 +83,15 @@ _Last changed Oct 2026._
 
 ### Recently shipped
 
+**[zerodawn-pi](https://github.com/Patrick-Kappen/zerodawn-pi)** · pi extensions: bash jobs in a PTY, compact git, recipes, context pruning, tidy UI
+
+- 🚀 **[v0.3.1](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.3.1)** · Oct 2026 · release\
+  deps: take pi and its packages from llm-agents, not from npm; deps: take pi and its packages from llm-agents, not from npm.
+- 🚀 **[v0.3.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.3.0)** · Oct 2026 · release\
+  First release; First release.
+- 🚀 **[v0.2.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.2.0)** · Oct 2026 · release\
+  gateway-session: send the pi session id to agentgateway by @Patrick-Kappen in https://github.com/Patrick-Kappen/zerodawn-pi/pull/2; Release 0.2.0: stall-watchdog directory,…
+
 **[terraform-provider-azuredevops](https://github.com/Patrick-Kappen/terraform-provider-azuredevops)** · Terraform Azure DevOps provider
 
 - ✨ **[Add repository Advanced Security resource](https://github.com/Patrick-Kappen/terraform-provider-azuredevops/pull/2)** · Oct 2026 · +835 −0\
@@ -97,12 +106,6 @@ _Last changed Oct 2026._
 
 - 🐛 **[Keep relaxed user manifests loadable](https://github.com/Patrick-Kappen/graft/pull/357)** · Aug 2026 · +366 −76\
   Keeps relaxed user manifest publication readable by the installed worker and prevents tolerated default ACLs from making newly created Graft directories unusable.
-- 🐛 **[Finalize publication base-directory policy](https://github.com/Patrick-Kappen/graft/pull/355)** · Aug 2026 · +503 −141\
-  Finalizes secure user publication directory handling while supporting NAS and permission-less filesystems through an explicit opt-in compatibility mode.
-- ✨ **[Install worker sockets and services](https://github.com/Patrick-Kappen/graft/pull/319)** · Aug 2026 · +277 −14\
-  Installs the documented system and user Graft worker services and sockets with fixed, Nix-expanded manifest paths, target/manager/UID policy, producer identity, and local-only…
-- ✨ **[Publish Home Manager user manifests atomically](https://github.com/Patrick-Kappen/graft/pull/318)** · Aug 2026 · +260 −22\
-  Implements Home Manager-only immutable manifest/endpoint publication through `$XDG_CONFIG_HOME/graft/current`, using its own validated user activation lock and atomic pointer…
 
 <!-- auto:end -->
 <!-- markdownlint-enable MD013 -->
