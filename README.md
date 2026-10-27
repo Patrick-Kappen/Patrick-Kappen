@@ -85,27 +85,27 @@ _Last changed Oct 2026._
 
 **[zerodawn-pi](https://github.com/Patrick-Kappen/zerodawn-pi)** · pi extensions: bash jobs in a PTY, compact git, recipes, context pruning, tidy UI
 
-- 🚀 **[v0.3.1](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.3.1)** · Oct 2026 · release\
-  deps: take pi and its packages from llm-agents, not from npm; deps: take pi and its packages from llm-agents, not from npm.
-- 🚀 **[v0.3.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.3.0)** · Oct 2026 · release\
+- 🚀 **[v0.13.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.13.0)** · Oct 2026 · release\
+  files: edit and write undo a change that adds a syntax error; files: read sends only new lines; bash blocks file views.
+- 🚀 **[v0.12.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.12.0)** · Oct 2026 · release\
+  a command that moves to the background ends the turn; end the turn when only jobs are left, not jobs wait.
+- 🚀 **[v0.11.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.11.0)** · Oct 2026 · release\
+  keep diagnostics and warningCount as released; grouped diagnostics, nix noise, word-only warnings.
+
+**[zerodawn-tmux](https://github.com/Patrick-Kappen/zerodawn-tmux)** · tmux addons in shell, packaged as a Nix flake
+
+- 🚀 **[v0.1.0](https://github.com/Patrick-Kappen/zerodawn-tmux/releases/tag/v0.1.0)** · Oct 2026 · release\
+  First release.
+
+**[zerodawn-nvim](https://github.com/Patrick-Kappen/zerodawn-nvim)** · Neovim addons in Lua, packaged as a Nix flake
+
+- 🚀 **[v0.1.0](https://github.com/Patrick-Kappen/zerodawn-nvim/releases/tag/v0.1.0)** · Oct 2026 · release\
   First release; First release.
-- 🚀 **[v0.2.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.2.0)** · Oct 2026 · release\
-  gateway-session: send the pi session id to agentgateway by @Patrick-Kappen in https://github.com/Patrick-Kappen/zerodawn-pi/pull/2; Release 0.2.0: stall-watchdog directory,…
-
-**[terraform-provider-azuredevops](https://github.com/Patrick-Kappen/terraform-provider-azuredevops)** · Terraform Azure DevOps provider
-
-- ✨ **[Add repository Advanced Security resource](https://github.com/Patrick-Kappen/terraform-provider-azuredevops/pull/2)** · Oct 2026 · +835 −0\
-  Adds `azuredevops_git_repository_advanced_security` to manage GitHub Advanced Security for Azure DevOps on a Git repository: Secret Protection (`secret_protection_enabled`,…
-
-**[Azure/terraform-azurerm-avm-res-recoveryservices-vault](https://github.com/Azure/terraform-azurerm-avm-res-recoveryservices-vault)** · Terraform Azure Verified Resource Module for Recovery Services Vault
-
-- 🐛 **[Omit read-only properties from protected item bodies](https://github.com/Azure/terraform-azurerm-avm-res-recoveryservices-vault/pull/271)** · Oct 2026 · +71 −4\
-  With the current AzAPI provider (reproduced with v2.13.0), `terraform plan` fails for every protected VM and protected file share, not only after upgrading from 1.1.x:
 
 **[graft](https://github.com/Patrick-Kappen/graft)** · TOML-driven Podman Quadlet containers, built from the Nix store.
 
-- 🐛 **[Keep relaxed user manifests loadable](https://github.com/Patrick-Kappen/graft/pull/357)** · Aug 2026 · +366 −76\
-  Keeps relaxed user manifest publication readable by the installed worker and prevents tolerated default ACLs from making newly created Graft directories unusable.
+- 🚀 **[v0.3.0-alpha.1: Typed workload contracts and explicit hardening](https://github.com/Patrick-Kappen/graft/releases/tag/v0.3.0-alpha.1)** · Jul 2026 · pre-release\
+  Generated Graft v1 JSON Schema tied mechanically to Rust types; Fail-closed handling for parser-recognised but unsupported intent.
 
 <!-- auto:end -->
 <!-- markdownlint-enable MD013 -->
