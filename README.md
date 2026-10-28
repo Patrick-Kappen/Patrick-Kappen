@@ -85,27 +85,27 @@ _Last changed Oct 2026._
 
 **[zerodawn-pi](https://github.com/Patrick-Kappen/zerodawn-pi)** · pi extensions: bash jobs in a PTY, compact git, recipes, context pruning, tidy UI
 
-- 🚀 **[v0.13.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.13.0)** · Oct 2026 · release\
-  files: edit and write undo a change that adds a syntax error; files: read sends only new lines; bash blocks file views.
-- 🚀 **[v0.12.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.12.0)** · Oct 2026 · release\
-  a command that moves to the background ends the turn; end the turn when only jobs are left, not jobs wait.
-- 🚀 **[v0.11.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.11.0)** · Oct 2026 · release\
-  keep diagnostics and warningCount as released; grouped diagnostics, nix noise, word-only warnings.
+- 🚀 **[v0.19.1](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.19.1)** · Oct 2026 · release\
+  /ide finds the Neovide window by its nvim socket; docs: add astra latency task and guard block measurement.
+- 🚀 **[v0.19.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.19.0)** · Oct 2026 · release\
+  projects: /switch picker, /ide pair, pi-tui-kit dependency; docs: split open work in TODO.md and BACKLOG.md.
+- 🚀 **[v0.18.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.18.0)** · Oct 2026 · release\
+  accept a rebuttal, fixed limit per user message; a step for the user is not an open point.
 
-**[zerodawn-tmux](https://github.com/Patrick-Kappen/zerodawn-tmux)** · tmux addons in shell, packaged as a Nix flake
+**[oxsecurity/megalinter](https://github.com/oxsecurity/megalinter)** · 🦙 MegaLinter analyzes 50 languages, 22 formats, 21 tooling formats, excessive copy-pastes, spelling mistakes and security issues in your repository sources with a GitHub Action, other CI tools or locally.
 
-- 🚀 **[v0.1.0](https://github.com/Patrick-Kappen/zerodawn-tmux/releases/tag/v0.1.0)** · Oct 2026 · release\
-  First release.
+- 🐛 **[Honor SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT in combined SARIF report](https://github.com/oxsecurity/megalinter/pull/9338)** · Oct 2026 · +92 −3\
+  The per-linter SARIF reports already check `SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT` before stripping the workspace prefix (`megalinter/utils_sarif.py`), but the combined report…
 
 **[zerodawn-nvim](https://github.com/Patrick-Kappen/zerodawn-nvim)** · Neovim addons in Lua, packaged as a Nix flake
 
-- 🚀 **[v0.1.0](https://github.com/Patrick-Kappen/zerodawn-nvim/releases/tag/v0.1.0)** · Oct 2026 · release\
-  First release; First release.
+- 🚀 **[v0.1.2](https://github.com/Patrick-Kappen/zerodawn-nvim/releases/tag/v0.1.2)** · Oct 2026 · release\
+  block a tmux switch once, not once for each hook.
 
-**[graft](https://github.com/Patrick-Kappen/graft)** · TOML-driven Podman Quadlet containers, built from the Nix store.
+**[zerodawn-tmux](https://github.com/Patrick-Kappen/zerodawn-tmux)** · tmux addons in shell, packaged as a Nix flake
 
-- 🚀 **[v0.3.0-alpha.1: Typed workload contracts and explicit hardening](https://github.com/Patrick-Kappen/graft/releases/tag/v0.3.0-alpha.1)** · Jul 2026 · pre-release\
-  Generated Graft v1 JSON Schema tied mechanically to Rust types; Fail-closed handling for parser-recognised but unsupported intent.
+- 🚀 **[v0.1.1](https://github.com/Patrick-Kappen/zerodawn-tmux/releases/tag/v0.1.1)** · Oct 2026 · release\
+  start the agent as the window command, not as typed keys.
 
 <!-- auto:end -->
 <!-- markdownlint-enable MD013 -->
