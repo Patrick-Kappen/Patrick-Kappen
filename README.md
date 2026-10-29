@@ -85,22 +85,19 @@ _Last changed Oct 2026._
 
 **[zerodawn-pi](https://github.com/Patrick-Kappen/zerodawn-pi)** · pi extensions: bash jobs in a PTY, compact git, recipes, context pruning, tidy UI
 
-- 🚀 **[v0.19.1](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.19.1)** · Oct 2026 · release\
-  /ide finds the Neovide window by its nvim socket; docs: add astra latency task and guard block measurement.
-- 🚀 **[v0.19.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.19.0)** · Oct 2026 · release\
-  projects: /switch picker, /ide pair, pi-tui-kit dependency; docs: split open work in TODO.md and BACKLOG.md.
-- 🚀 **[v0.18.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.18.0)** · Oct 2026 · release\
-  accept a rebuttal, fixed limit per user message; a step for the user is not an open point.
-
-**[oxsecurity/megalinter](https://github.com/oxsecurity/megalinter)** · 🦙 MegaLinter analyzes 50 languages, 22 formats, 21 tooling formats, excessive copy-pastes, spelling mistakes and security issues in your repository sources with a GitHub Action, other CI tools or locally.
-
-- 🐛 **[Honor SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT in combined SARIF report](https://github.com/oxsecurity/megalinter/pull/9338)** · Oct 2026 · +92 −3\
-  The per-linter SARIF reports already check `SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT` before stripping the workspace prefix (`megalinter/utils_sarif.py`), but the combined report…
+- 🚀 **[v0.26.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.26.0)** · Oct 2026 · release\
+  bash: run a lone file view with read and a file write with write; run a lone file view with read and a file write with write.
+- 🚀 **[v0.25.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.25.0)** · Oct 2026 · release\
+  bash: convert git reads, file views and searches without refusal; bash: run each part of a chain with the tool of that part.
+- 🚀 **[v0.24.0](https://github.com/Patrick-Kappen/zerodawn-pi/releases/tag/v0.24.0)** · Oct 2026 · release\
+  let the agent start a job at once with background; bash: let the agent start a job at once with background.
 
 **[zerodawn-nvim](https://github.com/Patrick-Kappen/zerodawn-nvim)** · Neovim addons in Lua, packaged as a Nix flake
 
 - 🚀 **[v0.1.2](https://github.com/Patrick-Kappen/zerodawn-nvim/releases/tag/v0.1.2)** · Oct 2026 · release\
   block a tmux switch once, not once for each hook.
+- 🚀 **[v0.1.1](https://github.com/Patrick-Kappen/zerodawn-nvim/releases/tag/v0.1.1)** · Oct 2026 · release\
+  start opens no second terminal when a client is paired.
 
 **[zerodawn-tmux](https://github.com/Patrick-Kappen/zerodawn-tmux)** · tmux addons in shell, packaged as a Nix flake
 
