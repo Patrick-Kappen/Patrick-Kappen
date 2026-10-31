@@ -85,6 +85,8 @@ _Last changed Oct 2026._
 
 **[pi-git](https://github.com/Patrick-Kappen/pi-git)** · pi extension that commits, pushes and opens PRs with a helper agent, and watches CI until the PR is green
 
+- ✨ **[Lock git changes by default](https://github.com/Patrick-Kappen/pi-git/pull/5)** · Oct 2026 · +895 −18\
+  Stacked on #4; merge that first.
 - ✨ **[Add helper-assisted repository checks](https://github.com/Patrick-Kappen/pi-git/pull/4)** · Oct 2026 · +412 −6\
   Stacked on #3; merge that first.
 - ✨ **[Add a PR watcher for CI and conflicts](https://github.com/Patrick-Kappen/pi-git/pull/3)** · Oct 2026 · +1640 −48\
@@ -96,8 +98,6 @@ _Last changed Oct 2026._
 
 - ✨ **[Skill for git and GitHub work](https://github.com/Patrick-Kappen/pi-skills/pull/7)** · Oct 2026 · +390 −5\
   A `git` skill: rules and workflow for git and GitHub work, with references.
-- 🐛 **[Override minimatch to ^11.0.1 for GHSA-g3hv-75wg-m249](https://github.com/Patrick-Kappen/pi-skills/pull/6)** · Oct 2026 · +14 −5\
-  minimatch 10.2.6 comes in through the `@earendil-works/pi-coding-agent` dev dependency, and `security` (osv-scanner) now fails on…
 
 **[pi-rules](https://github.com/Patrick-Kappen/pi-rules)** · pi extension that applies rules per repository: instructions, permissions and hooks
 
