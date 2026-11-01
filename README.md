@@ -85,24 +85,21 @@ _Last changed Oct 2026._
 
 **[pi-git](https://github.com/Patrick-Kappen/pi-git)** · pi extension that commits, pushes and opens PRs with a helper agent, and watches CI until the PR is green
 
-- 🐛 **[Prune delivered summaries after seven days](https://github.com/Patrick-Kappen/pi-git/pull/18)** · Oct 2026 · +64 −1\
-  Delete delivered summaries older than seven days once per watcher round.
-- ✨ **[Start changes with git_start, push with git_push, and one-shot worktree, push and pr](https://github.com/Patrick-Kappen/pi-git/pull/15)** · Oct 2026 · +732 −26\
-  One tool to start a change instead of two overlapping ones (#12 and `git_worktree`), and push as its own guarded step.
-- ✨ **[Rebase a stacked PR on the next base after its base is merged](https://github.com/Patrick-Kappen/pi-git/pull/14)** · Oct 2026 · +95 −3\
-  When the base of a stacked PR is squash-merged and deleted, GitHub moves the PR to the next base, and the PR then shows the old base's commits too.
-- ✨ **[Show all open work with git_status, and watch PRs made by hand with git_watch](https://github.com/Patrick-Kappen/pi-git/pull/13)** · Oct 2026 · +360 −3\
-  git_status lists the PRs the watcher follows, what needs the user, and the worktrees with uncommitted or unpushed work, across repositories, so the main agent does not collect…
+- 🚀 **[v0.9.4](https://github.com/Patrick-Kappen/pi-git/releases/tag/v0.9.4)** · Oct 2026 · release\
+  **pi-git:** report nothing when a PR merged and was cleaned up ([#47](https://github.com/Patrick-Kappen/pi-git/issues/47))…
+- 🐛 **[Report nothing when a PR merged and was cleaned up](https://github.com/Patrick-Kappen/pi-git/pull/47)** · Oct 2026 · +27 −16\
+  Every merge still put "PR #n is merged; removed the worktree ..." into the history of the session that made the PR, while nobody needs to hear of it.
+- 🚀 **[v0.9.3](https://github.com/Patrick-Kappen/pi-git/releases/tag/v0.9.3)** · Oct 2026 · release\
+  **pi-git:** find a main checkout by its origin when the directory has another name ([#45](https://github.com/Patrick-Kappen/pi-git/issues/45))…
 
 **[pi-skills](https://github.com/Patrick-Kappen/pi-skills)** · pi agent skills in a Nix flake, loaded per repository by the repo-skills extension
 
-- ✨ **[Use the pi-git tools without watching CI, and change several repositories at once](https://github.com/Patrick-Kappen/pi-skills/pull/13)** · Oct 2026 · +108 −10\
-  The skill now covers git_check, git_commit, git_pr and git_request, says not to poll CI after git_pr (the watcher reports), and to call git_request at a lock instead of working…
-
-**[pi-rules](https://github.com/Patrick-Kappen/pi-rules)** · pi extension that applies rules per repository: instructions, permissions and hooks
-
-- ✨ **[Protect main and allow blocked calls once](https://github.com/Patrick-Kappen/pi-rules/pull/8)** · Oct 2026 · +210 −8\
-  Let users steer agents to worktrees for edits while retaining a one-time override that doesn’t change the permission rule.
+- 🚀 **[v0.11.1](https://github.com/Patrick-Kappen/pi-skills/releases/tag/v0.11.1)** · Oct 2026 · release\
+  **repo-skills:** never refuse the first read of a skill, and hide notes from the user ([#31](https://github.com/Patrick-Kappen/pi-skills/issues/31))…
+- 🐛 **[Never refuse the first read of a skill, and hide notes from the user](https://github.com/Patrick-Kappen/pi-skills/pull/31)** · Oct 2026 · +165 −50\
+  In a real session the first read of a SKILL.md was refused with "already in this conversation": at tool_call time the assistant message with that very read call is already in the…
+- 🚀 **[v0.11.0](https://github.com/Patrick-Kappen/pi-skills/releases/tag/v0.11.0)** · Oct 2026 · release\
+  **repo-skills:** hidden sub-skills inside a skill, loaded by score or trigger ([#29](https://github.com/Patrick-Kappen/pi-skills/issues/29))…
 
 <!-- auto:end -->
 <!-- markdownlint-enable MD013 -->
