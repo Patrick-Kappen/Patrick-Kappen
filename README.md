@@ -83,23 +83,26 @@ _Last changed Oct 2026._
 
 ### Recently shipped
 
+**[pi-skills](https://github.com/Patrick-Kappen/pi-skills)** · pi agent skills in a Nix flake, loaded per repository by the repo-skills extension
+
+- 🚀 **[v0.13.0](https://github.com/Patrick-Kappen/pi-skills/releases/tag/v0.13.0)** · Nov 2026 · release\
+  drop the repo-skills extension; skills loa; drop the repo-skills extension; skills loa…
+- 🚀 **[v0.12.0](https://github.com/Patrick-Kappen/pi-skills/releases/tag/v0.12.0)** · Nov 2026 · release\
+  **git:** work without pi-git and follow the repository's own workflow ([#34](https://github.com/Patrick-Kappen/pi-skills/issues/34)); **git:** work without pi-git and follow the…
+- ✨ **[Work without pi-git and follow the repository's own workflow](https://github.com/Patrick-Kappen/pi-skills/pull/34)** · Nov 2026 · +22 −119\
+  pi-git is removed from the NixOS configuration (Patrick-Kappen/Nixos#494), so the git skill must not send agents to its tools (git_start, git_pr, the watcher, /ship) anymore.
+
+**[paseo](https://github.com/Patrick-Kappen/paseo)** · Orchestrate multiple coding agents from desktop and mobile
+
+- ✨ **[Keep Nix builds from updating themselves](https://github.com/Patrick-Kappen/paseo/pull/2)** · Nov 2026 · +28 −1\
+  The Nix desktop package on macOS is a packaged Electron app, so the in-app updater would download the official release and replace the build, dropping the fork's changes until…
+- ✨ **[Add an Azure DevOps forge adapter](https://github.com/Patrick-Kappen/paseo/pull/1)** · Nov 2026 · +2127 −0\
+  Closes #
+
 **[pi-git](https://github.com/Patrick-Kappen/pi-git)** · pi extension that commits, pushes and opens PRs with a helper agent, and watches CI until the PR is green
 
 - 🚀 **[v0.9.4](https://github.com/Patrick-Kappen/pi-git/releases/tag/v0.9.4)** · Oct 2026 · release\
   **pi-git:** report nothing when a PR merged and was cleaned up ([#47](https://github.com/Patrick-Kappen/pi-git/issues/47))…
-- 🐛 **[Report nothing when a PR merged and was cleaned up](https://github.com/Patrick-Kappen/pi-git/pull/47)** · Oct 2026 · +27 −16\
-  Every merge still put "PR #n is merged; removed the worktree ..." into the history of the session that made the PR, while nobody needs to hear of it.
-- 🚀 **[v0.9.3](https://github.com/Patrick-Kappen/pi-git/releases/tag/v0.9.3)** · Oct 2026 · release\
-  **pi-git:** find a main checkout by its origin when the directory has another name ([#45](https://github.com/Patrick-Kappen/pi-git/issues/45))…
-
-**[pi-skills](https://github.com/Patrick-Kappen/pi-skills)** · pi agent skills in a Nix flake, loaded per repository by the repo-skills extension
-
-- 🚀 **[v0.11.1](https://github.com/Patrick-Kappen/pi-skills/releases/tag/v0.11.1)** · Oct 2026 · release\
-  **repo-skills:** never refuse the first read of a skill, and hide notes from the user ([#31](https://github.com/Patrick-Kappen/pi-skills/issues/31))…
-- 🐛 **[Never refuse the first read of a skill, and hide notes from the user](https://github.com/Patrick-Kappen/pi-skills/pull/31)** · Oct 2026 · +165 −50\
-  In a real session the first read of a SKILL.md was refused with "already in this conversation": at tool_call time the assistant message with that very read call is already in the…
-- 🚀 **[v0.11.0](https://github.com/Patrick-Kappen/pi-skills/releases/tag/v0.11.0)** · Oct 2026 · release\
-  **repo-skills:** hidden sub-skills inside a skill, loaded by score or trigger ([#29](https://github.com/Patrick-Kappen/pi-skills/issues/29))…
 
 <!-- auto:end -->
 <!-- markdownlint-enable MD013 -->
