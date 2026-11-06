@@ -83,26 +83,26 @@ _Last changed Oct 2026._
 
 ### Recently shipped
 
-**[pi-skills](https://github.com/Patrick-Kappen/pi-skills)** · pi agent skills in a Nix flake, loaded per repository by the repo-skills extension
-
-- 🚀 **[v0.13.0](https://github.com/Patrick-Kappen/pi-skills/releases/tag/v0.13.0)** · Nov 2026 · release\
-  drop the repo-skills extension; skills loa; drop the repo-skills extension; skills loa…
-- 🚀 **[v0.12.0](https://github.com/Patrick-Kappen/pi-skills/releases/tag/v0.12.0)** · Nov 2026 · release\
-  **git:** work without pi-git and follow the repository's own workflow ([#34](https://github.com/Patrick-Kappen/pi-skills/issues/34)); **git:** work without pi-git and follow the…
-- ✨ **[Work without pi-git and follow the repository's own workflow](https://github.com/Patrick-Kappen/pi-skills/pull/34)** · Nov 2026 · +22 −119\
-  pi-git is removed from the NixOS configuration (Patrick-Kappen/Nixos#494), so the git skill must not send agents to its tools (git_start, git_pr, the watcher, /ship) anymore.
-
 **[paseo](https://github.com/Patrick-Kappen/paseo)** · Orchestrate multiple coding agents from desktop and mobile
 
+- ✨ **[Keep Nix builds from updating themselves](https://github.com/Patrick-Kappen/paseo/pull/3)** · Nov 2026 · +28 −1\
+  Brings the change of #2 into azure-devops: #2 was merged into feat/azure-devops-forge after #1 had already been merged, so it never reached azure-devops.
 - ✨ **[Keep Nix builds from updating themselves](https://github.com/Patrick-Kappen/paseo/pull/2)** · Nov 2026 · +28 −1\
   The Nix desktop package on macOS is a packaged Electron app, so the in-app updater would download the official release and replace the build, dropping the fork's changes until…
 - ✨ **[Add an Azure DevOps forge adapter](https://github.com/Patrick-Kappen/paseo/pull/1)** · Nov 2026 · +2127 −0\
   Closes #
 
-**[pi-git](https://github.com/Patrick-Kappen/pi-git)** · pi extension that commits, pushes and opens PRs with a helper agent, and watches CI until the PR is green
+**[oxsecurity/megalinter](https://github.com/oxsecurity/megalinter)** · 🦙 MegaLinter analyzes 50 languages, 22 formats, 21 tooling formats, excessive copy-pastes, spelling mistakes and security issues in your repository sources with a GitHub Action, other CI tools or locally.
 
-- 🚀 **[v0.9.4](https://github.com/Patrick-Kappen/pi-git/releases/tag/v0.9.4)** · Oct 2026 · release\
-  **pi-git:** report nothing when a PR merged and was cleaned up ([#47](https://github.com/Patrick-Kappen/pi-git/issues/47))…
+- 🐛 **[Honor SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT in combined SARIF report](https://github.com/oxsecurity/megalinter/pull/9338)** · Oct 2026 · +92 −3\
+  The per-linter SARIF reports already check `SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT` before stripping the workspace prefix (`megalinter/utils_sarif.py`), but the combined report…
+- 🐛 **[Count a linter stopped by a signal as failed (#9257)](https://github.com/oxsecurity/megalinter/pull/9258)** · Oct 2026 · +87 −2\
+  Python gives a sub-process that a signal stops (for example an out-of-memory kill) a negative return code.
+
+**[terraform-provider-azuredevops](https://github.com/Patrick-Kappen/terraform-provider-azuredevops)** · Terraform Azure DevOps provider
+
+- ✨ **[Add repository Advanced Security resource](https://github.com/Patrick-Kappen/terraform-provider-azuredevops/pull/2)** · Oct 2026 · +835 −0\
+  Adds `azuredevops_git_repository_advanced_security` to manage GitHub Advanced Security for Azure DevOps on a Git repository: Secret Protection (`secret_protection_enabled`,…
 
 <!-- auto:end -->
 <!-- markdownlint-enable MD013 -->
