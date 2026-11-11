@@ -32,40 +32,6 @@ keys.
 - **Boring in production, interesting in design.** The exciting part should be
   the pull request, not the incident.
 
-## At work
-
-At **SLTN** I own the platform code that our cloud teams and customer tenants
-run on, and I work with our CISO to turn security policy into automation
-instead of documents.
-
-That currently means moving the whole organisation from Azure DevOps to GitHub
-and swapping every stored pipeline secret for OIDC on the way. Customer access
-runs through GDAP, Azure Lighthouse and PIM, all in Terraform, so changing who
-can do what is a pull request like any other. Around that sit automated landing
-zones and disaster recovery drills that fail over a full Azure Site Recovery
-plan, prove the machines come back, and always clean up after themselves.
-
-## After hours
-
-**Open models as coding agents.** I pick, benchmark and tune open-weight
-models on vLLM, with my own suite for tool calling, long agent tasks, long
-context and many agents at once. Models are chosen on measured numbers for the
-actual workload, not on a leaderboard.
-
-**Agents with boundaries.** Sandboxed execution, scoped credentials,
-human-approved Git promotion and agent setups declared in Nix, so every one of
-them can be rebuilt and audited.
-
-**A homelab run like production.** Proxmox, Talos Kubernetes, GitOps, OpenTofu
-and Ansible; TrueNAS and Proxmox Backup Server with 3-2-1 backups on 10 Gbit;
-Prometheus, Grafana and Loki watching it all. My machines are a NixOS fleet
-with signed commits, built so that a compromised GitHub account can't push code
-onto them.
-
-**[Graft](https://github.com/Patrick-Kappen/graft)** turns a few lines of TOML
-into Podman Quadlet containers built from the Nix store. Describe what the
-container needs; Nix builds the rest.
-
 <!-- markdownlint-disable MD013 -->
 <!-- auto:start -->
 
