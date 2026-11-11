@@ -49,6 +49,16 @@ _Last changed Oct 2026._
 
 ### Recently shipped
 
+**[MichaelKinsy/PiG](https://github.com/MichaelKinsy/PiG)** · PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language.
+
+- 🐛 **[Parse X11 displays that start with / or unix: as libxcb 1.16 does](https://github.com/MichaelKinsy/PiG/pull/424)** · Nov 2026 · +157 −6\
+  Tracking: No issue.
+
+**[PiG](https://github.com/Patrick-Kappen/PiG)** · PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language.
+
+- 🐛 **[Parse X11 displays that start with / or unix: as libxcb 1.16 does (upstream #424)](https://github.com/Patrick-Kappen/PiG/pull/14)** · Nov 2026 · +157 −6\
+  Tracking: https://github.com/MichaelKinsy/PiG/pull/424 Depends on: #11 Fix: yes User-facing: yes
+
 **[paseo](https://github.com/Patrick-Kappen/paseo)** · Orchestrate multiple coding agents from desktop and mobile
 
 - ✨ **[Keep Nix builds from updating themselves](https://github.com/Patrick-Kappen/paseo/pull/3)** · Nov 2026 · +28 −1\
@@ -62,13 +72,6 @@ _Last changed Oct 2026._
 
 - 🐛 **[Honor SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT in combined SARIF report](https://github.com/oxsecurity/megalinter/pull/9338)** · Oct 2026 · +92 −3\
   The per-linter SARIF reports already check `SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT` before stripping the workspace prefix (`megalinter/utils_sarif.py`), but the combined report…
-- 🐛 **[Count a linter stopped by a signal as failed (#9257)](https://github.com/oxsecurity/megalinter/pull/9258)** · Oct 2026 · +87 −2\
-  Python gives a sub-process that a signal stops (for example an out-of-memory kill) a negative return code.
-
-**[terraform-provider-azuredevops](https://github.com/Patrick-Kappen/terraform-provider-azuredevops)** · Terraform Azure DevOps provider
-
-- ✨ **[Add repository Advanced Security resource](https://github.com/Patrick-Kappen/terraform-provider-azuredevops/pull/2)** · Oct 2026 · +835 −0\
-  Adds `azuredevops_git_repository_advanced_security` to manage GitHub Advanced Security for Azure DevOps on a Git repository: Secret Protection (`secret_protection_enabled`,…
 
 <!-- auto:end -->
 <!-- markdownlint-enable MD013 -->
