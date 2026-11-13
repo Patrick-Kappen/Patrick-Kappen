@@ -25,7 +25,7 @@ THEMES = {
         "bars": ("#9a4000", "#bc4c00", "#a74600", "#bc4c00"),
     },
 }
-# The small standalone accordion icon is visible on both GitHub themes.
+# Standalone icons remain visible on both GitHub themes.
 ICON_COLOR = "#cf6b21"
 # Original PK/circuit artwork, on a common 64px grid with 3px square-ended strokes.
 ICONS = {
@@ -41,6 +41,7 @@ ICONS = {
 }
 HEADINGS = {
     "intro": ("Hey, I'm Patrick", "profile"),
+    "approach": ("How I build things", "rules"),
     "projects": ("Builds & side quests", "projects"),
     "git-log": ("The Git log", "git-log"),
     "shipped": ("Recently shipped", "shipped"),
@@ -54,7 +55,8 @@ HEADINGS = {
 # SVG textLength fixes horizontal layout even when a viewer uses a fallback font.
 # Keep these metrics in sync with the static labels; CI needs no fonts or Pillow.
 HEADING_METRICS = {
-    "intro": (236.0, 80.0), "projects": (297.0, 80.0), "git-log": (160.0, 80.0),
+    "intro": (236.0, 80.0), "approach": (272.0, 80.0),
+    "projects": (297.0, 80.0), "git-log": (160.0, 80.0),
     "shipped": (252.0, 80.0), "now": (189.0, 83.5), "writing": (396.0, 83.5),
     "tools": (261.0, 80.0), "toolbox": (117.0, 83.5), "certifications": (201.0, 83.5),
 }

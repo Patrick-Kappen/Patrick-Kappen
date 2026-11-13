@@ -102,6 +102,7 @@ class ProfileTests(unittest.TestCase):
         self.assertIn('alt="Tool &quot;A&amp;B&quot;"', result)
         self.assertNotIn("tracker.svg", result)
         self.assertIn("<details>", result)
+        self.assertIn(profile.TOOLS_INTRO, result.split("<details>")[0])
         self.assertIn("AZ-400", result)
         self.assertIn("</details>", result)
 
@@ -123,6 +124,36 @@ class ProfileTests(unittest.TestCase):
         self.assertEqual(len(result), 2)
         self.assertIn("newer", result[0])
         self.assertIn("older", result[1])
+
+    def test_article_summaries_are_live_optional_and_html_escaped(self):
+        with tempfile.TemporaryDirectory() as directory:
+            content = Path(directory)
+            posts = content / "posts"
+            posts.mkdir()
+            front = "---\ntitle: Visible\nkind: post\nstatus: published\ndate: 2026-10-02\n"
+            article = posts / "visible.md"
+            article.write_text(front + 'description: "A <tag> & extra details."\n---\nBody')
+            (posts / "older.md").write_text(
+                "---\ntitle: Older\nkind: post\nstatus: published\ndate: 2026-10-01\n---\nBody")
+            (posts / "secret.md").write_text(
+                "---\ntitle: Secret\nkind: post\nstatus: draft\ndate: 2026-10-03\n"
+                "description: Never publish this\n---\nBody")
+            result = profile.writing(content)
+            self.assertEqual(len(result), 2)
+            self.assertIn("<br>\n  A &lt;tag&gt; &amp; extra details.", result[0])
+            self.assertNotIn("<br>", result[1])
+            self.assertNotIn("Never publish", "\n".join(result))
+            article.write_text(front + "description: Updated summary\n---\nBody")
+            self.assertIn("Updated summary", profile.writing(content)[0])
+
+    def test_narrative_survives_generated_sections_and_empty_writing_stays_hidden(self):
+        now = {"updated": "2026-10-02", "now": []}
+        with patch.object(profile, "writing", return_value=["- A published article"]):
+            rendered = profile.render(now, Path("unused"), work=[])
+        self.assertIn(profile.WRITING_INTRO, rendered)
+        with patch.object(profile, "writing", return_value=[]):
+            rendered = profile.render(now, Path("unused"), work=[])
+        self.assertNotIn(profile.WRITING_INTRO, rendered)
 
     def test_empty_sections_and_github_failure_are_safe(self):
         now = {"updated": "2026-10-02", "now": ["Testing restores"]}

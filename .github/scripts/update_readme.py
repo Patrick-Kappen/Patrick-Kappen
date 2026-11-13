@@ -17,6 +17,7 @@ import yaml
 from profile_activity import (
     ACTIVITY_VARIANTS, ACTIVITY_STEM, LEGACY_ACTIVITY_ASSET, activity_request, parse_activity, render_activity_svg,
 )
+from profile_copy import TOOLS_INTRO, WRITING_INTRO
 from profile_projects import PROJECT_END, PROJECT_START, select_projects, update_projects
 from profile_visuals import section_heading, themed_picture, update_visuals
 
@@ -191,9 +192,20 @@ def writing(content):
     for path in (content / "posts").glob("*.md"):
         front = yaml.safe_load(path.read_text().split("---", 2)[1])
         if front.get("kind") == "post" and front.get("status") == "published":
-            posts.append((str(front["date"]), front["title"], path.stem))
+            description = front.get("description")
+            summary = " ".join(description.split()) if isinstance(description, str) else ""
+            posts.append((str(front["date"]), front["title"], path.stem, summary))
     posts.sort(reverse=True)
-    return [f"- [{title}]({SITE_URL}/blog/{slug}/)" for _, title, slug in posts[:WRITING_LIMIT]]
+    lines = []
+    for _, title, slug, summary in posts[:WRITING_LIMIT]:
+        item = f"- [{title}]({SITE_URL}/blog/{slug}/)"
+        if summary:
+            item += "<br>\n" + textwrap.fill(
+                html.escape(summary, quote=False), WRAP, initial_indent="  ",
+                subsequent_indent="  ", break_long_words=False, break_on_hyphens=False,
+            )
+        lines.append(item)
+    return lines
 
 
 def load(content, name):
@@ -214,7 +226,7 @@ def render_site(content):
         (tool for tool in load(content, "tools.yaml") if tool.get("highlight") is not None),
         key=lambda tool: tool["highlight"],
     )
-    lines = [section_heading("tools"), ""]
+    lines = [section_heading("tools"), "", TOOLS_INTRO, ""]
     logos = [tool for tool in tools if tool.get("logo", "").startswith("/assets/logos/")]
     if logos:
         lines += ["<p>"]
@@ -273,7 +285,7 @@ def render(now, content, activity_available=False, work=None):
 
     posts = writing(content)
     if posts:
-        parts += ["", section_heading("writing"), "", *posts]
+        parts += ["", section_heading("writing"), "", WRITING_INTRO, "", *posts]
 
     return "\n".join(parts)
 
