@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="420" role="img" aria-labelledby="title desc">
 <title id="title">GitHub activity: commits, opened PRs, merged PRs and reviews</title>
-<desc id="desc">commits: 1,226 in 30 days, 170 in 7 days, 3,967 in 365 days; prs opened: 410 in 30 days, 116 in 7 days, 710 in 365 days; prs merged: 37 in 30 days, 32 in 7 days, 57 in 365 days; reviews: 4 in 30 days, 0 in 7 days, 4 in 365 days. Merged PRs are public PRs authored by the profile owner; opened and merged counts overlap. Monthly bars cover 2025-11-14 to 2026-11-13: 5,260 GitHub contributions, not just commits. The edge months may be partial. GitHub counting and visibility rules apply.</desc>
+<desc id="desc">commits: 23 in 30 days, 20 in 7 days, 71 in 365 days; prs opened: 51 in 30 days, 44 in 7 days, 75 in 365 days; prs merged: 38 in 30 days, 33 in 7 days, 58 in 365 days; reviews: 0 in 30 days, 0 in 7 days, 0 in 365 days. Merged PRs are public PRs authored by the profile owner; opened and merged counts overlap. Monthly bars cover 2025-11-14 to 2026-11-13: 5,265 GitHub contributions, not just commits. The edge months may be partial. GitHub counting and visibility rules apply.</desc>
 <g font-family="Verdana, Arial, sans-serif">
 <svg x="3%" width="94%" height="100%">
 <text x="0" y="28.39" fill="#1f2328" font-size="13.01" font-weight="700" letter-spacing="1.77">SIDE QUEST TELEMETRY</text>
@@ -8,46 +8,46 @@
 <svg class="counter" x="0%" width="25%" height="100%">
 <rect x="0" y="72.17" width="1.77" height="54.42" fill="#bc4c00"/>
 <text x="11.83" y="82.23" fill="#a74600" font-size="9.46" font-weight="700" letter-spacing="0.59">COMMITS</text>
-<text x="11.83" y="115.35" fill="#bc4c00" font-size="28.39" font-weight="700">1,226</text>
+<text x="11.83" y="115.35" fill="#bc4c00" font-size="28.39" font-weight="700">23</text>
 <text x="11.83" y="130.14" fill="#59636e" font-size="9.46">last 30 days</text>
 <line x1="11.83" x2="94%" y1="140.20" y2="140.20" stroke="#d1d9e0"/>
 <text x="11.83" y="157.35" fill="#59636e" font-size="10.06">7 days</text>
-<text x="94%" y="157.35" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">170</text>
+<text x="94%" y="157.35" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">20</text>
 <text x="11.83" y="175.69" fill="#59636e" font-size="10.06">365 days</text>
-<text x="94%" y="175.69" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">3,967</text>
+<text x="94%" y="175.69" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">71</text>
 </svg>
 <svg class="counter" x="25%" width="25%" height="100%">
 <rect x="0" y="72.17" width="1.77" height="54.42" fill="#bc4c00"/>
 <text x="11.83" y="82.23" fill="#a74600" font-size="9.46" font-weight="700" letter-spacing="0.59">PRs OPENED</text>
-<text x="11.83" y="115.35" fill="#bc4c00" font-size="28.39" font-weight="700">410</text>
+<text x="11.83" y="115.35" fill="#bc4c00" font-size="28.39" font-weight="700">51</text>
 <text x="11.83" y="130.14" fill="#59636e" font-size="9.46">last 30 days</text>
 <line x1="11.83" x2="94%" y1="140.20" y2="140.20" stroke="#d1d9e0"/>
 <text x="11.83" y="157.35" fill="#59636e" font-size="10.06">7 days</text>
-<text x="94%" y="157.35" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">116</text>
+<text x="94%" y="157.35" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">44</text>
 <text x="11.83" y="175.69" fill="#59636e" font-size="10.06">365 days</text>
-<text x="94%" y="175.69" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">710</text>
+<text x="94%" y="175.69" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">75</text>
 </svg>
 <svg class="counter" x="50%" width="25%" height="100%">
 <rect x="0" y="72.17" width="1.77" height="54.42" fill="#bc4c00"/>
 <text x="11.83" y="82.23" fill="#a74600" font-size="9.46" font-weight="700" letter-spacing="0.59">PRs MERGED</text>
-<text x="11.83" y="115.35" fill="#bc4c00" font-size="28.39" font-weight="700">37</text>
+<text x="11.83" y="115.35" fill="#bc4c00" font-size="28.39" font-weight="700">38</text>
 <text x="11.83" y="130.14" fill="#59636e" font-size="9.46">last 30 days</text>
 <line x1="11.83" x2="94%" y1="140.20" y2="140.20" stroke="#d1d9e0"/>
 <text x="11.83" y="157.35" fill="#59636e" font-size="10.06">7 days</text>
-<text x="94%" y="157.35" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">32</text>
+<text x="94%" y="157.35" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">33</text>
 <text x="11.83" y="175.69" fill="#59636e" font-size="10.06">365 days</text>
-<text x="94%" y="175.69" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">57</text>
+<text x="94%" y="175.69" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">58</text>
 </svg>
 <svg class="counter" x="75%" width="25%" height="100%">
 <rect x="0" y="72.17" width="1.77" height="54.42" fill="#bc4c00"/>
 <text x="11.83" y="82.23" fill="#a74600" font-size="9.46" font-weight="700" letter-spacing="0.59">REVIEWS</text>
-<text x="11.83" y="115.35" fill="#bc4c00" font-size="28.39" font-weight="700">4</text>
+<text x="11.83" y="115.35" fill="#bc4c00" font-size="28.39" font-weight="700">0</text>
 <text x="11.83" y="130.14" fill="#59636e" font-size="9.46">last 30 days</text>
 <line x1="11.83" x2="94%" y1="140.20" y2="140.20" stroke="#d1d9e0"/>
 <text x="11.83" y="157.35" fill="#59636e" font-size="10.06">7 days</text>
 <text x="94%" y="157.35" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">0</text>
 <text x="11.83" y="175.69" fill="#59636e" font-size="10.06">365 days</text>
-<text x="94%" y="175.69" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">4</text>
+<text x="94%" y="175.69" text-anchor="end" fill="#1f2328" font-size="11.83" font-weight="700">0</text>
 </svg>
 <text x="0" y="215.92" fill="#1f2328" font-size="14.20" font-weight="700">The bigger picture</text>
 <line x1="0" x2="100%" y1="367.35" y2="367.35" stroke="#d1d9e0" stroke-dasharray="3 7"/>
@@ -91,8 +91,8 @@
 <rect class="month-bar" x="85.846154%" y="263.83" width="5.230769%" height="103.52" fill="#bc4c00"><title>October 2026: 1,437 contributions in this window</title></rect>
 <text x="88.461538%" y="257.92" text-anchor="middle" fill="#bc4c00" font-size="10.06" font-weight="700">1,437</text>
 <text x="88.461538%" y="382.73" text-anchor="middle" fill="#1f2328" font-size="10.06">Oct</text>
-<rect class="month-bar" x="93.538462%" y="290.77" width="5.230769%" height="76.58" fill="#9a4000"><title>November 2026: 1,063 contributions in this window</title></rect>
-<text x="96.153846%" y="284.86" text-anchor="middle" fill="#9a4000" font-size="10.06" font-weight="700">1,063</text>
+<rect class="month-bar" x="93.538462%" y="290.41" width="5.230769%" height="76.94" fill="#9a4000"><title>November 2026: 1,068 contributions in this window</title></rect>
+<text x="96.153846%" y="284.50" text-anchor="middle" fill="#9a4000" font-size="10.06" font-weight="700">1,068</text>
 <text x="96.153846%" y="382.73" text-anchor="middle" fill="#1f2328" font-size="10.06">Nov</text>
 <text x="100%" y="412.90" text-anchor="end" fill="#59636e" font-size="8.87">2026-11-13 · UTC</text>
 </svg></g></svg>

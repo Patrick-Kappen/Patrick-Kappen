@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="360" height="264" viewBox="0 0 360 264" role="img" aria-labelledby="title desc">
 <title id="title">Patrick-Kappen/PiG</title>
-<desc id="desc">PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language. Latest activity: Expose ordered input in tool_result handlers. OPEN PR on 2026-11-13.</desc>
+<desc id="desc">PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language. Latest activity: Take fork main with SDK arguments and tool_call fixes (#33, #37, #38). OPEN PR on 2026-11-13.</desc>
 <g font-family="Verdana, Arial, sans-serif">
 <text x="22" y="28" fill="#bc4c00" font-size="14" letter-spacing="1">01 / FORK</text>
 <text x="22" y="50" fill="#59636e" font-size="15">Patrick-Kappen</text>
@@ -10,6 +10,6 @@
 <text x="22" y="145" fill="#1f2328" font-family="monospace" font-size="18">PiG (Pi in Go) is a faithful</text>
 <text x="22" y="168" fill="#1f2328" font-family="monospace" font-size="18">Go port of upstream Pi…</text>
 <text x="22" y="197" fill="#a74600" font-size="13" letter-spacing="1">OPEN PR · 13 Nov 2026</text>
-<text x="22" y="224" fill="#1f2328" font-family="monospace" font-size="17">Expose ordered input in</text>
-<text x="22" y="247" fill="#1f2328" font-family="monospace" font-size="17">tool_result handlers</text>
+<text x="22" y="224" fill="#1f2328" font-family="monospace" font-size="17">Take fork main with SDK</text>
+<text x="22" y="247" fill="#1f2328" font-family="monospace" font-size="17">arguments and tool_call…</text>
 </g></svg>
