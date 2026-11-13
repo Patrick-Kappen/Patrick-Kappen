@@ -67,6 +67,21 @@ Banner, project cards and telemetry all have transparent light/dark variants,
 selected by README `<picture>` elements. Banner and telemetry use the available
 README width, with no outer frame. GitHub controls the profile's maximum width.
 
+Large images have a fixed intrinsic canvas height, not an indefinitely scaling
+aspect ratio: the control-room banner is **240px**, telemetry **420px**. At viewport
+widths up to **600px**, compact variants use **160px** and **220px** respectively.
+The outer SVG has `width="100%"`, an absolute height and **no viewBox**; a nested
+SVG keeps the original viewBox with `preserveAspectRatio="xMidYMid meet"`.
+This works without README CSS, including hosts that set `img { height: auto }`.
+The canvas can widen, but the artwork does not zoom, stretch or get cropped;
+extra width remains transparent. Narrow containers can scale artwork down.
+
+`CONTAINED_IMAGES` in `profile_visuals.py` owns those limits. `<picture>` selects
+compact sources before the ordinary theme sources. No fixed HTML image height
+is added, because that would override the compact SVG's smaller intrinsic height.
+Other images already have numeric width caps: chapter banners are at most
+560px wide / 144px tall, project cards 270px wide / 198px tall, tool logos 36px.
+
 `profile_visuals.py` owns the shared palette and original PK/circuit artwork.
 Each chapter uses a centered `headings/<key>-dark.svg` / `<key>-light.svg` banner
 containing **both the logo and title**, not a separate HTML label and icon.
@@ -93,9 +108,9 @@ each profile refresh; obsolete files in those generated folders are removed.
 
 `.github/scripts/update_readme.py` updates the marked README sections from the
 content repository and public GitHub activity. `profile_activity.py` renders
-`.github/assets/git-activity-dark.svg` and `git-activity-light.svg` from a single
-GitHub GraphQL snapshot. Both SVGs have transparent backgrounds, including the
-counter areas. A README `<picture>` selects the light/dark palette, with the
+`.github/assets/git-activity-dark.svg` and `git-activity-light.svg`, plus their
+`git-activity-compact-<theme>.svg` variants, from a single GitHub GraphQL snapshot.
+All four SVGs have transparent backgrounds, including the counter areas. A README `<picture>` selects the light/dark palette, with the
 light image as fallback. Orange accents and text remain readable on the
 corresponding GitHub backgrounds; the SVGs do not inherit GitHub CSS.
 
@@ -118,7 +133,7 @@ The existing `GITHUB_TOKEN` authenticates the request; no additional secret is
 needed for public activity. Counts depend on that token's visibility; this does
 not grant access to all private work. Only aggregate counts are stored, never
 private repository names or contents. The updater validates all periods before
-rendering either theme, keeps the last good pair (with its date) on API errors,
+rendering any variant, keeps all four last-good images (with their date) on API errors,
 and never substitutes zero for missing data. A successful update removes the
 obsolete opaque `git-activity.svg` asset.
 

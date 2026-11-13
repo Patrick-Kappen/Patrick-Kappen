@@ -3,12 +3,16 @@
 from collections import defaultdict
 from datetime import date, timedelta, timezone
 
-from profile_visuals import THEMES
+from profile_visuals import THEMES, contain_svg, image_height
 
 DAYS = 365
 PERIODS = (("week", 7), ("month", 30), ("year", DAYS))
 ACTIVITY_STEM = ".github/assets/git-activity"
 ACTIVITY_ASSETS = {theme: f"{ACTIVITY_STEM}-{theme}.svg" for theme in THEMES}
+ACTIVITY_VARIANTS = {
+    (theme, compact): f"{ACTIVITY_STEM}{'-compact' if compact else ''}-{theme}.svg"
+    for compact in (False, True) for theme in THEMES
+}
 LEGACY_ACTIVITY_ASSET = ".github/assets/git-activity.svg"
 METRICS = (("commits", "COMMITS"), ("opened", "PRs OPENED"),
            ("merged", "PRs MERGED"), ("reviews", "REVIEWS"))
@@ -110,7 +114,7 @@ def monthly_totals(days):
     return sorted(months.items())
 
 
-def render_activity_svg(days, metrics, theme="dark"):
+def render_activity_svg(days, metrics, theme="dark", compact=False):
     """The approved four-counter layout, with no canvas or counter backgrounds."""
     palette = THEMES[theme]
     text, muted, line = palette["text"], palette["muted"], palette["line"]
@@ -185,4 +189,4 @@ def render_activity_svg(days, metrics, theme="dark"):
         f'font-size="15">{today.isoformat()} · UTC</text>',
         '</g></svg>',
     ]
-    return "\n".join(svg) + "\n"
+    return contain_svg("\n".join(svg), image_height(ACTIVITY_STEM, compact))

@@ -2,6 +2,8 @@
 
 <p align="center">
 <picture>
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset=".github/assets/control-room-compact-dark.svg">
+  <source media="(prefers-color-scheme: light) and (max-width: 600px)" srcset=".github/assets/control-room-compact-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/control-room-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/control-room-light.svg">
   <img src=".github/assets/control-room-light.svg" width="100%" alt="Patrick&#x27;s control room: a homelab rack and an AI robot trying to reach a locked production button.">
@@ -106,6 +108,8 @@ in the release notes. So yes, there is a reviewer.
 </p>
 
 <picture>
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset=".github/assets/git-activity-compact-dark.svg">
+  <source media="(prefers-color-scheme: light) and (max-width: 600px)" srcset=".github/assets/git-activity-compact-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/git-activity-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/git-activity-light.svg">
   <img src=".github/assets/git-activity-light.svg" width="100%" alt="Commits, opened PRs, merged PRs and reviews over 7, 30 and 365 days, plus the yearly contribution chart.">

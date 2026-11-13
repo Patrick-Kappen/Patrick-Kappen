@@ -15,7 +15,7 @@ from pathlib import Path
 import yaml
 
 from profile_activity import (
-    ACTIVITY_ASSETS, ACTIVITY_STEM, LEGACY_ACTIVITY_ASSET, activity_request, parse_activity, render_activity_svg,
+    ACTIVITY_VARIANTS, ACTIVITY_STEM, LEGACY_ACTIVITY_ASSET, activity_request, parse_activity, render_activity_svg,
 )
 from profile_projects import PROJECT_END, PROJECT_START, select_projects, update_projects
 from profile_visuals import section_heading, themed_picture, update_visuals
@@ -64,21 +64,21 @@ def api(path):
 
 
 def update_activity(root, now=None):
-    """Refresh both themes from one snapshot; preserve both if any API data fails."""
+    """Refresh desktop/compact themes together; keep all previous files on API errors."""
     now = now or datetime.now(timezone.utc)
-    paths = {theme: root / asset for theme, asset in ACTIVITY_ASSETS.items()}
+    paths = {variant: root / asset for variant, asset in ACTIVITY_VARIANTS.items()}
     try:
         payload = activity_request(USER, now)
         today = now.astimezone(timezone.utc).date()
         response = json.loads(fetch(f"{API}/graphql", data=json.dumps(payload).encode()))
         days, metrics = parse_activity(response, today)
-        rendered = {theme: render_activity_svg(days, metrics, theme) for theme in paths}
+        rendered = {variant: render_activity_svg(days, metrics, *variant) for variant in paths}
     except (OSError, ValueError, KeyError, TypeError) as error:
         print(f"Telemetry kept unchanged: {error}", file=sys.stderr)
         return all(path.is_file() for path in paths.values())
-    for theme, path in paths.items():
+    for variant, path in paths.items():
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(rendered[theme])
+        path.write_text(rendered[variant])
     (root / LEGACY_ACTIVITY_ASSET).unlink(missing_ok=True)
     return True
 
