@@ -63,11 +63,10 @@ class ImageLayoutTests(unittest.TestCase):
 
     def test_banner_desktop_and_compact_caps_keep_the_same_content(self):
         text = []
-        for compact, height in ((False, 240), (True, 160)):
+        for compact, height in ((False, 450), (True, 400)):
             for theme in visuals.THEMES:
                 svg = visuals.render_banner_svg(theme, compact)
-                root = (self.assert_contained(svg, height, "0 0 1200 440") if compact
-                        else self.assert_canvas(svg, height))
+                root = self.assert_canvas(svg, height)
                 text.append([node.text for node in root.iter(NS + "text")])
         self.assertTrue(all(value == text[0] for value in text))
 
@@ -78,12 +77,15 @@ class ImageLayoutTests(unittest.TestCase):
         text = []
         self.assertEqual(len(activity.ACTIVITY_VARIANTS), 4)
         for (theme, compact), _ in activity.ACTIVITY_VARIANTS.items():
-            height = 220 if compact else 420
+            height = 560 if compact else 760
             root = self.assert_canvas(activity.render_activity_svg(days, metrics, theme, compact), height)
             self.assertTrue(all("viewBox" not in node.attrib for node in root.iter(NS + "svg")))
             counters = [node for node in root.iter(NS + "svg") if node.get("class") == "counter"]
-            self.assertEqual([node.get("x") for node in counters], ["0%", "25%", "50%", "75%"])
-            self.assertTrue(all(node.get("width") == "25%" for node in counters))
+            self.assertEqual([node.get("x") for node in counters],
+                             ["0%", "50%", "0%", "50%"] if compact else ["0%", "25%", "50%", "75%"])
+            self.assertTrue(all(node.get("width") == ("50%" if compact else "25%") for node in counters))
+            self.assertEqual([node.get("y") for node in counters],
+                             ["0", "0", "132", "132"] if compact else ["0"] * 4)
             bars = [node for node in root.iter(NS + "rect") if node.get("class") == "month-bar"]
             self.assertEqual(len(bars), len(activity.monthly_totals(days)))
             self.assertTrue(all(node.get("x").endswith("%") and node.get("width").endswith("%") for node in bars))
@@ -91,7 +93,7 @@ class ImageLayoutTests(unittest.TestCase):
         self.assertTrue(all(value == text[0] for value in text))
 
     def test_banner_distributes_scenes_without_enlarging_them_on_wide_screens(self):
-        root = self.assert_canvas(visuals.render_banner_svg("dark"), 240)
+        root = self.assert_canvas(visuals.render_banner_svg("dark"), 450)
         columns = root.findall(NS + "svg")
         self.assertEqual([node.get("class") for node in columns],
                          ["banner-copy", "banner-rack", "banner-intern"])
@@ -101,22 +103,45 @@ class ImageLayoutTests(unittest.TestCase):
             for node in columns:
                 _, _, logical_width, logical_height = map(float, node.get("viewBox").split())
                 available = width * float(node.get("width").rstrip("%")) / 100
-                self.assertEqual(min(available / logical_width, 240 / logical_height), 240 / 440)
+                self.assertEqual(min(available / logical_width, 450 / logical_height), 450 / 440)
 
     def test_monthly_bars_expand_horizontally_while_height_and_font_sizes_stay_fixed(self):
         days = [(date(2026, 1, 1), 10), (date(2026, 2, 1), 20)]
         metrics = {period: {key: period for key, _ in activity.METRICS} for _, period in activity.PERIODS}
-        root = self.assert_canvas(activity.render_activity_svg(days, metrics), 420)
+        root = self.assert_canvas(activity.render_activity_svg(days, metrics), 760)
         bars = [node for node in root.iter(NS + "rect") if node.get("class") == "month-bar"]
         self.assertEqual([node.get("x") for node in bars], ["8.000000%", "58.000000%"])
         self.assertEqual([node.get("width") for node in bars], ["34.000000%", "34.000000%"])
         heights = [float(node.get("height")) for node in bars]
-        self.assertAlmostEqual(heights[1], 175 * 420 / 710, places=2)
+        self.assertAlmostEqual(heights[1], 210 * 760 / 710, places=2)
+        self.assertGreater(heights[1], 2 * 175 * 420 / 710)
         painted_widths = [width * .94 * .34 for width in (1920, 2560, 3840)]
         self.assertLess(painted_widths[0], painted_widths[1])
         self.assertEqual(painted_widths[2], painted_widths[0] * 2)
         # No SVG ancestor has a viewBox that could scale fonts or bar heights.
         self.assertTrue(all(node.get("viewBox") is None for node in root.iter(NS + "svg")))
+
+    def test_banner_artwork_grows_at_the_actual_github_column_width(self):
+        root = ET.fromstring(visuals.render_banner_svg("dark"))
+        old_widths = (600, 260, 364)
+        for column, old_width in zip(root.findall(NS + "svg"), old_widths):
+            available = 838 * float(column.get("width").rstrip("%")) / 100
+            _, _, logical_width, logical_height = map(float, column.get("viewBox").split())
+            old_scale = min(available / old_width, 240 / 440)
+            new_scale = min(available / logical_width, 450 / logical_height)
+            self.assertGreater(new_scale, old_scale * 1.35)
+
+    def test_phone_banner_stacks_and_telemetry_uses_readable_two_column_counters(self):
+        root = self.assert_canvas(visuals.render_banner_svg("dark", compact=True), 400)
+        columns = root.findall(NS + "svg")
+        self.assertEqual([node.get("y") for node in columns], ["0%", "55%", "55%"])
+        self.assertEqual([node.get("height") for node in columns], ["55%", "45%", "45%"])
+        days = [(date(2026, 1, 1), 10), (date(2026, 2, 1), 20)]
+        metrics = {period: {key: period for key, _ in activity.METRICS} for _, period in activity.PERIODS}
+        root = self.assert_canvas(activity.render_activity_svg(days, metrics, compact=True), 560)
+        main = next(node for node in root.iter(NS + "text") if node.text == "30")
+        self.assertGreaterEqual(float(main.get("font-size")), 28)
+        self.assertLess(float(list(root.iter(NS + "text"))[-1].get("y")), 560)
 
     def test_compact_sources_precede_desktop_and_control_their_own_height(self):
         for stem in visuals.CONTAINED_IMAGES:

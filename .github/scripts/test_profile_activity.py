@@ -165,7 +165,7 @@ class ActivityTests(unittest.TestCase):
                     self.assertTrue(rect.get("width").endswith("%"))
                     self.assertLess(float(rect.get("width").rstrip("%")), 10)
                 else:
-                    self.assertLess(float(rect.get("width")), 3)  # Accent ticks, not panels.
+                    self.assertLess(float(rect.get("width")), 4)  # Accent ticks, not panels.
             self.assertNotIn('rx="', svg)
             self.assertNotIn("<script", svg)
             self.assertNotIn("foreignObject", svg)

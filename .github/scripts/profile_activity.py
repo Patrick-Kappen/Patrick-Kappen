@@ -116,10 +116,18 @@ def monthly_totals(days):
 
 def render_activity_svg(days, metrics, theme="dark", compact=False):
     """Reflow counters and bars horizontally; keep vertical geometry/fonts fixed."""
-    scale = image_height(ACTIVITY_STEM, compact) / 710
+    scale = .6 if compact else image_height(ACTIVITY_STEM, compact) / 710
+    row_offset = 132 if compact else 0
 
     def px(value):
         return f"{value * scale:.2f}"
+
+    def chart_y(value):
+        return f"{value * scale + row_offset:.2f}"
+
+    def chart_font(value):
+        # Thirteen month labels must still fit a phone; counters use larger type.
+        return f"{value * (.42 if compact else scale):.2f}"
 
     palette = THEMES[theme]
     text, muted, line = palette["text"], palette["muted"], palette["line"]
@@ -150,9 +158,11 @@ def render_activity_svg(days, metrics, theme="dark", compact=False):
         'Last 30 days in focus · 7 and 365 days for context</text>',
     ]
     for index, (key, name) in enumerate(METRICS):
-        # Each counter owns a quarter of the real viewport, not a scaled canvas.
+        columns = 2 if compact else 4
+        x = index % columns * (100 // columns)
+        y = index // columns * row_offset
         svg += [
-            f'<svg class="counter" x="{index * 25}%" width="25%" height="100%">',
+            f'<svg class="counter" x="{x}%" y="{y}" width="{100 // columns}%" height="{px(320)}">',
             f'<rect x="0" y="{px(122)}" width="{px(3)}" height="{px(92)}" fill="{accent}"/>',
             f'<text x="{px(20)}" y="{px(139)}" fill="{label}" font-size="{px(16)}" '
             f'font-weight="700" letter-spacing="{px(1)}">{name}</text>',
@@ -168,12 +178,12 @@ def render_activity_svg(days, metrics, theme="dark", compact=False):
             f'font-size="{px(20)}" font-weight="700">{metrics[DAYS][key]:,}</text>',
             '</svg>',
         ]
-    svg.append(f'<text x="0" y="{px(365)}" fill="{text}" font-size="{px(24)}" '
+    svg.append(f'<text x="0" y="{chart_y(365)}" fill="{text}" font-size="{px(24)}" '
                'font-weight="700">The bigger picture</text>')
     maximum = max(1, max(count for _, count in months))
-    slot, baseline, chart_height = 100 / len(months), 621, 175
+    slot, baseline, chart_height = 100 / len(months), 621, 210
     for fraction in (0, .5, 1):
-        y = px(baseline - fraction * chart_height)
+        y = chart_y(baseline - fraction * chart_height)
         svg.append(f'<line x1="0" x2="100%" y1="{y}" y2="{y}" stroke="{line}" stroke-dasharray="3 7"/>')
     for index, (when, count) in enumerate(months):
         x, width = index * slot + slot * .16, slot * .68
@@ -181,20 +191,20 @@ def render_activity_svg(days, metrics, theme="dark", compact=False):
         center = x + width / 2
         color = palette["bars"][index % len(palette["bars"])]
         svg += [
-            f'<rect class="month-bar" x="{x:.6f}%" y="{px(baseline - height)}" width="{width:.6f}%" '
+            f'<rect class="month-bar" x="{x:.6f}%" y="{chart_y(baseline - height)}" width="{width:.6f}%" '
             f'height="{px(height)}" fill="{color}">'
             f'<title>{when.strftime("%B %Y")}: {count:,} contributions in this window</title></rect>',
-            f'<text x="{center:.6f}%" y="{px(baseline - height - 10)}" '
-            f'text-anchor="middle" fill="{color}" font-size="{px(17)}" font-weight="700">{count:,}</text>',
-            f'<text x="{center:.6f}%" y="{px(647)}" text-anchor="middle" '
-            f'fill="{text}" font-size="{px(17)}">{when.strftime("%b")}</text>',
+            f'<text x="{center:.6f}%" y="{chart_y(baseline - height - 10)}" '
+            f'text-anchor="middle" fill="{color}" font-size="{chart_font(17)}" font-weight="700">{count:,}</text>',
+            f'<text x="{center:.6f}%" y="{chart_y(647)}" text-anchor="middle" '
+            f'fill="{text}" font-size="{chart_font(17)}">{when.strftime("%b")}</text>',
         ]
         if index == 0 or when.month == 1:
-            svg.append(f'<text x="{center:.6f}%" y="{px(669)}" text-anchor="middle" '
-                       f'fill="{muted}" font-size="{px(15)}">{when.year}</text>')
+            svg.append(f'<text x="{center:.6f}%" y="{chart_y(669)}" text-anchor="middle" '
+                       f'fill="{muted}" font-size="{chart_font(15)}">{when.year}</text>')
     svg += [
-        f'<text x="100%" y="{px(698)}" text-anchor="end" fill="{muted}" '
-        f'font-size="{px(15)}">{today.isoformat()} · UTC</text>',
+        f'<text x="100%" y="{chart_y(698)}" text-anchor="end" fill="{muted}" '
+        f'font-size="{chart_font(15)}">{today.isoformat()} · UTC</text>',
         '</svg></g></svg>',
     ]
     return "\n".join(svg) + "\n"

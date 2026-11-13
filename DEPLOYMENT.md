@@ -68,8 +68,9 @@ selected by README `<picture>` elements. Banner and telemetry use the available
 README width, with no outer frame. GitHub controls the profile's maximum width.
 
 Large images have a fixed intrinsic canvas height, not an indefinitely scaling
-aspect ratio: the control-room banner is **240px**, telemetry **420px**. At viewport
-widths up to **600px**, compact variants use **160px** and **220px** respectively.
+aspect ratio: the control-room banner is **450px**, telemetry **760px**. At viewport
+widths up to **600px**, compact variants use **400px** and **560px** respectively.
+These are intentionally prominent sections, not thumbnail-sized widgets.
 The outer SVG has `width="100%"`, an absolute height and **no viewBox**.
 This works without README CSS, including hosts that set `img { height: auto }`.
 Content reflows across the real available width, not a fixed-width drawing
@@ -78,9 +79,17 @@ centered inside a wider, empty canvas:
 - The desktop banner has independent copy, rack and intern viewports at 0%,
   50% and 70%. Their individual viewBoxes limit the illustrations' height;
   the copy stays left, the rack moves with its column and the intern stays right.
-  The compact banner keeps the original complete composition fitted into 160px.
-- Telemetry uses four 25%-wide counter columns and a chart spanning 94% of the
-  image. Bar widths, month positions, gridlines and comparison rows use percentage
+  Tighter scene bounds, a narrower terminal and a wrapped caption allow the actual
+  artwork and lettering to grow in GitHub's roughly 838px README column; increasing
+  only the canvas height would leave the old width-limited artwork small. Rack
+  sparkles can overflow the tighter device viewport without being cropped.
+  The phone banner stacks the copy above the rack/intern rather than shrinking
+  the entire desktop composition into a tiny strip.
+- Telemetry uses four 25%-wide counter columns on desktop and two rows of two
+  50%-wide counters on phones, with a chart spanning 94% of the image. Desktop
+  main values are about 51px, phone main values about 29px. The desktop chart is
+  about 225px tall (previously 104px); phone month labels remain smaller to fit
+  thirteen months. Bar widths, month positions, gridlines and comparison rows use percentage
   coordinates. Vertical geometry and fonts are fixed pixel sizes for each variant;
   **no chart or counter ancestor has a viewBox**, so wider screens cannot zoom them.
 
@@ -115,7 +124,7 @@ The editable banner source is `.github/art/control-room.svg`. Its semantic
 `data-fill`, `data-stroke` and `data-stop-color` roles are resolved into the
 palette when generating `control-room-dark.svg` and `control-room-light.svg`.
 Its three `data-region` groups define the independently positioned desktop scenes;
-their original coordinates also preserve the compact composition.
+their original coordinates also support the stacked phone composition.
 The drawing has no canvas background or opaque device panels. Banner variants
 and `.github/assets/{icons,headings}/*.svg` regenerate without API access on
 each profile refresh; obsolete files in those generated folders are removed.

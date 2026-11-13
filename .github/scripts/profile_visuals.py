@@ -8,8 +8,8 @@ import xml.etree.ElementTree as ET
 ASSETS = ".github/assets"
 # Desktop / compact intrinsic heights; desktop content lays out across the available width.
 CONTAINED_IMAGES = {
-    f"{ASSETS}/control-room": (240, 160),
-    f"{ASSETS}/git-activity": (420, 220),
+    f"{ASSETS}/control-room": (450, 400),
+    f"{ASSETS}/git-activity": (760, 560),
 }
 COMPACT_BREAKPOINT = 600
 BANNER_SOURCE = Path(__file__).resolve().parents[1] / "art/control-room.svg"
@@ -148,25 +148,31 @@ def render_banner_svg(theme, compact=False):
     regions = {node.attrib.pop("data-region"): node for node in root if "data-region" in node.attrib}
     height = image_height(f"{ASSETS}/control-room", compact)
     ET.register_namespace("", "http://www.w3.org/2000/svg")
-    if compact:
-        return contain_svg(ET.tostring(root, encoding="unicode"), height)
-
-    # Independent, height-limited scenes: the copy stays left, the rack moves
-    # with its column and the intern stays right. No whole-image letterboxing.
+    # Tighter scene bounds let the artwork itself grow at GitHub column widths,
+    # instead of increasing only the empty canvas around a width-limited drawing.
     columns = {
-        "copy": ("0%", "50%", "0 0 600 440", "xMinYMid meet"),
-        "rack": ("50%", "20%", "590 0 260 440", "xMidYMid meet"),
-        "intern": ("70%", "30%", "836 0 364 440", "xMaxYMid meet"),
+        "copy": ("0%", "0%", "50%", "100%", "24 0 440 440", "xMinYMid meet"),
+        "rack": ("50%", "0%", "20%", "100%", "640 0 192 440", "xMidYMid meet"),
+        "intern": ("70%", "0%", "30%", "100%", "836 0 332 440", "xMaxYMid meet"),
     }
+    if compact:
+        # Stack the copy above the illustrations; do not shrink a desktop banner.
+        columns = {
+            "copy": ("0%", "0%", "100%", "55%", "24 0 440 440", "xMidYMid meet"),
+            "rack": ("0%", "55%", "45%", "45%", "640 0 192 440", "xMidYMid meet"),
+            "intern": ("45%", "55%", "55%", "45%", "836 0 332 440", "xMidYMid meet"),
+        }
     if regions.keys() != columns.keys():
         raise ValueError("The banner must define copy, rack and intern regions")
     root.set("width", "100%")
     root.set("height", str(height))
     root.attrib.pop("viewBox")
-    for key, (x, width, viewbox, alignment) in columns.items():
+    for key, (x, y, width, scene_height, viewbox, alignment) in columns.items():
         viewport = ET.SubElement(root, "{http://www.w3.org/2000/svg}svg", {
-            "class": f"banner-{key}", "x": x, "width": width, "height": "100%",
+            "class": f"banner-{key}", "x": x, "y": y, "width": width, "height": scene_height,
             "viewBox": viewbox, "preserveAspectRatio": alignment,
+            # The rack sparkles sit outside its tighter device bounds.
+            "overflow": "visible" if key == "rack" else "hidden",
         })
         root.remove(regions[key])
         viewport.append(regions[key])

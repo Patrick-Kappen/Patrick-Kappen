@@ -16,20 +16,20 @@
     <text x="80" y="63" font-size="15" font-weight="700" letter-spacing="2" fill="#ffa45b" data-fill="label">HOMELAB ONLINE</text>
     <text x="48" y="132" font-size="44" font-weight="700" letter-spacing="1" fill="#f2f0ed" data-fill="text">PATRICK'S</text>
     <text x="48" y="185" font-size="44" font-weight="700" letter-spacing="1" fill="url(#accent)">CONTROL ROOM</text>
-    <text x="50" y="222" font-size="19" fill="#b9b7b4" data-fill="muted">Infrastructure. Experiments. A suspicious electricity bill.</text>
+    <text x="50" y="222" font-size="19" fill="#b9b7b4" data-fill="muted">Infrastructure. Experiments.<tspan x="50" dy="24">A suspicious electricity bill.</tspan></text>
   </g>
 
   <!-- A small terminal: boring production is a feature. -->
   <g font-family="monospace" font-size="18">
-    <rect x="48" y="254" width="520" height="141" rx="12" fill="none" stroke="#45413d" data-stroke="muted" stroke-width="2"/>
-    <path d="M49 285H567" stroke="#393735" data-stroke="line"/>
+    <rect x="48" y="254" width="392" height="141" rx="12" fill="none" stroke="#45413d" data-stroke="muted" stroke-width="2"/>
+    <path d="M49 285H439" stroke="#393735" data-stroke="line"/>
     <circle cx="68" cy="270" r="4" fill="#6b625b" data-fill="muted"/>
     <circle cx="84" cy="270" r="4" fill="#ffa45b" data-fill="label"/>
     <circle cx="100" cy="270" r="4" fill="#f58220" data-fill="accent"/>
     <text x="124" y="276" font-size="14" fill="#b9b7b4" data-fill="muted">patrick@homelab ~</text>
     <text x="68" y="315" fill="#f2f0ed" data-fill="text"><tspan fill="#f58220" data-fill="accent">$ </tspan>nix run .#another-side-project</text>
     <text x="68" y="346" fill="#b9b7b4" data-fill="muted">building…</text>
-    <text x="68" y="377" fill="#ffa45b" data-fill="label">production excitement: 0 (as intended)</text>
+    <text x="68" y="377" font-size="15" fill="#ffa45b" data-fill="label">production excitement: 0 (as intended)</text>
   </g>
 
   </g>
