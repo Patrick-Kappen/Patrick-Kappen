@@ -6,6 +6,12 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 
 ASSETS = ".github/assets"
+# Desktop / compact intrinsic canvas heights. Width stays fluid; artwork fits inside.
+CONTAINED_IMAGES = {
+    f"{ASSETS}/control-room": (240, 160),
+    f"{ASSETS}/git-activity": (420, 220),
+}
+COMPACT_BREAKPOINT = 600
 BANNER_SOURCE = Path(__file__).resolve().parents[1] / "art/control-room.svg"
 THEMES = {
     "dark": {
@@ -75,8 +81,14 @@ def section_heading(key, level=2):
 
 def themed_picture(stem, alt, width="100%", href=None):
     source = html.escape(stem, quote=True)
+    sources = []
+    if stem in CONTAINED_IMAGES:
+        sources = [
+            f'  <source media="(prefers-color-scheme: {theme}) and (max-width: {COMPACT_BREAKPOINT}px)" '
+            f'srcset="{source}-compact-{theme}.svg">' for theme in THEMES
+        ]
     picture = "\n".join([
-        '<picture>',
+        '<picture>', *sources,
         f'  <source media="(prefers-color-scheme: dark)" srcset="{source}-dark.svg">',
         f'  <source media="(prefers-color-scheme: light)" srcset="{source}-light.svg">',
         f'  <img src="{source}-light.svg" width="{html.escape(width, quote=True)}" '
@@ -88,7 +100,43 @@ def themed_picture(stem, alt, width="100%", href=None):
     return picture
 
 
-def render_banner_svg(theme):
+def image_height(stem, compact=False):
+    return CONTAINED_IMAGES[stem][int(compact)]
+
+
+def contain_svg(source, height):
+    """Fluid viewport, fixed intrinsic height, no cover/crop or proportional upscaling.
+
+    The outer SVG deliberately has a percentage width and NO viewBox, so it has
+    no intrinsic aspect ratio that could make <img height=auto> grow vertically.
+    Only the nested SVG has a viewBox; `meet` keeps all artwork visible.
+    """
+    if type(height) is not int or height <= 0:
+        raise ValueError("Expected a positive canvas height")
+    namespace = "{http://www.w3.org/2000/svg}"
+    inner = ET.fromstring(source)
+    if not inner.get("viewBox"):
+        raise ValueError("Contained artwork requires an original viewBox")
+    outer = ET.Element(namespace + "svg", {
+        "width": "100%", "height": str(height), "role": "img",
+        "aria-labelledby": inner.get("aria-labelledby", "title desc"),
+    })
+    for node in list(inner):
+        if node.tag in (namespace + "title", namespace + "desc"):
+            inner.remove(node)
+            outer.append(node)
+    inner.attrib.pop("role", None)
+    inner.attrib.pop("aria-labelledby", None)
+    inner.set("width", "100%")
+    inner.set("height", "100%")
+    inner.set("preserveAspectRatio", "xMidYMid meet")
+    outer.append(inner)
+    ET.register_namespace("", "http://www.w3.org/2000/svg")
+    rendered = ET.tostring(outer, encoding="unicode")
+    return "\n".join(line.rstrip() for line in rendered.splitlines()) + "\n"
+
+
+def render_banner_svg(theme, compact=False):
     """The editable source is transparent; semantic color roles select the palette."""
     palette = THEMES[theme]
     root = ET.fromstring(BANNER_SOURCE.read_text())
@@ -98,8 +146,7 @@ def render_banner_svg(theme):
             if role:
                 node.set(attribute, palette[role])
     ET.register_namespace("", "http://www.w3.org/2000/svg")
-    rendered = ET.tostring(root, encoding="unicode")
-    return "\n".join(line.rstrip() for line in rendered.splitlines()) + "\n"
+    return contain_svg(ET.tostring(root, encoding="unicode"), image_height(f"{ASSETS}/control-room", compact))
 
 
 def icon_group(key, color, transform=""):
@@ -144,7 +191,8 @@ def render_heading_svg(key, theme):
 
 def update_visuals(root):
     """Regenerate all static art without API/font access; leave brand logos alone."""
-    rendered = {f"control-room-{theme}.svg": render_banner_svg(theme) for theme in THEMES}
+    rendered = {f"control-room{'-compact' if compact else ''}-{theme}.svg": render_banner_svg(theme, compact)
+                for compact in (False, True) for theme in THEMES}
     rendered.update({f"icons/{key}.svg": render_icon_svg(key) for key in ICONS})
     rendered.update({f"headings/{key}-{theme}.svg": render_heading_svg(key, theme)
                      for key in HEADINGS for theme in THEMES})

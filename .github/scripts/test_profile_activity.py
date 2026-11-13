@@ -211,8 +211,8 @@ class ActivityTests(unittest.TestCase):
             legacy.parent.mkdir(parents=True)
             legacy.write_text("Obsolete opaque chart")
             self.assertTrue(profile.update_activity(root, now))
-            for theme, asset in activity.ACTIVITY_ASSETS.items():
-                self.assertEqual((root / asset).read_text(), activity.render_activity_svg(self.days, self.metrics, theme))
+            for (theme, compact), asset in activity.ACTIVITY_VARIANTS.items():
+                self.assertEqual((root / asset).read_text(), activity.render_activity_svg(self.days, self.metrics, theme, compact))
             self.assertFalse(legacy.exists())
             self.assertEqual(fetch.call_count, 1)
             self.assertEqual(fetch.call_args.args[0], f"{profile.API}/graphql")
@@ -227,28 +227,28 @@ class ActivityTests(unittest.TestCase):
         for response in responses:
             with self.subTest(response=response), tempfile.TemporaryDirectory() as directory:
                 root = Path(directory)
-                for theme, asset in activity.ACTIVITY_ASSETS.items():
+                for (theme, compact), asset in activity.ACTIVITY_VARIANTS.items():
                     path = root / asset
                     path.parent.mkdir(parents=True, exist_ok=True)
-                    path.write_text(f"Last good {theme}")
+                    path.write_text(f"Last good {theme}-{compact}")
                 kwargs = {"side_effect": OSError("offline")} if response is None else {"return_value": response}
                 with patch.object(profile, "fetch", **kwargs), contextlib.redirect_stderr(io.StringIO()):
                     self.assertTrue(profile.update_activity(root))
-                for theme, asset in activity.ACTIVITY_ASSETS.items():
-                    self.assertEqual((root / asset).read_text(), f"Last good {theme}")
+                for (theme, compact), asset in activity.ACTIVITY_VARIANTS.items():
+                    self.assertEqual((root / asset).read_text(), f"Last good {theme}-{compact}")
 
     def test_render_failure_cannot_publish_one_new_and_one_old_theme(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            for asset in activity.ACTIVITY_ASSETS.values():
+            for asset in activity.ACTIVITY_VARIANTS.values():
                 path = root / asset
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text("Last good version")
             with patch.object(profile, "fetch", return_value=json.dumps(self.payload).encode()), \
-                 patch.object(profile, "render_activity_svg", side_effect=["New dark", ValueError("bad light")]), \
+                 patch.object(profile, "render_activity_svg", side_effect=["New dark", "New light", "New compact dark", ValueError("bad compact light")]), \
                  contextlib.redirect_stderr(io.StringIO()):
                 self.assertTrue(profile.update_activity(root, datetime(2026, 11, 13, tzinfo=timezone.utc)))
-            for asset in activity.ACTIVITY_ASSETS.values():
+            for asset in activity.ACTIVITY_VARIANTS.values():
                 self.assertEqual((root / asset).read_text(), "Last good version")
 
     def test_missing_theme_is_not_advertised_as_a_complete_fallback(self):
@@ -290,7 +290,7 @@ class ActivityTests(unittest.TestCase):
                 self.assertEqual(first, readme.read_text())
             self.assertTrue(first.startswith("Static intro\n"))
             self.assertTrue(first.endswith("Static footer\n"))
-            for asset in activity.ACTIVITY_ASSETS.values():
+            for asset in activity.ACTIVITY_VARIANTS.values():
                 self.assertIn(asset, first)
                 ET.parse(root / asset)
             self.assertNotIn(activity.LEGACY_ACTIVITY_ASSET, first)
