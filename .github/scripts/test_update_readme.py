@@ -46,20 +46,41 @@ class ProfileTests(unittest.TestCase):
                 "title": "fix: test change",
                 "repository_url": f"{profile.API}/repos/{repo}",
                 "number": number,
+                "closed_at": f"2026-10-{4 - number:02d}T00:00:00Z",
                 "html_url": f"https://github.com/{repo}/pull/{number}",
             }
             for number, repo in enumerate(
                 ["Patrick-Kappen/graft", "Patrick-Kappen/graft", "Azure/vault"], 1
             )
         ]
-        with patch.object(profile, "api", side_effect=[
-            {"items": items},
-            {"merged_at": "2026-10-02T00:00:00Z"},
-            {"merged_at": "2026-10-01T00:00:00Z"},
-        ]) as api:
+        with patch.object(profile, "api", return_value={"items": items}) as api:
             pulls = profile.merged_pull_requests()
         self.assertEqual(len(pulls), 2)
-        self.assertEqual(api.call_count, 3)
+        self.assertEqual(api.call_count, 1)
+
+    def test_meaningful_nonconventional_prs_are_not_lost(self):
+        items = [
+            {"title": title, "repository_url": f"{profile.API}/repos/Other/{name}",
+             "closed_at": "2026-11-13T00:00:00Z", "html_url": f"https://github.com/Other/{name}/pull/1"}
+            for title, name in [("sdk: improve argument handling", "sdk"),
+                                ("ci: sync branches", "ci"), ("sync: upstream changes", "sync")]
+        ]
+        with patch.object(profile, "api", return_value={"items": items}):
+            result = profile.merged_pull_requests()
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["repo"], "Other/sdk")
+        self.assertEqual(result[0]["icon"], "🔧")
+
+    def test_pr_selection_uses_merge_date_not_search_update_order(self):
+        items = [
+            {"title": title, "repository_url": f"{profile.API}/repos/Other/project",
+             "closed_at": date, "html_url": "https://github.com/Other/project/pull/1"}
+            for title, date in [("fix: older PR with a new comment", "2026-10-01T00:00:00Z"),
+                                ("fix: genuinely newer merge", "2026-11-13T00:00:00Z")]
+        ]
+        with patch.object(profile, "api", return_value={"items": items}):
+            result = profile.merged_pull_requests()
+        self.assertEqual(result[0]["title"], "Genuinely newer merge")
 
     def test_tool_logos_are_local_limited_and_html_escaped(self):
         tools = [

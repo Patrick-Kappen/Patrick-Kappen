@@ -1,7 +1,7 @@
 <!-- markdownlint-disable MD013 MD033 -->
 
 <p align="center">
-  <img src=".github/assets/control-room.svg" alt="Patrick's control room: a homelab rack and an AI robot trying to reach a locked production button." width="1200" />
+  <img src=".github/assets/control-room.svg" alt="Patrick's control room: a homelab rack and an AI robot trying to reach a locked production button." width="100%" />
 </p>
 
 # Hey, I'm Patrick 👋
@@ -32,13 +32,19 @@ patrick = {
 };
 ```
 
+<!-- projects:start -->
+
 ## 🛠️ Things I'm building, fixing & occasionally overengineering
 
 <p align="center">
-  <a href="https://github.com/Patrick-Kappen/graft"><img src=".github/assets/project-graft.svg" alt="Graft: TOML-driven containers built from the Nix store." width="270" /></a>
-  <a href="https://github.com/Azure/terraform-azurerm-avm-res-recoveryservices-vault/pull/271"><img src=".github/assets/project-azure.svg" alt="Azure recovery: contributions to Azure Verified Modules and recovery that gets tested." width="270" /></a>
-  <a href="https://patrick.kappen.io/setup/"><img src=".github/assets/project-lab.svg" alt="The after-hours lab: open models, scoped AI agents and a NixOS fleet." width="270" /></a>
+  <a href="https://github.com/Patrick-Kappen/PiG"><img src=".github/assets/project-1.svg" alt="Patrick-Kappen/PiG: PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language." width="270" /></a>
+  <a href="https://github.com/Patrick-Kappen/paseo"><img src=".github/assets/project-2.svg" alt="Patrick-Kappen/paseo: Orchestrate multiple coding agents from desktop and mobile" width="270" /></a>
+  <a href="https://github.com/oxsecurity/megalinter"><img src=".github/assets/project-3.svg" alt="oxsecurity/megalinter: 🦙 MegaLinter analyzes 50 languages, 22 formats, 21 tooling formats, excessive copy-pastes, spelling mistakes and security issues in your repository sources with a GitHub Action, other CI tools or locally." width="270" /></a>
 </p>
+
+<sub>Selected from recent public PRs and releases. Automatically refreshed 2026-11-13 · UTC.</sub>
+
+<!-- projects:end -->
 
 <details>
 <summary><strong>📋 House rules (yes, the robots have to read these too)</strong></summary>
@@ -57,13 +63,13 @@ in the release notes. So yes, there is a reviewer.
 
 ## 📊 The Git log
 
-[![GitHub contributions over 7, 30 and 365 days, with monthly totals](.github/assets/git-activity.svg)](https://github.com/Patrick-Kappen?tab=overview)
+<a href="https://github.com/Patrick-Kappen?tab=overview"><img src=".github/assets/git-activity.svg" width="100%" alt="GitHub contributions over 7, 30 and 365 days, with monthly totals" /></a>
 
 ### 🚢 Recently shipped
 
-- 🐛 **[Parse X11 displays that start with / or unix: as libxcb 1.16 does](https://github.com/MichaelKinsy/PiG/pull/424)**<br><sub>MichaelKinsy/PiG · Nov 2026</sub>
-- 🐛 **[Parse X11 displays that start with / or unix: as libxcb 1.16 does (upstream #424)](https://github.com/Patrick-Kappen/PiG/pull/14)**<br><sub>PiG · Nov 2026</sub>
+- 🔧 **[PrepareArguments takes and returns the arguments' JSON text (one hook, as Pi has)](https://github.com/Patrick-Kappen/PiG/pull/33)**<br><sub>PiG · Nov 2026</sub>
 - ✨ **[Keep Nix builds from updating themselves](https://github.com/Patrick-Kappen/paseo/pull/3)**<br><sub>paseo · Nov 2026</sub>
+- 🐛 **[Honor SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT in combined SARIF report](https://github.com/oxsecurity/megalinter/pull/9338)**<br><sub>oxsecurity/megalinter · Oct 2026</sub>
 
 ## 📡 Currently on the workbench
 

@@ -2,7 +2,7 @@
   <title id="title">Patrick's control room</title>
   <desc id="desc">A homelab rack, a terminal and a cheerful AI robot reaching for a locked production button. The robot has no production keys.</desc>
   <defs>
-    <clipPath id="frame"><rect x="2" y="2" width="1196" height="436" rx="23"/></clipPath>
+    <clipPath id="frame"><rect width="1200" height="440"/></clipPath>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="#303030" stroke-width="1" opacity=".45"/>
     </pattern>
@@ -18,13 +18,12 @@
       <stop offset="1" stop-color="#ffa45b"/>
     </linearGradient>
   </defs>
-  <rect x="1" y="1" width="1198" height="438" rx="24" fill="url(#background)" stroke="#45413d" stroke-width="2"/>
+  <rect width="1200" height="440" fill="url(#background)"/>
   <g clip-path="url(#frame)">
     <circle cx="175" cy="50" r="220" fill="#f58220" opacity=".12"/>
     <circle cx="1050" cy="340" r="170" fill="#f58220" opacity=".08"/>
   </g>
-  <rect x="2" y="2" width="1196" height="436" rx="23" fill="url(#grid)"/>
-  <rect x="32" y="1" width="1136" height="5" rx="2" fill="url(#accent)"/>
+  <rect width="1200" height="440" fill="url(#grid)"/>
   <g fill="none" stroke-width="2" opacity=".7">
     <path d="M601 44v14m-7-7h14M847 359v14m-7-7h14" stroke="#f58220"/>
     <path d="M600 210l5-5 5 5-5 5zM1131 334l5-5 5 5-5 5z" stroke="#ffa45b"/>

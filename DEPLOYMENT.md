@@ -63,6 +63,8 @@ nix shell nixpkgs#librsvg nixpkgs#python3 -c \
 
 `README.md` is the GitHub profile, separate from the Astro website. Its banner
 and project cards live in `.github/assets/` and need no external image service.
+Banner and telemetry use the available README width, with square corners and
+no outer outline. GitHub controls the maximum width of the profile itself.
 
 `.github/scripts/update_readme.py` updates the marked README sections from the
 content repository and public GitHub activity. `profile_activity.py` renders
@@ -78,8 +80,19 @@ the first and last calendar months can be partial. These are GitHub
 includes its refresh date and keeps the last successful version if the API
 fails; missing data is never replaced by invented zeroes.
 
-The daily README workflow commits both the README and chart, including when
-only the chart changed. Run the offline tests with PyYAML installed:
+`profile_projects.py` generates `project-1.svg` through `project-3.svg` and the
+`projects:start` / `projects:end` README block from recent public open/merged PRs
+and releases. Open PRs show their update date and are labelled **OPEN PR**; they
+never appear under **Recently shipped**. Repository names, descriptions, fork labels and activity dates come
+from GitHub, not the website content's curated project list. Routine CI/sync
+changes are filtered out, archived/private/disabled repositories are excluded,
+and fork/upstream families appear only once. The cards link to the actual
+repository where the activity happened; the Git log links to the PR or release.
+A failed refresh preserves the previous cards and their refresh date.
+
+The daily README workflow commits the README and all generated assets, including
+when only an image changed or an obsolete card was removed. Run the offline
+tests with PyYAML installed:
 
 ```bash
 python3 -m unittest discover -s .github/scripts -p 'test_*.py'
