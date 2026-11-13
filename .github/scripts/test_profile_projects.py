@@ -63,9 +63,8 @@ class ProjectTests(unittest.TestCase):
         svg = cards.render_project_svg(project, 1)
         root = ET.fromstring(svg)
         ns = {"svg": "http://www.w3.org/2000/svg"}
-        background = root.find("svg:rect", ns)
-        self.assertNotIn("rx", background.attrib)
-        self.assertNotIn("stroke", background.attrib)
+        self.assertIsNone(root.find("svg:rect", ns))
+        self.assertEqual(root.get("viewBox"), "0 0 360 264")
         self.assertIn("Tools & <ideas>", root.find("svg:desc", ns).text)
         self.assertIn("MERGED PR", svg)
         self.assertIn("10 Nov 2026", svg)
@@ -92,12 +91,14 @@ class ProjectTests(unittest.TestCase):
             self.assertEqual(len(projects), 1)
             self.assertIn("https://github.com/Other/current", body)
             self.assertIn("Automatically refreshed 2026-11-13", body)
-            self.assertIn("Actual live description", (assets / "project-1.svg").read_text())
+            for theme in cards.THEMES:
+                self.assertIn("Actual live description", (assets / f"project-1-{theme}.svg").read_text())
             self.assertFalse((assets / "project-graft.svg").exists())
             self.assertEqual((assets / "control-room.svg").read_text(), "Keep banner")
             metadata["description"] = "Updated next day"
             cards.update_projects(root, entries, lambda _: metadata, profile.USER, date(2026, 11, 14))
-            self.assertIn("Updated next day", (assets / "project-1.svg").read_text())
+            for theme in cards.THEMES:
+                self.assertIn("Updated next day", (assets / f"project-1-{theme}.svg").read_text())
 
     def test_api_failure_does_not_modify_previous_cards(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -143,11 +144,11 @@ class ProjectTests(unittest.TestCase):
                 profile.main()
                 self.assertEqual((root / "README.md").read_text(), before)
             self.assertEqual(api.call_count, 2)  # Once per run, shared by both sections.
-            svg = (root / cards.ASSETS / "project-1.svg").read_text()
+            svg = (root / cards.ASSETS / "project-1-dark.svg").read_text()
             self.assertIn("Next unfinished change", svg)
             self.assertIn("OPEN PR", svg)
             self.assertIn("Finished change", before)
-            self.assertNotIn("Next unfinished change", before.split("### 🚢 Recently shipped")[1])
+            self.assertNotIn("Next unfinished change", before.split(profile.SHIPPED_START)[1])
 
     def test_main_keeps_project_block_and_cards_on_github_failure(self):
         source = Path(__file__).resolve().parents[2]

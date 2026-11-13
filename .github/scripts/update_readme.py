@@ -8,14 +8,17 @@ import sys
 import textwrap
 import urllib.parse
 import urllib.request
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from functools import cache
 from pathlib import Path
 
 import yaml
 
-from profile_activity import ACTIVITY_ASSET, CALENDAR_QUERY, DAYS, calendar_days, render_activity_svg
+from profile_activity import (
+    ACTIVITY_ASSETS, ACTIVITY_STEM, LEGACY_ACTIVITY_ASSET, activity_request, parse_activity, render_activity_svg,
+)
 from profile_projects import PROJECT_END, PROJECT_START, select_projects, update_projects
+from profile_visuals import section_heading, themed_picture, update_visuals
 
 USER = "Patrick-Kappen"
 PROFILE_REPO = f"{USER}/{USER}"
@@ -26,6 +29,8 @@ WRITING_LIMIT = 3
 TOOL_LOGO_LIMIT = 10
 START = "<!-- auto:start -->"
 END = "<!-- auto:end -->"
+SHIPPED_START = "<!-- shipped:start -->"
+SHIPPED_END = "<!-- shipped:end -->"
 SITE_URL = "https://patrick.kappen.io"
 SITE_START = "<!-- site:start -->"
 SITE_END = "<!-- site:end -->"
@@ -59,27 +64,22 @@ def api(path):
 
 
 def update_activity(root, now=None):
-    """Refresh the chart, keeping the last successful SVG if GitHub is unavailable."""
+    """Refresh both themes from one snapshot; preserve both if any API data fails."""
     now = now or datetime.now(timezone.utc)
-    today = now.date()
-    start = today - timedelta(days=DAYS - 1)
-    path = root / ACTIVITY_ASSET
-    payload = {
-        "query": CALENDAR_QUERY,
-        "variables": {
-            "login": USER,
-            "from": f"{start.isoformat()}T00:00:00Z",
-            "to": now.isoformat(timespec="seconds"),
-        },
-    }
+    paths = {theme: root / asset for theme, asset in ACTIVITY_ASSETS.items()}
     try:
+        payload = activity_request(USER, now)
+        today = now.astimezone(timezone.utc).date()
         response = json.loads(fetch(f"{API}/graphql", data=json.dumps(payload).encode()))
-        svg = render_activity_svg(calendar_days(response, today))
+        days, metrics = parse_activity(response, today)
+        rendered = {theme: render_activity_svg(days, metrics, theme) for theme in paths}
     except (OSError, ValueError, KeyError, TypeError) as error:
-        print(f"Contribution chart kept unchanged: {error}", file=sys.stderr)
-        return path.is_file()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(svg)
+        print(f"Telemetry kept unchanged: {error}", file=sys.stderr)
+        return all(path.is_file() for path in paths.values())
+    for theme, path in paths.items():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(rendered[theme])
+    (root / LEGACY_ACTIVITY_ASSET).unlink(missing_ok=True)
     return True
 
 
@@ -214,7 +214,7 @@ def render_site(content):
         (tool for tool in load(content, "tools.yaml") if tool.get("highlight") is not None),
         key=lambda tool: tool["highlight"],
     )
-    lines = ["## 🧰 Things I reach for", ""]
+    lines = [section_heading("tools"), ""]
     logos = [tool for tool in tools if tool.get("logo", "").startswith("/assets/logos/")]
     if logos:
         lines += ["<p>"]
@@ -229,7 +229,7 @@ def render_site(content):
         "<details>",
         "<summary><strong>The longer version, including the certificates</strong></summary>",
         "",
-        "### Toolbox",
+        section_heading("toolbox", 3),
         "",
     ]
     for group in groups:
@@ -238,7 +238,7 @@ def render_site(content):
             lines.append(bullet(group["title"], names))
     lines += [
         "",
-        "### Certifications",
+        section_heading("certifications", 3),
         "",
         bullet("Certified", [cert if isinstance(cert, str) else f"[{cert['code']}]({cert['url']})" for cert in site["certifications"]]),
         bullet("Working towards", site["studying"]),
@@ -257,26 +257,35 @@ def render(now, content, activity_available=False, work=None):
             print(f"GitHub activity skipped: {error}", file=sys.stderr)
             work = []
     if activity_available or work:
-        parts += ["## 📊 The Git log", ""]
+        parts += [section_heading("git-log"), ""]
     if activity_available:
         parts += [
-            f'<a href="https://github.com/{USER}?tab=overview">'
-            f'<img src="{ACTIVITY_ASSET}" width="100%" '
-            'alt="GitHub contributions over 7, 30 and 365 days, with monthly totals" /></a>',
+            themed_picture(ACTIVITY_STEM,
+                           "Commits, opened PRs, merged PRs and reviews over 7, 30 and 365 days, plus the yearly contribution chart."),
             "",
         ]
     if work:
-        parts += ["### 🚢 Recently shipped", "", *work, ""]
+        parts += [section_heading("shipped", 3), "", SHIPPED_START, "", *work, "", SHIPPED_END, ""]
 
-    parts += ["## 📡 Currently on the workbench", ""]
+    parts += [section_heading("now"), ""]
     parts += [f"- {entry}" for entry in now["now"]]
     parts += ["", f"_Updated {month(now['updated'] + 'T00:00:00Z')}. Side quests subject to change._"]
 
     posts = writing(content)
     if posts:
-        parts += ["", "## ✍️ Notes from the rabbit hole", "", *posts]
+        parts += ["", section_heading("writing"), "", *posts]
 
     return "\n".join(parts)
+
+
+def previous_work(readme):
+    """Keep recent work on API errors, independent of heading layout."""
+    marked = re.search(re.escape(SHIPPED_START) + r"\s*(.*?)\s*" + re.escape(SHIPPED_END), readme, re.DOTALL)
+    if marked:
+        return marked[1].splitlines()
+    # One-time compatibility with READMEs generated before centered headings.
+    legacy = re.search(r"### 🚢 Recently shipped\n\n(.*?)(?=\n\n##|\n\n<!-- auto:end -->)", readme, re.DOTALL)
+    return legacy[1].splitlines() if legacy else []
 
 
 def replace_block(text, start, end, body, path):
@@ -293,6 +302,7 @@ def main():
     now = load(content, "site.yaml")["now"]
     now["updated"] = str(now["updated"])
     readme = readme_path.read_text()
+    update_visuals(root)
     activity_available = update_activity(root)
     work = None
     try:
@@ -304,8 +314,7 @@ def main():
         readme = replace_block(readme, PROJECT_START, PROJECT_END, project_body, readme_path)
     except (OSError, ValueError, KeyError, TypeError) as error:
         print(f"Project cards kept unchanged: {error}", file=sys.stderr)
-        previous = re.search(r"### 🚢 Recently shipped\n\n(.*?)(?=\n\n##|\n\n<!-- auto:end -->)", readme, re.DOTALL)
-        work = previous[1].splitlines() if previous else []
+        work = previous_work(readme)
     readme = replace_block(readme, START, END, render(now, content, activity_available, work), readme_path)
     readme = replace_block(readme, SITE_START, SITE_END, render_site(content), readme_path)
     readme_path.write_text(readme)
