@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="104" viewBox="0 0 140 104" role="img" aria-labelledby="title desc">
+<title id="title">pi</title>
+<desc id="desc">Original orange circuit-style profile pictogram for pi; not an official brand logo.</desc>
+<g transform="translate(44 8) scale(.8125)" fill="none" stroke="#f58220" color="#f58220" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+<path d="M12 19h41M23 19v27c0 7-4 10-9 10M43 19v30c0 5 4 7 9 5M12 19l4-8h36"/>
+</g>
+<text x="70" y="85" text-anchor="middle" fill="#f0f6fc" font-family="Noto Sans, Arial, sans-serif" font-size="13" font-weight="600">pi</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="104" viewBox="0 0 140 104" role="img" aria-labelledby="title desc">
+<title id="title">LiteLLM</title>
+<desc id="desc">Original orange circuit-style profile pictogram for LiteLLM; not an official brand logo.</desc>
+<g transform="translate(44 8) scale(.8125)" fill="none" stroke="#bc4c00" color="#bc4c00" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+<path d="M15 10h34v23H32l-9 8v-8h-8zm17 31v12M10 53h44M10 48v10m44-10v10"/><circle cx="25" cy="22" r="2"/><circle cx="39" cy="22" r="2"/>
+</g>
+<text x="70" y="85" text-anchor="middle" fill="#1f2328" font-family="Noto Sans, Arial, sans-serif" font-size="13" font-weight="600">LiteLLM</text>
+</svg>

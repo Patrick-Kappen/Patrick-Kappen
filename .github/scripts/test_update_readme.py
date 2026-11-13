@@ -81,7 +81,7 @@ class ProfileTests(unittest.TestCase):
             result = profile.merged_pull_requests()
         self.assertEqual(result[0]["title"], "Genuinely newer merge")
 
-    def test_tool_logos_are_local_limited_and_html_escaped(self):
+    def test_unknown_tool_logos_remain_local_and_html_escaped_without_a_hidden_limit(self):
         tools = [
             {"name": 'Tool "A&B"', "group": "cloud", "highlight": i,
              "logo": f"/assets/logos/tool-{i}.svg"}
@@ -96,7 +96,7 @@ class ProfileTests(unittest.TestCase):
         }
         with patch.object(profile, "load", side_effect=lambda _, name: data[name]):
             result = profile.render_site(Path("unused"))
-        self.assertEqual(result.count('src="public/assets/logos/'), profile.TOOL_LOGO_LIMIT)
+        self.assertEqual(result.count('src="public/assets/logos/'), 12)
         self.assertIn('src="public/assets/logos/tool-0.svg"', result)
         self.assertIn('alt="Tool &quot;A&amp;B&quot;"', result)
         self.assertNotIn("tracker.svg", result)

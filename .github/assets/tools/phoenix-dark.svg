@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="104" viewBox="0 0 140 104" role="img" aria-labelledby="title desc">
+<title id="title">Phoenix</title>
+<desc id="desc">Original orange circuit-style profile pictogram for Phoenix; not an official brand logo.</desc>
+<g transform="translate(44 8) scale(.8125)" fill="none" stroke="#f58220" color="#f58220" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+<path d="M33 6c2 17 15 16 15 31a16 16 0 0 1-32 0c0-8 5-15 9-18-1 10 2 13 6 15-3-12 7-14 2-28zm-6 34c-4 5-1 12 5 12s9-7 4-13"/>
+</g>
+<text x="70" y="85" text-anchor="middle" fill="#f0f6fc" font-family="Noto Sans, Arial, sans-serif" font-size="13" font-weight="600">Phoenix</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="104" viewBox="0 0 140 104" role="img" aria-labelledby="title desc">
+<title id="title">Podman</title>
+<desc id="desc">Original orange circuit-style profile pictogram for Podman; not an official brand logo.</desc>
+<g transform="translate(44 8) scale(.8125)" fill="none" stroke="#bc4c00" color="#bc4c00" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+<path d="m10 19 22-10 22 10v27L32 57 10 46zm0 0 22 11 22-11M32 30v27M18 34v7m28-7v7"/>
+</g>
+<text x="70" y="85" text-anchor="middle" fill="#1f2328" font-family="Noto Sans, Arial, sans-serif" font-size="13" font-weight="600">Podman</text>
+</svg>

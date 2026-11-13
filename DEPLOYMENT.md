@@ -80,6 +80,12 @@ writing and tool sections. Published article summaries come from front matter
 are never listed. Project cards and telemetry remain live, without manually
 invented contribution descriptions or statuses.
 
+**On the radar** reads authored priorities from `site.yaml` in the content repo,
+not inferred tasks from GitHub events. `Learning:`, `Building:`, `Writing:` and
+`Exploring:` strings receive decorative orange chapter-style icons and visible
+labels; legacy plain strings still work. The strings remain compatible with the
+website sidebar and `/now.json`.
+
 Large images have a fixed intrinsic canvas height, not an indefinitely scaling
 aspect ratio: the control-room banner is **450px**, telemetry **760px**. At viewport
 widths up to **600px**, compact variants use **400px** and **560px** respectively.
@@ -114,7 +120,8 @@ width; the images do not bypass that host limit.
 compact sources before the ordinary theme sources. No fixed HTML image height
 is added, because that would override the compact SVG's smaller intrinsic height.
 Other images already have numeric width caps: chapter banners are at most
-560px wide / 144px tall, project cards 390px wide, tool logos 36px. Project-card
+560px wide / 144px tall, project cards 390px wide, themed tool pictograms 140px
+wide / 104px tall (unknown-tool brand-logo fallbacks remain 36px). Project-card
 height follows the complete repository description and title; each pair shares
 its height so rows align without truncating the project description.
 
@@ -131,8 +138,22 @@ adds automatic gray underlines to them. The SVGs contain no gray separator
 rules, and the README has no footer rule; whitespace separates the sections. `HEADING_METRICS` stores the static Noto Sans
 Bold 30px widths/baselines, and SVG `textLength` fixes horizontal alignment
 across font fallbacks. Update those metrics alongside any label changes; the
-scheduled renderer needs no installed fonts or image packages. Third-party tool
-logos keep their original branding and are not recolored.
+scheduled renderer needs no installed fonts or image packages.
+
+`profile_tool_icons.py` supplies 25 original labelled circuit-style tool pictograms
+on the same 64px / 3px square-ended grid, with transparent light/dark variants in
+`.github/assets/tools/`. These are explicitly not official brand logos. Their
+rendering is deterministic, needs no API/fonts/image package, and cleans only
+its own generated folder. All themes are rendered before files are replaced.
+The website’s original `public/assets/logos/` files are never modified.
+
+The profile shows **all** highlighted tools, without the old ten-logo cap.
+`profileToolExtras` in content `site.yaml` adds further IDs from `tools.yaml`
+without altering website homepage highlights. The seven approved additions are
+Entra ID, Home Manager, sops, llama.cpp, Codex, pi and PiG. Unknown configured IDs
+fail rather than creating broken images; unknown artwork falls back only to
+an existing local brand-logo reference. Adding PiG to the catalogue also makes
+it available in the website toolbox, without inventing an official logo.
 
 The editable banner source is `.github/art/control-room.svg`. Its semantic
 `data-fill`, `data-stroke` and `data-stop-color` roles are resolved into the

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="104" viewBox="0 0 140 104" role="img" aria-labelledby="title desc">
+<title id="title">TrueNAS</title>
+<desc id="desc">Original orange circuit-style profile pictogram for TrueNAS; not an official brand logo.</desc>
+<g transform="translate(44 8) scale(.8125)" fill="none" stroke="#f58220" color="#f58220" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+<ellipse cx="32" cy="14" rx="22" ry="8"/><path d="M10 14v36c0 10 44 10 44 0V14M10 31c0 10 44 10 44 0M10 47c0 10 44 10 44 0"/>
+</g>
+<text x="70" y="85" text-anchor="middle" fill="#f0f6fc" font-family="Noto Sans, Arial, sans-serif" font-size="13" font-weight="600">TrueNAS</text>
+</svg>

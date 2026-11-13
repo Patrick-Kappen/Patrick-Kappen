@@ -19,7 +19,8 @@ from profile_activity import (
 )
 from profile_copy import TOOLS_INTRO, WRITING_INTRO
 from profile_projects import PROJECT_END, PROJECT_START, select_projects, update_projects
-from profile_visuals import section_heading, themed_picture, update_visuals
+from profile_visuals import ASSETS, section_heading, themed_picture, update_visuals
+from profile_tool_icons import TOOL_ICONS, TOOL_SIZE, TOOL_STEM, update_tool_icons
 from profile_work import WORK_LIMIT, WORK_PER_REPO, render_work_log, summary_from_body
 
 USER = "Patrick-Kappen"
@@ -29,7 +30,6 @@ SHIPPED_LIMIT = WORK_LIMIT
 ACTIVITY_CANDIDATE_LIMIT = 48
 ACTIVITY_SEARCH_PAGES = 3
 WRITING_LIMIT = 3
-TOOL_LOGO_LIMIT = 10
 START = "<!-- auto:start -->"
 END = "<!-- auto:end -->"
 SHIPPED_START = "<!-- shipped:start -->"
@@ -223,21 +223,29 @@ def bullet(label, items):
 def render_site(content):
     site = load(content, "site.yaml")
     groups = sorted(load(content, "tool-groups.yaml"), key=lambda group: group["order"])
-    tools = sorted(
-        (tool for tool in load(content, "tools.yaml") if tool.get("highlight") is not None),
-        key=lambda tool: tool["highlight"],
-    )
+    catalogue = load(content, "tools.yaml")
+    tools = sorted((tool for tool in catalogue if tool.get("highlight") is not None),
+                   key=lambda tool: tool["highlight"])
+    by_id = {tool["id"]: tool for tool in catalogue if "id" in tool}
+    selected = {tool.get("id") for tool in tools}
+    for key in site.get("profileToolExtras", []):
+        if key not in by_id:
+            raise ValueError(f"Unknown profile tool: {key}")
+        if key not in selected:
+            tools.append(by_id[key])
+            selected.add(key)
     lines = [section_heading("tools"), "", TOOLS_INTRO, ""]
-    logos = [tool for tool in tools if tool.get("logo", "").startswith("/assets/logos/")]
-    if logos:
-        lines += ["<p>"]
-        for tool in logos[:TOOL_LOGO_LIMIT]:
+    pictures = []
+    for tool in tools:
+        key = tool.get("id")
+        if key in TOOL_ICONS:
+            pictures.append(themed_picture(f"{TOOL_STEM}/{key}", tool["name"], width=str(TOOL_SIZE)))
+        elif tool.get("logo", "").startswith("/assets/logos/"):
             name = html.escape(tool["name"], quote=True)
             src = html.escape(f"public{tool['logo']}", quote=True)
-            lines.append(
-                f'  <img src="{src}" alt="{name}" title="{name}" width="36" height="36" /> &nbsp;'
-            )
-        lines += ["</p>", ""]
+            pictures.append(f'  <img src="{src}" alt="{name}" title="{name}" width="36" height="36" /> &nbsp;')
+    if pictures:
+        lines += ['<p align="center">', *pictures, "</p>", ""]
     lines += [
         "<details>",
         "<summary><strong>The longer version, including the certificates</strong></summary>",
@@ -261,6 +269,17 @@ def render_site(content):
     return "\n".join(lines)
 
 
+def focus_entry(entry):
+    """Keep authored Now strings compatible with the website and legacy entries."""
+    icons = {"Learning": "certifications", "Building": "tools", "Writing": "writing", "Exploring": "now"}
+    category, separator, body = entry.partition(": ")
+    if separator and category in icons:
+        icon = icons[category]
+        return (f'- <img src="{ASSETS}/icons/{icon}.svg" width="24" height="24" align="middle" alt=""> '
+                f'**{category}** — {html.escape(body, quote=False)}')
+    return f"- {entry}"
+
+
 def render(now, content, activity_available=False, work=None):
     parts = []
     if work is None:
@@ -281,7 +300,7 @@ def render(now, content, activity_available=False, work=None):
         parts += [section_heading("shipped", 3), "", SHIPPED_START, "", *work, "", SHIPPED_END, ""]
 
     parts += [section_heading("now"), ""]
-    parts += [f"- {entry}" for entry in now["now"]]
+    parts += [focus_entry(entry) for entry in now["now"]]
     parts += ["", f"_Updated {month(now['updated'] + 'T00:00:00Z')}. Side quests subject to change._"]
 
     posts = writing(content)
@@ -316,6 +335,7 @@ def main():
     now["updated"] = str(now["updated"])
     readme = readme_path.read_text()
     update_visuals(root)
+    update_tool_icons(root)
     activity_available = update_activity(root)
     work = None
     try:
