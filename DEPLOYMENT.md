@@ -68,17 +68,34 @@ no outer outline. GitHub controls the maximum width of the profile itself.
 
 `.github/scripts/update_readme.py` updates the marked README sections from the
 content repository and public GitHub activity. `profile_activity.py` renders
-`.github/assets/git-activity.svg` from GitHub's GraphQL contribution calendar.
-The existing `GITHUB_TOKEN` authenticates the request; no additional secret is
-needed for public activity. Only daily aggregate counts are used, not private
-repository names or contents.
+`.github/assets/git-activity-dark.svg` and `git-activity-light.svg` from a single
+GitHub GraphQL snapshot. Both SVGs have transparent backgrounds, including the
+counter areas. A README `<picture>` selects the light/dark palette, with the
+light image as fallback. Orange accents and text remain readable on the
+corresponding GitHub backgrounds; the SVGs do not inherit GitHub CSS.
 
-The counters cover the last **7, 30 and 365 days**, including today (UTC), not
-calendar weeks or months. The monthly bars partition that same 365-day window;
-the first and last calendar months can be partial. These are GitHub
-**contributions**, not just commits or a measure of productivity. The chart
-includes its refresh date and keeps the last successful version if the API
-fails; missing data is never replaced by invented zeroes.
+The four counters are **commits**, **PRs opened**, **PRs merged** and **reviews**.
+The main values cover the last **30 days**, with **7-day** and **365-day** values
+beneath each. All windows include today (UTC); these are rolling windows, not
+calendar weeks or months. Commits, opened PRs and reviews follow GitHub's
+contribution-counting and viewer-visibility rules. Merged PRs are public PRs
+**authored by the profile owner** that merged during the window, not PRs the
+owner merged for other authors. The opened/merged populations can overlap;
+a PR can also merge in a different period from when it was opened.
+
+The monthly bars remain the aggregate GitHub **contribution calendar**, which
+includes other activity too, not a sum of the four counters or a productivity
+score. They partition the same 365-day window; the edge months may be partial.
+These definitions stay in documentation/accessibility text, not visible help
+paragraphs below the graph.
+
+The existing `GITHUB_TOKEN` authenticates the request; no additional secret is
+needed for public activity. Counts depend on that token's visibility; this does
+not grant access to all private work. Only aggregate counts are stored, never
+private repository names or contents. The updater validates all periods before
+rendering either theme, keeps the last good pair (with its date) on API errors,
+and never substitutes zero for missing data. A successful update removes the
+obsolete opaque `git-activity.svg` asset.
 
 `profile_projects.py` generates `project-1.svg` through `project-3.svg` and the
 `projects:start` / `projects:end` README block from recent public open/merged PRs

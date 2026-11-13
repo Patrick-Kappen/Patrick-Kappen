@@ -75,5 +75,5 @@ jobs:
           git diff --cached --quiet && exit 0
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(profile): refresh README, projects and contribution chart"
+          git commit -m "chore(profile): refresh README, projects and telemetry"
           git push

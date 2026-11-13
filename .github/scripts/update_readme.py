@@ -8,13 +8,15 @@ import sys
 import textwrap
 import urllib.parse
 import urllib.request
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from functools import cache
 from pathlib import Path
 
 import yaml
 
-from profile_activity import ACTIVITY_ASSET, CALENDAR_QUERY, DAYS, calendar_days, render_activity_svg
+from profile_activity import (
+    ACTIVITY_ASSETS, LEGACY_ACTIVITY_ASSET, activity_request, parse_activity, render_activity_svg,
+)
 from profile_projects import PROJECT_END, PROJECT_START, select_projects, update_projects
 
 USER = "Patrick-Kappen"
@@ -59,27 +61,22 @@ def api(path):
 
 
 def update_activity(root, now=None):
-    """Refresh the chart, keeping the last successful SVG if GitHub is unavailable."""
+    """Refresh both themes from one snapshot; preserve both if any API data fails."""
     now = now or datetime.now(timezone.utc)
-    today = now.date()
-    start = today - timedelta(days=DAYS - 1)
-    path = root / ACTIVITY_ASSET
-    payload = {
-        "query": CALENDAR_QUERY,
-        "variables": {
-            "login": USER,
-            "from": f"{start.isoformat()}T00:00:00Z",
-            "to": now.isoformat(timespec="seconds"),
-        },
-    }
+    paths = {theme: root / asset for theme, asset in ACTIVITY_ASSETS.items()}
     try:
+        payload = activity_request(USER, now)
+        today = now.astimezone(timezone.utc).date()
         response = json.loads(fetch(f"{API}/graphql", data=json.dumps(payload).encode()))
-        svg = render_activity_svg(calendar_days(response, today))
+        days, metrics = parse_activity(response, today)
+        rendered = {theme: render_activity_svg(days, metrics, theme) for theme in paths}
     except (OSError, ValueError, KeyError, TypeError) as error:
-        print(f"Contribution chart kept unchanged: {error}", file=sys.stderr)
-        return path.is_file()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(svg)
+        print(f"Telemetry kept unchanged: {error}", file=sys.stderr)
+        return all(path.is_file() for path in paths.values())
+    for theme, path in paths.items():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(rendered[theme])
+    (root / LEGACY_ACTIVITY_ASSET).unlink(missing_ok=True)
     return True
 
 
@@ -260,9 +257,12 @@ def render(now, content, activity_available=False, work=None):
         parts += ["## 📊 The Git log", ""]
     if activity_available:
         parts += [
-            f'<a href="https://github.com/{USER}?tab=overview">'
-            f'<img src="{ACTIVITY_ASSET}" width="100%" '
-            'alt="GitHub contributions over 7, 30 and 365 days, with monthly totals" /></a>',
+            '<picture>',
+            f'  <source media="(prefers-color-scheme: dark)" srcset="{ACTIVITY_ASSETS["dark"]}">',
+            f'  <source media="(prefers-color-scheme: light)" srcset="{ACTIVITY_ASSETS["light"]}">',
+            f'  <img src="{ACTIVITY_ASSETS["light"]}" width="100%" '
+            'alt="Commits, opened PRs, merged PRs and reviews over 7, 30 and 365 days, plus the yearly contribution chart.">',
+            '</picture>',
             "",
         ]
     if work:

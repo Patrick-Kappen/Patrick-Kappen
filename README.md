@@ -63,7 +63,11 @@ in the release notes. So yes, there is a reviewer.
 
 ## 📊 The Git log
 
-<a href="https://github.com/Patrick-Kappen?tab=overview"><img src=".github/assets/git-activity.svg" width="100%" alt="GitHub contributions over 7, 30 and 365 days, with monthly totals" /></a>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/git-activity-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/git-activity-light.svg">
+  <img src=".github/assets/git-activity-light.svg" width="100%" alt="Commits, opened PRs, merged PRs and reviews over 7, 30 and 365 days, plus the yearly contribution chart.">
+</picture>
 
 ### 🚢 Recently shipped
 
