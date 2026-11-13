@@ -30,15 +30,26 @@
   <a href="https://patrick.kappen.io/rss.xml">📡 RSS</a>
 </p>
 
-I’m a Senior DevOps, AI and Security Engineer at **SLTN**, an Azure Expert MSP.
-My work sits where infrastructure, identity and software delivery meet: turning
-portal clicks into code, making permissions less permanent, and keeping delivery
-repeatable.
+I’m a DevOps Engineer at **SLTN**, an Azure Expert MSP, working on Azure landing
+zones, infrastructure as code and automation. Bicep and Terraform are a regular
+part of that: building a foundation, organising configuration, and making
+changes repeatable rather than dependent on someone remembering which buttons
+to click.
 
-Azure is a big part of that, alongside Terraform, Bicep, PowerShell and GitHub
-Actions. But the interesting part isn’t collecting tools. It’s figuring out how
-the pieces should fit together—and making sure someone can still understand
-the result six months later.
+The part I enjoy most is thinking through the difficult bits. How should the
+pieces fit together? What belongs in a shared foundation, and what should a
+workload manage itself? How do you balance security, flexibility and
+maintainability without making everything unnecessarily complicated?
+
+That work isn’t always about writing more code. Sometimes it’s tracing an
+unexpected interaction, questioning an assumption, or taking a complicated
+requirement apart until there’s an understandable approach. I like understanding
+why something works—not just finding the configuration that makes the error
+disappear.
+
+The aim is infrastructure that other people can use, change and look after.
+Something that makes sense beyond the person who originally built it, including
+when that person is on holiday.
 
 After hours, that curiosity moves into my homelab. NixOS, containers, self-hosted
 services and open-weight coding agents give me plenty of opportunities to ask,
@@ -56,6 +67,62 @@ patrick = {
   "just-one-more-server" = true;
 };
 ```
+
+<p align="center" id="beyond">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/headings/beyond-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/headings/beyond-light.svg">
+  <img src=".github/assets/headings/beyond-light.svg" width="520" alt="Beyond the tool names">
+</picture>
+</p>
+
+I don’t always stop at configuring a tool. Sometimes the thing I need is
+missing—or behaves differently once you use it with a different identity.
+
+That has taken me into Terraform provider development: working on GitHub App
+authentication for enterprise organisation resources and Advanced Security
+configuration in Azure DevOps. It also meant publishing my own provider forks.
+Not because maintaining a second provider sounds like a relaxing hobby, but
+because contributing upstream and needing something usable today are two
+different timelines.
+
+The same curiosity shows up in smaller things. When I separated my work and
+personal GitHub accounts, I wanted the directory to decide which identity Git
+and `gh` should use. No account-switching ritual before every push. Getting
+there involved Nix, Home Manager, credential helpers, and discovering that an
+empty configuration line could be the most important line in the file.
+
+<p align="center" id="agents">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/headings/agents-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/headings/agents-light.svg">
+  <img src=".github/assets/headings/agents-light.svg" width="520" alt="Building coding agents">
+</picture>
+</p>
+
+My interest in AI goes beyond asking a model to generate code. I also work on
+**[PiG](https://github.com/Patrick-Kappen/PiG)**, a Go port of the Pi coding agent,
+where matching upstream behaviour is part of the engineering challenge.
+
+That includes extension SDK behaviour: making sure tool-result handlers receive
+the input they should, including changes made earlier in the execution flow.
+Less spectacular than a demo video, perhaps. Rather important when other code
+depends on it.
+
+<p align="center" id="personal">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/headings/personal-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/headings/personal-light.svg">
+  <img src=".github/assets/headings/personal-light.svg" width="540" alt="My own corner of GitHub">
+</picture>
+</p>
+
+For years, my personal and professional GitHub activity shared an account. I
+separated them because I wanted somewhere for my own projects, contributions,
+experiments and writing.
+
+This is that place. The day job explains part of what I do. The repositories,
+rabbit holes and suspicious electricity bill explain rather more.
 
 <p align="center" id="approach">
 <picture>

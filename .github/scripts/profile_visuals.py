@@ -41,6 +41,9 @@ ICONS = {
 }
 HEADINGS = {
     "intro": ("Hey, I'm Patrick", "profile"),
+    "beyond": ("Beyond the tool names", "projects"),
+    "agents": ("Building coding agents", "tools"),
+    "personal": ("My own corner of GitHub", "profile"),
     "approach": ("How I build things", "rules"),
     "projects": ("Builds & side quests", "projects"),
     "git-log": ("The Git log", "git-log"),
@@ -55,7 +58,9 @@ HEADINGS = {
 # SVG textLength fixes horizontal layout even when a viewer uses a fallback font.
 # Keep these metrics in sync with the static labels; CI needs no fonts or Pillow.
 HEADING_METRICS = {
-    "intro": (236.0, 80.0), "approach": (272.0, 80.0),
+    "intro": (236.0, 80.0), "beyond": (340.0, 80.0),
+    "agents": (340.0, 80.0), "personal": (372.0, 80.0),
+    "approach": (272.0, 80.0),
     "projects": (297.0, 80.0), "git-log": (160.0, 80.0),
     "shipped": (252.0, 80.0), "now": (189.0, 83.5), "writing": (396.0, 83.5),
     "tools": (261.0, 80.0), "toolbox": (117.0, 83.5), "certifications": (201.0, 83.5),

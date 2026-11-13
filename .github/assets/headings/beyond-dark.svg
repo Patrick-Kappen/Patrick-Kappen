@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="144" viewBox="0 0 520 144" role="img" aria-labelledby="title desc">
+<title id="title">Beyond the tool names</title>
+<desc id="desc">Original PK/circuit chapter banner with the logo and title aligned together.</desc>
+<path d="M36.0 68.0v8M484.0 68.0v8" stroke="#f58220" stroke-width="1.75" opacity=".6"/>
+<g fill="none" stroke="#f58220" color="#f58220" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" transform="translate(48.0 44.0) scale(0.875)"><path d="m32 7 24 13-24 13L8 20zM8 32l24 13 24-13M8 44l24 13 24-13M32 33v24M3 20h5m48 0h5"/></g>
+<text x="132.0" y="80.0" fill="#f0f6fc" font-family="Noto Sans, Arial, sans-serif" font-size="30" font-weight="700" textLength="340.0" lengthAdjust="spacingAndGlyphs">Beyond the tool names</text>
+</svg>
