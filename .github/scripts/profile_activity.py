@@ -3,7 +3,7 @@
 from collections import defaultdict
 from datetime import date, timedelta, timezone
 
-from profile_visuals import THEMES, contain_svg, image_height
+from profile_visuals import THEMES, image_height
 
 DAYS = 365
 PERIODS = (("week", 7), ("month", 30), ("year", DAYS))
@@ -115,7 +115,12 @@ def monthly_totals(days):
 
 
 def render_activity_svg(days, metrics, theme="dark", compact=False):
-    """The approved four-counter layout, with no canvas or counter backgrounds."""
+    """Reflow counters and bars horizontally; keep vertical geometry/fonts fixed."""
+    scale = image_height(ACTIVITY_STEM, compact) / 710
+
+    def px(value):
+        return f"{value * scale:.2f}"
+
     palette = THEMES[theme]
     text, muted, line = palette["text"], palette["muted"], palette["line"]
     accent, label = palette["accent"], palette["label"]
@@ -133,60 +138,63 @@ def render_activity_svg(days, metrics, theme="dark", compact=False):
         "The edge months may be partial. GitHub counting and visibility rules apply."
     )
     svg = [
-        '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="710" '
-        'viewBox="0 0 1200 710" role="img" aria-labelledby="title desc">',
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="{image_height(ACTIVITY_STEM, compact)}" '
+        'role="img" aria-labelledby="title desc">',
         '<title id="title">GitHub activity: commits, opened PRs, merged PRs and reviews</title>',
         f'<desc id="desc">{description}</desc>',
         '<g font-family="Verdana, Arial, sans-serif">',
-        f'<text x="36" y="48" fill="{text}" font-size="22" font-weight="700" '
-        'letter-spacing="3">SIDE QUEST TELEMETRY</text>',
-        f'<text x="36" y="82" fill="{muted}" font-size="18">'
+        '<svg x="3%" width="94%" height="100%">',
+        f'<text x="0" y="{px(48)}" fill="{text}" font-size="{px(22)}" font-weight="700" '
+        f'letter-spacing="{px(3)}">SIDE QUEST TELEMETRY</text>',
+        f'<text x="0" y="{px(82)}" fill="{muted}" font-size="{px(18)}">'
         'Last 30 days in focus · 7 and 365 days for context</text>',
     ]
     for index, (key, name) in enumerate(METRICS):
-        x = 36 + index * 288
+        # Each counter owns a quarter of the real viewport, not a scaled canvas.
         svg += [
-            f'<rect x="{x}" y="122" width="3" height="92" fill="{accent}"/>',
-            f'<text x="{x + 20}" y="139" fill="{label}" font-size="16" '
-            f'font-weight="700" letter-spacing="1">{name}</text>',
-            f'<text x="{x + 20}" y="195" fill="{accent}" font-size="48" '
+            f'<svg class="counter" x="{index * 25}%" width="25%" height="100%">',
+            f'<rect x="0" y="{px(122)}" width="{px(3)}" height="{px(92)}" fill="{accent}"/>',
+            f'<text x="{px(20)}" y="{px(139)}" fill="{label}" font-size="{px(16)}" '
+            f'font-weight="700" letter-spacing="{px(1)}">{name}</text>',
+            f'<text x="{px(20)}" y="{px(195)}" fill="{accent}" font-size="{px(48)}" '
             f'font-weight="700">{metrics[30][key]:,}</text>',
-            f'<text x="{x + 20}" y="220" fill="{muted}" font-size="16">last 30 days</text>',
-            f'<path d="M{x + 20} 237H{x + 244}" stroke="{line}"/>',
-            f'<text x="{x + 20}" y="266" fill="{muted}" font-size="17">7 days</text>',
-            f'<text x="{x + 244}" y="266" text-anchor="end" fill="{text}" '
-            f'font-size="20" font-weight="700">{metrics[7][key]:,}</text>',
-            f'<text x="{x + 20}" y="297" fill="{muted}" font-size="17">365 days</text>',
-            f'<text x="{x + 244}" y="297" text-anchor="end" fill="{text}" '
-            f'font-size="20" font-weight="700">{metrics[DAYS][key]:,}</text>',
+            f'<text x="{px(20)}" y="{px(220)}" fill="{muted}" font-size="{px(16)}">last 30 days</text>',
+            f'<line x1="{px(20)}" x2="94%" y1="{px(237)}" y2="{px(237)}" stroke="{line}"/>',
+            f'<text x="{px(20)}" y="{px(266)}" fill="{muted}" font-size="{px(17)}">7 days</text>',
+            f'<text x="94%" y="{px(266)}" text-anchor="end" fill="{text}" '
+            f'font-size="{px(20)}" font-weight="700">{metrics[7][key]:,}</text>',
+            f'<text x="{px(20)}" y="{px(297)}" fill="{muted}" font-size="{px(17)}">365 days</text>',
+            f'<text x="94%" y="{px(297)}" text-anchor="end" fill="{text}" '
+            f'font-size="{px(20)}" font-weight="700">{metrics[DAYS][key]:,}</text>',
+            '</svg>',
         ]
-    svg.append(f'<text x="36" y="365" fill="{text}" font-size="24" '
+    svg.append(f'<text x="0" y="{px(365)}" fill="{text}" font-size="{px(24)}" '
                'font-weight="700">The bigger picture</text>')
     maximum = max(1, max(count for _, count in months))
-    slot, baseline, chart_height = 1128 / len(months), 621, 175
+    slot, baseline, chart_height = 100 / len(months), 621, 175
     for fraction in (0, .5, 1):
-        y = baseline - fraction * chart_height
-        svg.append(f'<path d="M36 {y}H1164" stroke="{line}" stroke-dasharray="3 7"/>')
+        y = px(baseline - fraction * chart_height)
+        svg.append(f'<line x1="0" x2="100%" y1="{y}" y2="{y}" stroke="{line}" stroke-dasharray="3 7"/>')
     for index, (when, count) in enumerate(months):
-        x, width = 36 + index * slot + slot * .16, slot * .68
+        x, width = index * slot + slot * .16, slot * .68
         height = count / maximum * chart_height
         center = x + width / 2
         color = palette["bars"][index % len(palette["bars"])]
         svg += [
-            f'<rect x="{x:.1f}" y="{baseline - height:.1f}" width="{width:.1f}" '
-            f'height="{height:.1f}" fill="{color}">'
+            f'<rect class="month-bar" x="{x:.6f}%" y="{px(baseline - height)}" width="{width:.6f}%" '
+            f'height="{px(height)}" fill="{color}">'
             f'<title>{when.strftime("%B %Y")}: {count:,} contributions in this window</title></rect>',
-            f'<text x="{center:.1f}" y="{baseline - height - 10:.1f}" '
-            f'text-anchor="middle" fill="{color}" font-size="17" font-weight="700">{count:,}</text>',
-            f'<text x="{center:.1f}" y="647" text-anchor="middle" '
-            f'fill="{text}" font-size="17">{when.strftime("%b")}</text>',
+            f'<text x="{center:.6f}%" y="{px(baseline - height - 10)}" '
+            f'text-anchor="middle" fill="{color}" font-size="{px(17)}" font-weight="700">{count:,}</text>',
+            f'<text x="{center:.6f}%" y="{px(647)}" text-anchor="middle" '
+            f'fill="{text}" font-size="{px(17)}">{when.strftime("%b")}</text>',
         ]
         if index == 0 or when.month == 1:
-            svg.append(f'<text x="{center:.1f}" y="669" text-anchor="middle" '
-                       f'fill="{muted}" font-size="15">{when.year}</text>')
+            svg.append(f'<text x="{center:.6f}%" y="{px(669)}" text-anchor="middle" '
+                       f'fill="{muted}" font-size="{px(15)}">{when.year}</text>')
     svg += [
-        f'<text x="1164" y="698" text-anchor="end" fill="{muted}" '
-        f'font-size="15">{today.isoformat()} · UTC</text>',
-        '</g></svg>',
+        f'<text x="100%" y="{px(698)}" text-anchor="end" fill="{muted}" '
+        f'font-size="{px(15)}">{today.isoformat()} · UTC</text>',
+        '</svg></g></svg>',
     ]
-    return contain_svg("\n".join(svg), image_height(ACTIVITY_STEM, compact))
+    return "\n".join(svg) + "\n"

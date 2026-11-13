@@ -24,11 +24,18 @@ class Images(HTMLParser):
 
 
 class ImageLayoutTests(unittest.TestCase):
-    def assert_contained(self, source, height, viewbox):
+    def assert_canvas(self, source, height):
         root = ET.fromstring(source)
         self.assertEqual(root.get("width"), "100%")
         self.assertEqual(root.get("height"), str(height))
-        self.assertNotIn("viewBox", root.attrib)  # No intrinsic ratio that grows the outer height.
+        self.assertNotIn("viewBox", root.attrib)
+        for key in ("title", "desc"):
+            self.assertIsNotNone(root.find(NS + key))
+            self.assertEqual(sum(node.get("id") == key for node in root.iter()), 1)
+        return root
+
+    def assert_contained(self, source, height, viewbox):
+        root = self.assert_canvas(source, height)
         inner = root.find(NS + "svg")
         self.assertIsNotNone(inner)
         self.assertEqual(inner.get("width"), "100%")
@@ -36,9 +43,6 @@ class ImageLayoutTests(unittest.TestCase):
         self.assertEqual(inner.get("viewBox"), viewbox)
         self.assertEqual(inner.get("preserveAspectRatio"), "xMidYMid meet")
         self.assertNotIn("role", inner.attrib)
-        for key in ("title", "desc"):
-            self.assertIsNotNone(root.find(NS + key))
-            self.assertEqual(sum(node.get("id") == key for node in root.iter()), 1)
         return root
 
     def test_wrapper_preserves_artwork_and_accessibility(self):
@@ -61,7 +65,9 @@ class ImageLayoutTests(unittest.TestCase):
         text = []
         for compact, height in ((False, 240), (True, 160)):
             for theme in visuals.THEMES:
-                root = self.assert_contained(visuals.render_banner_svg(theme, compact), height, "0 0 1200 440")
+                svg = visuals.render_banner_svg(theme, compact)
+                root = (self.assert_contained(svg, height, "0 0 1200 440") if compact
+                        else self.assert_canvas(svg, height))
                 text.append([node.text for node in root.iter(NS + "text")])
         self.assertTrue(all(value == text[0] for value in text))
 
@@ -73,10 +79,44 @@ class ImageLayoutTests(unittest.TestCase):
         self.assertEqual(len(activity.ACTIVITY_VARIANTS), 4)
         for (theme, compact), _ in activity.ACTIVITY_VARIANTS.items():
             height = 220 if compact else 420
-            root = self.assert_contained(activity.render_activity_svg(days, metrics, theme, compact),
-                                         height, "0 0 1200 710")
+            root = self.assert_canvas(activity.render_activity_svg(days, metrics, theme, compact), height)
+            self.assertTrue(all("viewBox" not in node.attrib for node in root.iter(NS + "svg")))
+            counters = [node for node in root.iter(NS + "svg") if node.get("class") == "counter"]
+            self.assertEqual([node.get("x") for node in counters], ["0%", "25%", "50%", "75%"])
+            self.assertTrue(all(node.get("width") == "25%" for node in counters))
+            bars = [node for node in root.iter(NS + "rect") if node.get("class") == "month-bar"]
+            self.assertEqual(len(bars), len(activity.monthly_totals(days)))
+            self.assertTrue(all(node.get("x").endswith("%") and node.get("width").endswith("%") for node in bars))
             text.append([node.text for node in root.iter(NS + "text")])
         self.assertTrue(all(value == text[0] for value in text))
+
+    def test_banner_distributes_scenes_without_enlarging_them_on_wide_screens(self):
+        root = self.assert_canvas(visuals.render_banner_svg("dark"), 240)
+        columns = root.findall(NS + "svg")
+        self.assertEqual([node.get("class") for node in columns],
+                         ["banner-copy", "banner-rack", "banner-intern"])
+        self.assertEqual([node.get("x") for node in columns], ["0%", "50%", "70%"])
+        self.assertEqual([node.get("width") for node in columns], ["50%", "20%", "30%"])
+        for width in (1920, 2560, 3840):
+            for node in columns:
+                _, _, logical_width, logical_height = map(float, node.get("viewBox").split())
+                available = width * float(node.get("width").rstrip("%")) / 100
+                self.assertEqual(min(available / logical_width, 240 / logical_height), 240 / 440)
+
+    def test_monthly_bars_expand_horizontally_while_height_and_font_sizes_stay_fixed(self):
+        days = [(date(2026, 1, 1), 10), (date(2026, 2, 1), 20)]
+        metrics = {period: {key: period for key, _ in activity.METRICS} for _, period in activity.PERIODS}
+        root = self.assert_canvas(activity.render_activity_svg(days, metrics), 420)
+        bars = [node for node in root.iter(NS + "rect") if node.get("class") == "month-bar"]
+        self.assertEqual([node.get("x") for node in bars], ["8.000000%", "58.000000%"])
+        self.assertEqual([node.get("width") for node in bars], ["34.000000%", "34.000000%"])
+        heights = [float(node.get("height")) for node in bars]
+        self.assertAlmostEqual(heights[1], 175 * 420 / 710, places=2)
+        painted_widths = [width * .94 * .34 for width in (1920, 2560, 3840)]
+        self.assertLess(painted_widths[0], painted_widths[1])
+        self.assertEqual(painted_widths[2], painted_widths[0] * 2)
+        # No SVG ancestor has a viewBox that could scale fonts or bar heights.
+        self.assertTrue(all(node.get("viewBox") is None for node in root.iter(NS + "svg")))
 
     def test_compact_sources_precede_desktop_and_control_their_own_height(self):
         for stem in visuals.CONTAINED_IMAGES:
