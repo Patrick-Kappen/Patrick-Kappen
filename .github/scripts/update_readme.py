@@ -9,16 +9,19 @@ import textwrap
 import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
+from functools import cache
 from pathlib import Path
 
 import yaml
 
 from profile_activity import ACTIVITY_ASSET, CALENDAR_QUERY, DAYS, calendar_days, render_activity_svg
+from profile_projects import PROJECT_END, PROJECT_START, select_projects, update_projects
 
 USER = "Patrick-Kappen"
 PROFILE_REPO = f"{USER}/{USER}"
 API = "https://api.github.com"
 SHIPPED_LIMIT = 3
+ACTIVITY_CANDIDATE_LIMIT = 12
 WRITING_LIMIT = 3
 TOOL_LOGO_LIMIT = 10
 START = "<!-- auto:start -->"
@@ -34,6 +37,7 @@ KINDS = {
     "perf": "⚡",
     "security": "🔒",
 }
+IGNORED_KINDS = {"build", "chore", "ci", "docs", "style", "sync", "test"}
 RELEASE_ICON = "🚀"
 CONVENTIONAL = re.compile(r"^(?P<kind>[a-z]+)(\([^)]*\))?!?:\s*(?P<rest>.+)$")
 
@@ -95,32 +99,45 @@ def readable(title):
     return match["kind"], rest[:1].upper() + rest[1:]
 
 
-def merged_pull_requests():
+def pull_requests(state):
     query = urllib.parse.quote(
-        f"is:pr author:{USER} is:merged is:public -repo:{PROFILE_REPO}"
+        f"is:pr author:{USER} is:{state} is:public -repo:{PROFILE_REPO}"
     )
-    items = api(f"search/issues?q={query}&sort=updated&order=desc&per_page=50")["items"]
+    items = api(f"search/issues?q={query}&sort=updated&order=desc&per_page=100")["items"]
     entries = []
-    for item in items:
+    # For merged PRs, closed_at is the merge date, not a later comment date.
+    # Open cards show the PR's latest update; they never appear as shipped.
+    date_key = "closed_at" if state == "merged" else "updated_at"
+    for item in sorted(items, key=lambda item: item[date_key], reverse=True):
         kind, title = readable(item["title"])
-        if kind not in KINDS:
+        if kind in IGNORED_KINDS:
+            continue
+        if kind in {"main", "performance"} and re.match(r"(?:upstream|fork)\b", title, re.IGNORECASE):
             continue
         repo = item["repository_url"].split("/repos/")[1]
         if any(entry["repo"] == repo for entry in entries):
             continue
-        pull = api(f"repos/{repo}/pulls/{item['number']}")
         entries.append(
             {
                 "repo": repo,
-                "when": pull["merged_at"] or item["closed_at"],
-                "icon": KINDS[kind],
+                "when": item[date_key],
+                "state": state,
+                "icon": KINDS.get(kind, "🔧"),
                 "title": title,
                 "url": item["html_url"],
             }
         )
-        if len(entries) == SHIPPED_LIMIT:
+        if len(entries) == ACTIVITY_CANDIDATE_LIMIT:
             break
     return entries
+
+
+def merged_pull_requests():
+    return pull_requests("merged")
+
+
+def open_pull_requests():
+    return pull_requests("open")
 
 
 def releases():
@@ -146,12 +163,15 @@ def releases():
     return entries
 
 
-def shipped():
-    entries = merged_pull_requests() + releases()
-    entries.sort(key=lambda entry: parse_time(entry["when"]), reverse=True)
+def shipped(entries=None):
+    if entries is None:
+        entries = merged_pull_requests() + releases()
+    entries = sorted(entries, key=lambda entry: parse_time(entry["when"]), reverse=True)
     lines = []
     seen = set()
     for entry in entries:
+        if entry.get("state") == "open":
+            continue
         repo = entry["repo"]
         if repo in seen:
             continue
@@ -228,19 +248,21 @@ def render_site(content):
     return "\n".join(lines)
 
 
-def render(now, content, activity_available=False):
+def render(now, content, activity_available=False, work=None):
     parts = []
-    try:
-        work = shipped()
-    except OSError as error:
-        print(f"GitHub activity skipped: {error}", file=sys.stderr)
-        work = []
+    if work is None:
+        try:
+            work = shipped()
+        except OSError as error:
+            print(f"GitHub activity skipped: {error}", file=sys.stderr)
+            work = []
     if activity_available or work:
         parts += ["## 📊 The Git log", ""]
     if activity_available:
         parts += [
-            f'[![GitHub contributions over 7, 30 and 365 days, with monthly totals]({ACTIVITY_ASSET})]'
-            f'(https://github.com/{USER}?tab=overview)',
+            f'<a href="https://github.com/{USER}?tab=overview">'
+            f'<img src="{ACTIVITY_ASSET}" width="100%" '
+            'alt="GitHub contributions over 7, 30 and 365 days, with monthly totals" /></a>',
             "",
         ]
     if work:
@@ -272,7 +294,19 @@ def main():
     now["updated"] = str(now["updated"])
     readme = readme_path.read_text()
     activity_available = update_activity(root)
-    readme = replace_block(readme, START, END, render(now, content, activity_available), readme_path)
+    work = None
+    try:
+        entries = merged_pull_requests() + releases()
+        repository_api = cache(api)
+        project_body, _ = update_projects(root, entries + open_pull_requests(), repository_api, USER)
+        shipped_projects = select_projects(entries, repository_api, USER)
+        work = shipped([project["activity"] for project in shipped_projects])
+        readme = replace_block(readme, PROJECT_START, PROJECT_END, project_body, readme_path)
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        print(f"Project cards kept unchanged: {error}", file=sys.stderr)
+        previous = re.search(r"### 🚢 Recently shipped\n\n(.*?)(?=\n\n##|\n\n<!-- auto:end -->)", readme, re.DOTALL)
+        work = previous[1].splitlines() if previous else []
+    readme = replace_block(readme, START, END, render(now, content, activity_available, work), readme_path)
     readme = replace_block(readme, SITE_START, SITE_END, render_site(content), readme_path)
     readme_path.write_text(readme)
 

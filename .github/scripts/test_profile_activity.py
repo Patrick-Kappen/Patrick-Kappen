@@ -92,6 +92,10 @@ class ActivityTests(unittest.TestCase):
                 root = ET.fromstring(svg)
                 namespace = {"svg": "http://www.w3.org/2000/svg"}
                 self.assertIsNotNone(root.find("svg:title", namespace))
+                background = root.find("svg:rect", namespace)
+                self.assertNotIn("rx", background.attrib)
+                self.assertNotIn("stroke", background.attrib)
+                self.assertNotIn('rx="', svg)
                 self.assertEqual(len(root.findall(".//svg:polyline", namespace)), 3)
                 self.assertIn("not just commits", root.find("svg:desc", namespace).text)
                 self.assertIn(self.today.isoformat(), svg)
@@ -110,7 +114,13 @@ class ActivityTests(unittest.TestCase):
         artwork["generated chart"] = activity.render_activity_svg(self.days)
         for name, svg in artwork.items():
             with self.subTest(asset=name):
-                colors = set(re.findall(r"#[0-9a-fA-F]{6}\b", svg))
+                root = ET.fromstring(svg)
+                colors = {
+                    value for node in root.iter()
+                    for attribute in ("fill", "stroke", "stop-color")
+                    for value in [node.get(attribute, "")]
+                    if re.fullmatch(r"#[0-9a-fA-F]{6}", value)
+                }
                 self.assertTrue(colors)
                 for color in colors:
                     red, green, blue = (int(color[i:i + 2], 16) for i in (1, 3, 5))
@@ -156,7 +166,7 @@ class ActivityTests(unittest.TestCase):
         now = {"updated": "2026-10-02", "now": ["Testing restores"]}
         with patch.object(profile, "shipped", return_value=[]), patch.object(profile, "writing", return_value=[]):
             result = profile.render(now, Path("unused"), activity_available=True)
-        self.assertIn(activity.ACTIVITY_ASSET, result)
+        self.assertIn(f'src="{activity.ACTIVITY_ASSET}" width="100%"', result)
         self.assertIn("## 📊 The Git log", result)
         self.assertNotIn("Recently shipped", result)
 

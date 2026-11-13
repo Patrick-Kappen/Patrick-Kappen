@@ -71,12 +71,9 @@ jobs:
 
       - name: Commit when changed
         run: |
-          git add README.md
-          if [ -f .github/assets/git-activity.svg ]; then
-            git add .github/assets/git-activity.svg
-          fi
+          git add -A -- README.md .github/assets/
           git diff --cached --quiet && exit 0
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(profile): refresh README and contribution chart"
+          git commit -m "chore(profile): refresh README, projects and contribution chart"
           git push

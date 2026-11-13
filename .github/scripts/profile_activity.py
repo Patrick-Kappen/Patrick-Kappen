@@ -74,13 +74,8 @@ def render_activity_svg(days):
         '<defs>',
         '<linearGradient id="bg" x2="1" y2="1"><stop stop-color="#151515"/>'
         '<stop offset=".6" stop-color="#1c1c1c"/><stop offset="1" stop-color="#262626"/></linearGradient>',
-        '<linearGradient id="accent"><stop stop-color="#f58220"/>'
-        '<stop offset=".3" stop-color="#d96b22"/><stop offset=".65" stop-color="#f58220"/>'
-        '<stop offset="1" stop-color="#ffa45b"/></linearGradient>',
         '</defs>',
-        '<rect x="1" y="1" width="1198" height="648" rx="24" fill="url(#bg)" '
-        'stroke="#45413d" stroke-width="2"/>',
-        '<rect x="32" y="1" width="1136" height="5" rx="2" fill="url(#accent)"/>',
+        '<rect width="1200" height="650" fill="url(#bg)"/>',
         '<g font-family="Verdana, Arial, sans-serif">',
         '<text x="36" y="51" fill="#f2f0ed" font-size="22" font-weight="700" '
         'letter-spacing="3">SIDE QUEST TELEMETRY</text>',
@@ -94,9 +89,8 @@ def render_activity_svg(days):
     ]):
         x = 36 + index * 382
         svg += [
-            f'<rect x="{x}" y="80" width="364" height="140" rx="16" '
-            'fill="#111111" stroke="#393735"/>',
-            f'<rect x="{x}" y="98" width="4" height="104" rx="2" fill="{color}"/>',
+            f'<rect x="{x}" y="80" width="364" height="140" fill="#111111"/>',
+            f'<rect x="{x}" y="98" width="4" height="104" fill="{color}"/>',
             f'<text x="{x + 24}" y="112" fill="{color}" font-size="17" '
             f'font-weight="700" letter-spacing="2">{label}</text>',
             f'<text x="{x + 24}" y="169" fill="{color}" font-size="48" '
@@ -139,7 +133,7 @@ def render_activity_svg(days):
         center = x + width / 2
         svg += [
             f'<rect x="{x:.1f}" y="{baseline - height:.1f}" width="{width:.1f}" '
-            f'height="{height:.1f}" rx="6" fill="{color}">'
+            f'height="{height:.1f}" fill="{color}">'
             f'<title>{when.strftime("%B %Y")}: {count:,} contributions in this window</title></rect>',
             f'<text x="{center:.1f}" y="{baseline - height - 10:.1f}" '
             f'text-anchor="middle" fill="{color}" font-size="17" font-weight="700">{count:,}</text>',
