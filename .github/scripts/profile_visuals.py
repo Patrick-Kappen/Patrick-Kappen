@@ -62,7 +62,7 @@ def heading_width(key):
 
 
 def section_heading(key, level=2):
-    """Keep heading semantics; the visible icon and title are one themed image."""
+    """Image section titles without GitHub's automatic H1/H2 underlines."""
     if level not in (1, 2, 3):
         raise ValueError("Unsupported heading level")
     label, _ = HEADINGS[key]
@@ -70,7 +70,7 @@ def section_heading(key, level=2):
     if level == 3:
         width = round(width * .84)
     picture = themed_picture(f"{ASSETS}/headings/{key}", label, width=str(width))
-    return f'<h{level} align="center" id="{key}">\n{picture}\n</h{level}>'
+    return f'<p align="center" id="{key}">\n{picture}\n</p>'
 
 
 def themed_picture(stem, alt, width="100%", href=None):
@@ -132,8 +132,6 @@ def render_heading_svg(key, theme):
         'role="img" aria-labelledby="title desc">',
         f'<title id="title">{html.escape(label)}</title>',
         '<desc id="desc">Original PK/circuit chapter banner with the logo and title aligned together.</desc>',
-        f'<path d="M12 {center}H{max(12, start - 20):.1f}M{min(width - 12, start + combined + 20):.1f} '
-        f'{center}H{width - 12}" stroke="{palette["line"]}" stroke-width="1.25"/>',
         f'<path d="M{start - 12:.1f} {center - 4}v8M{start + combined + 12:.1f} {center - 4}v8" '
         f'stroke="{palette["accent"]}" stroke-width="1.75" opacity=".6"/>',
         icon_group(icon, palette["accent"], transform),

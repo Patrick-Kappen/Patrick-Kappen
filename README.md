@@ -8,13 +8,13 @@
 </picture>
 </p>
 
-<h1 align="center" id="intro">
+<p align="center" id="intro">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/headings/intro-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/headings/intro-light.svg">
   <img src=".github/assets/headings/intro-light.svg" width="500" alt="Hey, I&#x27;m Patrick">
 </picture>
-</h1>
+</p>
 
 <p align="center">
   <strong>I build the platforms other people deploy to.</strong><br>
@@ -46,13 +46,13 @@ patrick = {
 
 <!-- projects:start -->
 
-<h2 align="center" id="projects">
+<p align="center" id="projects">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/headings/projects-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/headings/projects-light.svg">
   <img src=".github/assets/headings/projects-light.svg" width="500" alt="Builds &amp; side quests">
 </picture>
-</h2>
+</p>
 
 <p align="center">
 <a href="https://github.com/Patrick-Kappen/PiG">
@@ -97,13 +97,13 @@ in the release notes. So yes, there is a reviewer.
 
 <!-- auto:start -->
 
-<h2 align="center" id="git-log">
+<p align="center" id="git-log">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/headings/git-log-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/headings/git-log-light.svg">
   <img src=".github/assets/headings/git-log-light.svg" width="500" alt="The Git log">
 </picture>
-</h2>
+</p>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/git-activity-dark.svg">
@@ -111,13 +111,13 @@ in the release notes. So yes, there is a reviewer.
   <img src=".github/assets/git-activity-light.svg" width="100%" alt="Commits, opened PRs, merged PRs and reviews over 7, 30 and 365 days, plus the yearly contribution chart.">
 </picture>
 
-<h3 align="center" id="shipped">
+<p align="center" id="shipped">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/headings/shipped-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/headings/shipped-light.svg">
   <img src=".github/assets/headings/shipped-light.svg" width="420" alt="Recently shipped">
 </picture>
-</h3>
+</p>
 
 <!-- shipped:start -->
 
@@ -127,26 +127,26 @@ in the release notes. So yes, there is a reviewer.
 
 <!-- shipped:end -->
 
-<h2 align="center" id="now">
+<p align="center" id="now">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/headings/now-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/headings/now-light.svg">
   <img src=".github/assets/headings/now-light.svg" width="500" alt="On the radar">
 </picture>
-</h2>
+</p>
 
 - Studying for GitHub Actions and AI-103
 - Building a blog on patrick.kappen.io
 
 _Updated Oct 2026. Side quests subject to change._
 
-<h2 align="center" id="writing">
+<p align="center" id="writing">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/headings/writing-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/headings/writing-light.svg">
   <img src=".github/assets/headings/writing-light.svg" width="560" alt="Notes from the rabbit hole">
 </picture>
-</h2>
+</p>
 
 - [Contributing to a Terraform provider: preparation](https://patrick.kappen.io/blog/contributing-to-a-terraform-provider-preparation/)
 - [Two GitHub accounts, one machine, zero switching](https://patrick.kappen.io/blog/two-github-accounts-by-directory/)
@@ -155,13 +155,13 @@ _Updated Oct 2026. Side quests subject to change._
 
 <!-- site:start -->
 
-<h2 align="center" id="tools">
+<p align="center" id="tools">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/headings/tools-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/headings/tools-light.svg">
   <img src=".github/assets/headings/tools-light.svg" width="500" alt="Things I reach for">
 </picture>
-</h2>
+</p>
 
 <p>
   <img src="public/assets/logos/azure.svg" alt="Azure" title="Azure" width="36" height="36" /> &nbsp;
@@ -179,13 +179,13 @@ _Updated Oct 2026. Side quests subject to change._
 <details>
 <summary><strong>The longer version, including the certificates</strong></summary>
 
-<h3 align="center" id="toolbox">
+<p align="center" id="toolbox">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/headings/toolbox-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/headings/toolbox-light.svg">
   <img src=".github/assets/headings/toolbox-light.svg" width="420" alt="Toolbox">
 </picture>
-</h3>
+</p>
 
 - **Cloud:** Azure
 - **Automation & delivery:** Terraform · Bicep · GitHub Actions · PowerShell ·
@@ -199,13 +199,13 @@ _Updated Oct 2026. Side quests subject to change._
 - **Storage & backup:** TrueNAS
 - **Monitoring:** Grafana
 
-<h3 align="center" id="certifications">
+<p align="center" id="certifications">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/headings/certifications-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/headings/certifications-light.svg">
   <img src=".github/assets/headings/certifications-light.svg" width="420" alt="Certifications">
 </picture>
-</h3>
+</p>
 
 - **Certified:**
   [AZ-900](https://www.credly.com/badges/c864e7a2-1536-4183-9e0c-c5cd841b2088) ·
@@ -216,8 +216,6 @@ _Updated Oct 2026. Side quests subject to change._
 </details>
 
 <!-- site:end -->
-
----
 
 <sub>Every change reviewed. Every restore tested. Every “quick experiment” suspicious.</sub>
 
