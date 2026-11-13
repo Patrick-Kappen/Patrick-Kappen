@@ -269,12 +269,10 @@ has merged, or a release has been published.
 </picture>
 </p>
 
-- <img src=".github/assets/icons/certifications.svg" width="24" height="24" align="middle" alt=""> **Learning** — Studying for GitHub Actions and AI-103.
-- <img src=".github/assets/icons/tools.svg" width="24" height="24" align="middle" alt=""> **Building** — Developing PiG’s agent tooling and extension behaviour.
-- <img src=".github/assets/icons/writing.svg" width="24" height="24" align="middle" alt=""> **Writing** — Continuing the Terraform-provider series with fork releases and signing.
-- <img src=".github/assets/icons/now.svg" width="24" height="24" align="middle" alt=""> **Exploring** — NixOS homelab and Kubernetes experiments.
+- Studying for GitHub Actions and AI-103
+- Building a blog on patrick.kappen.io
 
-_Updated Nov 2026. Side quests subject to change._
+_Updated Oct 2026. Side quests subject to change._
 
 <p align="center" id="writing">
 <picture>
@@ -403,41 +401,6 @@ justify.
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/traefik-light.svg">
   <img src=".github/assets/tools/traefik-light.svg" width="140" alt="Traefik">
 </picture>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/entra-id-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/entra-id-light.svg">
-  <img src=".github/assets/tools/entra-id-light.svg" width="140" alt="Entra ID">
-</picture>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/home-manager-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/home-manager-light.svg">
-  <img src=".github/assets/tools/home-manager-light.svg" width="140" alt="Home Manager">
-</picture>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/sops-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/sops-light.svg">
-  <img src=".github/assets/tools/sops-light.svg" width="140" alt="sops">
-</picture>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/llama-cpp-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/llama-cpp-light.svg">
-  <img src=".github/assets/tools/llama-cpp-light.svg" width="140" alt="llama.cpp">
-</picture>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/codex-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/codex-light.svg">
-  <img src=".github/assets/tools/codex-light.svg" width="140" alt="Codex">
-</picture>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/pi-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/pi-light.svg">
-  <img src=".github/assets/tools/pi-light.svg" width="140" alt="pi">
-</picture>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/pig-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/pig-light.svg">
-  <img src=".github/assets/tools/pig-light.svg" width="140" alt="PiG">
-</picture>
 </p>
 
 <details>
@@ -454,15 +417,14 @@ justify.
 - **Cloud:** Azure
 - **Automation & delivery:** Terraform · Bicep · GitHub Actions · PowerShell ·
   Azure DevOps · Ansible
-- **NixOS & deployment:** NixOS · Home Manager
+- **NixOS & deployment:** NixOS
 - **Linux:** Ubuntu
 - **Containers & orchestration:** Kubernetes · Podman
-- **AI:** LiteLLM · Phoenix · llama.cpp · Codex · pi · PiG
+- **AI:** LiteLLM · Phoenix
 - **Datacenter & virtualisation:** Proxmox
 - **Networking:** Tailscale · Traefik
 - **Storage & backup:** TrueNAS
 - **Monitoring:** Grafana
-- **Identity & secrets:** Entra ID · sops
 
 <p align="center" id="certifications">
 <picture>
