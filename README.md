@@ -121,7 +121,7 @@ in the release notes. So yes, there is a reviewer.
 
 <!-- shipped:start -->
 
-- 🔧 **[Refuse tool arguments that are no JSON object, as Pi does](https://github.com/Patrick-Kappen/PiG/pull/37)**<br><sub>PiG · Nov 2026</sub>
+- 🐛 **[Preserve lone surrogate units in tool_call input](https://github.com/Patrick-Kappen/PiG/pull/38)**<br><sub>PiG · Nov 2026</sub>
 - ✨ **[Keep Nix builds from updating themselves](https://github.com/Patrick-Kappen/paseo/pull/3)**<br><sub>paseo · Nov 2026</sub>
 - 🐛 **[Honor SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT in combined SARIF report](https://github.com/oxsecurity/megalinter/pull/9338)**<br><sub>oxsecurity/megalinter · Oct 2026</sub>
 
