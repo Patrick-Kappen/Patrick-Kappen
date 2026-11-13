@@ -67,8 +67,12 @@ Banner, project cards and telemetry all have transparent light/dark variants,
 selected by README `<picture>` elements. Banner and telemetry use the available
 README width, with no outer frame. GitHub controls the profile's maximum width.
 
-The fuller introduction and visible **How I build things** section live outside
-all generated blocks, so daily updates preserve their copy. The latter uses the
+The fuller introduction covers day-to-day DevOps work, Azure landing zones,
+Bicep/Terraform and working through difficult design problems, without client
+cases. Provider, Nix, coding-agent and personal GitHub stories add concrete
+examples from published work without hardcoded PR statuses. These and the visible
+**How I build things** section live outside all generated blocks, so daily
+updates preserve their copy. The latter uses the
 same combined PK/circuit logo-and-title SVG pattern as the other sections.
 `profile_copy.py` supplies narrative introductions to the generated project,
 writing and tool sections. Published article summaries come from front matter

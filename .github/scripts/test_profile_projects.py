@@ -146,6 +146,9 @@ class ProjectTests(unittest.TestCase):
                 self.assertEqual((root / "README.md").read_text(), before)
             self.assertEqual(api.call_count, 2)  # Once per run, shared by both sections.
             self.assertIn("Enthusiasm is not an access-control policy.", before)
+            # The complete approved personal/work narrative is outside generated blocks.
+            self.assertEqual(before.split(cards.PROJECT_START)[0],
+                             (source / "README.md").read_text().split(cards.PROJECT_START)[0])
             self.assertIn('id="approach"', before)
             self.assertIn(cards.PROJECTS_INTRO, before)
             svg = (root / cards.ASSETS / "project-1-dark.svg").read_text()
