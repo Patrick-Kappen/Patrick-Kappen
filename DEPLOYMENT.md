@@ -59,6 +59,32 @@ nix shell nixpkgs#librsvg nixpkgs#python3 -c \
   python3 scripts/og-image.py public/assets/og/<slug>.png "Post title" "Topic · Blog"
 ```
 
+## GitHub profile
+
+`README.md` is the GitHub profile, separate from the Astro website. Its banner
+and project cards live in `.github/assets/` and need no external image service.
+
+`.github/scripts/update_readme.py` updates the marked README sections from the
+content repository and public GitHub activity. `profile_activity.py` renders
+`.github/assets/git-activity.svg` from GitHub's GraphQL contribution calendar.
+The existing `GITHUB_TOKEN` authenticates the request; no additional secret is
+needed for public activity. Only daily aggregate counts are used, not private
+repository names or contents.
+
+The counters cover the last **7, 30 and 365 days**, including today (UTC), not
+calendar weeks or months. The monthly bars partition that same 365-day window;
+the first and last calendar months can be partial. These are GitHub
+**contributions**, not just commits or a measure of productivity. The chart
+includes its refresh date and keeps the last successful version if the API
+fails; missing data is never replaced by invented zeroes.
+
+The daily README workflow commits both the README and chart, including when
+only the chart changed. Run the offline tests with PyYAML installed:
+
+```bash
+python3 -m unittest discover -s .github/scripts -p 'test_*.py'
+```
+
 ## Deploy through GitHub Actions
 
 `.github/workflows/build.yml` checks out this repository and `website_content`

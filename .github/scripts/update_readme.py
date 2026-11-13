@@ -1,5 +1,6 @@
 """Rewrite the generated parts of README.md from the content repository and public GitHub activity."""
 
+import html
 import json
 import os
 import re
@@ -7,18 +8,19 @@ import sys
 import textwrap
 import urllib.parse
 import urllib.request
-import xml.etree.ElementTree as ElementTree
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import yaml
 
+from profile_activity import ACTIVITY_ASSET, CALENDAR_QUERY, DAYS, calendar_days, render_activity_svg
+
 USER = "Patrick-Kappen"
 PROFILE_REPO = f"{USER}/{USER}"
 API = "https://api.github.com"
-SHIPPED_LIMIT = 6
+SHIPPED_LIMIT = 3
 WRITING_LIMIT = 3
-SUMMARY_LENGTH = 180
+TOOL_LOGO_LIMIT = 10
 START = "<!-- auto:start -->"
 END = "<!-- auto:end -->"
 SITE_URL = "https://patrick.kappen.io"
@@ -34,11 +36,13 @@ KINDS = {
 }
 RELEASE_ICON = "🚀"
 CONVENTIONAL = re.compile(r"^(?P<kind>[a-z]+)(\([^)]*\))?!?:\s*(?P<rest>.+)$")
-CLOSING_REFERENCE = re.compile(r"\b(closes|fixes|resolves)\s+#\d+\.?", re.IGNORECASE)
 
 
-def fetch(url, accept="application/vnd.github+json"):
-    request = urllib.request.Request(url, headers={"Accept": accept, "User-Agent": USER})
+def fetch(url, accept="application/vnd.github+json", data=None):
+    headers = {"Accept": accept, "User-Agent": USER}
+    if data is not None:
+        headers["Content-Type"] = "application/json"
+    request = urllib.request.Request(url, headers=headers, data=data)
     token = os.environ.get("GITHUB_TOKEN")
     if token and url.startswith(API):
         request.add_header("Authorization", f"Bearer {token}")
@@ -50,49 +54,37 @@ def api(path):
     return json.loads(fetch(f"{API}/{path}"))
 
 
+def update_activity(root, now=None):
+    """Refresh the chart, keeping the last successful SVG if GitHub is unavailable."""
+    now = now or datetime.now(timezone.utc)
+    today = now.date()
+    start = today - timedelta(days=DAYS - 1)
+    path = root / ACTIVITY_ASSET
+    payload = {
+        "query": CALENDAR_QUERY,
+        "variables": {
+            "login": USER,
+            "from": f"{start.isoformat()}T00:00:00Z",
+            "to": now.isoformat(timespec="seconds"),
+        },
+    }
+    try:
+        response = json.loads(fetch(f"{API}/graphql", data=json.dumps(payload).encode()))
+        svg = render_activity_svg(calendar_days(response, today))
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        print(f"Contribution chart kept unchanged: {error}", file=sys.stderr)
+        return path.is_file()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(svg)
+    return True
+
+
 def parse_time(timestamp):
     return datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
 
 
 def month(timestamp):
     return parse_time(timestamp).strftime("%b %Y")
-
-
-def shorten(text):
-    text = " ".join(text.split())
-    if len(text) <= SUMMARY_LENGTH:
-        return text
-    return text[: SUMMARY_LENGTH - 1].rsplit(" ", 1)[0] + "…"
-
-
-def first_sentence(markdown):
-    """The first prose sentence, or else the first bullet, without headings or closing references."""
-    first_bullet = ""
-    for block in re.split(r"\n\s*\n", markdown or ""):
-        lines = [line for line in block.strip().splitlines() if not line.startswith("#")]
-        block = "\n".join(lines).strip()
-        if not block or block.startswith(("|", "```", "<!--")):
-            continue
-        if block.startswith(("-", "*")):
-            if not first_bullet:
-                bullet = re.sub(r"^[-*]\s+", "", lines[0].strip())
-                first_bullet = bullet[:1].upper() + bullet[1:]
-            continue
-        block = CLOSING_REFERENCE.sub("", block).strip()
-        if block:
-            sentence = re.split(r"(?<=[.!?])\s", block, maxsplit=1)[0]
-            return shorten(sentence)
-    return shorten(first_bullet.rstrip(".") + ".") if first_bullet else ""
-
-
-def highlights(markdown, count=2):
-    """The first bullets of release notes, joined into one line."""
-    bullets = [
-        re.sub(r"^[-*]\s+", "", line.strip()).rstrip(".")
-        for line in (markdown or "").splitlines()
-        if re.match(r"^\s*[-*]\s+\S", line)
-    ]
-    return shorten("; ".join(bullets[:count]) + ".") if bullets else first_sentence(markdown)
 
 
 def readable(title):
@@ -114,6 +106,8 @@ def merged_pull_requests():
         if kind not in KINDS:
             continue
         repo = item["repository_url"].split("/repos/")[1]
+        if any(entry["repo"] == repo for entry in entries):
+            continue
         pull = api(f"repos/{repo}/pulls/{item['number']}")
         entries.append(
             {
@@ -122,8 +116,6 @@ def merged_pull_requests():
                 "icon": KINDS[kind],
                 "title": title,
                 "url": item["html_url"],
-                "summary": first_sentence(item.get("body")),
-                "size": f"+{pull['additions']} −{pull['deletions']}",
             }
         )
         if len(entries) == SHIPPED_LIMIT:
@@ -149,8 +141,6 @@ def releases():
                     "icon": RELEASE_ICON,
                     "title": name.replace(" — ", ": "),
                     "url": release["html_url"],
-                    "summary": highlights(release.get("body")),
-                    "size": "pre-release" if release["prerelease"] else "release",
                 }
             )
     return entries
@@ -159,27 +149,20 @@ def releases():
 def shipped():
     entries = merged_pull_requests() + releases()
     entries.sort(key=lambda entry: parse_time(entry["when"]), reverse=True)
-    entries = entries[:SHIPPED_LIMIT]
-
-    by_repo = {}
-    for entry in entries:
-        by_repo.setdefault(entry["repo"], []).append(entry)
-
     lines = []
-    for repo, repo_entries in by_repo.items():
-        description = api(f"repos/{repo}").get("description") or ""
+    seen = set()
+    for entry in entries:
+        repo = entry["repo"]
+        if repo in seen:
+            continue
+        seen.add(repo)
         name = repo.split("/")[1] if repo.startswith(f"{USER}/") else repo
-        heading = f"**[{name}](https://github.com/{repo})**"
-        lines += ["", f"{heading} · {description}" if description else heading, ""]
-        for entry in repo_entries:
-            line = (
-                f"- {entry['icon']} **[{entry['title']}]({entry['url']})**"
-                f" · {month(entry['when'])} · {entry['size']}"
-            )
-            if entry["summary"]:
-                lines += [line + "\\", f"  {entry['summary']}"]
-            else:
-                lines.append(line)
+        lines.append(
+            f"- {entry['icon']} **[{entry['title']}]({entry['url']})**<br>"
+            f"<sub>{html.escape(name)} · {month(entry['when'])}</sub>"
+        )
+        if len(lines) == SHIPPED_LIMIT:
+            break
     return lines
 
 
@@ -211,37 +194,65 @@ def render_site(content):
         (tool for tool in load(content, "tools.yaml") if tool.get("highlight") is not None),
         key=lambda tool: tool["highlight"],
     )
-    lines = ["## Toolbox", ""]
+    lines = ["## 🧰 Things I reach for", ""]
+    logos = [tool for tool in tools if tool.get("logo", "").startswith("/assets/logos/")]
+    if logos:
+        lines += ["<p>"]
+        for tool in logos[:TOOL_LOGO_LIMIT]:
+            name = html.escape(tool["name"], quote=True)
+            src = html.escape(f"public{tool['logo']}", quote=True)
+            lines.append(
+                f'  <img src="{src}" alt="{name}" title="{name}" width="36" height="36" /> &nbsp;'
+            )
+        lines += ["</p>", ""]
+    lines += [
+        "<details>",
+        "<summary><strong>The longer version, including the certificates</strong></summary>",
+        "",
+        "### Toolbox",
+        "",
+    ]
     for group in groups:
         names = [tool["name"] for tool in tools if tool["group"] == group["id"]]
         if names:
             lines.append(bullet(group["title"], names))
     lines += [
         "",
-        "## Certifications",
+        "### Certifications",
         "",
         bullet("Certified", [cert if isinstance(cert, str) else f"[{cert['code']}]({cert['url']})" for cert in site["certifications"]]),
         bullet("Working towards", site["studying"]),
+        "",
+        "</details>",
     ]
     return "\n".join(lines)
 
 
-def render(now, content):
-    parts = ["### Now", ""]
-    parts += [f"- {entry}" for entry in now["now"]]
-    parts += ["", f"_Last changed {month(now['updated'] + 'T00:00:00Z')}._"]
-
-    posts = writing(content)
-    if posts:
-        parts += ["", "### Latest writing", "", *posts]
-
+def render(now, content, activity_available=False):
+    parts = []
     try:
         work = shipped()
     except OSError as error:
         print(f"GitHub activity skipped: {error}", file=sys.stderr)
         work = []
+    if activity_available or work:
+        parts += ["## 📊 The Git log", ""]
+    if activity_available:
+        parts += [
+            f'[![GitHub contributions over 7, 30 and 365 days, with monthly totals]({ACTIVITY_ASSET})]'
+            f'(https://github.com/{USER}?tab=overview)',
+            "",
+        ]
     if work:
-        parts += ["", "### Recently shipped", *work]
+        parts += ["### 🚢 Recently shipped", "", *work, ""]
+
+    parts += ["## 📡 Currently on the workbench", ""]
+    parts += [f"- {entry}" for entry in now["now"]]
+    parts += ["", f"_Updated {month(now['updated'] + 'T00:00:00Z')}. Side quests subject to change._"]
+
+    posts = writing(content)
+    if posts:
+        parts += ["", "## ✍️ Notes from the rabbit hole", "", *posts]
 
     return "\n".join(parts)
 
@@ -260,7 +271,8 @@ def main():
     now = load(content, "site.yaml")["now"]
     now["updated"] = str(now["updated"])
     readme = readme_path.read_text()
-    readme = replace_block(readme, START, END, render(now, content), readme_path)
+    activity_available = update_activity(root)
+    readme = replace_block(readme, START, END, render(now, content, activity_available), readme_path)
     readme = replace_block(readme, SITE_START, SITE_END, render_site(content), readme_path)
     readme_path.write_text(readme)
 
