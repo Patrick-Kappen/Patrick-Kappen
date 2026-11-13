@@ -70,11 +70,23 @@ README width, with no outer frame. GitHub controls the profile's maximum width.
 Large images have a fixed intrinsic canvas height, not an indefinitely scaling
 aspect ratio: the control-room banner is **240px**, telemetry **420px**. At viewport
 widths up to **600px**, compact variants use **160px** and **220px** respectively.
-The outer SVG has `width="100%"`, an absolute height and **no viewBox**; a nested
-SVG keeps the original viewBox with `preserveAspectRatio="xMidYMid meet"`.
+The outer SVG has `width="100%"`, an absolute height and **no viewBox**.
 This works without README CSS, including hosts that set `img { height: auto }`.
-The canvas can widen, but the artwork does not zoom, stretch or get cropped;
-extra width remains transparent. Narrow containers can scale artwork down.
+Content reflows across the real available width, not a fixed-width drawing
+centered inside a wider, empty canvas:
+
+- The desktop banner has independent copy, rack and intern viewports at 0%,
+  50% and 70%. Their individual viewBoxes limit the illustrations' height;
+  the copy stays left, the rack moves with its column and the intern stays right.
+  The compact banner keeps the original complete composition fitted into 160px.
+- Telemetry uses four 25%-wide counter columns and a chart spanning 94% of the
+  image. Bar widths, month positions, gridlines and comparison rows use percentage
+  coordinates. Vertical geometry and fonts are fixed pixel sizes for each variant;
+  **no chart or counter ancestor has a viewBox**, so wider screens cannot zoom them.
+
+Full HD, QHD and 4K therefore spread the content horizontally without increasing
+height, text size or illustration size. GitHub still controls its profile-column
+width; the images do not bypass that host limit.
 
 `CONTAINED_IMAGES` in `profile_visuals.py` owns those limits. `<picture>` selects
 compact sources before the ordinary theme sources. No fixed HTML image height
@@ -102,6 +114,8 @@ original branding and are not recolored.
 The editable banner source is `.github/art/control-room.svg`. Its semantic
 `data-fill`, `data-stroke` and `data-stop-color` roles are resolved into the
 palette when generating `control-room-dark.svg` and `control-room-light.svg`.
+Its three `data-region` groups define the independently positioned desktop scenes;
+their original coordinates also preserve the compact composition.
 The drawing has no canvas background or opaque device panels. Banner variants
 and `.github/assets/{icons,headings}/*.svg` regenerate without API access on
 each profile refresh; obsolete files in those generated folders are removed.

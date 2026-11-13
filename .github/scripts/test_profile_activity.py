@@ -161,7 +161,11 @@ class ActivityTests(unittest.TestCase):
             self.assertIn("not just commits", root.find(NS + "desc").text)
             self.assertIsNone(root.find(NS + "rect"))  # No full-canvas background.
             for rect in root.iter(NS + "rect"):
-                self.assertLess(float(rect.get("width")), 200)  # No counter panel backgrounds.
+                if rect.get("class") == "month-bar":
+                    self.assertTrue(rect.get("width").endswith("%"))
+                    self.assertLess(float(rect.get("width").rstrip("%")), 10)
+                else:
+                    self.assertLess(float(rect.get("width")), 3)  # Accent ticks, not panels.
             self.assertNotIn('rx="', svg)
             self.assertNotIn("<script", svg)
             self.assertNotIn("foreignObject", svg)

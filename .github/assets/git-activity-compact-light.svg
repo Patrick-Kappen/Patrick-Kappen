@@ -1,89 +1,98 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="220" role="img" aria-labelledby="title desc"><title id="title">GitHub activity: commits, opened PRs, merged PRs and reviews</title>
-<desc id="desc">commits: 21 in 30 days, 18 in 7 days, 69 in 365 days; prs opened: 50 in 30 days, 43 in 7 days, 74 in 365 days; prs merged: 36 in 30 days, 31 in 7 days, 56 in 365 days; reviews: 0 in 30 days, 0 in 7 days, 0 in 365 days. Merged PRs are public PRs authored by the profile owner; opened and merged counts overlap. Monthly bars cover 2025-11-14 to 2026-11-13: 5,259 GitHub contributions, not just commits. The edge months may be partial. GitHub counting and visibility rules apply.</desc>
-<svg width="100%" height="100%" viewBox="0 0 1200 710" preserveAspectRatio="xMidYMid meet">
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="220" role="img" aria-labelledby="title desc">
+<title id="title">GitHub activity: commits, opened PRs, merged PRs and reviews</title>
+<desc id="desc">commits: 1,226 in 30 days, 170 in 7 days, 3,967 in 365 days; prs opened: 410 in 30 days, 116 in 7 days, 710 in 365 days; prs merged: 37 in 30 days, 32 in 7 days, 57 in 365 days; reviews: 4 in 30 days, 0 in 7 days, 4 in 365 days. Merged PRs are public PRs authored by the profile owner; opened and merged counts overlap. Monthly bars cover 2025-11-14 to 2026-11-13: 5,260 GitHub contributions, not just commits. The edge months may be partial. GitHub counting and visibility rules apply.</desc>
 <g font-family="Verdana, Arial, sans-serif">
-<text x="36" y="48" fill="#1f2328" font-size="22" font-weight="700" letter-spacing="3">SIDE QUEST TELEMETRY</text>
-<text x="36" y="82" fill="#59636e" font-size="18">Last 30 days in focus · 7 and 365 days for context</text>
-<rect x="36" y="122" width="3" height="92" fill="#bc4c00" />
-<text x="56" y="139" fill="#a74600" font-size="16" font-weight="700" letter-spacing="1">COMMITS</text>
-<text x="56" y="195" fill="#bc4c00" font-size="48" font-weight="700">21</text>
-<text x="56" y="220" fill="#59636e" font-size="16">last 30 days</text>
-<path d="M56 237H280" stroke="#d1d9e0" />
-<text x="56" y="266" fill="#59636e" font-size="17">7 days</text>
-<text x="280" y="266" text-anchor="end" fill="#1f2328" font-size="20" font-weight="700">18</text>
-<text x="56" y="297" fill="#59636e" font-size="17">365 days</text>
-<text x="280" y="297" text-anchor="end" fill="#1f2328" font-size="20" font-weight="700">69</text>
-<rect x="324" y="122" width="3" height="92" fill="#bc4c00" />
-<text x="344" y="139" fill="#a74600" font-size="16" font-weight="700" letter-spacing="1">PRs OPENED</text>
-<text x="344" y="195" fill="#bc4c00" font-size="48" font-weight="700">50</text>
-<text x="344" y="220" fill="#59636e" font-size="16">last 30 days</text>
-<path d="M344 237H568" stroke="#d1d9e0" />
-<text x="344" y="266" fill="#59636e" font-size="17">7 days</text>
-<text x="568" y="266" text-anchor="end" fill="#1f2328" font-size="20" font-weight="700">43</text>
-<text x="344" y="297" fill="#59636e" font-size="17">365 days</text>
-<text x="568" y="297" text-anchor="end" fill="#1f2328" font-size="20" font-weight="700">74</text>
-<rect x="612" y="122" width="3" height="92" fill="#bc4c00" />
-<text x="632" y="139" fill="#a74600" font-size="16" font-weight="700" letter-spacing="1">PRs MERGED</text>
-<text x="632" y="195" fill="#bc4c00" font-size="48" font-weight="700">36</text>
-<text x="632" y="220" fill="#59636e" font-size="16">last 30 days</text>
-<path d="M632 237H856" stroke="#d1d9e0" />
-<text x="632" y="266" fill="#59636e" font-size="17">7 days</text>
-<text x="856" y="266" text-anchor="end" fill="#1f2328" font-size="20" font-weight="700">31</text>
-<text x="632" y="297" fill="#59636e" font-size="17">365 days</text>
-<text x="856" y="297" text-anchor="end" fill="#1f2328" font-size="20" font-weight="700">56</text>
-<rect x="900" y="122" width="3" height="92" fill="#bc4c00" />
-<text x="920" y="139" fill="#a74600" font-size="16" font-weight="700" letter-spacing="1">REVIEWS</text>
-<text x="920" y="195" fill="#bc4c00" font-size="48" font-weight="700">0</text>
-<text x="920" y="220" fill="#59636e" font-size="16">last 30 days</text>
-<path d="M920 237H1144" stroke="#d1d9e0" />
-<text x="920" y="266" fill="#59636e" font-size="17">7 days</text>
-<text x="1144" y="266" text-anchor="end" fill="#1f2328" font-size="20" font-weight="700">0</text>
-<text x="920" y="297" fill="#59636e" font-size="17">365 days</text>
-<text x="1144" y="297" text-anchor="end" fill="#1f2328" font-size="20" font-weight="700">0</text>
-<text x="36" y="365" fill="#1f2328" font-size="24" font-weight="700">The bigger picture</text>
-<path d="M36 621H1164" stroke="#d1d9e0" stroke-dasharray="3 7" />
-<path d="M36 533.5H1164" stroke="#d1d9e0" stroke-dasharray="3 7" />
-<path d="M36 446H1164" stroke="#d1d9e0" stroke-dasharray="3 7" />
-<rect x="49.9" y="621.0" width="59.0" height="0.0" fill="#9a4000"><title>November 2025: 0 contributions in this window</title></rect>
-<text x="79.4" y="611.0" text-anchor="middle" fill="#9a4000" font-size="17" font-weight="700">0</text>
-<text x="79.4" y="647" text-anchor="middle" fill="#1f2328" font-size="17">Nov</text>
-<text x="79.4" y="669" text-anchor="middle" fill="#59636e" font-size="15">2025</text>
-<rect x="136.7" y="621.0" width="59.0" height="0.0" fill="#bc4c00"><title>December 2025: 0 contributions in this window</title></rect>
-<text x="166.2" y="611.0" text-anchor="middle" fill="#bc4c00" font-size="17" font-weight="700">0</text>
-<text x="166.2" y="647" text-anchor="middle" fill="#1f2328" font-size="17">Dec</text>
-<rect x="223.4" y="621.0" width="59.0" height="0.0" fill="#a74600"><title>January 2026: 0 contributions in this window</title></rect>
-<text x="252.9" y="611.0" text-anchor="middle" fill="#a74600" font-size="17" font-weight="700">0</text>
-<text x="252.9" y="647" text-anchor="middle" fill="#1f2328" font-size="17">Jan</text>
-<text x="252.9" y="669" text-anchor="middle" fill="#59636e" font-size="15">2026</text>
-<rect x="310.2" y="621.0" width="59.0" height="0.0" fill="#bc4c00"><title>February 2026: 0 contributions in this window</title></rect>
-<text x="339.7" y="611.0" text-anchor="middle" fill="#bc4c00" font-size="17" font-weight="700">0</text>
-<text x="339.7" y="647" text-anchor="middle" fill="#1f2328" font-size="17">Feb</text>
-<rect x="397.0" y="620.9" width="59.0" height="0.1" fill="#9a4000"><title>March 2026: 1 contributions in this window</title></rect>
-<text x="426.5" y="610.9" text-anchor="middle" fill="#9a4000" font-size="17" font-weight="700">1</text>
-<text x="426.5" y="647" text-anchor="middle" fill="#1f2328" font-size="17">Mar</text>
-<rect x="483.7" y="621.0" width="59.0" height="0.0" fill="#bc4c00"><title>April 2026: 0 contributions in this window</title></rect>
-<text x="513.2" y="611.0" text-anchor="middle" fill="#bc4c00" font-size="17" font-weight="700">0</text>
-<text x="513.2" y="647" text-anchor="middle" fill="#1f2328" font-size="17">Apr</text>
-<rect x="570.5" y="621.0" width="59.0" height="0.0" fill="#a74600"><title>May 2026: 0 contributions in this window</title></rect>
-<text x="600.0" y="611.0" text-anchor="middle" fill="#a74600" font-size="17" font-weight="700">0</text>
-<text x="600.0" y="647" text-anchor="middle" fill="#1f2328" font-size="17">May</text>
-<rect x="657.3" y="587.4" width="59.0" height="33.6" fill="#bc4c00"><title>June 2026: 276 contributions in this window</title></rect>
-<text x="686.8" y="577.4" text-anchor="middle" fill="#bc4c00" font-size="17" font-weight="700">276</text>
-<text x="686.8" y="647" text-anchor="middle" fill="#1f2328" font-size="17">Jun</text>
-<rect x="744.0" y="512.0" width="59.0" height="109.0" fill="#9a4000"><title>July 2026: 895 contributions in this window</title></rect>
-<text x="773.5" y="502.0" text-anchor="middle" fill="#9a4000" font-size="17" font-weight="700">895</text>
-<text x="773.5" y="647" text-anchor="middle" fill="#1f2328" font-size="17">Jul</text>
-<rect x="830.8" y="549.8" width="59.0" height="71.2" fill="#bc4c00"><title>August 2026: 585 contributions in this window</title></rect>
-<text x="860.3" y="539.8" text-anchor="middle" fill="#bc4c00" font-size="17" font-weight="700">585</text>
-<text x="860.3" y="647" text-anchor="middle" fill="#1f2328" font-size="17">Aug</text>
-<rect x="917.6" y="498.9" width="59.0" height="122.1" fill="#a74600"><title>September 2026: 1,003 contributions in this window</title></rect>
-<text x="947.1" y="488.9" text-anchor="middle" fill="#a74600" font-size="17" font-weight="700">1,003</text>
-<text x="947.1" y="647" text-anchor="middle" fill="#1f2328" font-size="17">Sep</text>
-<rect x="1004.3" y="446.0" width="59.0" height="175.0" fill="#bc4c00"><title>October 2026: 1,437 contributions in this window</title></rect>
-<text x="1033.8" y="436.0" text-anchor="middle" fill="#bc4c00" font-size="17" font-weight="700">1,437</text>
-<text x="1033.8" y="647" text-anchor="middle" fill="#1f2328" font-size="17">Oct</text>
-<rect x="1091.1" y="491.7" width="59.0" height="129.3" fill="#9a4000"><title>November 2026: 1,062 contributions in this window</title></rect>
-<text x="1120.6" y="481.7" text-anchor="middle" fill="#9a4000" font-size="17" font-weight="700">1,062</text>
-<text x="1120.6" y="647" text-anchor="middle" fill="#1f2328" font-size="17">Nov</text>
-<text x="1164" y="698" text-anchor="end" fill="#59636e" font-size="15">2026-11-13 · UTC</text>
-</g></svg></svg>
+<svg x="3%" width="94%" height="100%">
+<text x="0" y="14.87" fill="#1f2328" font-size="6.82" font-weight="700" letter-spacing="0.93">SIDE QUEST TELEMETRY</text>
+<text x="0" y="25.41" fill="#59636e" font-size="5.58">Last 30 days in focus · 7 and 365 days for context</text>
+<svg class="counter" x="0%" width="25%" height="100%">
+<rect x="0" y="37.80" width="0.93" height="28.51" fill="#bc4c00"/>
+<text x="6.20" y="43.07" fill="#a74600" font-size="4.96" font-weight="700" letter-spacing="0.31">COMMITS</text>
+<text x="6.20" y="60.42" fill="#bc4c00" font-size="14.87" font-weight="700">1,226</text>
+<text x="6.20" y="68.17" fill="#59636e" font-size="4.96">last 30 days</text>
+<line x1="6.20" x2="94%" y1="73.44" y2="73.44" stroke="#d1d9e0"/>
+<text x="6.20" y="82.42" fill="#59636e" font-size="5.27">7 days</text>
+<text x="94%" y="82.42" text-anchor="end" fill="#1f2328" font-size="6.20" font-weight="700">170</text>
+<text x="6.20" y="92.03" fill="#59636e" font-size="5.27">365 days</text>
+<text x="94%" y="92.03" text-anchor="end" fill="#1f2328" font-size="6.20" font-weight="700">3,967</text>
+</svg>
+<svg class="counter" x="25%" width="25%" height="100%">
+<rect x="0" y="37.80" width="0.93" height="28.51" fill="#bc4c00"/>
+<text x="6.20" y="43.07" fill="#a74600" font-size="4.96" font-weight="700" letter-spacing="0.31">PRs OPENED</text>
+<text x="6.20" y="60.42" fill="#bc4c00" font-size="14.87" font-weight="700">410</text>
+<text x="6.20" y="68.17" fill="#59636e" font-size="4.96">last 30 days</text>
+<line x1="6.20" x2="94%" y1="73.44" y2="73.44" stroke="#d1d9e0"/>
+<text x="6.20" y="82.42" fill="#59636e" font-size="5.27">7 days</text>
+<text x="94%" y="82.42" text-anchor="end" fill="#1f2328" font-size="6.20" font-weight="700">116</text>
+<text x="6.20" y="92.03" fill="#59636e" font-size="5.27">365 days</text>
+<text x="94%" y="92.03" text-anchor="end" fill="#1f2328" font-size="6.20" font-weight="700">710</text>
+</svg>
+<svg class="counter" x="50%" width="25%" height="100%">
+<rect x="0" y="37.80" width="0.93" height="28.51" fill="#bc4c00"/>
+<text x="6.20" y="43.07" fill="#a74600" font-size="4.96" font-weight="700" letter-spacing="0.31">PRs MERGED</text>
+<text x="6.20" y="60.42" fill="#bc4c00" font-size="14.87" font-weight="700">37</text>
+<text x="6.20" y="68.17" fill="#59636e" font-size="4.96">last 30 days</text>
+<line x1="6.20" x2="94%" y1="73.44" y2="73.44" stroke="#d1d9e0"/>
+<text x="6.20" y="82.42" fill="#59636e" font-size="5.27">7 days</text>
+<text x="94%" y="82.42" text-anchor="end" fill="#1f2328" font-size="6.20" font-weight="700">32</text>
+<text x="6.20" y="92.03" fill="#59636e" font-size="5.27">365 days</text>
+<text x="94%" y="92.03" text-anchor="end" fill="#1f2328" font-size="6.20" font-weight="700">57</text>
+</svg>
+<svg class="counter" x="75%" width="25%" height="100%">
+<rect x="0" y="37.80" width="0.93" height="28.51" fill="#bc4c00"/>
+<text x="6.20" y="43.07" fill="#a74600" font-size="4.96" font-weight="700" letter-spacing="0.31">REVIEWS</text>
+<text x="6.20" y="60.42" fill="#bc4c00" font-size="14.87" font-weight="700">4</text>
+<text x="6.20" y="68.17" fill="#59636e" font-size="4.96">last 30 days</text>
+<line x1="6.20" x2="94%" y1="73.44" y2="73.44" stroke="#d1d9e0"/>
+<text x="6.20" y="82.42" fill="#59636e" font-size="5.27">7 days</text>
+<text x="94%" y="82.42" text-anchor="end" fill="#1f2328" font-size="6.20" font-weight="700">0</text>
+<text x="6.20" y="92.03" fill="#59636e" font-size="5.27">365 days</text>
+<text x="94%" y="92.03" text-anchor="end" fill="#1f2328" font-size="6.20" font-weight="700">4</text>
+</svg>
+<text x="0" y="113.10" fill="#1f2328" font-size="7.44" font-weight="700">The bigger picture</text>
+<line x1="0" x2="100%" y1="192.42" y2="192.42" stroke="#d1d9e0" stroke-dasharray="3 7"/>
+<line x1="0" x2="100%" y1="165.31" y2="165.31" stroke="#d1d9e0" stroke-dasharray="3 7"/>
+<line x1="0" x2="100%" y1="138.20" y2="138.20" stroke="#d1d9e0" stroke-dasharray="3 7"/>
+<rect class="month-bar" x="1.230769%" y="192.42" width="5.230769%" height="0.00" fill="#9a4000"><title>November 2025: 0 contributions in this window</title></rect>
+<text x="3.846154%" y="189.32" text-anchor="middle" fill="#9a4000" font-size="5.27" font-weight="700">0</text>
+<text x="3.846154%" y="200.48" text-anchor="middle" fill="#1f2328" font-size="5.27">Nov</text>
+<text x="3.846154%" y="207.30" text-anchor="middle" fill="#59636e" font-size="4.65">2025</text>
+<rect class="month-bar" x="8.923077%" y="192.42" width="5.230769%" height="0.00" fill="#bc4c00"><title>December 2025: 0 contributions in this window</title></rect>
+<text x="11.538462%" y="189.32" text-anchor="middle" fill="#bc4c00" font-size="5.27" font-weight="700">0</text>
+<text x="11.538462%" y="200.48" text-anchor="middle" fill="#1f2328" font-size="5.27">Dec</text>
+<rect class="month-bar" x="16.615385%" y="192.42" width="5.230769%" height="0.00" fill="#a74600"><title>January 2026: 0 contributions in this window</title></rect>
+<text x="19.230769%" y="189.32" text-anchor="middle" fill="#a74600" font-size="5.27" font-weight="700">0</text>
+<text x="19.230769%" y="200.48" text-anchor="middle" fill="#1f2328" font-size="5.27">Jan</text>
+<text x="19.230769%" y="207.30" text-anchor="middle" fill="#59636e" font-size="4.65">2026</text>
+<rect class="month-bar" x="24.307692%" y="192.42" width="5.230769%" height="0.00" fill="#bc4c00"><title>February 2026: 0 contributions in this window</title></rect>
+<text x="26.923077%" y="189.32" text-anchor="middle" fill="#bc4c00" font-size="5.27" font-weight="700">0</text>
+<text x="26.923077%" y="200.48" text-anchor="middle" fill="#1f2328" font-size="5.27">Feb</text>
+<rect class="month-bar" x="32.000000%" y="192.38" width="5.230769%" height="0.04" fill="#9a4000"><title>March 2026: 1 contributions in this window</title></rect>
+<text x="34.615385%" y="189.29" text-anchor="middle" fill="#9a4000" font-size="5.27" font-weight="700">1</text>
+<text x="34.615385%" y="200.48" text-anchor="middle" fill="#1f2328" font-size="5.27">Mar</text>
+<rect class="month-bar" x="39.692308%" y="192.42" width="5.230769%" height="0.00" fill="#bc4c00"><title>April 2026: 0 contributions in this window</title></rect>
+<text x="42.307692%" y="189.32" text-anchor="middle" fill="#bc4c00" font-size="5.27" font-weight="700">0</text>
+<text x="42.307692%" y="200.48" text-anchor="middle" fill="#1f2328" font-size="5.27">Apr</text>
+<rect class="month-bar" x="47.384615%" y="192.42" width="5.230769%" height="0.00" fill="#a74600"><title>May 2026: 0 contributions in this window</title></rect>
+<text x="50.000000%" y="189.32" text-anchor="middle" fill="#a74600" font-size="5.27" font-weight="700">0</text>
+<text x="50.000000%" y="200.48" text-anchor="middle" fill="#1f2328" font-size="5.27">May</text>
+<rect class="month-bar" x="55.076923%" y="182.01" width="5.230769%" height="10.41" fill="#bc4c00"><title>June 2026: 276 contributions in this window</title></rect>
+<text x="57.692308%" y="178.91" text-anchor="middle" fill="#bc4c00" font-size="5.27" font-weight="700">276</text>
+<text x="57.692308%" y="200.48" text-anchor="middle" fill="#1f2328" font-size="5.27">Jun</text>
+<rect class="month-bar" x="62.769231%" y="158.65" width="5.230769%" height="33.77" fill="#9a4000"><title>July 2026: 895 contributions in this window</title></rect>
+<text x="65.384615%" y="155.55" text-anchor="middle" fill="#9a4000" font-size="5.27" font-weight="700">895</text>
+<text x="65.384615%" y="200.48" text-anchor="middle" fill="#1f2328" font-size="5.27">Jul</text>
+<rect class="month-bar" x="70.461538%" y="170.35" width="5.230769%" height="22.08" fill="#bc4c00"><title>August 2026: 585 contributions in this window</title></rect>
+<text x="73.076923%" y="167.25" text-anchor="middle" fill="#bc4c00" font-size="5.27" font-weight="700">585</text>
+<text x="73.076923%" y="200.48" text-anchor="middle" fill="#1f2328" font-size="5.27">Aug</text>
+<rect class="month-bar" x="78.153846%" y="154.57" width="5.230769%" height="37.85" fill="#a74600"><title>September 2026: 1,003 contributions in this window</title></rect>
+<text x="80.769231%" y="151.48" text-anchor="middle" fill="#a74600" font-size="5.27" font-weight="700">1,003</text>
+<text x="80.769231%" y="200.48" text-anchor="middle" fill="#1f2328" font-size="5.27">Sep</text>
+<rect class="month-bar" x="85.846154%" y="138.20" width="5.230769%" height="54.23" fill="#bc4c00"><title>October 2026: 1,437 contributions in this window</title></rect>
+<text x="88.461538%" y="135.10" text-anchor="middle" fill="#bc4c00" font-size="5.27" font-weight="700">1,437</text>
+<text x="88.461538%" y="200.48" text-anchor="middle" fill="#1f2328" font-size="5.27">Oct</text>
+<rect class="month-bar" x="93.538462%" y="152.31" width="5.230769%" height="40.11" fill="#9a4000"><title>November 2026: 1,063 contributions in this window</title></rect>
+<text x="96.153846%" y="149.21" text-anchor="middle" fill="#9a4000" font-size="5.27" font-weight="700">1,063</text>
+<text x="96.153846%" y="200.48" text-anchor="middle" fill="#1f2328" font-size="5.27">Nov</text>
+<text x="100%" y="216.28" text-anchor="end" fill="#59636e" font-size="4.65">2026-11-13 · UTC</text>
+</svg></g></svg>
