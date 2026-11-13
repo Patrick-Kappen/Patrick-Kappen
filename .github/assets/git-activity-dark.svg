@@ -1,36 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="420" role="img" aria-labelledby="title desc"><title id="title">GitHub activity: commits, opened PRs, merged PRs and reviews</title>
-<desc id="desc">commits: 19 in 30 days, 16 in 7 days, 67 in 365 days; prs opened: 49 in 30 days, 42 in 7 days, 73 in 365 days; prs merged: 35 in 30 days, 30 in 7 days, 55 in 365 days; reviews: 0 in 30 days, 0 in 7 days, 0 in 365 days. Merged PRs are public PRs authored by the profile owner; opened and merged counts overlap. Monthly bars cover 2025-11-14 to 2026-11-13: 5,254 GitHub contributions, not just commits. The edge months may be partial. GitHub counting and visibility rules apply.</desc>
+<desc id="desc">commits: 21 in 30 days, 18 in 7 days, 69 in 365 days; prs opened: 50 in 30 days, 43 in 7 days, 74 in 365 days; prs merged: 36 in 30 days, 31 in 7 days, 56 in 365 days; reviews: 0 in 30 days, 0 in 7 days, 0 in 365 days. Merged PRs are public PRs authored by the profile owner; opened and merged counts overlap. Monthly bars cover 2025-11-14 to 2026-11-13: 5,259 GitHub contributions, not just commits. The edge months may be partial. GitHub counting and visibility rules apply.</desc>
 <svg width="100%" height="100%" viewBox="0 0 1200 710" preserveAspectRatio="xMidYMid meet">
 <g font-family="Verdana, Arial, sans-serif">
 <text x="36" y="48" fill="#f0f6fc" font-size="22" font-weight="700" letter-spacing="3">SIDE QUEST TELEMETRY</text>
 <text x="36" y="82" fill="#9198a1" font-size="18">Last 30 days in focus · 7 and 365 days for context</text>
 <rect x="36" y="122" width="3" height="92" fill="#f58220" />
 <text x="56" y="139" fill="#ffa45b" font-size="16" font-weight="700" letter-spacing="1">COMMITS</text>
-<text x="56" y="195" fill="#f58220" font-size="48" font-weight="700">19</text>
+<text x="56" y="195" fill="#f58220" font-size="48" font-weight="700">21</text>
 <text x="56" y="220" fill="#9198a1" font-size="16">last 30 days</text>
 <path d="M56 237H280" stroke="#3d444d" />
 <text x="56" y="266" fill="#9198a1" font-size="17">7 days</text>
-<text x="280" y="266" text-anchor="end" fill="#f0f6fc" font-size="20" font-weight="700">16</text>
+<text x="280" y="266" text-anchor="end" fill="#f0f6fc" font-size="20" font-weight="700">18</text>
 <text x="56" y="297" fill="#9198a1" font-size="17">365 days</text>
-<text x="280" y="297" text-anchor="end" fill="#f0f6fc" font-size="20" font-weight="700">67</text>
+<text x="280" y="297" text-anchor="end" fill="#f0f6fc" font-size="20" font-weight="700">69</text>
 <rect x="324" y="122" width="3" height="92" fill="#f58220" />
 <text x="344" y="139" fill="#ffa45b" font-size="16" font-weight="700" letter-spacing="1">PRs OPENED</text>
-<text x="344" y="195" fill="#f58220" font-size="48" font-weight="700">49</text>
+<text x="344" y="195" fill="#f58220" font-size="48" font-weight="700">50</text>
 <text x="344" y="220" fill="#9198a1" font-size="16">last 30 days</text>
 <path d="M344 237H568" stroke="#3d444d" />
 <text x="344" y="266" fill="#9198a1" font-size="17">7 days</text>
-<text x="568" y="266" text-anchor="end" fill="#f0f6fc" font-size="20" font-weight="700">42</text>
+<text x="568" y="266" text-anchor="end" fill="#f0f6fc" font-size="20" font-weight="700">43</text>
 <text x="344" y="297" fill="#9198a1" font-size="17">365 days</text>
-<text x="568" y="297" text-anchor="end" fill="#f0f6fc" font-size="20" font-weight="700">73</text>
+<text x="568" y="297" text-anchor="end" fill="#f0f6fc" font-size="20" font-weight="700">74</text>
 <rect x="612" y="122" width="3" height="92" fill="#f58220" />
 <text x="632" y="139" fill="#ffa45b" font-size="16" font-weight="700" letter-spacing="1">PRs MERGED</text>
-<text x="632" y="195" fill="#f58220" font-size="48" font-weight="700">35</text>
+<text x="632" y="195" fill="#f58220" font-size="48" font-weight="700">36</text>
 <text x="632" y="220" fill="#9198a1" font-size="16">last 30 days</text>
 <path d="M632 237H856" stroke="#3d444d" />
 <text x="632" y="266" fill="#9198a1" font-size="17">7 days</text>
-<text x="856" y="266" text-anchor="end" fill="#f0f6fc" font-size="20" font-weight="700">30</text>
+<text x="856" y="266" text-anchor="end" fill="#f0f6fc" font-size="20" font-weight="700">31</text>
 <text x="632" y="297" fill="#9198a1" font-size="17">365 days</text>
-<text x="856" y="297" text-anchor="end" fill="#f0f6fc" font-size="20" font-weight="700">55</text>
+<text x="856" y="297" text-anchor="end" fill="#f0f6fc" font-size="20" font-weight="700">56</text>
 <rect x="900" y="122" width="3" height="92" fill="#f58220" />
 <text x="920" y="139" fill="#ffa45b" font-size="16" font-weight="700" letter-spacing="1">REVIEWS</text>
 <text x="920" y="195" fill="#f58220" font-size="48" font-weight="700">0</text>
@@ -82,8 +82,8 @@
 <rect x="1004.3" y="446.0" width="59.0" height="175.0" fill="#f58220"><title>October 2026: 1,437 contributions in this window</title></rect>
 <text x="1033.8" y="436.0" text-anchor="middle" fill="#f58220" font-size="17" font-weight="700">1,437</text>
 <text x="1033.8" y="647" text-anchor="middle" fill="#f0f6fc" font-size="17">Oct</text>
-<rect x="1091.1" y="492.3" width="59.0" height="128.7" fill="#d96b22"><title>November 2026: 1,057 contributions in this window</title></rect>
-<text x="1120.6" y="482.3" text-anchor="middle" fill="#d96b22" font-size="17" font-weight="700">1,057</text>
+<rect x="1091.1" y="491.7" width="59.0" height="129.3" fill="#d96b22"><title>November 2026: 1,062 contributions in this window</title></rect>
+<text x="1120.6" y="481.7" text-anchor="middle" fill="#d96b22" font-size="17" font-weight="700">1,062</text>
 <text x="1120.6" y="647" text-anchor="middle" fill="#f0f6fc" font-size="17">Nov</text>
 <text x="1164" y="698" text-anchor="end" fill="#9198a1" font-size="15">2026-11-13 · UTC</text>
 </g></svg></svg>
