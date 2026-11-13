@@ -21,41 +21,40 @@ def entry(repo, day, title="A useful change"):
 
 
 class ProfileTests(unittest.TestCase):
-    def test_activity_is_recent_compact_and_varied(self):
-        pulls = [
-            entry("Patrick-Kappen/graft", 2),
-            entry("Azure/vault", 5),
-            entry("Patrick-Kappen/provider", 3),
-            entry("Other/project", 1),
-        ]
+    def test_activity_distinguishes_merges_and_releases_with_exact_dates(self):
+        pulls = [entry("Patrick-Kappen/graft", 2), entry("Azure/vault", 5),
+                 entry("Patrick-Kappen/provider", 3), entry("Other/project", 1)]
+        release = {**entry("Patrick-Kappen/graft", 6, "v1.0"),
+                   "url": "https://github.com/Patrick-Kappen/graft/releases/tag/v1.0"}
         with patch.object(profile, "merged_pull_requests", return_value=pulls), patch.object(
-            profile, "releases", return_value=[entry("Patrick-Kappen/graft", 6, "v1.0")]
+            profile, "releases", return_value=[release]
         ):
             lines = profile.shipped()
-        self.assertEqual(len(lines), 3)
-        self.assertIn("[v1.0]", lines[0])
-        self.assertIn("<sub>graft ·", lines[0])
-        self.assertIn("<sub>Azure/vault ·", lines[1])
-        self.assertIn("<sub>provider ·", lines[2])
-        self.assertEqual(sum("<sub>graft ·" in line for line in lines), 1)
-        self.assertTrue(all("<br><sub>" in line for line in lines))
+        self.assertEqual(len(lines), 5)
+        self.assertIn("<strong>v1.0</strong>", lines[0])
+        self.assertIn("<strong>RELEASE</strong>", lines[0])
+        self.assertIn("06 Oct 2026", lines[0])
+        self.assertIn("<code>Azure/vault</code>", lines[1])
+        self.assertIn("MERGED PR #1", lines[1])
+        self.assertTrue(all(line.startswith("<p>") and line.endswith("</p>") for line in lines))
 
-    def test_pull_collection_skips_duplicate_repositories(self):
+    def test_pull_collection_retains_two_different_changes_per_repository(self):
         items = [
             {
-                "title": "fix: test change",
+                "title": f"fix: test change {number}",
                 "repository_url": f"{profile.API}/repos/{repo}",
                 "number": number,
-                "closed_at": f"2026-10-{4 - number:02d}T00:00:00Z",
+                "closed_at": f"2026-10-{5 - number:02d}T00:00:00Z",
                 "html_url": f"https://github.com/{repo}/pull/{number}",
             }
             for number, repo in enumerate(
-                ["Patrick-Kappen/graft", "Patrick-Kappen/graft", "Azure/vault"], 1
+                ["Patrick-Kappen/graft", "Patrick-Kappen/graft", "Patrick-Kappen/graft", "Azure/vault"], 1
             )
         ]
         with patch.object(profile, "api", return_value={"items": items}) as api:
             pulls = profile.merged_pull_requests()
-        self.assertEqual(len(pulls), 2)
+        self.assertEqual(len(pulls), 3)
+        self.assertEqual(sum(pull["repo"] == "Patrick-Kappen/graft" for pull in pulls), 2)
         self.assertEqual(api.call_count, 1)
 
     def test_meaningful_nonconventional_prs_are_not_lost(self):

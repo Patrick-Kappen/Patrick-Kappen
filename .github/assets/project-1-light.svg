@@ -1,15 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="264" viewBox="0 0 360 264" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="395" viewBox="0 0 420 395" role="img" aria-labelledby="title desc">
 <title id="title">Patrick-Kappen/PiG</title>
-<desc id="desc">PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language. Latest activity: Take fork main with SDK arguments and tool_call fixes (#33, #37, #38). OPEN PR on 2026-11-13.</desc>
+<desc id="desc">PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language. Latest activity: Expose ordered input in tool_result handlers. MERGED PR on 2026-11-13.</desc>
 <g font-family="Verdana, Arial, sans-serif">
-<text x="22" y="28" fill="#bc4c00" font-size="14" letter-spacing="1">01 / FORK</text>
-<text x="22" y="50" fill="#59636e" font-size="15">Patrick-Kappen</text>
-<path d="M317 18v30m0-16c17 0 17-5 17-14" fill="none" stroke="#bc4c00" stroke-width="2"/>
-<g fill="#bc4c00"><circle cx="317" cy="18" r="3"/><circle cx="317" cy="48" r="3"/><circle cx="334" cy="18" r="3"/></g>
-<text x="22" y="82" fill="#bc4c00" font-size="30" font-weight="700">PiG</text>
-<text x="22" y="145" fill="#1f2328" font-family="monospace" font-size="18">PiG (Pi in Go) is a faithful</text>
-<text x="22" y="168" fill="#1f2328" font-family="monospace" font-size="18">Go port of upstream Pi…</text>
-<text x="22" y="197" fill="#a74600" font-size="13" letter-spacing="1">OPEN PR · 13 Nov 2026</text>
-<text x="22" y="224" fill="#1f2328" font-family="monospace" font-size="17">Take fork main with SDK</text>
-<text x="22" y="247" fill="#1f2328" font-family="monospace" font-size="17">arguments and tool_call…</text>
+<text x="22" y="28" fill="#bc4c00" font-size="12" letter-spacing=".7">01 / FORK</text>
+<text x="22" y="51" fill="#59636e" font-size="15">Patrick-Kappen</text>
+<path d="M377 18v30m0-16c17 0 17-5 17-14" fill="none" stroke="#bc4c00" stroke-width="2"/>
+<g fill="#bc4c00"><circle cx="377" cy="18" r="3"/><circle cx="377" cy="48" r="3"/><circle cx="394" cy="18" r="3"/></g>
+<text x="22" y="84" fill="#bc4c00" font-family="monospace" font-size="28" font-weight="700">PiG</text>
+<text class="description" x="22" y="118" fill="#1f2328" font-family="monospace" font-size="18">PiG (Pi in Go) is a faithful Go</text>
+<text class="description" x="22" y="141" fill="#1f2328" font-family="monospace" font-size="18">port of upstream Pi, the</text>
+<text class="description" x="22" y="164" fill="#1f2328" font-family="monospace" font-size="18">TypeScript codebase behind the Pi</text>
+<text class="description" x="22" y="187" fill="#1f2328" font-family="monospace" font-size="18">coding agent. It is a parity-bound</text>
+<text class="description" x="22" y="210" fill="#1f2328" font-family="monospace" font-size="18">translation, not a rewrite:</text>
+<text class="description" x="22" y="233" fill="#1f2328" font-family="monospace" font-size="18">upstream behavior is the contract,</text>
+<text class="description" x="22" y="256" fill="#1f2328" font-family="monospace" font-size="18">and Go is the implementation</text>
+<text class="description" x="22" y="279" fill="#1f2328" font-family="monospace" font-size="18">language.</text>
+<text x="22" y="313" fill="#a74600" font-size="13" letter-spacing=".5">MERGED PR · 13 Nov 2026</text>
+<text x="22" y="341" fill="#1f2328" font-family="monospace" font-size="16">Expose ordered input in tool_result</text>
+<text x="22" y="363" fill="#1f2328" font-family="monospace" font-size="16">handlers</text>
 </g></svg>

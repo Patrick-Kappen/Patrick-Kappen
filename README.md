@@ -164,34 +164,61 @@ the small thing that makes someone’s everyday workflow unnecessarily awkward.
 Build behaviour, developer tooling, automation and agent workflows tend to
 attract my attention.
 
-The cards below show recent public work—including whether something is still
-an open PR or has actually shipped.
+The cards below show recent public work—including whether a PR is still open,
+has merged, or a release has been published.
 
 <p align="center">
 <a href="https://github.com/Patrick-Kappen/PiG">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/project-1-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/project-1-light.svg">
-  <img src=".github/assets/project-1-light.svg" width="270" alt="Patrick-Kappen/PiG: PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language.">
+  <img src=".github/assets/project-1-light.svg" width="390" alt="Patrick-Kappen/PiG: PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language.">
 </picture>
 </a>
 <a href="https://github.com/Patrick-Kappen/paseo">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/project-2-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/project-2-light.svg">
-  <img src=".github/assets/project-2-light.svg" width="270" alt="Patrick-Kappen/paseo: Orchestrate multiple coding agents from desktop and mobile">
-</picture>
-</a>
-<a href="https://github.com/oxsecurity/megalinter">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/project-3-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset=".github/assets/project-3-light.svg">
-  <img src=".github/assets/project-3-light.svg" width="270" alt="oxsecurity/megalinter: 🦙 MegaLinter analyzes 50 languages, 22 formats, 21 tooling formats, excessive copy-pastes, spelling mistakes and security issues in your repository sources with a GitHub Action, other CI tools or locally.">
+  <img src=".github/assets/project-2-light.svg" width="390" alt="Patrick-Kappen/paseo: Orchestrate multiple coding agents from desktop and mobile">
 </picture>
 </a>
 </p>
 
-<sub>Selected from recent public PRs and releases. Automatically refreshed 2026-11-13 · UTC.</sub>
+<p align="center">
+<a href="https://github.com/oxsecurity/megalinter">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/project-3-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/project-3-light.svg">
+  <img src=".github/assets/project-3-light.svg" width="390" alt="oxsecurity/megalinter: 🦙 MegaLinter analyzes 50 languages, 22 formats, 21 tooling formats, excessive copy-pastes, spelling mistakes and security issues in your repository sources with a GitHub Action, other CI tools or locally.">
+</picture>
+</a>
+<a href="https://github.com/Patrick-Kappen/terraform-provider-azuredevops">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/project-4-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/project-4-light.svg">
+  <img src=".github/assets/project-4-light.svg" width="390" alt="Patrick-Kappen/terraform-provider-azuredevops: Terraform Azure DevOps provider">
+</picture>
+</a>
+</p>
+
+<p align="center">
+<a href="https://github.com/integrations/terraform-provider-github">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/project-5-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/project-5-light.svg">
+  <img src=".github/assets/project-5-light.svg" width="390" alt="integrations/terraform-provider-github: Terraform GitHub provider">
+</picture>
+</a>
+<a href="https://github.com/Azure/terraform-azurerm-avm-res-recoveryservices-vault">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/project-6-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/project-6-light.svg">
+  <img src=".github/assets/project-6-light.svg" width="390" alt="Azure/terraform-azurerm-avm-res-recoveryservices-vault: Terraform Azure Verified Resource Module for Recovery Services Vault">
+</picture>
+</a>
+</p>
+
+<sub>Automatically refreshed 2026-11-13 · UTC · scheduled every 30 minutes.</sub>
 
 <!-- projects:end -->
 
@@ -217,15 +244,20 @@ an open PR or has actually shipped.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/headings/shipped-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/headings/shipped-light.svg">
-  <img src=".github/assets/headings/shipped-light.svg" width="420" alt="Recently shipped">
+  <img src=".github/assets/headings/shipped-light.svg" width="420" alt="Recent work">
 </picture>
 </p>
 
 <!-- shipped:start -->
 
-- 🔧 **[Expose ordered input in tool_result handlers](https://github.com/Patrick-Kappen/PiG/pull/39)**<br><sub>PiG · Nov 2026</sub>
-- ✨ **[Keep Nix builds from updating themselves](https://github.com/Patrick-Kappen/paseo/pull/3)**<br><sub>paseo · Nov 2026</sub>
-- 🐛 **[Honor SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT in combined SARIF report](https://github.com/oxsecurity/megalinter/pull/9338)**<br><sub>oxsecurity/megalinter · Oct 2026</sub>
+<p><strong>MERGED PR #39</strong> · <code>Patrick-Kappen/PiG</code> · 13 Nov 2026<br><a href="https://github.com/Patrick-Kappen/PiG/pull/39"><strong>Expose ordered input in tool_result handlers</strong></a><br>The SDK now extracts the existing raw input for both tool events. ctx.ToolInput() and ctx.ToolParams() work in tool_result too. Mutation replies remain exclusive to tool_call. No host, wire-contract or exported signature change.</p>
+<p><strong>MERGED PR #38</strong> · <code>Patrick-Kappen/PiG</code> · 13 Nov 2026<br><a href="https://github.com/Patrick-Kappen/PiG/pull/38"><strong>Preserve lone surrogate units in tool_call input</strong></a><br>Use the existing UTF-16-preserving SDK JSON decoder for the Session&#x27;s event input and subprocess handler replies, and its encoder for the Session&#x27;s before/after value snapshots. No wire shape, SDK API, async ordering, cancellation, or lifetime change. Ordinary inputs and…</p>
+<p><strong>MERGED PR #3</strong> · <code>Patrick-Kappen/paseo</code> · 06 Nov 2026<br><a href="https://github.com/Patrick-Kappen/paseo/pull/3"><strong>Keep Nix builds from updating themselves</strong></a></p>
+<p><strong>MERGED PR #1</strong> · <code>Patrick-Kappen/paseo</code> · 02 Nov 2026<br><a href="https://github.com/Patrick-Kappen/paseo/pull/1"><strong>Add an Azure DevOps forge adapter</strong></a></p>
+<p><strong>MERGED PR #9338</strong> · <code>oxsecurity/megalinter</code> · 27 Oct 2026<br><a href="https://github.com/oxsecurity/megalinter/pull/9338"><strong>Honor SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT in combined SARIF report</strong></a><br>The per-linter SARIF reports already check SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT before stripping the workspace prefix (megalinter/utils_sarif.py), but the combined report in SarifReporter.produce_report normalized unconditionally.</p>
+<p><strong>MERGED PR #9258</strong> · <code>oxsecurity/megalinter</code> · 27 Oct 2026<br><a href="https://github.com/oxsecurity/megalinter/pull/9258"><strong>Count a linter stopped by a signal as failed (#9257)</strong></a><br>Python gives a sub-process that a signal stops (for example an out-of-memory kill) a negative return code. Two checks used &gt; 0 and so treated that as success.</p>
+<p><strong>MERGED PR #2</strong> · <code>Patrick-Kappen/terraform-provider-azuredevops</code> · 10 Oct 2026<br><a href="https://github.com/Patrick-Kappen/terraform-provider-azuredevops/pull/2"><strong>Add repository Advanced Security resource</strong></a></p>
+<p><strong>MERGED PR #271</strong> · <code>Azure/terraform-azurerm-avm-res-recoveryservices-vault</code> · 08 Oct 2026<br><a href="https://github.com/Azure/terraform-azurerm-avm-res-recoveryservices-vault/pull/271"><strong>Omit read-only properties from protected item bodies</strong></a><br>With the current AzAPI provider (reproduced with v2.13.0), terraform plan fails for every protected VM and protected file share, not only after upgrading from 1.1.x:</p>
 
 <!-- shipped:end -->
 

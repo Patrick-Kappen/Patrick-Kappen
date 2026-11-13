@@ -71,7 +71,7 @@ The fuller introduction covers day-to-day DevOps work, Azure landing zones,
 Bicep/Terraform and working through difficult design problems, without client
 cases. Provider, Nix, coding-agent and personal GitHub stories add concrete
 examples from published work without hardcoded PR statuses. These and the visible
-**How I build things** section live outside all generated blocks, so daily
+**How I build things** section live outside all generated blocks, so scheduled
 updates preserve their copy. The latter uses the
 same combined PK/circuit logo-and-title SVG pattern as the other sections.
 `profile_copy.py` supplies narrative introductions to the generated project,
@@ -114,7 +114,9 @@ width; the images do not bypass that host limit.
 compact sources before the ordinary theme sources. No fixed HTML image height
 is added, because that would override the compact SVG's smaller intrinsic height.
 Other images already have numeric width caps: chapter banners are at most
-560px wide / 144px tall, project cards 270px wide / 198px tall, tool logos 36px.
+560px wide / 144px tall, project cards 390px wide, tool logos 36px. Project-card
+height follows the complete repository description and title; each pair shares
+its height so rows align without truncating the project description.
 
 `profile_visuals.py` owns the shared palette and original PK/circuit artwork.
 Each chapter uses a centered `headings/<key>-dark.svg` / `<key>-light.svg` banner
@@ -129,7 +131,7 @@ adds automatic gray underlines to them. The SVGs contain no gray separator
 rules, and the README has no footer rule; whitespace separates the sections. `HEADING_METRICS` stores the static Noto Sans
 Bold 30px widths/baselines, and SVG `textLength` fixes horizontal alignment
 across font fallbacks. Update those metrics alongside any label changes; the
-daily renderer needs no installed fonts or image packages. Third-party tool
+scheduled renderer needs no installed fonts or image packages. Third-party tool
 logos keep their original branding and are not recolored.
 
 The editable banner source is `.github/art/control-room.svg`. Its semantic
@@ -173,10 +175,15 @@ and never substitutes zero for missing data. A successful update removes the
 obsolete opaque `git-activity.svg` asset.
 
 `profile_projects.py` generates `project-1-dark.svg` / `project-1-light.svg`
-through `project-3-dark.svg` / `project-3-light.svg`, plus the
+through `project-6-dark.svg` / `project-6-light.svg`, plus the
 `projects:start` / `projects:end` README block from recent public open/merged PRs
-and releases. Open PRs show their update date and are labelled **OPEN PR**; they
-never appear under **Recently shipped**. Repository names, descriptions, fork labels and activity dates come
+and releases. Up to six automatically selected projects appear in three rows
+of two larger cards (one per line when a mobile viewport is too narrow).
+Repository descriptions are shown in full. Relationship labels distinguish
+**OWN REPOSITORY**, **FORK** and **UPSTREAM CONTRIBUTION**, using ownership and
+fork metadata rather than claiming authorship or maintainership.
+Open PRs show their update date and are labelled **OPEN PR**; they
+never appear under **Recent work**. Repository names, descriptions, fork labels and activity dates come
 from GitHub, not the website content's curated project list. Routine CI/sync
 changes are filtered out, archived/private/disabled repositories are excluded,
 and fork/upstream families appear only once. The cards link to the actual
@@ -186,8 +193,28 @@ the previous cards, links and refresh date. Successful updates remove obsolete
 single-theme cards. The `shipped:start` / `shipped:end` block preserves recent
 work on API errors without depending on heading text or formatting.
 
-The daily README workflow commits the README and all generated assets, including
-when only an image changed or an obsolete card was removed. Run the offline
+`profile_work.py` renders up to eight completed public activities, with at most
+two distinct changes per repository. This selection is independent of the six
+featured-card limit. Exact dates, PR/release links and **MERGED PR** / **RELEASE**
+labels avoid treating a merge as a published release. Open PRs stay on project
+cards, never in completed work. Duplicate URLs/titles and routine upstream-sync
+activity are filtered. The collector checks up to three search pages per state,
+retaining a varied candidate pool rather than one change per repository.
+
+Short explanations are excerpts of actual PR/release descriptions, not inferred
+impact or AI-generated claims. Recognised summary sections take precedence;
+problem/outcome sections prefer the outcome. Code fences, tracking links,
+checklists, images and HTML are excluded; inline code identifiers are preserved
+and output is escaped. Missing usable descriptions fall back to the original
+title/link without inventing an explanation. No extra per-PR API calls are needed:
+the bodies are already present in search/release responses.
+
+The README workflow runs every half hour at minutes **17 and 47 UTC**
+(`17,47 * * * *`), as well as after website builds, on generator changes and via
+manual dispatch. GitHub may delay scheduled runs and image caches can lag.
+It commits the README and all generated assets only when something changed,
+including when only an image changed or an obsolete card was removed. Generated
+refresh labels use dates, not a changing run timestamp, to avoid empty churn. Run the offline
 tests with PyYAML installed:
 
 ```bash

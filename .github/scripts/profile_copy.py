@@ -8,8 +8,8 @@ the small thing that makes someone’s everyday workflow unnecessarily awkward.
 Build behaviour, developer tooling, automation and agent workflows tend to
 attract my attention.
 
-The cards below show recent public work—including whether something is still
-an open PR or has actually shipped."""
+The cards below show recent public work—including whether a PR is still open,
+has merged, or a release has been published."""
 
 WRITING_INTRO = """I write about the things that took some figuring out: contributions, tooling and
 configurations worth explaining before I forget why they work."""

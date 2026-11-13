@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="359" viewBox="0 0 420 359" role="img" aria-labelledby="title desc">
+<title id="title">Azure/terraform-azurerm-avm-res-recoveryservices-vault</title>
+<desc id="desc">Terraform Azure Verified Resource Module for Recovery Services Vault Latest activity: Omit read-only properties from protected item bodies. MERGED PR on 2026-10-08.</desc>
+<g font-family="Verdana, Arial, sans-serif">
+<text x="22" y="28" fill="#f58220" font-size="12" letter-spacing=".7">06 / UPSTREAM CONTRIBUTION</text>
+<text x="22" y="51" fill="#9198a1" font-size="15">Azure</text>
+<path d="M377 18v30m0-16c17 0 17-5 17-14" fill="none" stroke="#f58220" stroke-width="2"/>
+<g fill="#f58220"><circle cx="377" cy="18" r="3"/><circle cx="377" cy="48" r="3"/><circle cx="394" cy="18" r="3"/></g>
+<text x="22" y="84" fill="#f58220" font-family="monospace" font-size="28" font-weight="700">terraform-azurerm-</text>
+<text x="22" y="118" fill="#f58220" font-family="monospace" font-size="28" font-weight="700">avm-res-</text>
+<text x="22" y="152" fill="#f58220" font-family="monospace" font-size="28" font-weight="700">recoveryservices-</text>
+<text x="22" y="186" fill="#f58220" font-family="monospace" font-size="28" font-weight="700">vault</text>
+<text class="description" x="22" y="220" fill="#f0f6fc" font-family="monospace" font-size="18">Terraform Azure Verified Resource</text>
+<text class="description" x="22" y="243" fill="#f0f6fc" font-family="monospace" font-size="18">Module for Recovery Services Vault</text>
+<text x="22" y="277" fill="#ffa45b" font-size="13" letter-spacing=".5">MERGED PR · 08 Oct 2026</text>
+<text x="22" y="305" fill="#f0f6fc" font-family="monospace" font-size="16">Omit read-only properties from</text>
+<text x="22" y="327" fill="#f0f6fc" font-family="monospace" font-size="16">protected item bodies</text>
+</g></svg>
