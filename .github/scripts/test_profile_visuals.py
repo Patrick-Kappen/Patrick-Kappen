@@ -42,7 +42,7 @@ class VisualTests(unittest.TestCase):
             level = 1 if key == "intro" else 2
             markup = Markup()
             markup.feed(visuals.section_heading(key, level))
-            self.assertEqual(markup.tags[0], (f"h{level}", {"align": "center", "id": key}))
+            self.assertEqual(markup.tags[0], ("p", {"align": "center", "id": key}))
             self.assertEqual("".join(markup.text).strip(), "")
             images = [attributes for tag, attributes in markup.tags if tag == "img"]
             self.assertEqual(len(images), 1)
@@ -67,6 +67,17 @@ class VisualTests(unittest.TestCase):
                     key = Path(source).name.removesuffix("-light.svg")
                     self.assertEqual(attributes["alt"], visuals.HEADINGS[key][0])
 
+    def test_section_titles_and_footer_have_no_separator_markup(self):
+        root = Path(visuals.__file__).resolve().parents[2]
+        readme = (root / "README.md").read_text()
+        self.assertNotRegex(readme, r"<h[12]\b")
+        self.assertNotRegex(readme, r"(?m)^---\s*$")
+        self.assertNotIn("<hr", readme)
+        for key in visuals.HEADINGS:
+            for level in (1, 2, 3):
+                markup = visuals.section_heading(key, level)
+                self.assertNotRegex(markup, r"<h[123]\b")
+
     def test_section_banners_match_the_approved_weight_and_spacing(self):
         self.assertEqual(set(visuals.HEADINGS), set(visuals.HEADING_METRICS))
         for key, (label, _) in visuals.HEADINGS.items():
@@ -81,6 +92,7 @@ class VisualTests(unittest.TestCase):
                 group = root.find(NS + "g")
                 self.assertEqual(group.get("stroke-width"), "3")
                 self.assertEqual(group.get("stroke-linecap"), "square")
+                self.assertFalse(any(node.get("stroke") == visuals.THEMES[theme]["line"] for node in root.iter()))
                 values = re.fullmatch(r"translate\(([-\d.]+) ([-\d.]+)\) scale\(([-\d.]+)\)", group.get("transform"))
                 self.assertIsNotNone(values)
                 left, _, scale = map(float, values.groups())

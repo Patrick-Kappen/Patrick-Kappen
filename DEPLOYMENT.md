@@ -74,8 +74,10 @@ The approved layout uses 3px strokes on a 64px icon grid, a 56px displayed icon,
 a 28px logo/title gap and 144px-tall transparent canvases. Long titles receive
 a wider canvas so neither the lettering nor the end ticks are clipped.
 
-`<h1>`/`<h2>`/`<h3>` wrappers preserve heading semantics and stable IDs; image alt
-text contains the chapter title. `HEADING_METRICS` stores the static Noto Sans
+Centered paragraph wrappers preserve section IDs and image alt text contains
+the chapter title. Native H1/H2 wrappers are deliberately avoided because GitHub
+adds automatic gray underlines to them. The SVGs contain no gray separator
+rules, and the README has no footer rule; whitespace separates the sections. `HEADING_METRICS` stores the static Noto Sans
 Bold 30px widths/baselines, and SVG `textLength` fixes horizontal alignment
 across font fallbacks. Update those metrics alongside any label changes; the
 daily renderer needs no installed fonts or image packages. The small accordion

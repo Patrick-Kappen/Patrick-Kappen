@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="500" height="144" viewBox="0 0 500 144" role="img" aria-labelledby="title desc">
 <title id="title">On the radar</title>
 <desc id="desc">Original PK/circuit chapter banner with the logo and title aligned together.</desc>
-<path d="M12 72.0H93.5M406.5 72.0H488" stroke="#d1d9e0" stroke-width="1.25"/>
 <path d="M101.5 68.0v8M398.5 68.0v8" stroke="#bc4c00" stroke-width="1.75" opacity=".6"/>
 <g fill="none" stroke="#bc4c00" color="#bc4c00" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" transform="translate(113.5 44.0) scale(0.875)"><circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="12"/><path d="M32 32 50 14M32 3v7m29 22h-7M32 61v-7M3 32h7"/><circle cx="32" cy="32" r="3" fill="currentColor"/></g>
 <text x="197.5" y="83.5" fill="#1f2328" font-family="Noto Sans, Arial, sans-serif" font-size="30" font-weight="700" textLength="189.0" lengthAdjust="spacingAndGlyphs">On the radar</text>

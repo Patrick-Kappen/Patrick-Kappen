@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="500" height="144" viewBox="0 0 500 144" role="img" aria-labelledby="title desc">
 <title id="title">Hey, I&#x27;m Patrick</title>
 <desc id="desc">Original PK/circuit chapter banner with the logo and title aligned together.</desc>
-<path d="M12 72.0H70.0M430.0 72.0H488" stroke="#d1d9e0" stroke-width="1.25"/>
 <path d="M78.0 68.0v8M422.0 68.0v8" stroke="#bc4c00" stroke-width="1.75" opacity=".6"/>
 <g fill="none" stroke="#bc4c00" color="#bc4c00" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" transform="translate(90.0 44.0) scale(0.875)"><path d="m32 4 22 13v30L32 60 10 47V17zM4 23h6m-6 18h6m44-18h6m-6 18h6M18 42V22h6a7 7 0 0 1 0 14h-6m19-14v20m0-10 10-10M37 32l10 10"/><path d="M22 10v6m20-6v6M22 48v6m20-6v6" opacity=".5"/></g>
 <text x="174.0" y="80.0" fill="#1f2328" font-family="Noto Sans, Arial, sans-serif" font-size="30" font-weight="700" textLength="236.0" lengthAdjust="spacingAndGlyphs">Hey, I&#x27;m Patrick</text>

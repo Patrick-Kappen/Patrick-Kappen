@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="560" height="144" viewBox="0 0 560 144" role="img" aria-labelledby="title desc">
 <title id="title">Notes from the rabbit hole</title>
 <desc id="desc">Original PK/circuit chapter banner with the logo and title aligned together.</desc>
-<path d="M12 72.0H20.0M540.0 72.0H548" stroke="#d1d9e0" stroke-width="1.25"/>
 <path d="M28.0 68.0v8M532.0 68.0v8" stroke="#bc4c00" stroke-width="1.75" opacity=".6"/>
 <g fill="none" stroke="#bc4c00" color="#bc4c00" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" transform="translate(40.0 44.0) scale(0.875)"><path d="m10 48 3-12L42 7l14 14-29 29-12 3zm25-34 14 14M13 36l14 14M8 59h48M4 48h5m47-10h5"/></g>
 <text x="124.0" y="83.5" fill="#1f2328" font-family="Noto Sans, Arial, sans-serif" font-size="30" font-weight="700" textLength="396.0" lengthAdjust="spacingAndGlyphs">Notes from the rabbit hole</text>
