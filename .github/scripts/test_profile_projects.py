@@ -64,7 +64,7 @@ class ProjectTests(unittest.TestCase):
         root = ET.fromstring(svg)
         ns = {"svg": "http://www.w3.org/2000/svg"}
         self.assertIsNone(root.find("svg:rect", ns))
-        self.assertEqual(root.get("viewBox"), "0 0 360 264")
+        self.assertEqual(root.get("viewBox"), f"0 0 420 {root.get('height')}")
         self.assertIn("Tools & <ideas>", root.find("svg:desc", ns).text)
         self.assertIn("MERGED PR", svg)
         self.assertIn("10 Nov 2026", svg)
@@ -100,6 +100,32 @@ class ProjectTests(unittest.TestCase):
             cards.update_projects(root, entries, lambda _: metadata, profile.USER, date(2026, 11, 14))
             for theme in cards.THEMES:
                 self.assertIn("Updated next day", (assets / f"project-1-{theme}.svg").read_text())
+
+    def test_six_projects_have_two_column_rows_and_unabridged_descriptions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            entries = [entry(f"Other/project-{index}", 10) for index in range(7)]
+            description = "A complete repository description with useful details. " * 5
+            body, projects = cards.update_projects(
+                root, entries, lambda path: repository(path[6:], description=description), profile.USER)
+            self.assertEqual(len(projects), 6)
+            self.assertEqual(body.count('<p align="center">'), 3)
+            self.assertEqual(body.count('width="390"'), 6)
+            for index in range(1, 7):
+                svg = ET.parse(root / cards.ASSETS / f"project-{index}-dark.svg").getroot()
+                ns = "{http://www.w3.org/2000/svg}"
+                visible = " ".join(node.text for node in svg.iter(ns + "text")
+                                   if node.get("class") == "description")
+                self.assertEqual(visible, " ".join(description.split()))
+                self.assertIn("UPSTREAM CONTRIBUTION", ET.tostring(svg, encoding="unicode"))
+
+    def test_repository_relationships_and_unlimited_selection_are_factual(self):
+        entries = [entry("Patrick-Kappen/own"), entry("Patrick-Kappen/fork"), entry("Other/upstream")]
+        repos = {entry["repo"]: repository(entry["repo"], fork=entry["repo"].endswith("/fork"))
+                 for entry in entries}
+        selected = cards.select_projects(entries, lambda path: repos[path[6:]], profile.USER, limit=None)
+        self.assertEqual([project["relationship"] for project in selected],
+                         ["OWN REPOSITORY", "FORK", "UPSTREAM CONTRIBUTION"])
 
     def test_api_failure_does_not_modify_previous_cards(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -156,6 +182,28 @@ class ProjectTests(unittest.TestCase):
             self.assertIn("OPEN PR", svg)
             self.assertIn("Finished change", before)
             self.assertNotIn("Next unfinished change", before.split(profile.SHIPPED_START)[1])
+
+    def test_work_log_is_not_limited_by_the_number_of_featured_project_cards(self):
+        source = Path(__file__).resolve().parents[2]
+        merged = [{**entry(f"Owner/project-{index}", 10 - offset, f"Change {offset}"),
+                   "url": f"https://github.com/Owner/project-{index}/pull/{offset + 1}"}
+                  for index in range(5) for offset in range(2)]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "README.md").write_text((source / "README.md").read_text())
+            with patch.object(profile, "__file__", str(root / ".github/scripts/update_readme.py")), \
+                 patch.object(profile, "load", return_value={"now": {"updated": "2026-11-13", "now": []}}), \
+                 patch.object(profile, "update_activity", return_value=True), \
+                 patch.object(profile, "merged_pull_requests", return_value=merged), \
+                 patch.object(profile, "open_pull_requests", return_value=[]), \
+                 patch.object(profile, "releases", return_value=[]), \
+                 patch.object(profile, "api", side_effect=lambda path: repository(path[6:])), \
+                 patch.object(profile, "writing", return_value=[]), \
+                 patch.object(profile, "render_site", return_value="Tools"):
+                profile.main()
+            rendered = (root / "README.md").read_text()
+            recent = rendered.split(profile.SHIPPED_START)[1].split(profile.SHIPPED_END)[0]
+            self.assertEqual(recent.count("<p>"), 8)  # Five projects can supply eight distinct changes.
 
     def test_main_keeps_project_block_and_cards_on_github_failure(self):
         source = Path(__file__).resolve().parents[2]

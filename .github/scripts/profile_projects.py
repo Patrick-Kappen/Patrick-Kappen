@@ -11,11 +11,13 @@ from profile_visuals import THEMES, section_heading, themed_picture
 
 PROJECT_START = "<!-- projects:start -->"
 PROJECT_END = "<!-- projects:end -->"
-PROJECT_LIMIT = 3
+PROJECT_LIMIT = 6
+CARD_WIDTH = 420
+DISPLAY_WIDTH = 390
 ASSETS = Path(".github/assets")
 
 
-def select_projects(entries, api, user):
+def select_projects(entries, api, user, limit=PROJECT_LIMIT):
     """Pick recent active repository families, without showing fork + upstream twice."""
     selected, families, repositories = [], set(), {}
     for entry in sorted(entries, key=lambda item: item["when"], reverse=True):
@@ -31,15 +33,18 @@ def select_projects(entries, api, user):
         if family in families or full_name.casefold() == f"{user}/{user}".casefold():
             continue
         families.add(family)
-        selected.append({"repo": repo, "activity": entry})
-        if len(selected) == PROJECT_LIMIT:
+        relationship = ("FORK" if repo.get("fork") else "OWN REPOSITORY"
+                        if full_name.split("/")[0].casefold() == user.casefold()
+                        else "UPSTREAM CONTRIBUTION")
+        selected.append({"repo": repo, "activity": entry, "relationship": relationship})
+        if limit is not None and len(selected) == limit:
             break
     return selected
 
 
-def wrapped(text, width, limit):
+def wrapped(text, width, limit=None):
     lines = textwrap.wrap(" ".join(text.split()), width=width, break_on_hyphens=False)
-    if len(lines) > limit:
+    if limit is not None and len(lines) > limit:
         lines = lines[:limit]
         last = lines[-1][:width - 1].rstrip()
         if " " in last:
@@ -48,46 +53,57 @@ def wrapped(text, width, limit):
     return lines
 
 
-def render_project_svg(project, index, theme="dark"):
+def card_layout(project):
+    title = project["repo"]["full_name"].split("/", 1)[1]
+    description = project["repo"].get("description") or "No repository description provided."
+    names = textwrap.wrap(title, width=21, break_on_hyphens=True)
+    descriptions = wrapped(description, 34)
+    title_y = 84
+    description_y = title_y + (len(names) - 1) * 34 + 34
+    footer_y = description_y + (len(descriptions) - 1) * 23 + 34
+    return names, descriptions, description_y, footer_y + 82
+
+
+def render_project_svg(project, index, theme="dark", height=None):
     palette = THEMES[theme]
     text, muted = palette["text"], palette["muted"]
     accent, label = palette["accent"], palette["label"]
     repo, activity = project["repo"], project["activity"]
     name = repo["full_name"]
-    owner, title = name.split("/", 1)
+    owner, _ = name.split("/", 1)
     description = repo.get("description") or "No repository description provided."
     when = datetime.fromisoformat(activity["when"].replace("Z", "+00:00"))
-    if activity.get("state") == "open":
-        kind = "OPEN PR"
-    else:
-        kind = "RELEASE" if "/releases/" in activity["url"] else "MERGED PR"
-    # These are facts about this repository/activity, not invented project statuses.
-    role = "FORK" if repo.get("fork") else "REPOSITORY"
+    kind = ("OPEN PR" if activity.get("state") == "open" else
+            "RELEASE" if "/releases/" in activity["url"] else "MERGED PR")
+    role = project.get("relationship", "FORK" if repo.get("fork") else "REPOSITORY")
+    names, descriptions, description_y, minimum = card_layout(project)
+    height = max(minimum, height or minimum)
+    footer_y = height - 82
     svg = [
-        '<svg xmlns="http://www.w3.org/2000/svg" width="360" height="264" '
-        'viewBox="0 0 360 264" role="img" aria-labelledby="title desc">',
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{CARD_WIDTH}" height="{height}" '
+        f'viewBox="0 0 {CARD_WIDTH} {height}" role="img" aria-labelledby="title desc">',
         f'<title id="title">{html.escape(name)}</title>',
         f'<desc id="desc">{html.escape(description)} Latest activity: '
         f'{html.escape(activity["title"])}. {kind} on {when.strftime("%Y-%m-%d")}.</desc>',
         '<g font-family="Verdana, Arial, sans-serif">',
-        f'<text x="22" y="28" fill="{accent}" font-size="14" letter-spacing="1">'
+        f'<text x="22" y="28" fill="{accent}" font-size="12" letter-spacing=".7">'
         f'{index:02d} / {role}</text>',
-        f'<text x="22" y="50" fill="{muted}" font-size="15">{html.escape(owner)}</text>',
-        f'<path d="M317 18v30m0-16c17 0 17-5 17-14" fill="none" stroke="{accent}" stroke-width="2"/>',
-        f'<g fill="{accent}"><circle cx="317" cy="18" r="3"/><circle cx="317" cy="48" r="3"/>'
-        '<circle cx="334" cy="18" r="3"/></g>',
+        f'<text x="22" y="51" fill="{muted}" font-size="15">{html.escape(owner)}</text>',
+        f'<path d="M377 18v30m0-16c17 0 17-5 17-14" fill="none" stroke="{accent}" stroke-width="2"/>',
+        f'<g fill="{accent}"><circle cx="377" cy="18" r="3"/><circle cx="377" cy="48" r="3"/>'
+        '<circle cx="394" cy="18" r="3"/></g>',
     ]
-    for line, y in zip(wrapped(title, 18, 2), (82, 114)):
-        svg.append(f'<text x="22" y="{y}" fill="{accent}" font-size="30" '
-                   f'font-weight="700">{html.escape(line)}</text>')
-    for line, y in zip(wrapped(description, 29, 2), (145, 168)):
-        svg.append(f'<text x="22" y="{y}" fill="{text}" font-family="monospace" '
-                   f'font-size="18">{html.escape(line)}</text>')
-    svg.append(f'<text x="22" y="197" fill="{label}" font-size="13" letter-spacing="1">'
+    for index_line, line in enumerate(names):
+        svg.append(f'<text x="22" y="{84 + index_line * 34}" fill="{accent}" font-family="monospace" '
+                   f'font-size="28" font-weight="700">{html.escape(line)}</text>')
+    for index_line, line in enumerate(descriptions):
+        svg.append(f'<text class="description" x="22" y="{description_y + index_line * 23}" fill="{text}" '
+                   f'font-family="monospace" font-size="18">{html.escape(line)}</text>')
+    svg.append(f'<text x="22" y="{footer_y}" fill="{label}" font-size="13" letter-spacing=".5">'
                f'{kind} · {when.strftime("%d %b %Y")}</text>')
-    for line, y in zip(wrapped(activity["title"], 30, 2), (224, 247)):
+    for line, y in zip(wrapped(activity["title"], 38, 2), (footer_y + 28, footer_y + 50)):
         svg.append(f'<text x="22" y="{y}" fill="{text}" font-family="monospace" '
-                   f'font-size="17">{html.escape(line)}</text>')
+                   f'font-size="16">{html.escape(line)}</text>')
     svg.append('</g></svg>')
     return "\n".join(svg) + "\n"
 
@@ -95,8 +111,10 @@ def render_project_svg(project, index, theme="dark"):
 def update_projects(root, entries, api, user, today=None):
     """Fetch/render first; return the README block and selected projects."""
     projects = select_projects(entries, api, user)
+    heights = [card_layout(project)[-1] for project in projects]
+    row_heights = [max(heights[index:index + 2]) for index in range(0, len(heights), 2)]
     rendered = {
-        f"project-{index}-{theme}.svg": render_project_svg(project, index, theme)
+        f"project-{index}-{theme}.svg": render_project_svg(project, index, theme, row_heights[(index - 1) // 2])
         for index, project in enumerate(projects, 1) for theme in THEMES
     }
     today = today or datetime.now(timezone.utc).date()
@@ -105,18 +123,18 @@ def update_projects(root, entries, api, user, today=None):
         lines = [
             section_heading("projects"),
             "", PROJECTS_INTRO, "",
-            '<p align="center">',
         ]
         for index, project in enumerate(projects, 1):
+            if index % 2 == 1:
+                lines.append('<p align="center">')
             repo = project["repo"]
             stem = (ASSETS / f"project-{index}").as_posix()
             alt = f"{repo['full_name']}: {repo.get('description') or 'Public GitHub activity'}"
-            lines.append(themed_picture(stem, alt, width="270", href=f"https://github.com/{repo['full_name']}"))
+            lines.append(themed_picture(stem, alt, width=str(DISPLAY_WIDTH), href=f"https://github.com/{repo['full_name']}"))
+            if index % 2 == 0 or index == len(projects):
+                lines += ['</p>', ""]
         lines += [
-            '</p>',
-            "",
-            '<sub>Selected from recent public PRs and releases. '
-            f'Automatically refreshed {today.isoformat()} · UTC.</sub>',
+            f'<sub>Automatically refreshed {today.isoformat()} · UTC · scheduled every 30 minutes.</sub>',
         ]
     assets = root / ASSETS
     assets.mkdir(parents=True, exist_ok=True)

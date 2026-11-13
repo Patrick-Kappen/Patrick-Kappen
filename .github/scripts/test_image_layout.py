@@ -165,9 +165,9 @@ class ImageLayoutTests(unittest.TestCase):
             self.assertEqual(len(parser.sources), 2)
             self.assertLessEqual(int(parser.images[0]["width"]), 560)
         parser = Images()
-        parser.feed(visuals.themed_picture(".github/assets/project-1", "Project", width="270"))
+        parser.feed(visuals.themed_picture(".github/assets/project-1", "Project", width="390"))
         self.assertEqual(len(parser.sources), 2)
-        self.assertEqual(parser.images[0]["width"], "270")
+        self.assertEqual(parser.images[0]["width"], "390")
 
 
 if __name__ == "__main__":

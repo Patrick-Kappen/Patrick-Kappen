@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="372" viewBox="0 0 420 372" role="img" aria-labelledby="title desc">
+<title id="title">Patrick-Kappen/terraform-provider-azuredevops</title>
+<desc id="desc">Terraform Azure DevOps provider Latest activity: Add repository Advanced Security resource. MERGED PR on 2026-10-10.</desc>
+<g font-family="Verdana, Arial, sans-serif">
+<text x="22" y="28" fill="#f58220" font-size="12" letter-spacing=".7">04 / FORK</text>
+<text x="22" y="51" fill="#9198a1" font-size="15">Patrick-Kappen</text>
+<path d="M377 18v30m0-16c17 0 17-5 17-14" fill="none" stroke="#f58220" stroke-width="2"/>
+<g fill="#f58220"><circle cx="377" cy="18" r="3"/><circle cx="377" cy="48" r="3"/><circle cx="394" cy="18" r="3"/></g>
+<text x="22" y="84" fill="#f58220" font-family="monospace" font-size="28" font-weight="700">terraform-provider-</text>
+<text x="22" y="118" fill="#f58220" font-family="monospace" font-size="28" font-weight="700">azuredevops</text>
+<text class="description" x="22" y="152" fill="#f0f6fc" font-family="monospace" font-size="18">Terraform Azure DevOps provider</text>
+<text x="22" y="290" fill="#ffa45b" font-size="13" letter-spacing=".5">MERGED PR · 10 Oct 2026</text>
+<text x="22" y="318" fill="#f0f6fc" font-family="monospace" font-size="16">Add repository Advanced Security</text>
+<text x="22" y="340" fill="#f0f6fc" font-family="monospace" font-size="16">resource</text>
+</g></svg>

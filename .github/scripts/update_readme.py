@@ -20,12 +20,14 @@ from profile_activity import (
 from profile_copy import TOOLS_INTRO, WRITING_INTRO
 from profile_projects import PROJECT_END, PROJECT_START, select_projects, update_projects
 from profile_visuals import section_heading, themed_picture, update_visuals
+from profile_work import WORK_LIMIT, WORK_PER_REPO, render_work_log, summary_from_body
 
 USER = "Patrick-Kappen"
 PROFILE_REPO = f"{USER}/{USER}"
 API = "https://api.github.com"
-SHIPPED_LIMIT = 3
-ACTIVITY_CANDIDATE_LIMIT = 12
+SHIPPED_LIMIT = WORK_LIMIT
+ACTIVITY_CANDIDATE_LIMIT = 48
+ACTIVITY_SEARCH_PAGES = 3
 WRITING_LIMIT = 3
 TOOL_LOGO_LIMIT = 10
 START = "<!-- auto:start -->"
@@ -104,8 +106,13 @@ def pull_requests(state):
     query = urllib.parse.quote(
         f"is:pr author:{USER} is:{state} is:public -repo:{PROFILE_REPO}"
     )
-    items = api(f"search/issues?q={query}&sort=updated&order=desc&per_page=100")["items"]
-    entries = []
+    items = []
+    for page in range(1, ACTIVITY_SEARCH_PAGES + 1):
+        batch = api(f"search/issues?q={query}&sort=updated&order=desc&per_page=100&page={page}")["items"]
+        items.extend(batch)
+        if len(batch) < 100:
+            break
+    entries, seen, seen_titles, counts = [], set(), set(), {}
     # For merged PRs, closed_at is the merge date, not a later comment date.
     # Open cards show the PR's latest update; they never appear as shipped.
     date_key = "closed_at" if state == "merged" else "updated_at"
@@ -113,11 +120,18 @@ def pull_requests(state):
         kind, title = readable(item["title"])
         if kind in IGNORED_KINDS:
             continue
+        if re.match(r"(?:take (?:fork|upstream) main\b|upstream sync\b|sync (?:upstream|branches)\b|merge (?:branch|upstream)\b)", title, re.IGNORECASE):
+            continue
         if kind in {"main", "performance"} and re.match(r"(?:upstream|fork)\b", title, re.IGNORECASE):
             continue
         repo = item["repository_url"].split("/repos/")[1]
-        if any(entry["repo"] == repo for entry in entries):
+        url = item["html_url"]
+        title_key = (repo.casefold(), title.casefold())
+        if url in seen or title_key in seen_titles or counts.get(repo.casefold(), 0) >= WORK_PER_REPO:
             continue
+        seen.add(url)
+        seen_titles.add(title_key)
+        counts[repo.casefold()] = counts.get(repo.casefold(), 0) + 1
         entries.append(
             {
                 "repo": repo,
@@ -125,7 +139,8 @@ def pull_requests(state):
                 "state": state,
                 "icon": KINDS.get(kind, "🔧"),
                 "title": title,
-                "url": item["html_url"],
+                "url": url,
+                "summary": summary_from_body(item.get("body")),
             }
         )
         if len(entries) == ACTIVITY_CANDIDATE_LIMIT:
@@ -144,7 +159,8 @@ def open_pull_requests():
 def releases():
     entries = []
     for repo in api(f"users/{USER}/repos?type=owner&sort=pushed&per_page=30"):
-        if repo["fork"] or repo["private"] or repo["full_name"] == PROFILE_REPO:
+        if (repo["fork"] or repo["private"] or repo.get("archived") or repo.get("disabled")
+                or repo["full_name"] == PROFILE_REPO):
             continue
         for release in api(f"repos/{repo['full_name']}/releases?per_page=3"):
             if release["draft"]:
@@ -159,32 +175,17 @@ def releases():
                     "icon": RELEASE_ICON,
                     "title": name.replace(" — ", ": "),
                     "url": release["html_url"],
+                    "summary": summary_from_body(release.get("body")),
                 }
             )
     return entries
 
 
 def shipped(entries=None):
+    """Recent completed work, distinguishing merges from actual releases."""
     if entries is None:
         entries = merged_pull_requests() + releases()
-    entries = sorted(entries, key=lambda entry: parse_time(entry["when"]), reverse=True)
-    lines = []
-    seen = set()
-    for entry in entries:
-        if entry.get("state") == "open":
-            continue
-        repo = entry["repo"]
-        if repo in seen:
-            continue
-        seen.add(repo)
-        name = repo.split("/")[1] if repo.startswith(f"{USER}/") else repo
-        lines.append(
-            f"- {entry['icon']} **[{entry['title']}]({entry['url']})**<br>"
-            f"<sub>{html.escape(name)} · {month(entry['when'])}</sub>"
-        )
-        if len(lines) == SHIPPED_LIMIT:
-            break
-    return lines
+    return render_work_log(entries, limit=SHIPPED_LIMIT)
 
 
 def writing(content):
@@ -320,9 +321,12 @@ def main():
     try:
         entries = merged_pull_requests() + releases()
         repository_api = cache(api)
+        # Do not cap the work log at the number of featured projects, or lose
+        # multiple useful changes in one repository. Metadata stays shared/cached.
+        eligible = select_projects(entries, repository_api, USER, limit=None)
+        eligible_names = {project["repo"]["full_name"].casefold() for project in eligible}
+        work = shipped([entry for entry in entries if entry["repo"].casefold() in eligible_names])
         project_body, _ = update_projects(root, entries + open_pull_requests(), repository_api, USER)
-        shipped_projects = select_projects(entries, repository_api, USER)
-        work = shipped([project["activity"] for project in shipped_projects])
         readme = replace_block(readme, PROJECT_START, PROJECT_END, project_body, readme_path)
     except (OSError, ValueError, KeyError, TypeError) as error:
         print(f"Project cards kept unchanged: {error}", file=sys.stderr)

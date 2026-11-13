@@ -47,7 +47,7 @@ HEADINGS = {
     "approach": ("How I build things", "rules"),
     "projects": ("Builds & side quests", "projects"),
     "git-log": ("The Git log", "git-log"),
-    "shipped": ("Recently shipped", "shipped"),
+    "shipped": ("Recent work", "shipped"),
     "now": ("On the radar", "now"),
     "writing": ("Notes from the rabbit hole", "writing"),
     "tools": ("Things I reach for", "tools"),
@@ -62,7 +62,7 @@ HEADING_METRICS = {
     "agents": (340.0, 80.0), "personal": (372.0, 80.0),
     "approach": (272.0, 80.0),
     "projects": (297.0, 80.0), "git-log": (160.0, 80.0),
-    "shipped": (252.0, 80.0), "now": (189.0, 83.5), "writing": (396.0, 83.5),
+    "shipped": (184.0, 80.0), "now": (189.0, 83.5), "writing": (396.0, 83.5),
     "tools": (261.0, 80.0), "toolbox": (117.0, 83.5), "certifications": (201.0, 83.5),
 }
 HEADING_HEIGHT, HEADING_ICON_SIZE, HEADING_GAP = 144, 56, 28
