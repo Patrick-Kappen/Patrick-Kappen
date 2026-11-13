@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="104" viewBox="0 0 140 104" role="img" aria-labelledby="title desc">
+<title id="title">Tailscale</title>
+<desc id="desc">Original orange circuit-style profile pictogram for Tailscale; not an official brand logo.</desc>
+<g transform="translate(44 8) scale(.8125)" fill="none" stroke="#f58220" color="#f58220" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+<circle cx="16" cy="16" r="3" fill="currentColor"/><circle cx="32" cy="16" r="3" fill="currentColor"/><circle cx="48" cy="16" r="3" fill="currentColor"/><circle cx="16" cy="32" r="3" fill="currentColor"/><circle cx="32" cy="32" r="3" fill="currentColor"/><circle cx="48" cy="32" r="3" fill="currentColor"/><circle cx="16" cy="48" r="3" fill="currentColor"/><circle cx="32" cy="48" r="3" fill="currentColor"/><circle cx="48" cy="48" r="3" fill="currentColor"/>
+</g>
+<text x="70" y="85" text-anchor="middle" fill="#f0f6fc" font-family="Noto Sans, Arial, sans-serif" font-size="13" font-weight="600">Tailscale</text>
+</svg>

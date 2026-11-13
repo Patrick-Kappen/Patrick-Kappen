@@ -269,10 +269,12 @@ has merged, or a release has been published.
 </picture>
 </p>
 
-- Studying for GitHub Actions and AI-103
-- Building a blog on patrick.kappen.io
+- <img src=".github/assets/icons/certifications.svg" width="24" height="24" align="middle" alt=""> **Learning** — Studying for GitHub Actions and AI-103.
+- <img src=".github/assets/icons/tools.svg" width="24" height="24" align="middle" alt=""> **Building** — Developing PiG’s agent tooling and extension behaviour.
+- <img src=".github/assets/icons/writing.svg" width="24" height="24" align="middle" alt=""> **Writing** — Continuing the Terraform-provider series with fork releases and signing.
+- <img src=".github/assets/icons/now.svg" width="24" height="24" align="middle" alt=""> **Exploring** — NixOS homelab and Kubernetes experiments.
 
-_Updated Oct 2026. Side quests subject to change._
+_Updated Nov 2026. Side quests subject to change._
 
 <p align="center" id="writing">
 <picture>
@@ -310,17 +312,132 @@ and PowerShell for the repetitive parts. NixOS for reproducible experiments—an
 occasionally for discovering exactly how much configuration one person can
 justify.
 
-<p>
-  <img src="public/assets/logos/azure.svg" alt="Azure" title="Azure" width="36" height="36" /> &nbsp;
-  <img src="public/assets/logos/terraform.svg" alt="Terraform" title="Terraform" width="36" height="36" /> &nbsp;
-  <img src="public/assets/logos/bicep.svg" alt="Bicep" title="Bicep" width="36" height="36" /> &nbsp;
-  <img src="public/assets/logos/github-actions.svg" alt="GitHub Actions" title="GitHub Actions" width="36" height="36" /> &nbsp;
-  <img src="public/assets/logos/nixos.svg" alt="NixOS" title="NixOS" width="36" height="36" /> &nbsp;
-  <img src="public/assets/logos/kubernetes.svg" alt="Kubernetes" title="Kubernetes" width="36" height="36" /> &nbsp;
-  <img src="public/assets/logos/powershell.svg" alt="PowerShell" title="PowerShell" width="36" height="36" /> &nbsp;
-  <img src="public/assets/logos/podman.svg" alt="Podman" title="Podman" width="36" height="36" /> &nbsp;
-  <img src="public/assets/logos/litellm.png" alt="LiteLLM" title="LiteLLM" width="36" height="36" /> &nbsp;
-  <img src="public/assets/logos/proxmox.svg" alt="Proxmox" title="Proxmox" width="36" height="36" /> &nbsp;
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/azure-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/azure-light.svg">
+  <img src=".github/assets/tools/azure-light.svg" width="140" alt="Azure">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/terraform-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/terraform-light.svg">
+  <img src=".github/assets/tools/terraform-light.svg" width="140" alt="Terraform">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/bicep-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/bicep-light.svg">
+  <img src=".github/assets/tools/bicep-light.svg" width="140" alt="Bicep">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/github-actions-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/github-actions-light.svg">
+  <img src=".github/assets/tools/github-actions-light.svg" width="140" alt="GitHub Actions">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/nixos-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/nixos-light.svg">
+  <img src=".github/assets/tools/nixos-light.svg" width="140" alt="NixOS">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/kubernetes-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/kubernetes-light.svg">
+  <img src=".github/assets/tools/kubernetes-light.svg" width="140" alt="Kubernetes">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/powershell-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/powershell-light.svg">
+  <img src=".github/assets/tools/powershell-light.svg" width="140" alt="PowerShell">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/podman-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/podman-light.svg">
+  <img src=".github/assets/tools/podman-light.svg" width="140" alt="Podman">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/litellm-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/litellm-light.svg">
+  <img src=".github/assets/tools/litellm-light.svg" width="140" alt="LiteLLM">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/proxmox-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/proxmox-light.svg">
+  <img src=".github/assets/tools/proxmox-light.svg" width="140" alt="Proxmox">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/ubuntu-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/ubuntu-light.svg">
+  <img src=".github/assets/tools/ubuntu-light.svg" width="140" alt="Ubuntu">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/azure-devops-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/azure-devops-light.svg">
+  <img src=".github/assets/tools/azure-devops-light.svg" width="140" alt="Azure DevOps">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/ansible-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/ansible-light.svg">
+  <img src=".github/assets/tools/ansible-light.svg" width="140" alt="Ansible">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/phoenix-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/phoenix-light.svg">
+  <img src=".github/assets/tools/phoenix-light.svg" width="140" alt="Phoenix">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/grafana-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/grafana-light.svg">
+  <img src=".github/assets/tools/grafana-light.svg" width="140" alt="Grafana">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/truenas-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/truenas-light.svg">
+  <img src=".github/assets/tools/truenas-light.svg" width="140" alt="TrueNAS">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/tailscale-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/tailscale-light.svg">
+  <img src=".github/assets/tools/tailscale-light.svg" width="140" alt="Tailscale">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/traefik-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/traefik-light.svg">
+  <img src=".github/assets/tools/traefik-light.svg" width="140" alt="Traefik">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/entra-id-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/entra-id-light.svg">
+  <img src=".github/assets/tools/entra-id-light.svg" width="140" alt="Entra ID">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/home-manager-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/home-manager-light.svg">
+  <img src=".github/assets/tools/home-manager-light.svg" width="140" alt="Home Manager">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/sops-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/sops-light.svg">
+  <img src=".github/assets/tools/sops-light.svg" width="140" alt="sops">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/llama-cpp-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/llama-cpp-light.svg">
+  <img src=".github/assets/tools/llama-cpp-light.svg" width="140" alt="llama.cpp">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/codex-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/codex-light.svg">
+  <img src=".github/assets/tools/codex-light.svg" width="140" alt="Codex">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/pi-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/pi-light.svg">
+  <img src=".github/assets/tools/pi-light.svg" width="140" alt="pi">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tools/pig-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/tools/pig-light.svg">
+  <img src=".github/assets/tools/pig-light.svg" width="140" alt="PiG">
+</picture>
 </p>
 
 <details>
@@ -337,14 +454,15 @@ justify.
 - **Cloud:** Azure
 - **Automation & delivery:** Terraform · Bicep · GitHub Actions · PowerShell ·
   Azure DevOps · Ansible
-- **NixOS & deployment:** NixOS
+- **NixOS & deployment:** NixOS · Home Manager
 - **Linux:** Ubuntu
 - **Containers & orchestration:** Kubernetes · Podman
-- **AI:** LiteLLM · Phoenix
+- **AI:** LiteLLM · Phoenix · llama.cpp · Codex · pi · PiG
 - **Datacenter & virtualisation:** Proxmox
 - **Networking:** Tailscale · Traefik
 - **Storage & backup:** TrueNAS
 - **Monitoring:** Grafana
+- **Identity & secrets:** Entra ID · sops
 
 <p align="center" id="certifications">
 <picture>

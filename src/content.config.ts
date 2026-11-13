@@ -127,6 +127,7 @@ const site = defineCollection({
         .transform((cert) => (typeof cert === "string" ? { code: cert, name: cert, issued: "", url: "" } : cert)),
     ),
     studying: z.array(z.string()),
+    profileToolExtras: z.array(z.string()).optional(),
     links: z.array(link),
     nixosMachines: z.number().int().positive(),
     homelab: z.array(z.object({ label: z.string(), value: z.string() })),

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="104" viewBox="0 0 140 104" role="img" aria-labelledby="title desc">
+<title id="title">Traefik</title>
+<desc id="desc">Original orange circuit-style profile pictogram for Traefik; not an official brand logo.</desc>
+<g transform="translate(44 8) scale(.8125)" fill="none" stroke="#f58220" color="#f58220" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+<rect x="24" y="6" width="16" height="16"/><rect x="7" y="43" width="16" height="15"/><rect x="41" y="43" width="16" height="15"/><path d="M32 22v10H15v11m17-11h17v11m-38-5 4 5 4-5m26 0 4 5 4-5"/>
+</g>
+<text x="70" y="85" text-anchor="middle" fill="#f0f6fc" font-family="Noto Sans, Arial, sans-serif" font-size="13" font-weight="600">Traefik</text>
+</svg>

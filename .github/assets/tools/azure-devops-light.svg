@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="104" viewBox="0 0 140 104" role="img" aria-labelledby="title desc">
+<title id="title">Azure DevOps</title>
+<desc id="desc">Original orange circuit-style profile pictogram for Azure DevOps; not an official brand logo.</desc>
+<g transform="translate(44 8) scale(.8125)" fill="none" stroke="#bc4c00" color="#bc4c00" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+<path d="M32 22c-11-15-25-9-25 10s14 25 25 10l9-14c11-15 16-10 16 4s-8 20-16 10L23 22"/>
+</g>
+<text x="70" y="85" text-anchor="middle" fill="#1f2328" font-family="Noto Sans, Arial, sans-serif" font-size="13" font-weight="600">Azure DevOps</text>
+</svg>

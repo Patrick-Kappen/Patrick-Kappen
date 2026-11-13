@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="104" viewBox="0 0 140 104" role="img" aria-labelledby="title desc">
+<title id="title">Kubernetes</title>
+<desc id="desc">Original orange circuit-style profile pictogram for Kubernetes; not an official brand logo.</desc>
+<g transform="translate(44 8) scale(.8125)" fill="none" stroke="#bc4c00" color="#bc4c00" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+<circle cx="32" cy="32" r="23"/><circle cx="32" cy="32" r="9"/><path d="M32 9v14" transform="rotate(0 32 32)"/><path d="M32 9v14" transform="rotate(45 32 32)"/><path d="M32 9v14" transform="rotate(90 32 32)"/><path d="M32 9v14" transform="rotate(135 32 32)"/><path d="M32 9v14" transform="rotate(180 32 32)"/><path d="M32 9v14" transform="rotate(225 32 32)"/><path d="M32 9v14" transform="rotate(270 32 32)"/><path d="M32 9v14" transform="rotate(315 32 32)"/>
+</g>
+<text x="70" y="85" text-anchor="middle" fill="#1f2328" font-family="Noto Sans, Arial, sans-serif" font-size="13" font-weight="600">Kubernetes</text>
+</svg>

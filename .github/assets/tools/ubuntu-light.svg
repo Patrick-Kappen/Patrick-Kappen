@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="104" viewBox="0 0 140 104" role="img" aria-labelledby="title desc">
+<title id="title">Ubuntu</title>
+<desc id="desc">Original orange circuit-style profile pictogram for Ubuntu; not an official brand logo.</desc>
+<g transform="translate(44 8) scale(.8125)" fill="none" stroke="#bc4c00" color="#bc4c00" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+<circle cx="32" cy="32" r="17"/><circle cx="32" cy="8" r="4"/><circle cx="11" cy="44" r="4"/><circle cx="53" cy="44" r="4"/><path d="M32 12v3M15 42l3-2m28 0 3 2"/>
+</g>
+<text x="70" y="85" text-anchor="middle" fill="#1f2328" font-family="Noto Sans, Arial, sans-serif" font-size="13" font-weight="600">Ubuntu</text>
+</svg>
