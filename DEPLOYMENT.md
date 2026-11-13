@@ -63,8 +63,31 @@ nix shell nixpkgs#librsvg nixpkgs#python3 -c \
 
 `README.md` is the GitHub profile, separate from the Astro website. Its banner
 and project cards live in `.github/assets/` and need no external image service.
-Banner and telemetry use the available README width, with square corners and
-no outer outline. GitHub controls the maximum width of the profile itself.
+Banner, project cards and telemetry all have transparent light/dark variants,
+selected by README `<picture>` elements. Banner and telemetry use the available
+README width, with no outer frame. GitHub controls the profile's maximum width.
+
+`profile_visuals.py` owns the shared palette and original PK/circuit artwork.
+Each chapter uses a centered `headings/<key>-dark.svg` / `<key>-light.svg` banner
+containing **both the logo and title**, not a separate HTML label and icon.
+The approved layout uses 3px strokes on a 64px icon grid, a 56px displayed icon,
+a 28px logo/title gap and 144px-tall transparent canvases. Long titles receive
+a wider canvas so neither the lettering nor the end ticks are clipped.
+
+`<h1>`/`<h2>`/`<h3>` wrappers preserve heading semantics and stable IDs; image alt
+text contains the chapter title. `HEADING_METRICS` stores the static Noto Sans
+Bold 30px widths/baselines, and SVG `textLength` fixes horizontal alignment
+across font fallbacks. Update those metrics alongside any label changes; the
+daily renderer needs no installed fonts or image packages. The small accordion
+icon remains decorative with empty alt text. Third-party tool logos keep their
+original branding and are not recolored.
+
+The editable banner source is `.github/art/control-room.svg`. Its semantic
+`data-fill`, `data-stroke` and `data-stop-color` roles are resolved into the
+palette when generating `control-room-dark.svg` and `control-room-light.svg`.
+The drawing has no canvas background or opaque device panels. Banner variants
+and `.github/assets/{icons,headings}/*.svg` regenerate without API access on
+each profile refresh; obsolete files in those generated folders are removed.
 
 `.github/scripts/update_readme.py` updates the marked README sections from the
 content repository and public GitHub activity. `profile_activity.py` renders
@@ -97,7 +120,8 @@ rendering either theme, keeps the last good pair (with its date) on API errors,
 and never substitutes zero for missing data. A successful update removes the
 obsolete opaque `git-activity.svg` asset.
 
-`profile_projects.py` generates `project-1.svg` through `project-3.svg` and the
+`profile_projects.py` generates `project-1-dark.svg` / `project-1-light.svg`
+through `project-3-dark.svg` / `project-3-light.svg`, plus the
 `projects:start` / `projects:end` README block from recent public open/merged PRs
 and releases. Open PRs show their update date and are labelled **OPEN PR**; they
 never appear under **Recently shipped**. Repository names, descriptions, fork labels and activity dates come
@@ -105,7 +129,10 @@ from GitHub, not the website content's curated project list. Routine CI/sync
 changes are filtered out, archived/private/disabled repositories are excluded,
 and fork/upstream families appear only once. The cards link to the actual
 repository where the activity happened; the Git log links to the PR or release.
-A failed refresh preserves the previous cards and their refresh date.
+Both themes are rendered before replacing any cards. A failed refresh preserves
+the previous cards, links and refresh date. Successful updates remove obsolete
+single-theme cards. The `shipped:start` / `shipped:end` block preserves recent
+work on API errors without depending on heading text or formatting.
 
 The daily README workflow commits the README and all generated assets, including
 when only an image changed or an obsolete card was removed. Run the offline

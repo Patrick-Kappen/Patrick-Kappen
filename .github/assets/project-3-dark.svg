@@ -1,16 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="360" height="264" viewBox="0 0 360 264" role="img" aria-labelledby="title desc">
 <title id="title">oxsecurity/megalinter</title>
 <desc id="desc">🦙 MegaLinter analyzes 50 languages, 22 formats, 21 tooling formats, excessive copy-pastes, spelling mistakes and security issues in your repository sources with a GitHub Action, other CI tools or locally. Latest activity: Honor SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT in combined SARIF report. MERGED PR on 2026-10-27.</desc>
-<rect width="360" height="264" fill="#1b1b1b"/>
 <g font-family="Verdana, Arial, sans-serif">
 <text x="22" y="28" fill="#f58220" font-size="14" letter-spacing="1">03 / REPOSITORY</text>
-<text x="22" y="50" fill="#b9b7b4" font-size="15">oxsecurity</text>
+<text x="22" y="50" fill="#9198a1" font-size="15">oxsecurity</text>
 <path d="M317 18v30m0-16c17 0 17-5 17-14" fill="none" stroke="#f58220" stroke-width="2"/>
 <g fill="#f58220"><circle cx="317" cy="18" r="3"/><circle cx="317" cy="48" r="3"/><circle cx="334" cy="18" r="3"/></g>
 <text x="22" y="82" fill="#f58220" font-size="30" font-weight="700">megalinter</text>
-<text x="22" y="145" fill="#dedbd7" font-family="monospace" font-size="18">🦙 MegaLinter analyzes 50</text>
-<text x="22" y="168" fill="#dedbd7" font-family="monospace" font-size="18">languages, 22 formats…</text>
+<text x="22" y="145" fill="#f0f6fc" font-family="monospace" font-size="18">🦙 MegaLinter analyzes 50</text>
+<text x="22" y="168" fill="#f0f6fc" font-family="monospace" font-size="18">languages, 22 formats…</text>
 <text x="22" y="197" fill="#ffa45b" font-size="13" letter-spacing="1">MERGED PR · 27 Oct 2026</text>
-<text x="22" y="224" fill="#dedbd7" font-family="monospace" font-size="17">Honor SARIF_REPORTER_NORMALIZE</text>
-<text x="22" y="247" fill="#dedbd7" font-family="monospace" font-size="17">_LINTERS_OUTPUT in…</text>
+<text x="22" y="224" fill="#f0f6fc" font-family="monospace" font-size="17">Honor SARIF_REPORTER_NORMALIZE</text>
+<text x="22" y="247" fill="#f0f6fc" font-family="monospace" font-size="17">_LINTERS_OUTPUT in…</text>
 </g></svg>

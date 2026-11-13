@@ -6,6 +6,8 @@ import textwrap
 from datetime import datetime, timezone
 from pathlib import Path
 
+from profile_visuals import THEMES, section_heading, themed_picture
+
 PROJECT_START = "<!-- projects:start -->"
 PROJECT_END = "<!-- projects:end -->"
 PROJECT_LIMIT = 3
@@ -45,7 +47,10 @@ def wrapped(text, width, limit):
     return lines
 
 
-def render_project_svg(project, index):
+def render_project_svg(project, index, theme="dark"):
+    palette = THEMES[theme]
+    text, muted = palette["text"], palette["muted"]
+    accent, label = palette["accent"], palette["label"]
     repo, activity = project["repo"], project["activity"]
     name = repo["full_name"]
     owner, title = name.split("/", 1)
@@ -63,25 +68,24 @@ def render_project_svg(project, index):
         f'<title id="title">{html.escape(name)}</title>',
         f'<desc id="desc">{html.escape(description)} Latest activity: '
         f'{html.escape(activity["title"])}. {kind} on {when.strftime("%Y-%m-%d")}.</desc>',
-        '<rect width="360" height="264" fill="#1b1b1b"/>',
         '<g font-family="Verdana, Arial, sans-serif">',
-        f'<text x="22" y="28" fill="#f58220" font-size="14" letter-spacing="1">'
+        f'<text x="22" y="28" fill="{accent}" font-size="14" letter-spacing="1">'
         f'{index:02d} / {role}</text>',
-        f'<text x="22" y="50" fill="#b9b7b4" font-size="15">{html.escape(owner)}</text>',
-        '<path d="M317 18v30m0-16c17 0 17-5 17-14" fill="none" stroke="#f58220" stroke-width="2"/>',
-        '<g fill="#f58220"><circle cx="317" cy="18" r="3"/><circle cx="317" cy="48" r="3"/>'
+        f'<text x="22" y="50" fill="{muted}" font-size="15">{html.escape(owner)}</text>',
+        f'<path d="M317 18v30m0-16c17 0 17-5 17-14" fill="none" stroke="{accent}" stroke-width="2"/>',
+        f'<g fill="{accent}"><circle cx="317" cy="18" r="3"/><circle cx="317" cy="48" r="3"/>'
         '<circle cx="334" cy="18" r="3"/></g>',
     ]
     for line, y in zip(wrapped(title, 18, 2), (82, 114)):
-        svg.append(f'<text x="22" y="{y}" fill="#f58220" font-size="30" '
+        svg.append(f'<text x="22" y="{y}" fill="{accent}" font-size="30" '
                    f'font-weight="700">{html.escape(line)}</text>')
     for line, y in zip(wrapped(description, 29, 2), (145, 168)):
-        svg.append(f'<text x="22" y="{y}" fill="#dedbd7" font-family="monospace" '
+        svg.append(f'<text x="22" y="{y}" fill="{text}" font-family="monospace" '
                    f'font-size="18">{html.escape(line)}</text>')
-    svg.append(f'<text x="22" y="197" fill="#ffa45b" font-size="13" letter-spacing="1">'
+    svg.append(f'<text x="22" y="197" fill="{label}" font-size="13" letter-spacing="1">'
                f'{kind} · {when.strftime("%d %b %Y")}</text>')
     for line, y in zip(wrapped(activity["title"], 30, 2), (224, 247)):
-        svg.append(f'<text x="22" y="{y}" fill="#dedbd7" font-family="monospace" '
+        svg.append(f'<text x="22" y="{y}" fill="{text}" font-family="monospace" '
                    f'font-size="17">{html.escape(line)}</text>')
     svg.append('</g></svg>')
     return "\n".join(svg) + "\n"
@@ -90,23 +94,23 @@ def render_project_svg(project, index):
 def update_projects(root, entries, api, user, today=None):
     """Fetch/render first; return the README block and selected projects."""
     projects = select_projects(entries, api, user)
-    rendered = [render_project_svg(project, index) for index, project in enumerate(projects, 1)]
+    rendered = {
+        f"project-{index}-{theme}.svg": render_project_svg(project, index, theme)
+        for index, project in enumerate(projects, 1) for theme in THEMES
+    }
     today = today or datetime.now(timezone.utc).date()
     lines = []
     if projects:
         lines = [
-            "## 🛠️ Things I'm building, fixing & occasionally overengineering",
+            section_heading("projects"),
             "",
             '<p align="center">',
         ]
         for index, project in enumerate(projects, 1):
             repo = project["repo"]
-            asset = ASSETS / f"project-{index}.svg"
+            stem = (ASSETS / f"project-{index}").as_posix()
             alt = f"{repo['full_name']}: {repo.get('description') or 'Public GitHub activity'}"
-            lines.append(
-                f'  <a href="https://github.com/{repo["full_name"]}">'
-                f'<img src="{asset.as_posix()}" alt="{html.escape(alt, quote=True)}" width="270" /></a>'
-            )
+            lines.append(themed_picture(stem, alt, width="270", href=f"https://github.com/{repo['full_name']}"))
         lines += [
             '</p>',
             "",
@@ -115,11 +119,9 @@ def update_projects(root, entries, api, user, today=None):
         ]
     assets = root / ASSETS
     assets.mkdir(parents=True, exist_ok=True)
-    expected = set()
-    for index, svg in enumerate(rendered, 1):
-        path = assets / f"project-{index}.svg"
-        path.write_text(svg)
-        expected.add(path.name)
+    expected = set(rendered)
+    for name, svg in rendered.items():
+        (assets / name).write_text(svg)
     # These files are generated exclusively by this module, including old static cards.
     for path in assets.glob("project-*.svg"):
         if path.name not in expected:

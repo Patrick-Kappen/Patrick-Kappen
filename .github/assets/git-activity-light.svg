@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="710" viewBox="0 0 1200 710" role="img" aria-labelledby="title desc">
 <title id="title">GitHub activity: commits, opened PRs, merged PRs and reviews</title>
-<desc id="desc">commits: 1,216 in 30 days, 160 in 7 days, 3,957 in 365 days; prs opened: 403 in 30 days, 109 in 7 days, 703 in 365 days; prs merged: 32 in 30 days, 27 in 7 days, 52 in 365 days; reviews: 4 in 30 days, 0 in 7 days, 4 in 365 days. Merged PRs are public PRs authored by the profile owner; opened and merged counts overlap. Monthly bars cover 2025-11-14 to 2026-11-13: 5,241 GitHub contributions, not just commits. The edge months may be partial. GitHub counting and visibility rules apply.</desc>
+<desc id="desc">commits: 1,216 in 30 days, 160 in 7 days, 3,957 in 365 days; prs opened: 404 in 30 days, 110 in 7 days, 704 in 365 days; prs merged: 32 in 30 days, 27 in 7 days, 52 in 365 days; reviews: 4 in 30 days, 0 in 7 days, 4 in 365 days. Merged PRs are public PRs authored by the profile owner; opened and merged counts overlap. Monthly bars cover 2025-11-14 to 2026-11-13: 5,243 GitHub contributions, not just commits. The edge months may be partial. GitHub counting and visibility rules apply.</desc>
 <g font-family="Verdana, Arial, sans-serif">
 <text x="36" y="48" fill="#1f2328" font-size="22" font-weight="700" letter-spacing="3">SIDE QUEST TELEMETRY</text>
 <text x="36" y="82" fill="#59636e" font-size="18">Last 30 days in focus · 7 and 365 days for context</text>
@@ -15,13 +15,13 @@
 <text x="280" y="297" text-anchor="end" fill="#1f2328" font-size="20" font-weight="700">3,957</text>
 <rect x="324" y="122" width="3" height="92" fill="#bc4c00"/>
 <text x="344" y="139" fill="#a74600" font-size="16" font-weight="700" letter-spacing="1">PRs OPENED</text>
-<text x="344" y="195" fill="#bc4c00" font-size="48" font-weight="700">403</text>
+<text x="344" y="195" fill="#bc4c00" font-size="48" font-weight="700">404</text>
 <text x="344" y="220" fill="#59636e" font-size="16">last 30 days</text>
 <path d="M344 237H568" stroke="#d1d9e0"/>
 <text x="344" y="266" fill="#59636e" font-size="17">7 days</text>
-<text x="568" y="266" text-anchor="end" fill="#1f2328" font-size="20" font-weight="700">109</text>
+<text x="568" y="266" text-anchor="end" fill="#1f2328" font-size="20" font-weight="700">110</text>
 <text x="344" y="297" fill="#59636e" font-size="17">365 days</text>
-<text x="568" y="297" text-anchor="end" fill="#1f2328" font-size="20" font-weight="700">703</text>
+<text x="568" y="297" text-anchor="end" fill="#1f2328" font-size="20" font-weight="700">704</text>
 <rect x="612" y="122" width="3" height="92" fill="#bc4c00"/>
 <text x="632" y="139" fill="#a74600" font-size="16" font-weight="700" letter-spacing="1">PRs MERGED</text>
 <text x="632" y="195" fill="#bc4c00" font-size="48" font-weight="700">32</text>
@@ -82,8 +82,8 @@
 <rect x="1004.3" y="446.0" width="59.0" height="175.0" fill="#bc4c00"><title>October 2026: 1,437 contributions in this window</title></rect>
 <text x="1033.8" y="436.0" text-anchor="middle" fill="#bc4c00" font-size="17" font-weight="700">1,437</text>
 <text x="1033.8" y="647" text-anchor="middle" fill="#1f2328" font-size="17">Oct</text>
-<rect x="1091.1" y="493.9" width="59.0" height="127.1" fill="#9a4000"><title>November 2026: 1,044 contributions in this window</title></rect>
-<text x="1120.6" y="483.9" text-anchor="middle" fill="#9a4000" font-size="17" font-weight="700">1,044</text>
+<rect x="1091.1" y="493.6" width="59.0" height="127.4" fill="#9a4000"><title>November 2026: 1,046 contributions in this window</title></rect>
+<text x="1120.6" y="483.6" text-anchor="middle" fill="#9a4000" font-size="17" font-weight="700">1,046</text>
 <text x="1120.6" y="647" text-anchor="middle" fill="#1f2328" font-size="17">Nov</text>
 <text x="1164" y="698" text-anchor="end" fill="#59636e" font-size="15">2026-11-13 · UTC</text>
 </g></svg>

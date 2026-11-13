@@ -97,7 +97,7 @@ class ProfileTests(unittest.TestCase):
         }
         with patch.object(profile, "load", side_effect=lambda _, name: data[name]):
             result = profile.render_site(Path("unused"))
-        self.assertEqual(result.count("<img "), profile.TOOL_LOGO_LIMIT)
+        self.assertEqual(result.count('src="public/assets/logos/'), profile.TOOL_LOGO_LIMIT)
         self.assertIn('src="public/assets/logos/tool-0.svg"', result)
         self.assertIn('alt="Tool &quot;A&amp;B&quot;"', result)
         self.assertNotIn("tracker.svg", result)
@@ -133,6 +133,14 @@ class ProfileTests(unittest.TestCase):
         self.assertIn("Testing restores", result)
         self.assertNotIn("rabbit hole", result)
         self.assertNotIn("Git log", result)
+
+    def test_recent_work_fallback_survives_heading_changes(self):
+        work = ["- A real shipped change"]
+        now = {"updated": "2026-11-13", "now": []}
+        with patch.object(profile, "writing", return_value=[]):
+            rendered = profile.render(now, Path("unused"), work=work)
+        self.assertEqual(profile.previous_work(rendered), work)
+        self.assertEqual(profile.previous_work("### 🚢 Recently shipped\n\n- Older change\n\n## Next"), ["- Older change"])
 
     def test_generated_blocks_preserve_surroundings_and_are_idempotent(self):
         original = f"Illustration\n{profile.START}\nOld\n{profile.END}\nHouse rules"

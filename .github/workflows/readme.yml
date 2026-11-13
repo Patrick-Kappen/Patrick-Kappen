@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - .github/scripts/*.py
+      - .github/art/**
       - .github/workflows/readme.yml
   workflow_run:
     workflows: [Build website]

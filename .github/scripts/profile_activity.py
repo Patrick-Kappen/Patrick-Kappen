@@ -3,28 +3,15 @@
 from collections import defaultdict
 from datetime import date, timedelta, timezone
 
+from profile_visuals import THEMES
+
 DAYS = 365
 PERIODS = (("week", 7), ("month", 30), ("year", DAYS))
-ACTIVITY_ASSETS = {
-    "dark": ".github/assets/git-activity-dark.svg",
-    "light": ".github/assets/git-activity-light.svg",
-}
+ACTIVITY_STEM = ".github/assets/git-activity"
+ACTIVITY_ASSETS = {theme: f"{ACTIVITY_STEM}-{theme}.svg" for theme in THEMES}
 LEGACY_ACTIVITY_ASSET = ".github/assets/git-activity.svg"
 METRICS = (("commits", "COMMITS"), ("opened", "PRs OPENED"),
            ("merged", "PRs MERGED"), ("reviews", "REVIEWS"))
-THEMES = {
-    "dark": {
-        "text": "#f0f6fc", "muted": "#9198a1", "line": "#3d444d",
-        "accent": "#f58220", "label": "#ffa45b",
-        "bars": ("#d96b22", "#f58220", "#ffa45b", "#f58220"),
-    },
-    "light": {
-        "text": "#1f2328", "muted": "#59636e", "line": "#d1d9e0",
-        "accent": "#bc4c00", "label": "#a74600",
-        "bars": ("#9a4000", "#bc4c00", "#a74600", "#bc4c00"),
-    },
-}
-
 ACTIVITY_QUERY = """
 query ProfileActivity(
   $login: String!, $from7: DateTime!, $from30: DateTime!, $from365: DateTime!, $to: DateTime!,

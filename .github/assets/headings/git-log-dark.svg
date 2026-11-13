@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="144" viewBox="0 0 500 144" role="img" aria-labelledby="title desc">
+<title id="title">The Git log</title>
+<desc id="desc">Original PK/circuit chapter banner with the logo and title aligned together.</desc>
+<path d="M12 72.0H108.0M392.0 72.0H488" stroke="#3d444d" stroke-width="1.25"/>
+<path d="M116.0 68.0v8M384.0 68.0v8" stroke="#f58220" stroke-width="1.75" opacity=".6"/>
+<g fill="none" stroke="#f58220" color="#f58220" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" transform="translate(128.0 44.0) scale(0.875)"><rect x="10" y="6" width="10" height="10"/><rect x="10" y="48" width="10" height="10"/><rect x="44" y="6" width="10" height="10"/><path d="M15 16v32m0-17h22l12-12v-3M4 25h6m-6 12h6m44-6h6M37 31v19h12"/><circle cx="52" cy="50" r="3" fill="currentColor"/></g>
+<text x="212.0" y="80.0" fill="#f0f6fc" font-family="Noto Sans, Arial, sans-serif" font-size="30" font-weight="700" textLength="160.0" lengthAdjust="spacingAndGlyphs">The Git log</text>
+</svg>

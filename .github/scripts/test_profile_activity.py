@@ -3,7 +3,6 @@
 import contextlib
 import io
 import json
-import re
 import tempfile
 import unittest
 import xml.etree.ElementTree as ET
@@ -195,21 +194,12 @@ class ActivityTests(unittest.TestCase):
                 contrast = (max(foreground, surface) + .05) / (min(foreground, surface) + .05)
                 self.assertGreaterEqual(contrast, 4.5, (theme, node.text))
 
-    def test_non_telemetry_artwork_keeps_the_industrial_palette(self):
-        assets = Path(__file__).resolve().parents[1] / "assets"
-        for path in assets.glob("*.svg"):
-            if path.name.startswith("git-activity"):
-                continue
-            with self.subTest(asset=path.name):
-                svg = path.read_text()
-                for node in ET.fromstring(svg).iter():
-                    for attribute in ("fill", "stroke", "stop-color"):
-                        value = node.get(attribute, "")
-                        if re.fullmatch(r"#[0-9a-fA-F]{6}", value):
-                            red, green, blue = (int(value[index:index + 2], 16) for index in (1, 3, 5))
-                            self.assertGreaterEqual(red, green, value)
-                            self.assertGreaterEqual(green, blue, value)
-                self.assertIn("#f58220", svg)
+    def test_shared_accents_stay_orange(self):
+        for palette in activity.THEMES.values():
+            for color in (palette["accent"], palette["label"], *palette["bars"]):
+                red, green, blue = (int(color[index:index + 2], 16) for index in (1, 3, 5))
+                self.assertGreaterEqual(red, green)
+                self.assertGreaterEqual(green, blue)
 
     def test_successful_refresh_writes_both_themes_from_one_request_and_removes_legacy(self):
         now = datetime(2026, 11, 13, 8, tzinfo=timezone.utc)
@@ -313,7 +303,7 @@ class ActivityTests(unittest.TestCase):
         for theme, asset in activity.ACTIVITY_ASSETS.items():
             self.assertIn(f'media="(prefers-color-scheme: {theme})" srcset="{asset}"', result)
         self.assertIn(f'src="{activity.ACTIVITY_ASSETS["light"]}" width="100%"', result)
-        self.assertIn("## 📊 The Git log", result)
+        self.assertIn(profile.section_heading("git-log"), result)
         self.assertNotIn("Recently shipped", result)
 
 
