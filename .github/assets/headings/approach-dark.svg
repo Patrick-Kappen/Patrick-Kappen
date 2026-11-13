@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="144" viewBox="0 0 500 144" role="img" aria-labelledby="title desc">
+<title id="title">How I build things</title>
+<desc id="desc">Original PK/circuit chapter banner with the logo and title aligned together.</desc>
+<path d="M60.0 68.0v8M440.0 68.0v8" stroke="#f58220" stroke-width="1.75" opacity=".6"/>
+<g fill="none" stroke="#f58220" color="#f58220" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" transform="translate(72.0 44.0) scale(0.875)"><path d="m32 5 23 10v16c0 14-23 28-23 28S9 45 9 31V15zm-12 26 8 8 17-20"/></g>
+<text x="156.0" y="80.0" fill="#f0f6fc" font-family="Noto Sans, Arial, sans-serif" font-size="30" font-weight="700" textLength="272.0" lengthAdjust="spacingAndGlyphs">How I build things</text>
+</svg>

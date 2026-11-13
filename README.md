@@ -30,12 +30,23 @@
   <a href="https://patrick.kappen.io/rss.xml">📡 RSS</a>
 </p>
 
-Senior DevOps, AI and security engineer at **SLTN**, an Azure Expert MSP.
-My day job is Azure, identity and delivery as code: fewer portal clicks,
-fewer standing admins, fewer secrets hiding in pipelines.
+I’m a Senior DevOps, AI and Security Engineer at **SLTN**, an Azure Expert MSP.
+My work sits where infrastructure, identity and software delivery meet: turning
+portal clicks into code, making permissions less permanent, and keeping delivery
+repeatable.
 
-After hours: NixOS, a homelab with production ambitions, and open-weight
-coding agents. The agents get a sandbox and a reviewer. Not the keys.
+Azure is a big part of that, alongside Terraform, Bicep, PowerShell and GitHub
+Actions. But the interesting part isn’t collecting tools. It’s figuring out how
+the pieces should fit together—and making sure someone can still understand
+the result six months later.
+
+After hours, that curiosity moves into my homelab. NixOS, containers, self-hosted
+services and open-weight coding agents give me plenty of opportunities to ask,
+“Could I automate this?” Usually followed by, “Was automating this actually
+necessary?”
+
+The agents get a sandbox, a reviewer and useful work to do. They do not get
+production keys. Enthusiasm is not an access-control policy.
 
 ```nix
 patrick = {
@@ -46,6 +57,28 @@ patrick = {
 };
 ```
 
+<p align="center" id="approach">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/headings/approach-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/headings/approach-light.svg">
+  <img src=".github/assets/headings/approach-light.svg" width="500" alt="How I build things">
+</picture>
+</p>
+
+I like infrastructure that can be reproduced, permissions that can be explained,
+and changes that leave a useful trail.
+
+- **Configuration belongs in Git.** “I changed something in the portal” is not
+  documentation.
+- **Access should be deliberate.** Preferably temporary, rather than inherited
+  from an emergency three years ago.
+- **Automation still needs judgement.** A successful pipeline and a sensible
+  change are not necessarily the same thing.
+- **Recovery matters.** A backup is reassuring. A working restore is
+  considerably more useful.
+
+Boring in production. Interesting in the pull request.
+
 <!-- projects:start -->
 
 <p align="center" id="projects">
@@ -55,6 +88,17 @@ patrick = {
   <img src=".github/assets/headings/projects-light.svg" width="500" alt="Builds &amp; side quests">
 </picture>
 </p>
+
+Some experiments become projects. Others become focused contributions to tools I
+already use.
+
+I enjoy both sides: figuring out how a larger system fits together, and fixing
+the small thing that makes someone’s everyday workflow unnecessarily awkward.
+Build behaviour, developer tooling, automation and agent workflows tend to
+attract my attention.
+
+The cards below show recent public work—including whether something is still
+an open PR or has actually shipped.
 
 <p align="center">
 <a href="https://github.com/Patrick-Kappen/PiG">
@@ -83,19 +127,6 @@ patrick = {
 <sub>Selected from recent public PRs and releases. Automatically refreshed 2026-11-13 · UTC.</sub>
 
 <!-- projects:end -->
-
-<details>
-<summary><strong><img src=".github/assets/icons/rules.svg" width="20" height="20" align="middle" alt="" /> House rules (yes, the robots have to read these too)</strong></summary>
-
-- **If it's not in Git, it doesn't exist.** Portal clicks are drift with extra steps.
-- **Standing admin access is a bug.** Permissions should have an expiry date.
-- **AI agents get the intern treatment.** A sandbox, a reviewer, no production keys.
-- **Boring in production, interesting in design.** The exciting part should be the pull request.
-
-I've watched an automated PR merge a feature, revert it, and still announce it
-in the release notes. So yes, there is a reviewer.
-
-</details>
 
 <!-- auto:start -->
 
@@ -152,8 +183,16 @@ _Updated Oct 2026. Side quests subject to change._
 </picture>
 </p>
 
-- [Contributing to a Terraform provider: preparation](https://patrick.kappen.io/blog/contributing-to-a-terraform-provider-preparation/)
-- [Two GitHub accounts, one machine, zero switching](https://patrick.kappen.io/blog/two-github-accounts-by-directory/)
+I write about the things that took some figuring out: contributions, tooling and
+configurations worth explaining before I forget why they work.
+
+- [Contributing to a Terraform provider: preparation](https://patrick.kappen.io/blog/contributing-to-a-terraform-provider-preparation/)<br>
+  You hit a bug or a missing resource in a Terraform provider. How to check
+  whether you can fix it, which accounts you need and where to create them, and
+  what the road from fork to merge looks like.
+- [Two GitHub accounts, one machine, zero switching](https://patrick.kappen.io/blog/two-github-accounts-by-directory/)<br>
+  I split my GitHub life in two and refused to switch accounts by hand ever
+  again. Nix made it easy, git and gh made it interesting.
 
 <!-- auto:end -->
 
@@ -166,6 +205,11 @@ _Updated Oct 2026. Side quests subject to change._
   <img src=".github/assets/headings/tools-light.svg" width="500" alt="Things I reach for">
 </picture>
 </p>
+
+Azure for the day job. Terraform and Bicep for infrastructure. GitHub Actions
+and PowerShell for the repetitive parts. NixOS for reproducible experiments—and
+occasionally for discovering exactly how much configuration one person can
+justify.
 
 <p>
   <img src="public/assets/logos/azure.svg" alt="Azure" title="Azure" width="36" height="36" /> &nbsp;

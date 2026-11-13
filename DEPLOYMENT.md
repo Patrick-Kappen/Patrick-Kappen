@@ -67,6 +67,15 @@ Banner, project cards and telemetry all have transparent light/dark variants,
 selected by README `<picture>` elements. Banner and telemetry use the available
 README width, with no outer frame. GitHub controls the profile's maximum width.
 
+The fuller introduction and visible **How I build things** section live outside
+all generated blocks, so daily updates preserve their copy. The latter uses the
+same combined PK/circuit logo-and-title SVG pattern as the other sections.
+`profile_copy.py` supplies narrative introductions to the generated project,
+writing and tool sections. Published article summaries come from front matter
+`description`, with a plain link fallback when absent; drafts and work items
+are never listed. Project cards and telemetry remain live, without manually
+invented contribution descriptions or statuses.
+
 Large images have a fixed intrinsic canvas height, not an indefinitely scaling
 aspect ratio: the control-room banner is **450px**, telemetry **760px**. At viewport
 widths up to **600px**, compact variants use **400px** and **560px** respectively.
@@ -116,9 +125,8 @@ adds automatic gray underlines to them. The SVGs contain no gray separator
 rules, and the README has no footer rule; whitespace separates the sections. `HEADING_METRICS` stores the static Noto Sans
 Bold 30px widths/baselines, and SVG `textLength` fixes horizontal alignment
 across font fallbacks. Update those metrics alongside any label changes; the
-daily renderer needs no installed fonts or image packages. The small accordion
-icon remains decorative with empty alt text. Third-party tool logos keep their
-original branding and are not recolored.
+daily renderer needs no installed fonts or image packages. Third-party tool
+logos keep their original branding and are not recolored.
 
 The editable banner source is `.github/art/control-room.svg`. Its semantic
 `data-fill`, `data-stroke` and `data-stop-color` roles are resolved into the

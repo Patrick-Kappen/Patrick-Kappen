@@ -6,6 +6,7 @@ import textwrap
 from datetime import datetime, timezone
 from pathlib import Path
 
+from profile_copy import PROJECTS_INTRO
 from profile_visuals import THEMES, section_heading, themed_picture
 
 PROJECT_START = "<!-- projects:start -->"
@@ -103,7 +104,7 @@ def update_projects(root, entries, api, user, today=None):
     if projects:
         lines = [
             section_heading("projects"),
-            "",
+            "", PROJECTS_INTRO, "",
             '<p align="center">',
         ]
         for index, project in enumerate(projects, 1):

@@ -91,6 +91,7 @@ class ProjectTests(unittest.TestCase):
             self.assertEqual(len(projects), 1)
             self.assertIn("https://github.com/Other/current", body)
             self.assertIn("Automatically refreshed 2026-11-13", body)
+            self.assertIn(cards.PROJECTS_INTRO, body)
             for theme in cards.THEMES:
                 self.assertIn("Actual live description", (assets / f"project-1-{theme}.svg").read_text())
             self.assertFalse((assets / "project-graft.svg").exists())
@@ -144,6 +145,9 @@ class ProjectTests(unittest.TestCase):
                 profile.main()
                 self.assertEqual((root / "README.md").read_text(), before)
             self.assertEqual(api.call_count, 2)  # Once per run, shared by both sections.
+            self.assertIn("Enthusiasm is not an access-control policy.", before)
+            self.assertIn('id="approach"', before)
+            self.assertIn(cards.PROJECTS_INTRO, before)
             svg = (root / cards.ASSETS / "project-1-dark.svg").read_text()
             self.assertIn("Next unfinished change", svg)
             self.assertIn("OPEN PR", svg)
