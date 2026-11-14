@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="420" height="395" viewBox="0 0 420 395" role="img" aria-labelledby="title desc">
 <title id="title">Patrick-Kappen/PiG</title>
-<desc id="desc">PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language. Latest activity: Expose ordered input in tool_result handlers. MERGED PR on 2026-11-13.</desc>
+<desc id="desc">PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language. Latest activity: Fix help generator cleanup for protected oracle copies. OPEN PR on 2026-11-14.</desc>
 <g font-family="Verdana, Arial, sans-serif">
 <text x="22" y="28" fill="#f58220" font-size="12" letter-spacing=".7">01 / FORK</text>
 <text x="22" y="51" fill="#9198a1" font-size="15">Patrick-Kappen</text>
@@ -15,7 +15,7 @@
 <text class="description" x="22" y="233" fill="#f0f6fc" font-family="monospace" font-size="18">upstream behavior is the contract,</text>
 <text class="description" x="22" y="256" fill="#f0f6fc" font-family="monospace" font-size="18">and Go is the implementation</text>
 <text class="description" x="22" y="279" fill="#f0f6fc" font-family="monospace" font-size="18">language.</text>
-<text x="22" y="313" fill="#ffa45b" font-size="13" letter-spacing=".5">MERGED PR · 13 Nov 2026</text>
-<text x="22" y="341" fill="#f0f6fc" font-family="monospace" font-size="16">Expose ordered input in tool_result</text>
-<text x="22" y="363" fill="#f0f6fc" font-family="monospace" font-size="16">handlers</text>
+<text x="22" y="313" fill="#ffa45b" font-size="13" letter-spacing=".5">OPEN PR · 14 Nov 2026</text>
+<text x="22" y="341" fill="#f0f6fc" font-family="monospace" font-size="16">Fix help generator cleanup for</text>
+<text x="22" y="363" fill="#f0f6fc" font-family="monospace" font-size="16">protected oracle copies</text>
 </g></svg>
