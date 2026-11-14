@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="560" role="img" aria-labelledby="title desc">
 <title id="title">GitHub activity: commits, opened PRs, merged PRs and reviews</title>
-<desc id="desc">commits: 33 in 30 days, 30 in 7 days, 81 in 365 days; prs opened: 56 in 30 days, 49 in 7 days, 80 in 365 days; prs merged: 45 in 30 days, 40 in 7 days, 65 in 365 days; reviews: 0 in 30 days, 0 in 7 days, 0 in 365 days. Merged PRs are public PRs authored by the profile owner; opened and merged counts overlap. Monthly bars cover 2025-11-14 to 2026-11-13: 5,316 GitHub contributions, not just commits. The edge months may be partial. GitHub counting and visibility rules apply.</desc>
+<desc id="desc">commits: 33 in 30 days, 30 in 7 days, 81 in 365 days; prs opened: 56 in 30 days, 49 in 7 days, 80 in 365 days; prs merged: 45 in 30 days, 40 in 7 days, 65 in 365 days; reviews: 0 in 30 days, 0 in 7 days, 0 in 365 days. Merged PRs are public PRs authored by the profile owner; opened and merged counts overlap. Monthly bars cover 2025-11-15 to 2026-11-14: 5,331 GitHub contributions, not just commits. The edge months may be partial. GitHub counting and visibility rules apply.</desc>
 <g font-family="Verdana, Arial, sans-serif">
 <svg x="3%" width="94%" height="100%">
 <text x="0" y="28.80" fill="#f0f6fc" font-size="13.20" font-weight="700" letter-spacing="1.80">SIDE QUEST TELEMETRY</text>
@@ -91,8 +91,8 @@
 <rect class="month-bar" x="85.846154%" y="378.60" width="5.230769%" height="126.00" fill="#f58220"><title>October 2026: 1,437 contributions in this window</title></rect>
 <text x="88.461538%" y="372.60" text-anchor="middle" fill="#f58220" font-size="7.14" font-weight="700">1,437</text>
 <text x="88.461538%" y="520.20" text-anchor="middle" fill="#f0f6fc" font-size="7.14">Oct</text>
-<rect class="month-bar" x="93.538462%" y="406.48" width="5.230769%" height="98.12" fill="#d96b22"><title>November 2026: 1,119 contributions in this window</title></rect>
-<text x="96.153846%" y="400.48" text-anchor="middle" fill="#d96b22" font-size="7.14" font-weight="700">1,119</text>
+<rect class="month-bar" x="93.538462%" y="405.17" width="5.230769%" height="99.43" fill="#d96b22"><title>November 2026: 1,134 contributions in this window</title></rect>
+<text x="96.153846%" y="399.17" text-anchor="middle" fill="#d96b22" font-size="7.14" font-weight="700">1,134</text>
 <text x="96.153846%" y="520.20" text-anchor="middle" fill="#f0f6fc" font-size="7.14">Nov</text>
-<text x="100%" y="550.80" text-anchor="end" fill="#9198a1" font-size="6.30">2026-11-13 · UTC</text>
+<text x="100%" y="550.80" text-anchor="end" fill="#9198a1" font-size="6.30">2026-11-14 · UTC</text>
 </svg></g></svg>
