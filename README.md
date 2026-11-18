@@ -168,11 +168,11 @@ The cards below show recent public work—including whether a PR is still open,
 has merged, or a release has been published.
 
 <p align="center">
-<a href="https://github.com/Patrick-Kappen/PiG">
+<a href="https://github.com/MichaelKinsy/PiG">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/project-1-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/project-1-light.svg">
-  <img src=".github/assets/project-1-light.svg" width="390" alt="Patrick-Kappen/PiG: PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language.">
+  <img src=".github/assets/project-1-light.svg" width="390" alt="MichaelKinsy/PiG: PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language.">
 </picture>
 </a>
 <a href="https://github.com/Patrick-Kappen/paseo">
@@ -218,7 +218,7 @@ has merged, or a release has been published.
 </a>
 </p>
 
-<sub>Automatically refreshed 2026-11-17 · UTC · scheduled every 30 minutes.</sub>
+<sub>Automatically refreshed 2026-11-18 · UTC · scheduled every 30 minutes.</sub>
 
 <!-- projects:end -->
 
@@ -250,8 +250,8 @@ has merged, or a release has been published.
 
 <!-- shipped:start -->
 
-<p><strong>MERGED PR #68</strong> · <code>Patrick-Kappen/PiG</code> · 16 Nov 2026<br><a href="https://github.com/Patrick-Kappen/PiG/pull/68"><strong>Tool_result handlers can override terminate (D652)</strong></a><br>Unchanged: the all-results batch rule, error handling (no special case: the extension decides), content in the Session, steering/follow-up queues, handler ordering, cancellation, and handler-error paths.</p>
-<p><strong>MERGED PR #62</strong> · <code>Patrick-Kappen/PiG</code> · 16 Nov 2026<br><a href="https://github.com/Patrick-Kappen/PiG/pull/62"><strong>A session replacement keeps the running stdio servers (D236), and RPC&#x27;s second session_start runs each server once</strong></a><br>Unchanged: programs that use mcpext without a pool (Pi&#x27;s behavior), the session-graph MCP factory, HTTP servers (reconnected per session: no process, and OAuth/provider-token authentication belongs to the extension that created the connection), pig mcp. /mcp reconnect…</p>
+<p><strong>MERGED PR #544</strong> · <code>MichaelKinsy/PiG</code> · 18 Nov 2026<br><a href="https://github.com/MichaelKinsy/PiG/pull/544"><strong>Run the full plan again outside a pull request</strong></a><br>Outcome: the verdict job runs on every event; only its checkout and wait steps are conditioned on a pull request, the one event that has a pre-flight status. Outside a pull request it succeeds at once. Pull-request behaviour is unchanged: the verdict still waits for the…</p>
+<p><strong>MERGED PR #424</strong> · <code>MichaelKinsy/PiG</code> · 11 Nov 2026<br><a href="https://github.com/MichaelKinsy/PiG/pull/424"><strong>Parse X11 displays that start with / or unix: as libxcb 1.16 does</strong></a><br>PiG now follows libxcb 1.16 and later for both forms. Every other spelling (:N, host:N, tcp/host:N, unix/:N) is unchanged.</p>
 <p><strong>MERGED PR #3</strong> · <code>Patrick-Kappen/paseo</code> · 06 Nov 2026<br><a href="https://github.com/Patrick-Kappen/paseo/pull/3"><strong>Keep Nix builds from updating themselves</strong></a></p>
 <p><strong>MERGED PR #1</strong> · <code>Patrick-Kappen/paseo</code> · 02 Nov 2026<br><a href="https://github.com/Patrick-Kappen/paseo/pull/1"><strong>Add an Azure DevOps forge adapter</strong></a></p>
 <p><strong>MERGED PR #9338</strong> · <code>oxsecurity/megalinter</code> · 27 Oct 2026<br><a href="https://github.com/oxsecurity/megalinter/pull/9338"><strong>Honor SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT in combined SARIF report</strong></a><br>The per-linter SARIF reports already check SARIF_REPORTER_NORMALIZE_LINTERS_OUTPUT before stripping the workspace prefix (megalinter/utils_sarif.py), but the combined report in SarifReporter.produce_report normalized unconditionally.</p>
