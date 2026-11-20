@@ -168,11 +168,11 @@ The cards below show recent public work—including whether a PR is still open,
 has merged, or a release has been published.
 
 <p align="center">
-<a href="https://github.com/MichaelKinsy/PiG">
+<a href="https://github.com/Patrick-Kappen/PiG">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/project-1-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/project-1-light.svg">
-  <img src=".github/assets/project-1-light.svg" width="390" alt="MichaelKinsy/PiG: PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language.">
+  <img src=".github/assets/project-1-light.svg" width="390" alt="Patrick-Kappen/PiG: PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is the implementation language.">
 </picture>
 </a>
 <a href="https://github.com/Patrick-Kappen/paseo">
@@ -218,7 +218,7 @@ has merged, or a release has been published.
 </a>
 </p>
 
-<sub>Automatically refreshed 2026-11-19 · UTC · scheduled every 30 minutes.</sub>
+<sub>Automatically refreshed 2026-11-20 · UTC · scheduled every 30 minutes.</sub>
 
 <!-- projects:end -->
 
