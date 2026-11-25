@@ -202,18 +202,18 @@ has merged, or a release has been published.
 </p>
 
 <p align="center">
-<a href="https://github.com/integrations/terraform-provider-github">
+<a href="https://github.com/Azure/terraform-azurerm-avm-res-recoveryservices-vault">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/project-5-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/project-5-light.svg">
-  <img src=".github/assets/project-5-light.svg" width="390" alt="integrations/terraform-provider-github: Terraform GitHub provider">
+  <img src=".github/assets/project-5-light.svg" width="390" alt="Azure/terraform-azurerm-avm-res-recoveryservices-vault: Terraform Azure Verified Resource Module for Recovery Services Vault">
 </picture>
 </a>
-<a href="https://github.com/Azure/terraform-azurerm-avm-res-recoveryservices-vault">
+<a href="https://github.com/kemokempo/iced_term">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/project-6-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/project-6-light.svg">
-  <img src=".github/assets/project-6-light.svg" width="390" alt="Azure/terraform-azurerm-avm-res-recoveryservices-vault: Terraform Azure Verified Resource Module for Recovery Services Vault">
+  <img src=".github/assets/project-6-light.svg" width="390" alt="kemokempo/iced_term: Terminal emulator widget powered by ICED framework and alacritty terminal backend.">
 </picture>
 </a>
 </p>
