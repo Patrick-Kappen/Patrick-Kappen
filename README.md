@@ -218,7 +218,7 @@ has merged, or a release has been published.
 </a>
 </p>
 
-<sub>Automatically refreshed 2026-11-24 · UTC · scheduled every 30 minutes.</sub>
+<sub>Automatically refreshed 2026-11-25 · UTC · scheduled every 30 minutes.</sub>
 
 <!-- projects:end -->
 
